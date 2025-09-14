@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1964 Alaska Earthquake - Historical Earthquakes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        background-color: #fff;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      /* Main card container */
+      .card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 1000px;
+        width: 100%;
+      }
+      
+      /* Header section */
+      .header {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #eaeaea;
+      }
+      
+      .header h2 {
+        font-size: 2.2rem;
+        color: #2c3e50;
+        text-align: center;
+      }
+      
+     
+      .pIMG {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+      }
+      
+      .pIMG img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        aspect-ratio: 16/9;
+        border-radius: 15px;
+        object-fit: cover;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      
+      .about {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        font-size: 1.2rem;
+        color: #7f8c8d;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .about a {
+        color: green;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      
+      .about a:hover {
+        color: green;
+        text-decoration: none;
+      }
+      
+      .bi-geo-alt {
+        color: green;
+        font-size: 1.4rem;
+      }
+      
+      /* Content */
+      .card p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        text-align: justify;
+        padding: 0 10px;
+      }
+      
+      .card strong {
+        color: green;
+      }
+      
+      /* Button */
+      .btn-container {
+        display: flex;
+        justify-content: center;
+      }
+      
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #7ae681;
+        color: #000;
+        border-radius: 10px;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      
+      .btn:hover {
+        background-color: #63d06f;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+      
+     
+      .facts {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 30px 0;
+        border-left: 5px solid green;
+      }
+      
+      .facts h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+      
+      .facts ul {
+        padding-left: 20px;
+      }
+      
+      .facts li {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+      .btn a{
+        text-decoration: none;
+      }
+      
+      /* Responsive adjustments */
+      @media screen and (max-width: 1024px) {
+        .card {
+          padding: 25px;
+        }
+        
+        .header h2 {
+          font-size: 1.9rem;
+        }
+        
+        .card p {
+          font-size: 1.1rem;
+        }
+      }
+      
+      @media screen and (max-width: 768px) {
+        body {
+          padding: 15px;
+        }
+        
+        .card {
+          padding: 20px;
+          border-radius: 15px;
+        }
+        
+        .header h2 {
+          font-size: 1.7rem;
+        }
+        
+        .about {
+          font-size: 1.1rem;
+        }
+        
+        .card p {
+          font-size: 1rem;
+          padding: 0;
+        }
+        
+        .facts {
+          padding: 15px;
+        }
+        
+        .facts h3 {
+          font-size: 1.2rem;
+        }
+        
+        .facts li {
+          font-size: 1rem;
+        }
+      }
+      
+      @media screen and (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+        
+        .card {
+          padding: 15px;
+          border-radius: 12px;
+        }
+        
+        .header h2 {
+          font-size: 1.5rem;
+        }
+        
+        .about {
+          font-size: 1rem;
+          flex-direction: column;
+          gap: 5px;
+          text-align: center;
+        }
+        
+        .btn {
+          padding: 10px 20px;
+          font-size: 1rem;
+        }
+        
+        .pIMG img {
+          border-radius: 10px;
+        }
+      }
+      
+    
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+        
+        .card {
+          box-shadow: none;
+          border: 1px solid #000;
+        }
+        
+        .btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h2>1964 Good Friday, Alaska Earthquake</h2>
+      </div>
+      
+      <div class="pIMG">
+        <img src="../alaska1.jpg" alt="Damage from the 1964 Alaska earthquake" />
+      </div>
+      
+      <div class="about">
+        <i class="bi bi-geo-alt"></i>
+        <span>Earthquake in Alaska, USA</span>
+      </div>
+      
+      <p>
+        The <strong>1964 Good Friday Earthquake</strong> was a
+        <strong>magnitude 9.2 megathrust quake in Alaska</strong>, the most
+        powerful in US history, killing 131 people, reshaping the landscape,
+        and generating deadly tsunamis that spurred modern tsunami warning
+        systems. Occurred on March 27, 1964 at 5:36 p.m. The quake lasted
+        approximately 4 minutes and 38 seconds, rupturing over 600 miles of
+        fault and releasing nearly 500 years' worth of accumulated stress.
+      </p>
+      
+      <div class="facts">
+        <h3>Key Facts About the Earthquake</h3>
+        <ul>
+          <li><strong>Magnitude:</strong> 9.2 (the second strongest ever recorded)</li>
+          <li><strong>Duration:</strong> Approximately 4.5 minutes</li>
+          <li><strong>Fault Rupture:</strong> Over 600 miles long</li>
+          <li><strong>Vertical Displacement:</strong> Up to 38 feet in some areas</li>
+          <li><strong>Tsunami Waves:</strong> Reached as high as 220 feet in some locations</li>
+          <li><strong>Aftershocks:</strong> Continued for over a year</li>
+        </ul>
+      </div>
+      
+      <!-- <div class="btn-container">
+        <button class="btn"><a href="../../Earthquake&Recovery/index.html">Back to Home</a></button>
+      </div> -->
+    </div>
+  </body>
+</html>

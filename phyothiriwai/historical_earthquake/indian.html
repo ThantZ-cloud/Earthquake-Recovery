@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2004 Indian Ocean Earthquake - Historical Earthquakes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main card container */
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        /* Header section */
+        .header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        /* Image styling */
+        .card img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            aspect-ratio: 16/9;
+            border-radius: 15px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Location info */
+        .about {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .about a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .about a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .bi-geo-alt {
+            color: green;
+            font-size: 1.4rem;
+        }
+        
+        /* Content */
+        .card p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            padding: 0 10px;
+        }
+        
+        .card strong {
+            color: #2c3e50;
+        }
+        
+        /* Button */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #7ae681;
+            color: #000;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #63d06f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Facts section */
+        .facts {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .facts h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .facts ul {
+            padding-left: 20px;
+        }
+        
+        .facts li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Impact section */
+        .impact {
+            background-color: #fff4f4;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .impact h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .impact ul {
+            padding-left: 20px;
+        }
+        
+        .impact li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Tsunami section */
+        .tsunami {
+            background-color: #e0f7fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .tsunami h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .tsunami ul {
+            padding-left: 20px;
+        }
+        
+        .tsunami li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Countries affected section */
+        .countries {
+            background-color: #f9fbe7;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .countries h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .country {
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 1024px) {
+            .card {
+                padding: 25px;
+            }
+            
+            .header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .card p {
+                font-size: 1.1rem;
+            }
+            
+            .country-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            .header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .about {
+                font-size: 1.1rem;
+            }
+            
+            .card p {
+                font-size: 1rem;
+                padding: 0;
+            }
+            
+            .facts, .impact, .tsunami, .countries {
+                padding: 15px;
+            }
+            
+            .facts h3, .impact h3, .tsunami h3, .countries h3 {
+                font-size: 1.2rem;
+            }
+            
+            .facts li, .impact li, .tsunami li {
+                font-size: 1rem;
+            }
+            
+            .country-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            .header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .about {
+                font-size: 1rem;
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .card img {
+                border-radius: 10px;
+            }
+            
+            .country-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            
+            .btn {
+                display: none;
+            }
+        }
+        .btn a{
+            text-decoration: none;
+          }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h2>The 2004 Indian Ocean Earthquake and Tsunami</h2>
+        </div>
+        
+        <img src="../indian1.jpg" alt="Devastation caused by the 2004 Indian Ocean tsunami">
+        
+        <div class="about">
+            <i class="bi bi-geo-alt"></i>
+            <span>Earthquake in Indian Ocean, off coast of Sumatra</span>
+        </div>
+        
+        <p>
+            Occurred on December 26, 2004, at 07:58:53. Off the west coast of northern Sumatra, Indonesia. Estimated at magnitude 9.2~9.3, making it one of the strongest earthquakes in recorded history - second only to the 1960 Chile event. A megathrust earthquake, triggered by rupture along the fault between the India (Indo-Australian) and Burma tectonic plates.
+        </p>
+        
+        <div class="facts">
+            <h3>Key Facts About the Earthquake</h3>
+            <ul>
+                <li><strong>Date:</strong> December 26, 2004</li>
+                <li><strong>Time:</strong> 07:58:53 local time</li>
+                <li><strong>Magnitude:</strong> 9.1-9.3 (third largest ever recorded)</li>
+                <li><strong>Epicenter:</strong> Off west coast of northern Sumatra</li>
+                <li><strong>Depth:</strong> 30 km (19 miles)</li>
+                <li><strong>Duration:</strong> 8-10 minutes</li>
+                <li><strong>Fault Length:</strong> 1,600 km (990 miles)</li>
+            </ul>
+        </div>
+        
+        <div class="tsunami">
+            <h3>Tsunami Details</h3>
+            <ul>
+                <li>Generated massive tsunami waves up to 30 meters (100 feet) high</li>
+                <li>Waves reached shores in 2 hours to over 7 hours after earthquake</li>
+                <li>Tsunami traveled at speeds up to 800 km/h (500 mph)</li>
+                <li>One of the deadliest natural disasters in recorded history</li>
+                <li>Led to creation of Indian Ocean Tsunami Warning System</li>
+            </ul>
+        </div>
+        
+        <div class="impact">
+            <h3>Human Impact</h3>
+            <ul>
+                <li>227,898 people confirmed dead</li>
+                <li>1.7 million people displaced</li>
+                <li>14 countries affected across two continents</li>
+                <li>Estimated $15 billion in damage</li>
+                <li>Largest international relief effort in history</li>
+            </ul>
+        </div>
+        
+        <div class="countries">
+            <h3>Countries Most Affected</h3>
+            <div class="country-grid">
+                <div class="country">Indonesia</div>
+                <div class="country">Sri Lanka</div>
+                <div class="country">India</div>
+                <div class="country">Thailand</div>
+                <div class="country">Somalia</div>
+                <div class="country">Maldives</div>
+                <div class="country">Malaysia</div>
+                <div class="country">Myanmar</div>
+            </div>
+        </div>
+        
+        <!-- <div class="btn-container">
+            <button class="btn"><a href="../../Earthquake&Recovery/index.html">Back to Home</a></button>
+        </div> -->
+    </div>
+</body>
+</html>

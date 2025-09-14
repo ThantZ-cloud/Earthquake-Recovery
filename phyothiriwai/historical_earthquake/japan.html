@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2011 Tohoku Earthquake - Historical Earthquakes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #fff;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Main card container */
+      .card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 1000px;
+        width: 100%;
+      }
+
+      /* Header section */
+      .header {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #eaeaea;
+      }
+
+      .header h2 {
+        font-size: 2rem;
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      /* Image styling */
+      .card img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        aspect-ratio: 16/9;
+        border-radius: 15px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Location info */
+      .about {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        font-size: 1.2rem;
+        color: #7f8c8d;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .about a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .about a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+      }
+
+      .bi-geo-alt {
+        color: green;
+        font-size: 1.4rem;
+      }
+
+      /* Content */
+      .card p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        text-align: justify;
+        padding: 0 10px;
+      }
+
+      .card strong {
+        color: #2c3e50;
+      }
+
+      /* Button */
+      .btn-container {
+        display: flex;
+        justify-content: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #7ae681;
+        color: #000;
+        border-radius: 10px;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn:hover {
+        background-color: #63d06f;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Facts section */
+      .facts {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 30px 0;
+        border-left: 5px solid green;
+      }
+
+      .facts h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .facts ul {
+        padding-left: 20px;
+      }
+
+      .facts li {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      /* Impact section */
+      .impact {
+        background-color: #fff4f4;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 30px 0;
+        border-left: 5px solid green;
+      }
+
+      .impact h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .impact ul {
+        padding-left: 20px;
+      }
+
+      .impact li {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      /* Tsunami section */
+      .tsunami {
+        background-color: #e0f7fa;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 30px 0;
+        border-left: 5px solid green;
+      }
+
+      .tsunami h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .tsunami ul {
+        padding-left: 20px;
+      }
+
+      .tsunami li {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      /* Nuclear section */
+      .nuclear {
+        background-color: #fff8e1;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 30px 0;
+        border-left: 5px solid green;
+      }
+
+      .nuclear h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .nuclear ul {
+        padding-left: 20px;
+      }
+
+      .nuclear li {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      /* Responsive adjustments */
+      @media screen and (max-width: 1024px) {
+        .card {
+          padding: 25px;
+        }
+
+        .header h2 {
+          font-size: 1.8rem;
+        }
+
+        .card p {
+          font-size: 1.1rem;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        body {
+          padding: 15px;
+        }
+
+        .card {
+          padding: 20px;
+          border-radius: 15px;
+        }
+
+        .header h2 {
+          font-size: 1.6rem;
+        }
+
+        .about {
+          font-size: 1.1rem;
+        }
+
+        .card p {
+          font-size: 1rem;
+          padding: 0;
+        }
+
+        .facts,
+        .impact,
+        .tsunami,
+        .nuclear {
+          padding: 15px;
+        }
+
+        .facts h3,
+        .impact h3,
+        .tsunami h3,
+        .nuclear h3 {
+          font-size: 1.2rem;
+        }
+
+        .facts li,
+        .impact li,
+        .tsunami li,
+        .nuclear li {
+          font-size: 1rem;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+
+        .card {
+          padding: 15px;
+          border-radius: 12px;
+        }
+
+        .header h2 {
+          font-size: 1.4rem;
+        }
+
+        .about {
+          font-size: 1rem;
+          flex-direction: column;
+          gap: 5px;
+          text-align: center;
+        }
+
+        .btn {
+          padding: 10px 20px;
+          font-size: 1rem;
+        }
+
+        .card img {
+          border-radius: 10px;
+        }
+      }
+
+      /* Print styles */
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+
+        .card {
+          box-shadow: none;
+          border: 1px solid #000;
+        }
+
+        .btn {
+          display: none;
+        }
+      }
+      .btn a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h2>2011 Tohoku (Great East Japan) Earthquake and Tsunami</h2>
+      </div>
+
+      <img
+        src="../japan1.jpg"
+        alt="Damage from the 2011 Tohoku earthquake and tsunami"
+      />
+
+      <div class="about">
+        <i class="bi bi-geo-alt"></i>
+        <span>Earthquake in Pacific Ocean, east of Japan</span>
+      </div>
+
+      <p>
+        Occurred on 11 March 2011 at 14:46 JST in the Pacific Ocean, around 72km
+        east of Honshu's Oshika Peninsula in the Tohoku region. The earthquake
+        lasted for about six minutes and struck at a depth of ~29 - 32 km.
+        Registered as a powerful magnitude 9.0~9.1 megathrust earthquake - the
+        strongest ever recorded in Japan, and the fourth-largest globally since
+        1900. Occurred along the subduction zone between the Pacific Plate and
+        Okhotsk (or Eurasian) microplate, within the Japan Trench.
+      </p>
+
+      <div class="facts">
+        <h3>Key Facts About the Earthquake</h3>
+        <ul>
+          <li><strong>Date:</strong> March 11, 2011</li>
+          <li><strong>Time:</strong> 14:46 JST (05:46 UTC)</li>
+          <li><strong>Magnitude:</strong> 9.0-9.1 (4th largest recorded)</li>
+          <li><strong>Epicenter:</strong> 72 km east of Oshika Peninsula</li>
+          <li><strong>Depth:</strong> 29 km (18 miles)</li>
+          <li><strong>Duration:</strong> Approximately 6 minutes</li>
+          <li><strong>Fault Length:</strong> 500 km (310 miles)</li>
+        </ul>
+      </div>
+
+      <div class="tsunami">
+        <h3>Tsunami Details</h3>
+        <ul>
+          <li>
+            Generated massive tsunami waves up to 40.5 meters (133 feet) high
+          </li>
+          <li>Waves reached shore within minutes of the earthquake</li>
+          <li>Tsunami traveled across the Pacific Ocean</li>
+          <li>Maximum wave height of 40.5 m in Miyako, Iwate Prefecture</li>
+          <li>Inundation area up to 10 km (6.2 miles) inland</li>
+        </ul>
+      </div>
+
+      <div class="impact">
+        <h3>Human Impact and Damage</h3>
+        <ul>
+          <li>15,899 confirmed deaths</li>
+          <li>2,526 people missing</li>
+          <li>6,157 injured</li>
+          <li>121,776 buildings completely destroyed</li>
+          <li>1,084,567 buildings partially damaged</li>
+          <li>Estimated $360 billion in economic damage</li>
+        </ul>
+      </div>
+
+      
+
+      <!-- <div class="btn-container">
+        <button class="btn">
+          <a href="../../Earthquake&Recovery/index.html">Back to Home</a>
+        </button>
+      </div> -->
+    </div>
+  </body>
+</html>

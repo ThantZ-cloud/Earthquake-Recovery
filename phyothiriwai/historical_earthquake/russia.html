@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1952 Severo-Kurilsk Earthquake - Historical Earthquakes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main card container */
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        /* Header section */
+        .header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        /* Image styling */
+        .card img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            aspect-ratio: 16/9;
+            border-radius: 15px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Location info */
+        .about {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .about a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .about a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .bi-geo-alt {
+            color: green;
+            font-size: 1.4rem;
+        }
+        
+        /* Content */
+        .card p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            padding: 0 10px;
+        }
+        
+        .card strong {
+            color: #2c3e50;
+        }
+        
+        /* Button */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #7ae681;
+            color: #000;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #63d06f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Facts section */
+        .facts {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .facts h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .facts ul {
+            padding-left: 20px;
+        }
+        
+        .facts li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Impact section */
+        .impact {
+            background-color: #fff4f4;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .impact h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .impact ul {
+            padding-left: 20px;
+        }
+        
+        .impact li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Tsunami section */
+        .tsunami {
+            background-color: #e0f7fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .tsunami h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .tsunami ul {
+            padding-left: 20px;
+            list-style-type: none;
+        }
+        
+        .tsunami li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .tsunami li:before {
+            content: "🌊";
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Aftermath section */
+        .aftermath {
+            background-color: #f3e5f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid green;
+        }
+        
+        .aftermath h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .aftermath ul {
+            padding-left: 20px;
+        }
+        
+        .aftermath li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Map section */
+        .map-info {
+            background-color: #e8f5e9;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid #4caf50;
+            text-align: center;
+        }
+        
+        .map-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .map-info p {
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 1024px) {
+            .card {
+                padding: 25px;
+            }
+            
+            .header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .card p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            .header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .about {
+                font-size: 1.1rem;
+            }
+            
+            .card p {
+                font-size: 1rem;
+                padding: 0;
+            }
+            
+            .facts, .impact, .tsunami, .aftermath, .map-info {
+                padding: 15px;
+            }
+            
+            .facts h3, .impact h3, .tsunami h3, .aftermath h3, .map-info h3 {
+                font-size: 1.2rem;
+            }
+            
+            .facts li, .impact li, .tsunami li, .aftermath li {
+                font-size: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            .header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .about {
+                font-size: 1rem;
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .card img {
+                border-radius: 10px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            
+            .btn {
+                display: none;
+            }
+        }
+           .btn a{
+            text-decoration: none;
+          }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h2>1952 Severo-Kurilsk Earthquake (Kamchatka, Russia)</h2>
+        </div>
+        
+        <img src="../1952.jpg" alt="Damage from the 1952 Severo-Kurilsk earthquake and tsunami">
+        
+        <div class="about">
+            <i class="bi bi-geo-alt"></i>
+            <span>Earthquake in Kamchatka, Russia</span>
+        </div>
+        
+        <p>
+            Magnitude 8.8~9.0 - the strongest ever recorded in Russia, ranking as the fifth-largest globally. Occurred on November 4, producing a massive 18m tsunami along the Kuril-Kamchatka coast. Devastated Severo-Kurilsk; estimated 2,300-14,000 fatalities.
+        </p>
+        
+        <div class="facts">
+            <h3>Key Facts About the Earthquake</h3>
+            <ul>
+                <li><strong>Date:</strong> November 4, 1952</li>
+                <li><strong>Time:</strong> 16:58 GMT (04:58 local time November 5)</li>
+                <li><strong>Magnitude:</strong> 8.8-9.0 (5th largest recorded)</li>
+                <li><strong>Epicenter:</strong> Off coast of Kamchatka Peninsula</li>
+                <li><strong>Depth:</strong> 30 km (18.6 miles)</li>
+                <li><strong>Type:</strong> Megathrust subduction zone earthquake</li>
+                <li><strong>Fault Length:</strong> 700 km (430 miles)</li>
+            </ul>
+        </div>
+        
+        <div class="tsunami">
+            <h3>Tsunami Details</h3>
+            <ul>
+                <li>Generated massive tsunami waves up to 18 meters (59 feet) high</li>
+                <li>Tsunami traveled across the Pacific Ocean</li>
+                <li>Waves reached Hawaii, Alaska, California, and Japan</li>
+                <li>First tsunami to be recorded by tide gauges across the Pacific</li>
+                <li>Provided valuable data for tsunami research and warning systems</li>
+            </ul>
+        </div>
+        
+        <div class="impact">
+            <h3>Impact and Damage</h3>
+            <ul>
+                <li>2,300-14,000 fatalities (estimates vary widely)</li>
+                <li>Severo-Kurilsk completely destroyed by tsunami</li>
+                <li>Town later rebuilt on higher ground</li>
+                <li>Significant damage to fishing industry infrastructure</li>
+                <li>Many villages along Kamchatka coast affected</li>
+            </ul>
+        </div>
+        
+        <div class="aftermath">
+            <h3>Aftermath and Legacy</h3>
+            <ul>
+                <li>Led to improved tsunami monitoring in the Soviet Union</li>
+                <li>Contributed to understanding of Pacific Ring of Fire seismicity</li>
+                <li>One of the first major tsunamis studied by modern methods</li>
+                <li>Highlighted vulnerability of coastal communities to tsunamis</li>
+                <li>Influenced Soviet civil defense and disaster preparedness policies</li>
+            </ul>
+        </div>
+        
+        <div class="map-info">
+            <h3>Geographical Context</h3>
+            <p>The earthquake occurred in the Kuril-Kamchatka Trench, where the Pacific Plate subducts beneath the Okhotsk Plate at a rate of about 8-9 cm per year.</p>
+        </div>
+        
+        <!-- <div class="btn-container">
+            <button class="btn"><a href="../../Earthquake&Recovery/index.html">Back to Home</a></button>
+        </div> -->
+    </div>
+</body>
+</html>
