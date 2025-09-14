@@ -63,7 +63,7 @@ function OnlinePay() {
   nowbtn.style.display = "none";
 }
 function Ndocument() {
-  window.location.href = "index.html";
+  window.location.href = "../index.html";
 }
 let selectedCrypto = null;
 
@@ -146,4 +146,5 @@ function back() {
   document.getElementById("number").value = "";
   document.getElementById("password").value = "";
 }
+
 
