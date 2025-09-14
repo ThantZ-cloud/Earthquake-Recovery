@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earthquake & Recovery</title>
+    <link rel="stylesheet" href="navBar.css" />
+    <!-- <link rel="stylesheet" href="footer.css"> -->
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Unicons CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!--boxicons-->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+   
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+<!--map-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!--css links-->
+    <link rel="stylesheet" href="../Thant Zin Htun/earthquakeMap/earthquakeMap/thantzinhtun.css">
+    <link rel="stylesheet" href="../YanNaingHtoo/YanNaingHtoo/yanNaing.css">
+    <link rel="stylesheet" href="../yulay.html (3)/yu.css">
+    <link rel="stylesheet" href="../eithiri/backup/EiThiriMon/newstyle.css">
+    <link rel="stylesheet" href="../eithiri/backup/EiThiriMon/style.css">
+    <link rel="stylesheet" href="../Linn Latt Nwe/Linn Latt Nwe/T.css">
+    <link rel="stylesheet" href="../Linn Latt Nwe/Linn Latt Nwe/newstyle.css">
+   <link rel="stylesheet" href="../Zue NayChi Kyaw/earthquake.css">
+   <link rel="stylesheet" href="../Zue NayChi Kyaw/evacution.css">
+   <link rel="stylesheet" href="../Zue NayChi Kyaw/map.css">
+   <link rel="stylesheet" href="../phyothiriwai/historical_earthquake/test.css">
+   <link rel="stylesheet" href="../Earthquake&Recovery/footer.css">
+  </head>
+
+  <body>
+    <!--Nav-->
+    <nav class="nav">
+      <i class="uil uil-bars navOpenBtn"></i>
+      <a href="../Earthquake&Recovery/index.html">
+        <img
+          src="logo1.jpg"
+          alt="logo"
+          height="45"
+          width="100"
+          class="logo"
+        />
+      </a>
+      <ul class="nav-links">
+        <i class="uil uil-times navCloseBtn"></i>
+        <li><a href="../Recovery/Recovery/Recovery.html">Recovery</a></li>
+        <li><a href="../Donate/donate.html">Donate</a></li>
+        <li><a href="../quiz (3)/quiz/quiz.html">Quiz</a></li>
+        <li><a href="../profile/HayMann/scroll.html">About Us</a></li>
+      </ul>
+      <i class="uil uil-search search-icon" id="searchIcon"></i>
+      <div class="search-box">
+        <i class="uil uil-search search-icon"></i>
+        <input
+          type="text"
+          class="autoCompleteInput form-control"
+          placeholder="Search for emergency currently available for 17 countries."
+        />
+        <div class="resultContainer"></div>
+      </div>
+    </nav>
+
+    <!--Thant Zin Htun-->
+     <div class="mapContainer">
+        <div id="map"></div>
+     </div>
+  
+
+
+<!--Yan Naing Htoo-->
+       <div class="yanContainer">
+          <h1 class="yanHeader">EARTHQUAKE</h1>
+          <div class="yanEarthquake">
+              <p class="yanPara1">
+                  You feel the ground suddenly shake, and nearby objects are trembling.
+                  An earthquake is happening. 
+                  They happen millions of times a year, but most are so small people don't even feel them. 
+                  But powerful earthquakes can cause landslides, tsunamis, flooding, and other dangerous events.
+              </p>
+              <img src="../YanNaingHtoo/YanNaingHtoo/photo/intro.jpg" alt="About earthquake" class="yanphoto1" width="300" height="300">
+          </div>
+          <div class="yanHowEarthquake">
+              <img src="../YanNaingHtoo/YanNaingHtoo/photo/wave.jpg" alt="How earthquake develops?" class="yanphoto2" width="300" height="300">
+              <p class="yanPara2">
+                  The Earth's crust is broken into tectonic plates that slowly move on top of the semi-fluid mantle. 
+                  At plate boundaries, stress builds up as the plates collide, pull apart, or slide past each other. 
+                  Rocks along faults get stuck due to friction, deforming elastically and storing energy like a stretched spring.
+                  When the stress becomes too great, the rocks suddenly slip, releasing the stored energy as seismic waves. 
+                  These waves travel through the Earth, causing the shaking and surface damage we experience as an earthquake.
+              </p>
+          </div>
+      </div>
+
+<!--Yu Nandar Aung-->
+       <!-- Header -->
+      <header class="yuHeader">
+        <h1>Earthquake Knowledge</h1>
+      </header>
+
+      <!-- Navigation Menu -->
+      <nav class="yuNav">
+        <a href="#measurement">How to Measure Earthquakes</a>
+        <a href="#where">Seismic Zones</a>
+      </nav>
+
+      <main class="yuMain">
+        <section class="yuSection" id="measurement">
+          <div class="yuBox">
+            <h2 class="yuH2">Measurement</h2>
+            <div class="yuRow first">
+              <p class="text">
+                Earthquakes are measured to determine both their
+                <strong>strength</strong> and
+                <strong class="yuStrong">impact</strong> on people and structures,
+                using two main parameters: magnitude and intensity.
+              </p>
+              <img
+                src="../yulay.html (3)/vs code/instrument.jpg"
+                alt="Seismograph instrument"
+                class="image"
+              />
+            </div>
+
+            <h2 class="yuH2">Magnitude</h2>
+            <div class="yuRow second">
+              <p class="text">
+                Magnitude is a quantitative measure of the energy released at the
+                earthquake's source.
+                <strong class="yuStrong">Seismographs</strong> record seismic
+                waves. The <em>Moment Magnitude Scale (Mw)</em>
+                is the most accurate scale for all sizes of earthquakes.
+              </p>
+              <img
+                src="../yulay.html (3)/vs code/magnitude.jpg"
+                alt="Magnitude scale illustration"
+                class="image"
+              />
+            </div>
+          </div>
+
+          <div class="yuBox1">
+            <h2 class="yuH2">Intensity</h2>
+            <div class="yuRow third">
+              <p class="text">
+                Intensity describes the observed effects at specific locations,
+                including impacts on people, buildings, and the environment. The
+                <em>Modified Mercalli Intensity (MMI)</em>
+                scale ranges from imperceptible tremors to catastrophic damage.
+              </p>
+              <img
+                src="../yulay.html (3)/vs code/wave.jpg"
+                alt="Seismic wave diagram"
+                class="image"
+              />
+            </div>
+
+            <h2 class="yuH2">Importance</h2>
+            <div class="yuRow fourth">
+              <p class="text">
+                Guides structural engineering and safe building design. Helps
+                urban planners identify high-risk areas. Supports emergency
+                preparedness and early warning systems. Provides scientific data
+                for research and disaster mitigation.
+              </p>
+              <img
+                src="../yulay.html (3)/vs code/important.jpg"
+                alt="Emergency preparedness"
+                class="image"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class="yuSection" id="where">
+          <h2 class="yuH2">Seismic Zones</h2>
+
+          <div>
+            <span class="yuChip">Plate Boundaries</span>
+            <span class="yuChip">Ring of Fire</span>
+            <span class="yuChip">Intraplate Zones</span>
+            <span class="yuChip">Volcanic Regions</span>
+          </div>
+
+          <section class="yuPlate-boundaries">
+            <p>
+              <strong class="yuStrong">Plate Boundaries</strong> — There are three
+              main types of plate boundaries...
+            </p>
+            <div>
+              <img
+                src="../yulay.html (3)/vs code/typeOfPlate.jpg"
+                alt="Types of plate boundaries"
+                class="yuPlate-img"
+              />
+            </div>
+            <ul class="yuUl">
+              <li class="yuLi">
+                <strong>Convergent:</strong> Powerful quakes at subduction and
+                collision zones.
+              </li>
+              <li class="yuLi">
+                <strong>Divergent:</strong> Moderate events along oceanic ridges.
+              </li>
+              <li class="yuLi">
+                <strong>Transform:</strong> Shallow quakes along strike-slip
+                faults, like San Andreas.
+              </li>
+            </ul>
+
+            <div class="yuCallout">
+              <strong class="yuStrong">Key idea:</strong> Stress builds at
+              boundaries until sudden slip releases energy as seismic waves.
+            </div>
+          </section>
+
+          <section class="yuGlobal-concentration">
+            <p>
+              <strong class="yuStrong">Global Concentrations</strong> — Notable
+              seismic belts include:
+            </p>
+            <ul class="yuUl">
+              <li class="yuLi">
+                <strong class="yuStrong">Pacific Ring of Fire:</strong> Most
+                active belt with frequent quakes and volcanoes.
+              </li>
+              <li class="yuLi">
+                <strong class="yuStrong">Alpine–Himalayan Belt:</strong> Stretches
+                from Mediterranean to Himalayas.
+              </li>
+              <li class="yuLi">
+                <strong class="yuStrong">Intraplate Earthquakes:</strong> Occur
+                inside plates on ancient fault lines.
+              </li>
+              <li class="yuLi">
+                <strong class="yuStrong">Volcanic Areas:</strong> Quakes caused by
+                magma movement underground.
+              </li>
+            </ul>
+
+            <div class="yuCallout">
+              <strong class="yuStrong">Remember:</strong> Earthquakes can also
+              occur far from plate edges due to crustal weaknesses.
+            </div>
+          </section>
+        </section>
+      </main>
+
+
+      <!--Ei Thiri Mon-->
+
+      <header class="etmHeader">
+          <h1>🌍 Earthquake Safety Guide</h1>
+          <p>Your essential steps to stay safe during and after an earthquake.</p>
+      </header>
+
+      <main class="etmMain">
+          <!-- DURING AN EARTHQUAKE -->
+          <section class="etmCard ">
+              <h2>During an Earthquake</h2>
+              <div class="etmSteps">
+                  <a href="../eithiri/backup/EiThiriMon/newDrop.html"  class="etmDropStep">
+                      <div class="etmStep">
+                      <img src="../eithiri/backup/EiThiriMon/drop.jpg" alt="Drop">
+                      <h3>Drop</h3>
+                      <p>Get low on your hands and knees to prevent being knocked over.</p>
+                  </div>
+                  </a>
+                      <a href="../eithiri/backup/EiThiriMon/newCover.html" class="etmDropStep">
+                          <div class="etmStep">
+                      <img src="../eithiri/backup/EiThiriMon/cover.jpg" alt="Cover">
+                      <h3>Cover</h3>
+                      <p>Take shelter under sturdy furniture and protect your head and neck.</p>
+                  </div>
+                  </a>
+                  <a href="../eithiri/backup/EiThiriMon/newHold.html" class="etmDropStep">
+                      <div class="etmStep">
+                      <img src="../eithiri/backup/EiThiriMon/holdon.jpg" alt="Hold On">
+                      <h3>Hold On</h3>
+                      <p>Hold on to your shelter until the shaking stops.</p>
+                  </div>
+              </a>
+
+                     <a href="../eithiri/backup/EiThiriMon/newStayCalm.html" class="etmDropStep">
+                       <div class="etmStep">
+                      <img src="../eithiri/backup/EiThiriMon/safety.jpg" alt="Stay Calm">
+                      <h3>Stay Calm</h3>
+                      <p>Keep calm and follow your safety plan without rushing.</p>
+                  </div>
+              </a>
+              </div>
+          </section>
+
+                  <!-- AFTER AN EARTHQUAKE -->
+          <section class="newetmCard">
+              <h2>After an Earthquake</h2>
+              <div class="newetmSteps">
+                  <div class="newetmStep">
+                      <img src="../eithiri/backup/EiThiriMon/PTSD.jpg" alt="PTSD Awareness">
+                      <h3>Check for Injuries & PTSD</h3>
+                      <p>Seek medical attention if injured. Get emotional support to manage trauma.</p>
+                  </div>
+                  <div class="newetmStep">
+                      <img src="../eithiri/backup/EiThiriMon/TurnOff.jpg" alt="Turn Off Utilities">
+                      <h3>Turn Off Utilities</h3>
+                      <p>Shut off gas, water, and electricity if there is damage.</p>
+                  </div>
+                  <div class="newetmStep">
+                      <img src="../eithiri/backup/EiThiriMon/StayAway.jpg" alt="Avoid Hazards">
+                      <h3>Stay Away from Hazards</h3>
+                      <p>Keep clear of broken glass, debris, and unstable buildings.</p>
+                  </div>
+              </div>
+          </section>
+      </main>
+
+     
+  
+
+        <!--Zue NayChi Kyaw-->
+    
+      <header >
+        <!-- <h1>🌍 Earthquake Safety Guide</h1> -->
+        <p>Be prepared. Stay safe. Protect your loved ones.</p>
+      </header>
+
+      <div class="zueContainer">
+        <div class="zueCard">
+          <img src="../Zue NayChi Kyaw/plan.jpg" alt="Emergency Plan">
+          <div class="zueCard-content">
+            <h2>Create an Emergency Plan</h2>
+            <ul>
+              <li>Identify safe spots in each room.</li>
+              <li>Plan evacuation routes & meeting points.</li>
+              <li>Teach "Drop, Cover, Hold On".</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="zueCard">
+          <img src="../Zue NayChi Kyaw/emergency.jpg" alt="Emergency Kit">
+          <div class="zueCard-content">
+            <h2>Prepare an Emergency Kit</h2>
+            <ul>
+              <li>Water & food (3 days supply).</li>
+              <li>First-aid kit, flashlight, batteries.</li>
+              <li>Whistle, mask, documents, small cash.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="zueCard">
+          <img src="../Zue NayChi Kyaw/home.jpg" alt="Strengthen Home">
+          <div class="zueCard-content">
+            <h2>Strengthen Your Home</h2>
+            <ul>
+              <li>Secure heavy furniture & appliances.</li>
+              <li>Store fragile items in safe cabinets.</li>
+              <li>Check for structural weaknesses.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="zueCard">
+          <img src="../Zue NayChi Kyaw/news.jpg" alt="Stay Informed">
+          <div class="zueCard-content">
+            <h2>Stay Informed</h2>
+            <ul>
+              <li>Keep a battery-powered radio.</li>
+              <li>Follow official evacuation alerts.</li>
+              <li>Join community safety programs.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="zueCard">
+          <img src="../Zue NayChi Kyaw/practice.jpg" alt="Practice Drills">
+          <div class="zueCard-content">
+            <h2>Practice Drills</h2>
+            <ul>
+              <li>Conduct earthquake drills at home.</li>
+              <li>Practice evacuation & meeting points.</li>
+              <li>Include children and elderly.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="zueCard">
+          <img src="../Zue NayChi Kyaw/insurance.jpg" alt="Insurance & Safety">
+          <div class="zueCard-content">
+            <h2>Insurance & Safety</h2>
+            <ul>
+              <li>Check earthquake coverage for your home.</li>
+              <li>Keep important documents safe.</li>
+              <li>Review policies annually.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+       <header>
+          <h1>🌍 Earthquake Evacuation Guide</h1>
+          <p>What to do when an earthquake happens</p>
+      </header>
+
+      <div class="zueContainer1">
+          <div class="emergency-actions">
+              <h2>🚨 Immediate Actions During an Earthquake</h2>
+              <ul>
+                  <li><strong>Drop</strong> to your hands and knees</li>
+                  <li><strong>Cover</strong> your head and neck with your arms</li>
+                  <li><strong>Hold On</strong> to any sturdy furniture until shaking stops</li>
+                  <li>Stay away from windows, glass, and exterior walls</li>
+                  <li>If in bed, stay there and protect your head with a pillow</li>
+              </ul>
+          </div>
+
+          <div class="zueCard1-grid">
+              <div class="side-by-side">
+                  <div class="zueCard1">
+                      <img src="../Zue NayChi Kyaw/inside.jpg" alt="Inside building">
+                      <div class="zueCard-content1">
+                          <h2>If You're Inside</h2>
+                          <p>Drop, cover, and hold on under a sturdy table or desk. Stay away from windows, mirrors, and heavy furniture.</p>
+                          <p><strong>Do not use elevators during or after an earthquake.</strong></p>
+                      </div>
+                  </div>
+
+                  <div class="zueCard">
+                      <img src="../Zue NayChi Kyaw/outside.jpg" alt="Open space">
+                      <div class="zueCard-content1">
+                          <h2>If You're Outside</h2>
+                          <p>Move to an open area, away from buildings, trees, streetlights, and power lines. Protect your head and stay alert for falling objects.</p>
+                          <p><strong>Stay outside until shaking completely stops.</strong></p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="zueCard1">
+                  <img src="../Zue NayChi Kyaw/coast.jpg" alt="Coast evacuation">
+                  <div class="zueCard-content1">
+                      <h2>Near the Coast</h2>
+                      <p>After the shaking stops, immediately go to higher ground in case of a tsunami. Follow evacuation signs and stay safe.</p>
+                      <p><strong>Do not wait for official warnings - evacuate immediately if near the coast.</strong></p>
+                  </div>
+              </div>
+
+              <div class="zueCard1">
+                  <img src="../Zue NayChi Kyaw/car.jpg" alt="Inside Car">
+                  <div class="zueCard-content1">
+                      <h2>If You're in a Vehicle</h2>
+                      <p>Stop safely away from bridges, tunnels, and tall buildings. Stay inside the car until the shaking stops. Avoid moving unless necessary.</p>
+                      <p><strong>Set parking brake and avoid overpasses or power lines.</strong></p>
+                  </div>
+              </div>
+
+              <div class="zueCard">
+                  <img src="../Zue NayChi Kyaw/hospital1.jpg" alt="Hospital">
+                  <div class="zueCard-content1">
+                      <h2>If You're in a Hospital</h2>
+                      <p>Stay with patients if you're a healthcare worker. Move patients away from windows and heavy equipment. Protect your head, stay calm, and follow staff instructions.</p>
+                      <p><strong>Know your facility's emergency protocols in advance.</strong></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <header>
+        <h1>Emergency Evacuation Maps</h1>
+        <p>Hospital | School | Shopping Mall</p>
+      </header>
+
+      <main>
+        <div class="emergency-info">
+          <h2>🚨 Emergency Evacuation Guidelines</h2>
+          <ul>
+            <li>Remain calm and do not panic during an evacuation</li>
+            <li>Follow the designated evacuation routes shown on maps</li>
+            <li>Do not use elevators during emergency evacuations</li>
+            <li>Assemble at designated safe areas away from the building</li>
+            <li>Account for all personnel and report to emergency coordinators</li>
+          </ul>
+        </div>
+
+        <div class="maps-container">
+          <!-- Hospital -->
+          <section class="map-card">
+            <h2>🏥 Hospital Emergency Exit Map</h2>
+            <div class="map-image" data-alt="Hospital Emergency Exit Map">
+              <img src="../Zue NayChi Kyaw/hospital.jpg" alt="">
+            </div>
+            <p><b>Tip:</b> Follow the red arrows to reach emergency exits. Use the <b>north gate</b> for ambulance access.</p>
+            <p><b>Emergency Assembly Point:</b> North Parking Lot (Zone A)</p>
+          </section>
+
+          <!-- School -->
+          <section class="map-card">
+            <h2>🏫 School Emergency Exit Map</h2>
+            <div class="map-image" data-alt="School Emergency Exit Map">
+              <img src="../Zue NayChi Kyaw/school.jpg" alt="">
+            </div>
+            <p><b>Tip:</b> Students should use the stairway exit near the Music Room and gather safely outside the building.</p>
+            <p><b>Emergency Assembly Point:</b> Sports Field (Check with your teacher)</p>
+          </section>
+
+          <!-- Shopping Mall -->
+          <section class="map-card">
+            <h2>🏬 Shopping Mall Emergency Exit Map</h2>
+            <div class="map-image" data-alt="Shopping Mall Emergency Exit Map">
+              <img src="../Zue NayChi Kyaw/mall.jpg" alt="">
+            </div>
+            <p><b>Tip:</b> Follow emergency signs to the exit safe zone. Avoid escalators during evacuation.</p>
+            <p><b>Emergency Assembly Point:</b> South Parking Lot (Near Food Court entrance)</p>
+          </section>
+        </div>
+      </main>
+       <!--Lynn Latt Nwe-->
+
+      <div class="llnBody">
+         <header class="llnHeader">
+          <h1>After an Earthquake,Situation at Tsunami and Volcano</h1>
+          <p>Live updates on  Volcano, and Tsunami events</p>
+        </header><br>
+
+        <h2><b>Situation at Tsunami</b></h2><br>
+        <p>After a strong earthquake,a massive tsunami may strike coastal areas within minutes.</p><br>
+  
+          <div class="llnContainer">
+        <div class="llnCard">
+        <a href="../Linn Latt Nwe/Linn Latt Nwe/T1.html"><img src="../Linn Latt Nwe/Linn Latt Nwe/tsunami.jpg" alt="Tsunami" /></a>
+            <div class="llnCard-content">
+              <h2><b>Massive Coastal Flooding</b></h2>
+                <p>Huge waves rush inland,destroying buildings,
+                infrastructure,and sweeping away people and objects.</p>
+			  
+              </div>
+            </div>
+    
+    
+         <div class="llnCard">
+        <a href="../Linn Latt Nwe/Linn Latt Nwe/T2.html"><img src="../Linn Latt Nwe/Linn Latt Nwe/tsunami3.jpg" alt="Tsunami3" /></a>
+          <div class="llnCard-content">
+                <h2><b>High Casualties & Displacement</b></h2>
+                <p>Many deaths and injuries occur, and large
+                populations are forced into emergency shelters.</p>
+              </div>
+            </div>
+    
+	
+            <div class="llnCard">
+              <a href="../Linn Latt Nwe/Linn Latt Nwe/T3.html"><img src="../Linn Latt Nwe/Linn Latt Nwe/tsunami1.jpg" alt="Tsunami1" /></a>
+              <div class="llnCard-content">
+                <h2>Ongoing Hazards</h2>
+                <p>Aftershocks,additional waves,contaminated water,and
+                      disease outbreaks threaten survivors.</p>
+              </div>
+            </div>
+          </div><br>
+         <h2>Situation at Volcano</h2><br>
+         <p>After a powerful earthquake,nearby volcanoes may become active due to underground pressure.</p><br>
+          <div class="llnContainer">
+            <div class="llnCard">
+              <a href="../Linn Latt Nwe/Linn Latt Nwe/V1.html"><img src="../Linn Latt Nwe/Linn Latt Nwe/volcano2.jpg" alt="Volcano2" /></a>
+              <div class="llnCard-content">
+                <h2><b>Increased Eruption Risk</b></h2>
+                <p>Earthquake activity can push magma closer to the
+                surface,possibly triggering eruption.</p>
+              </div>
+            </div>
+    
+  
+ 
+            <div class="llnCard">
+              <a href="../Linn Latt Nwe/Linn Latt Nwe/V2.html"><img src="../Linn Latt Nwe/Linn Latt Nwe/volcano3.jpg" alt="Volcano3" /></a>
+              <div class="llnCard-content">
+                <h2><b>Dangerous Hazards</b></h2>
+                <p>Pyroclastic flows,lava,ashfall, and lahars can cause severe
+                 destruction.</p>
+              </div>
+            </div>
+    
+  
+  
+            <div class="llnCard">
+              <a href="../Linn Latt Nwe/Linn Latt Nwe/V3.html"><img src="../Linn Latt Nwe/Linn Latt Nwe/volcano.jpg" alt="Volcano Eruption" /></a>
+              <div class="llnCard-content">
+                <h2><b>Human & Environmental Impact</b></h2>
+                <p>Forced evacuations, air polution, crop damage,
+                and infrastructure loss.</p>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!--phyo thiri wai-->
+      <div class="ptwCard">
+        <div class="phyoCard" id="phyoCard">
+          <div class="phyoHeader">
+            <div class="phyoInfo">
+              <h3>Historical Earthquakes</h3>
+            </div>
+          </div>
+
+          <div class="phyoCard-items">
+            <div class="phyoItem">
+              <img src="../phyothiriwai/largest.jpg" alt="1960 Valdivia Earthquake">
+              <div class="phyoInfo">
+                <h4>1960 Valdivia (Biobio)</h4>
+                <p>Magnitude:<span class="magRed"> 9.5</span> - the largest ever</p>
+                <a href="../phyothiriwai/historical_earthquake/largest.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+        
+            <div class="phyoItem">
+              <img src="../phyothiriwai/alaska.jpg" alt="1964 Good Friday Alaska Earthquake">
+              <div class="phyoInfo">
+                <h4>1964 Good Friday, Alaska</h4>
+                <p>Magnitude: <span class="magRed"> 9.2</span></p>
+                <a href="../phyothiriwai/historical_earthquake/alaska.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+        
+            <div class="phyoItem">
+              <img src="../phyothiriwai/indian.jpg" alt="Indian Ocean Earthquake">
+              <div class="phyoInfo">
+                <h4>Indian Ocean</h4>
+                <p>Magnitude: <span class="magRed"> 9.2~9.3</span></p>
+                <a href="../phyothiriwai/historical_earthquake/indian.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+        
+            <div class="phyoItem">
+              <img src="../phyothiriwai/japan.jpg" alt="Japan Earthquake">
+              <div class="phyoInfo">
+                <h4>Japan</h4>
+                <p>Magnitude: <span class="magRed"> 9.0~9.1</span></p>
+                <a href="../phyothiriwai/historical_earthquake/japan.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+
+             <div class="phyoItem">
+              <img src="../phyothiriwai/1952.jpg" alt="1952 Severo-Kurilsk Earthquake">
+              <div class="phyoInfo">
+                <h4>1952 Severo-Kurilsk Earthquake</h4>
+                <p>Magnitude: <span class="magRed"> 8.8~9.0</span></p>
+                <a href="../phyothiriwai/historical_earthquake/russia.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+        
+            <div class="phyoItem">
+              <img src="../phyothiriwai/chile.jpg" alt="2010 Maule Earthquake">
+              <div class="phyoInfo">
+                <h4>2010 Maule Earthquake (Chile)</h4>
+                <p>Magnitude: <span class="magRed"> 8.8</span></p>
+                <a href="../phyothiriwai/historical_earthquake/chile.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+
+            <div class="phyoItem">
+              <img src="../phyothiriwai/ava_amarapura.jpg" alt="Ava Earthquake">
+              <div class="phyoInfo">
+                <h4>Ava</h4>
+                <p>Magnitude: <span class="magRed"> 7.9~8.3</span></p>
+                <a href="../phyothiriwai/historical_earthquake/ava.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+        
+
+            <div class="phyoItem">
+              <img src="../phyothiriwai/sagaing-mandalay.jpg" alt="Sagaing-Mandalay Earthquake">
+              <div class="phyoInfo">
+                <h4>Sagaing-Mandalay</h4>
+                <p>Magnitude: <span class="magRed"> 7.7~7.9</span></p>
+                <a href="../phyothiriwai/historical_earthquake/sagaing-mandalay.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+            
+            <div class="phyoItem">
+              <img src="../phyothiriwai/bago.jpg" alt="Bago Earthquake">
+              <div class="phyoInfo">
+                <h4>Bago</h4>
+                <p>Magnitude: <span class="magRed"> 7.3~7.5</span></p>
+                <a href="../phyothiriwai/historical_earthquake/bago.html">See More <i class="bx bx-link-external"></i></a>
+              </div>
+            </div>
+        
+            
+        
+        
+           
+          </div>
+        </div>
+      </div>
+
+      <!--footer-->
+      <div class="footer">
+        <div class="footer-container">
+          <div class="row">
+            <div class="footer-col">
+              <h4>GET HELP</h4>
+              <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Web Tools</a></li>
+                <li><a href="#">Programs</a></li>
+                <li><a href="#">Content</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>LEGAL</h4>
+              <ul>
+                <li><a href="#">Accessibility</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site Policies</a></li>
+                <li><a href="#">Copyright</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Credits</h4>
+              <ul>
+                <li><a href="#">USGS , Open Street Map</a></li>
+                <li><a href="#">Wikipedia / maptiler CLOUD</a></li>
+                <li><a href="#">Gemini , BP2002</a></li>
+                <li><a href="#">Other Online Sources</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Follow Us</h4>
+              <div class="social-link">
+                <a href="#"><i class="bx bxl-facebook"></i></a>
+                <a href="#"><i class="bx bxl-instagram"></i></a>
+                <a href="#"><i class="bx bxl-linkedin"></i></a>
+                <a href="#"><i class="bx bxl-github"></i></a>
+                 <a href="#"><i class="bx bxl-youtube"></i></a>
+                <a href="#"><i class="bx bxl-tiktok"></i></a>
+                <a href="https://t.me/+vN0xEVxCWkw0ZWE1"><i class="bx bxl-telegram"></i></a>
+                <a href="#"><i class="bx bxl-twitch"></i></a>
+                <a href="#"><i class="bx bxl-snapchat"></i></a>
+                <a href="#"><i class="bx bxl-discord"></i></a>
+                
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+
+      <!--Js links-->
+      <script src="script.js" ></script>
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <script src="../Thant Zin Htun/earthquakeMap/earthquakeMap/thantzinhtun.js"></script>
+      <script src="../Donate (2)/Donate/donate.js"></script>
+
+    
+
+    </body>
+    </html>
+
+
+  </body>
+</html>

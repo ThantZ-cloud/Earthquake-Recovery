@@ -1,0 +1,134 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.footer {
+    background-color: #fff;
+    color: #000;
+    padding: 30px 0 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    /* width: 100%; */
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-col {
+    width: 23%;
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 20px;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: white;
+    height: 2px;
+    width: 50px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: lightgreen;
+    padding-left: 5px;
+}
+
+
+.social-link {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.social-link a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0 0 10px 0;
+    border-radius: 50%;
+    color: #000;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link a:hover {
+  text-decoration: underline;
+  text-underline-offset: 15px;
+  color: green;
+    transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .footer-col {
+        width: 48%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-col {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-col h4::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .social-link {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 30px 0 15px;
+    }
+    
+    .footer-col {
+        padding: 0 10px;
+    }
+}

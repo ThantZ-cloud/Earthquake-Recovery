@@ -1,0 +1,589 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .btnA button.selected {
+    border: 2px solid blue;
+    background-color: rgb(178, 178, 248);
+}
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height:100vh ;
+        background: white;
+            
+    }
+    .container1{
+        border: 0px solid black;
+        position: relative;
+        width: 600px;
+        min-height: 570px;
+        box-shadow: 0 0 15px gray;
+        border-radius: 5px;
+        display: block;
+        
+    }
+    .container1 h4{
+        position: absolute;
+        right: 0;
+        padding: none;    
+        
+    }
+    .container1 h4 button{
+        border: 0;
+        padding-left: 5px;
+        padding-right: 3px;
+        cursor: pointer;
+        background-color: white;
+    }
+    .container1 h4 button:hover{
+        background-color:rgb(209, 5, 5) ;
+        color: white;
+    }
+    
+    .container1 .btn button{
+        margin: 20px;
+        margin-top: 29px;
+        padding: 10px;
+        width: 100px;
+        height: 50px;
+        border: 0.3px solid rgb(188, 187, 187);
+        background-color: white;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        
+    }
+    
+    .container1 .btn .C{
+        color: blue;
+
+    }
+    
+    .container1 .btn button:hover{
+        color: blue;
+        background-color: rgb(242, 240, 240);
+    }
+    .container1 .container2 .pay{
+        width: auto;
+        height: 80px;
+        border: 1px solid black;
+        margin: 10px;
+        padding:10px ;
+        padding-top: 30px;
+        position: relative;
+        border-radius: 5px;
+    }
+    .container2{
+        border: 0px solid red;
+        padding: 5px;
+        margin: 5px;
+        position: relative;
+        display: block;
+        
+        
+    }
+    .container2 .pay h2{
+        right: 0;
+        top: 10px;
+        position: absolute;
+        margin-right: 18px;
+    }
+    .container2 h2 img{
+        width: 80px;
+        height: 62px;
+        border-radius: 5px;
+    }
+    .container2 .pay label{
+        padding-left: 10px;
+        cursor: pointer;
+    }
+    .container2 .pay input{
+        cursor: pointer;
+    }
+    .container1 .newpay{
+        padding-left: 10px;
+        margin-top:0px ;
+    }
+    .container1 .nowbtn{
+        padding: 10px;
+        display: block;    
+    }
+    .container1 .nowbtn button{
+        width: 97%;
+        height: 45px;
+        background-color: rgb(2, 2, 156);  
+        color: white;
+        border: 0;
+        border-radius: 8px;
+        bottom: 0px;
+        position: absolute;
+        margin-bottom: 10px;
+        display: block;
+        cursor: pointer;
+        
+    }
+    .container1 .nowbtn button:hover{
+        background-color: rgb(1, 1, 119);
+    }
+
+    .container1 .container3{
+        border: 0px solid red;
+        padding: 5px;
+        margin: 5px;
+        position: relative;
+        display: none ;
+    }
+    .container3 .select{
+        display: flex;
+        margin-bottom: 23px;
+    }
+    .container3 .instal{
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+    }
+    .container3 .instal1{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    
+    .container3 .select select{
+        display: flex;
+        flex-direction: column;
+        width:285px;
+        height: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 3px;
+        margin-top: 5px;
+        border-radius: 8px;
+    }
+    .container3 .table table{
+        margin-top: 5px;
+        padding: 5px;
+        border-collapse: separate;
+        border-spacing: 25px 5px;
+        border-collapse: collapse; 
+        width: 100%;
+        padding-top: 20px;
+    }
+    .container3 .table{
+        padding-bottom: 25px;
+    }
+    .container3 input[type="radio"],
+    .container3 input[type="checkbox"] {
+        margin-right: 10px; 
+    }
+
+
+    .container3 .table td,
+    .container3 .table th {
+       border-bottom: 1px solid black;
+       padding: 18px;
+    }
+    .container3 .table tr:first-child td{
+        border-bottom: none;
+        margin-right: 30px;
+        color: gray;
+        font-size: 15px;
+    }
+    .container3 .table tr:last-child td{
+        border-bottom: none;
+        margin-left: 50px;
+    }
+    .container1 .container4{
+        border: 0px solid red;
+        padding: 5px;
+        margin: 5px;
+        position: relative;
+        display: none ;
+    }
+    .container4 h3{
+        margin-bottom: 10px;
+    }
+    .container4 .btnA{
+        margin-left: 10px;
+        padding-top:13px;
+        padding-right: 10px;
+        
+    }
+    .container4 button{
+        width: 47%;
+        height: 55px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        background-color: white;
+        position: relative;
+
+    }
+    .container4 button img{
+        width: 30px;
+        height: 30px;
+        left: 10px;
+        top: 10px;
+        position: absolute;
+    }
+    .container4 button:hover{
+        background-color: rgb(236, 235, 235);
+    }
+    .container1 .container5{
+        border: 0px solid red;
+        padding: 5px;
+        margin: 5px;
+        position: relative;
+        display: none ;
+    }
+    .container5 .btnB{
+        padding: 5px;
+        margin-top: 0;
+    }
+    .container5 button{
+        width: 98%;
+        height: 80px;
+        border-radius: 5px;
+        border: 1px solid gray;
+        background-color: white;
+        position: relative;
+    }
+    .container5 button:hover{
+        background-color: rgb(243, 241, 241);
+    }
+    .container5 button img{
+        width: 80px;
+        height: 62px;
+        border-radius: 5px;
+        position: absolute;
+        left: 10px;
+        top: 8px;
+    }
+    a{
+        text-decoration: none;
+    }
+    
+
+    .container6 {
+      background: white;
+      padding: 30px;
+      box-shadow: 0 0 10px gray;
+      border-radius: 10px;
+      width: 370px;
+      
+      height: 400px;
+      position: relative;
+     display: none;
+    }
+
+    .donate-box h2 {
+      font-size: 35px;
+      text-align: center;
+    }
+
+    .donate-box .input-box {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      margin-top: 25px;
+    }
+
+    .input-box input {
+      width: 90%;
+      height: 100%;
+      
+      background: transparent;
+      font-size: 18px;
+      color: black;
+      font-weight: 500;
+      border-bottom: 2px solid black;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      outline: none;
+    }
+
+    .input-box label {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: black;
+      transition: 0.3s;
+    }
+
+    .input-box input:focus ~ label,
+    .input-box input:valid ~ label {
+      top: -8px;
+      font-size: 14px;
+      color: rgb(2, 2, 156);
+    }
+
+    .input-box input:focus,
+    .input-box input:valid {
+      border-bottom: 2px solid rgb(2, 2, 156);
+    }
+
+    
+
+    
+
+    /* Button container for side-by-side layout */
+    
+
+    .input-box.buttons .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      color: white;
+      text-align:center ;
+      left: 30px;
+      right: 50px;
+      background-color: rgb(2, 2, 156);
+      transition: transform 0.3s ease;
+    }
+
+    .input-box.buttons .btn:hover {
+      box-shadow: 0 0 15px rgb(2, 2, 156);
+      transform: translateY(-6px);
+    }
+    .container6 button{
+      position: absolute;
+      right: 0;
+      top: 0;
+      border: 0;
+      background-color: white;
+    }
+    .container6 button:hover{
+      color: white;
+      background-color: red;
+    }
+
+    .input-box.button .btn:active {
+      background-color: white;
+      color: rgb(2, 2, 156);
+    }
+    .card {
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+      border-radius: 25px;
+      padding: 50px 40px;
+      width: 500px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      color: white;
+      animation: fadeIn 1s ease;
+      display: none;
+    }
+
+    .card .icon {
+      font-size: 70px;
+      color: #00ff88; /* glowing green */
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+    }
+
+    .card h2 {
+      font-size: 34px;
+      margin-bottom: 20px;
+      color: #eaffea;
+    }
+
+    .card .amount {
+      font-size: 26px;
+      font-weight: bold;
+      color: #00ff88;
+      margin: 15px 0;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    }
+
+    .card .date {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #d8ffd8;
+    }
+
+    .card .message {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #f9fff9;
+    }
+   
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 25px;
+      background: #00cc66;
+      color: white;
+      font-size: 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0, 204, 102, 0.4);
+      cursor: pointer;
+    }
+
+    .card .btn:hover {
+      background: #00ff88;
+      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
+    }
+    
+@media (max-width: 768px) {
+  body{
+    font-size: small;
+  }
+  .container1 {
+    width: 95%;
+    min-height: auto;
+    padding-bottom: 70px; /* space for Pay Now */
+  }
+
+  /* Images resize */
+  .container2 h2 img,
+  .container4 button img,
+  .container5 button img {
+    max-width: 50px;
+    height: auto;
+    overflow: hidden;
+  }
+
+  /* Top buttons */
+  .container1 .btn button {
+    width: auto;
+    min-width: 80px;
+    height: 45px;
+    font-size: 14px;
+    margin: 10px;
+  }
+
+  /* Container4 buttons full width */
+  .container4 button {
+    width: 47%;
+    flex-direction: column-reverse;
+    height: 50px;
+    font-size: 10px;
+  }
+
+  /* Container5 buttons */
+  .container5 button {
+    width: 100%;
+  }
+
+  /* Pay Now button */
+  .container1 .nowbtn {
+    position: static;   /* flow naturally */
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .container1 .nowbtn button {
+    width: 95%;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  /* Container3 selects fit screen */
+  .container3 .select select {
+    width: 120%;
+  }
+
+  /* Occupation same size as installment */
+  .container3 .instal1 select {
+    width: 270%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  body{
+    font-size: small;
+  }
+  .container1 {
+    width: 100%;
+    border-radius: 0;
+    padding-bottom: 60px; /* space for Pay Now */
+    margin: 5px;
+  }
+
+  /* Images smaller */
+  .container2 h2 img,
+  .container5 button img {
+    max-width: 40px;
+    height: auto;
+    overflow: hidden;
+  }
+
+  /* Top buttons */
+  .container1 .btn button {
+    min-width: 70px;
+    height: 40px;
+    font-size: 13px;
+    margin: 10px;
+    padding: 2px;
+  }
+  
+
+  /* Container4 buttons full width */
+  .container4 button {
+    width: 45%;
+    font-size: 10px;
+    height: 45px;
+    
+    
+  }
+
+  /* Container5 buttons */
+  .container5 button {
+    width: 100%;
+    height: 60px;
+  }
+  .container4 button img {
+  max-width: 25px;            /* icon size */
+  height: auto;
+}
+
+  /* Pay Now button */
+  .container1 .nowbtn {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .container1 .nowbtn button {
+    width: 95%;
+    height: 40px;
+    font-size: 13px;
+  }
+  .container3{
+    position: relative;
+  }
+  /* Container3 selects fit screen */
+  .container3 .select select {
+    width: 100%;
+    
+  }
+
+  /* Occupation same size as installment */
+  .container3 .instal1 select {
+    width: 230%;
+    
+  }
+}

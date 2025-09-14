@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="donate.css">
+</head>
+
+
+
+<body>
+    
+    <div class="container1" id="container1">
+        <h4> <button onclick="Ndocument()">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+             </button>
+        </h4>
+        <div class="btn">
+            <button onclick="CreditCard()" id="Credit" class="C">Credit card</button>
+            <button onclick="MonthlyPay()" id="Monthly">Monthly pay</button>
+            <button onclick="crypto()" id="Crypto">Crypto</button>
+            <button onclick="OnlinePay()" id="Online">Online pay</button>
+        </div>
+        <div class="container2" id="container2">
+            <div class="pay">
+                <input type="radio" id="payA" name="Payment1"><label for="payA">KBZ account</label>
+                <h2><img src="kbz.jpg" alt=""></h2>
+
+            </div>
+            <div class="pay">
+                <input type="radio" id="payB" name="Payment1"><label for="payB">AYA account</label>
+                <h2><img src="aya.jpg" alt=""></h2>
+            </div>
+            <div class="pay">
+                <input type="radio" id="payC" name="Payment1"><label for="payC">CB account</label>
+                <h2><img src="cb.jpg" alt=""></h2>
+            </div>
+            <div class="pay">
+                <input type="radio" id="payD" name="Payment1"><label for="payD">YOMA account</label>
+                <h2><img src="yoma.jpg" alt=""></h2>
+            </div>
+            <div class="newpay">
+                
+                <label for="newpay1">
+                    <input type="checkbox" id="newpay1">I have read and agree to the Terms of Policy and Privercy<a href="index.html"> Earthquake & Recovery Website.</a>
+                </label>
+            </div>
+        </div>
+        <div class="container3" id="container3">
+            <div class="select">
+                <div class="instal">
+                    <label for="month">Select the number of installment</label>
+                    <select name="month" id="month">
+                       <option value="4month">4month</option>
+                       <option value="8month">8month</option>
+                       <option value="12month">12month</option>
+                    </select>
+                </div>
+
+
+                <div class="instal1">
+                    <label for="month">Occupation</label>
+                    <select name="passion" id="passion">
+                       <option value="Student">Student</option>
+                       <option value="Employee">Employee</option>
+                       <option value="Farmer">Farmer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table">
+                <table>
+                    <tr>
+                        <td>Bank</td>
+                        <td>MONTHLY PAYMENT</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="A" name="Payment2"><label for="A">KBZ Bank</label></td>
+                        <td>10k/month</td>
+                        <td><a href="#">view details</a></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="B" name="Payment2"><label for="B">AYA Bank</label></td>
+                        <td>10k/month</td>
+                        <td><a href="#">view details</a></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" id="C" name="Payment2"><label for="C">CB account</label></td>
+                        <td>10k/month</td>
+                        <td><a href="#">view details</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="newpay">
+                <input type="checkbox" id="newpay2">
+                <label for="newpay2">I have read and agree to the Terms of Policy and Privercy<a href="index.html"> Earthquake & Recovery Website.</a>
+                </label>
+            </div>
+        </div>
+        
+        <div class="container4" id="container4">
+            <h3>Select payment option</h3>
+            <div class="btnA">
+                <button type="button" onclick="selectCrypto(this)"> <img src="bitcoin.jpg" alt=""> Pay with Bitcoin(BTC)</button> 
+                <button type="button" onclick="selectCrypto(this)"> <img src="ethereum1.jpg" alt=""> Pay with Ethereum(ETH)</button>
+            </div>
+            <div class="btnA">
+                <button type="button" onclick="selectCrypto(this)"> <img src="tether.jpg" alt=""> Pay with Tether(USDT)</button> 
+                <button type="button" onclick="selectCrypto(this)"> <img src="usd.jpg" alt=""> Pay with USD coin(USDC)</button>
+            </div>
+            <div class="btnA">
+                <button type="button" onclick="selectCrypto(this)"> <img src="binance.jpg" alt=""> Pay with Binance coin(BNB)</button> 
+                <button type="button" onclick="selectCrypto(this)"> <img src="ripple.jpg" alt=""> Pay with Ripple(XRP)</button>
+            </div>
+            <div class="btnA">
+                <button type="button" onclick="selectCrypto(this)"> <img src="cardano.jpg" alt=""> Pay with Cardano(ADA)</button> 
+                <button type="button" onclick="selectCrypto(this)"> <img src="binanceusd.jpg" alt=""> Pay with Binance USD(BUSD)</button>
+            </div>
+             <div class="btnA">
+                <button type="button" onclick="selectCrypto(this)"> <img src="solana.jpg" alt=""> Pay with Solana(SOL)</button> 
+                <button type="button" onclick="selectCrypto(this)"> <img src="polkadot.jpg" alt=""> Pay with Polkadot(DOT)</button>
+            </div>
+        </div>
+
+        <div class="container5" id="container5">
+            <div class="btnB">
+                <button onclick="paynow()"><img src="paypal.jpg" alt=""> Pay with Paypal</button>
+            </div>
+            <div class="btnB">
+                <button onclick="paynow()"> <img src="kpay.jpg" alt=""> Pay with K-pay</button>
+            </div>
+            <div class="btnB">
+                <button onclick="paynow()"> <img src="wavepay.jpg" alt=""> Pay with Wave pay</button>
+            </div>
+            <div class="btnB">
+                <button onclick="paynow()"><img src="aya.jpg" alt=""> Pay with AYA pay</button>
+            </div>
+            <div class="btnB">
+                <button onclick="paynow()"><img src="cb.jpg" alt=""> Pay with CB pay</button>
+            </div>
+            
+            
+        </div>
+        <div class="nowbtn">
+            <button id="nowbtn" onclick="paynow()">Pay Now</button>
+        </div>
+    </div>
+
+
+        
+
+<div class="container6" id="container6">
+    <button onclick="Mdocument()">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+             </button>
+    <div class="donate-box">
+      <h2>Donate here</h2>
+      <form action="#" onsubmit="text();return false;">
+        <div class="input-box">
+          <input type="name" id="name" required>
+          <label>Name</label>
+        </div>
+        <div class="input-box">
+          <input type="number" id="number" required>
+          <label>Donation Amount</label>
+        </div>
+        <div class="input-box">
+          <input type="password" id="password" required>
+          <label>Password</label>
+        </div>
+
+        <!-- Side by side buttons -->
+        <div class="input-box buttons">
+          
+          <button class="btn" type="submit">Donate now</button>
+        </div>
+      </form>
+    </div>
+</div>
+<div class="card" id="card">
+    <div class="icon">✅</div>
+    <h2 class="h2"></h2>
+    <div class="amount"></div>
+    <div class="date"></div>
+    <p class="message">
+      Your kindness helps us provide <strong>earthquake emergency kits</strong>  
+      to families in need. Together, we are bringing hope and safety. 💚
+    </p>
+    <a onclick="back()" class="btn">Back to Home</a>
+  </div>
+    <script src="donate.js"></script>
+</body>
+</html>

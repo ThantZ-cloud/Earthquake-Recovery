@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.etmBody {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #1b3d1b;
+    line-height: 1.6;
+}
+
+.etmHeader {
+    color: green;
+    text-align: center;
+    padding: 2rem 1rem;
+} 
+      
+.etmHeader h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
+
+.etmHeader p {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.etmMain {
+    width: 100%;
+    margin: auto;
+    padding: 1rem;
+
+}
+
+.etmCard {
+    background: white;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 10px rgba(0,0,0,0.1); */
+}
+
+.etmCard > h3 , p{
+    color: #000;
+}
+
+
+.etmCard h2 {
+    color: #1b5e20;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #4caf50;
+    padding-bottom: 0.5rem;
+}
+
+.etmSteps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.etmStep {
+    flex: 1 1 250px;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    background: #f9fff9;
+}
+
+.etmStep img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 0.5rem;
+}
+
+.etmStep:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+.newetmCard {
+    background: white;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.newetmCard h2 {
+    color: #1b5e20;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #4caf50;
+    padding-bottom: 0.5rem;
+}
+
+.newetmSteps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.newetmStep {
+    flex: 1 1 250px;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    background: #f9fff9;
+}
+
+.newetmStep img{
+    width: 90px;
+    height: 90px;
+    margin-bottom: 0.5rem;
+}
+
+.etmFooter {
+    text-align: center;
+    padding: 1rem;
+    background: #1b5e20;
+    color: white;
+    font-size: 0.9rem;
+}
+.etmDropStep{
+    text-decoration: none;
+    width:45%;
+}
+@media(max-width:320px){
+    .etmsteps{
+        grid-template-columns: 1fr; 
+    }
+}
