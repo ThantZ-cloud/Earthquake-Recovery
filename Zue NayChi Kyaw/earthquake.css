@@ -1,0 +1,137 @@
+
+  /* Reset and base styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+    
+  body {
+   
+    line-height: 1.6;
+    color: #333;
+  
+    padding: 0;
+    margin: 0;
+  }
+    
+  /* Header styles */
+  header {
+  background: white;
+  color: green;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+    
+  header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+    
+  header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+    
+  /* Container and card layout */
+  .zueContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+    
+  .zueCard {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+    
+  .zueCard:hover {
+    /* transform: translateY(-5px); */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+    
+  .zueCard img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: #e0e6ed; /* Placeholder background if images don't load */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 0.9rem;
+  }
+    
+  /* Add placeholder content for images using pseudo-elements */
+  .zueCard img::after {
+    content: "Image: " attr(alt);
+    display: block;
+    padding: 1rem;
+    text-align: center;
+  }
+    
+  .zueCard-content {
+    padding: 1.5rem;
+  }
+    
+  .zueCard-content h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+    
+  .zueCard-content ul {
+    list-style-type: none;
+  }
+    
+  .zueCard-content li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+    
+  .zueCard-content li:before {
+    content: "•";
+    color: #3498db;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+    
+    
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2rem;
+    }
+      
+    .zueContainer {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+      
+    .zueCard-content {
+      padding: 1rem;
+    }
+  }
+    
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+      
+    header p {
+      font-size: 1rem;
+    }
+      
+    .zueContainer {
+      grid-template-columns: 1fr;
+    }
+  }

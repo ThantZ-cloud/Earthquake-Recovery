@@ -1,0 +1,173 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+/* ===== Base Page Styling ===== */
+ .yuBody {
+       
+        color: #1e4620; /* dark green text */
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ===== Header & Navigation ===== */
+    .yuHeader {
+        /* background: linear-gradient(135deg,#1e7a1e,#4caf50); */
+background: white;
+        color: green;
+        padding: 25px 20px;
+        text-align: center;
+        /* box-shadow: 0 4px 8px rgba(0,0,0,0.15); */
+    }
+    .yuHeader h1 {
+        margin: 0;
+        font-size: 2.2rem;
+        letter-spacing: 1px;
+    }
+
+    .yuNav {
+        display: flex;
+        justify-content: center;
+        color: green;
+        padding: 12px 0;
+        
+    }
+    .yuNav a {
+        color: green;
+        text-decoration: none;
+        margin: 0 18px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .yuNav a:hover {
+        color: #cceccc;
+    }
+
+    /* ===== Main Content ===== */
+    .yuMain {
+        width:100%; 
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .yuBox{
+        display: flex;
+        flex: 1 1 50%;
+        margin-bottom: 50px;
+    }
+    .yuBox1{
+        display: flex;
+        flex: 1 1 50%;
+    }
+
+    .yuSection {
+        
+        border-radius: 12px;
+        /* padding: 22px 26px; */
+        margin-bottom: 24px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        
+    }
+
+   .yuBox > .yuH2 {
+        margin-top: 0;
+        color: #2b5d31;
+        border-left: 6px solid #4caf50;
+        padding-left: 12px;
+    }
+
+    .yuBox1 > .yuH2 {
+        margin-top: 0;
+        color: #2b5d31;
+        border-left: 6px solid #4caf50;
+        padding-left: 12px;
+    }
+
+    .yuBox1 > .image{
+        width: 150px;
+        height: 200px;
+    }
+
+    .yuStrong {
+        color: #256d25;
+        font-weight: 600;
+
+    }
+
+    .yuEm {
+        color: #4caf50;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    .yuUl {
+        padding-left: 25px;
+         margin: 12px 0;
+    }
+    .yuLi {
+        margin-bottom: 8px;
+    }
+
+    /* ===== Grid for “Where Earthquakes Occur” ===== */
+    .yuGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    @media (min-width: 760px) {
+        .yuGrid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .yuChip {
+        display: inline-block;
+        /* background: #e8f7e8; */
+        color: #1f5f1f;
+        border: 1px solid #bfe6c0;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: .85rem;
+        margin: 4px 6px 0 0;
+        white-space: nowrap;
+    }
+
+    .yuCallout {
+        /* background: #eef9ee; */
+        border-left: 5px solid #4caf50;
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin-top: 10px;
+        font-size: .95rem;
+    }
+
+    /* ===== Footer ===== */
+    .yuFooter {
+        text-align: center;
+        padding: 16px;
+        font-size: 0.9rem;
+        background: #3a7a3f;
+        color: white;
+        border-top: 2px solid #b6ddb6;
+        margin-top: 22px;
+    }
+    .yuPlate-boundaries {
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom:20px;
+  padding:20px;
+  border-radius: 12px;
+}
+    .yuGlobal-concentration {
+    /* background: #e0f5e5; */
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 24px;
+    font-size:15px;
+}
+
+
+
+
+

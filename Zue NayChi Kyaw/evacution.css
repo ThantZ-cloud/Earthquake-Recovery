@@ -1,0 +1,177 @@
+
+    /* Reset and base styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        
+    }
+        
+    body {
+        line-height: 1.6;
+        color: #333;
+      
+        padding: 0;
+        margin: 0;
+    }
+        
+    /* Header styles */
+    header {
+       background: white;
+       color: green;
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+        
+    header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+        
+    header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+        
+    /* Container and layout */
+    .zueContainer1 {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem 2rem;
+    }
+        
+    /* Card grid layout */
+    .zueCard1-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+        
+    .side-by-side {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        grid-column: 1 / -1;
+    }
+        
+    .zueCard1 {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+        
+    .zueCard1:hover {
+        /* transform: translateY(-5px); */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+        
+    .zueCard1 img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background-color: #e0e6ed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888;
+        font-size: 0.9rem;
+    }
+        
+    /* Add placeholder content for images using pseudo-elements */
+    .zueCard1 img::after {
+        content: "Image: " attr(alt);
+        display: block;
+        padding: 1rem;
+        text-align: center;
+    }
+        
+    .zueCard1-content {
+        padding: 1.5rem;
+    }
+        
+    .zueCard-content1 h2 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+        
+    .zueCard-content1 p {
+        margin-bottom: 0.5rem;
+    }
+        
+    /* Emergency action section */
+    .emergency-actions {
+        background-color: #fff4f4;
+        border-left: 4px solid #e74c3c;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 4px;
+    }
+        
+    .emergency-actions h2 {
+        color: #e74c3c;
+        margin-bottom: 1rem;
+    }
+        
+    .emergency-actions ul {
+        list-style-position: inside;
+        padding-left: 1rem;
+    }
+        
+    .emergency-actions li {
+        margin-bottom: 0.5rem;
+    }
+    
+        
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 2rem;
+        }
+            
+        .side-by-side {
+            grid-template-columns: 1fr;
+        }
+            
+        .zueCard-content1 {
+            padding: 1rem;
+        }
+    }
+        
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 1.8rem;
+        }
+            
+        header p {
+            font-size: 1rem;
+        }
+            
+        .zueCard1-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+        
+    /* Print styles */
+    @media print {
+        body {
+            background: white;
+            color: black;
+            font-size: 12pt;
+        }
+            
+        .zueCard1 {
+            break-inside: avoid;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+            
+        header {
+            background: white;
+            color: black;
+        }
+    }

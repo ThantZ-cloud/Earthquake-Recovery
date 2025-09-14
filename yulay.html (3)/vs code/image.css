@@ -1,0 +1,78 @@
+/* ===== Row Layout (Image + Text) ===== */
+.yuRow {
+    display: flex;
+    align-items: center;        
+    justify-content: space-between;
+    max-width: 800px;
+     margin-bottom: 40px;
+     margin-right: 30px;
+     flex:3 3 50%;
+                    
+}
+
+.yuRow img {
+    width:150px;               
+    height: 200px;               
+    border-radius: 8px;
+}
+.yuRow .text{
+    max-width:50%;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-left: 15px;
+    margin-top: 4px;
+    margin-right: 15px;
+}
+
+.yuRow p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+}
+.yuRow h2{
+    margin-top:12px;
+    margin-bottom:20px;
+    font-size:20px;
+}
+.yuPlate-img {
+    display: block;         
+    margin: 0 auto;       
+     width:350px;
+    height: auto;
+    margin-top:20px;
+    margin-bottom:20px;            
+}
+
+/* ===== Responsive  ===== */
+@media (max-width: 600px) {
+    .yuRow {
+        flex-direction: column;   
+        align-items: center;
+    }
+
+    .yuRow p {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .yuRow img {
+        width: 80%;              
+    }
+    .yuPlate-img{
+       display: block;         
+    margin: 0 auto;       
+     width:350px;
+    height: auto;
+    margin-top:20px;
+    margin-bottom:20px;     
+    }
+}
+
+
+  .boundary-item {
+    flex-direction: column;     
+    align-items: flex-start;
+  }
+  .small-img { width: 90px; }   
+  .right-gallery { justify-content: flex-start; }
+  .small-map { width: 160px; }

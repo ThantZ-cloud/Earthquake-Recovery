@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        box-sizing: border-box;
+        margin: 0;
+        height: 80vh;
+        text-align: center;
+        padding: 30px;
+        background-color: white;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    h1{
+        color: black;
+    }
+    .container{
+        display: none;
+        box-shadow: 0 0 20px rgb(185, 184, 184);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0 0;
+        background-color: white;
+        max-width: 500px;
+        display: block;
+        position: absolute;
+        
+        
+    }
+    .choices-btn{
+       display: block;
+       margin-top: 10px;
+       width: 100%;
+       
+       font-size: 1em;
+       padding: 10px;
+       border: 0;
+       cursor: pointer;
+       box-shadow: 0 0 8px rgb(158, 157, 157);
+       color:black ;
+       background-color: white;
+    }
+    .choices-btn:hover{
+        background-color:rgb(229, 223, 223);
+    }
+    #nextbtn{
+        margin-top: 20px;
+        display: none;
+        padding: 10px;
+        font-size: 1.2em;
+        border: 0px;
+        border-radius:10px ;
+        background-color: rgb(79, 154, 220);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        
+    }
+    #nextbtn:hover{
+        box-shadow: 0 0 15px rgb(2, 2, 156);
+      transform: translateY(-6px);
+
+        
+    }
+    #nextbtn:active{
+        background-color: rgb(79, 154, 220);
+        color: white;
+    }
+    #stopbtn{
+        margin-top: 20px;
+        margin-left: 100px;
+        display: none;
+        padding: 10px;
+        font-size: 1.2em;
+        border: 0px;
+        border-radius:10px ;
+        background-color: rgb(79, 154, 220);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        
+        
+    }
+    #stopbtn:hover{
+
+        
+        box-shadow: 0 0 15px rgb(2, 2, 156);
+      transform: translateY(-6px);
+    }
+    #stopbtn:active{
+        background-color: rgb(79, 154, 220);
+        color: white;
+    }
+    
+
+    #result{
+        font-size: 1em;
+        font-weight: bold;
+    }
+    #question{
+        font-size: 1.5em;
+        font-weight: bold;
+        color:black;
+    }
+    #result{
+        
+        margin-top: 15px ;
+        font-size: 1.2em;
+    }
+    .certificate{
+       box-sizing: border-box;
+       border: 2px solid green;
+       height: 40em;
+       margin-top: 150px;
+       width: 80em;
+       margin-left: 60px;
+       position: relative;
+       display: block;
+       animation: fadeIn 1s ease;
+       
+
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .certificate .Fline{
+        margin: 5px;
+        padding: 2px;
+        border: 20px solid green;
+        height: 36.5em;
+    }
+    .certificate .Sline{
+        margin: 5px;
+        padding: 2px;
+        border: 3px solid green;
+        height: 35.5em;
+        position: relative;
+
+    }
+    .head h1{
+        font-size: 50px;
+    }
+    h2{
+        font-size: 30px;
+    }
+    .certificate .name{
+        border-bottom: 1px solid black;
+        position: absolute;
+        width: 500px;
+        text-align: center;
+        margin-left: 380px;
+        margin-right: 200px;
+        font-size: 30px;
+
+    }
+    .stamp{
+        position: absolute;
+        bottom:0 ;
+        left: 0;
+    }
+    .stamp img{
+        width: 200px;
+        height: 200px;
+    }
+    .sig{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 190px;
+    }
+    .sig1{
+        position: absolute;
+        right: 70px;
+        bottom:100px;
+        border-bottom: 3px solid green;
+        width: 170px;
+    }
+    .sig1 img{
+        
+        width: 200px;
+        height: 80px;
+    }
+    .sig img{
+        width: 120px;
+        height: 60px;
+    }
+    .bot h1{
+        position: absolute;
+        text-align: center;
+        bottom: 5px;
+        right: 260px;
+    }
+    .container1 {
+        box-sizing: border-box;
+      background: white;
+      padding: 5px;
+      box-shadow: 0 0 10px gray;
+      border-radius: 10px;
+      width: 370px;
+      height: 300px;
+      position: relative;
+     display: none;
+    
+    }
+
+    .donate-box h2 {
+      font-size: px;
+      text-align: center;
+    }
+
+    .donate-box .input-box {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      margin-top: 25px;
+    }
+
+    .input-box input {
+      width: 90%;
+      height: 100%;
+      
+      background: transparent;
+      font-size: 18px;
+      color: black;
+      font-weight: 500;
+      border-bottom: 2px solid black;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      outline: none;
+    }
+
+    .input-box label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: black;
+      transition: 0.3s;
+    }
+
+    .input-box input:focus ~ label,
+    .input-box input:valid ~ label {
+      top: -8px;
+      font-size: 14px;
+      color: rgb(2, 2, 156);
+    }
+
+    .input-box input:focus,
+    .input-box input:valid {
+      border-bottom: 2px solid rgb(2, 2, 156);
+    }
+
+    
+
+    
+
+    /* Button container for side-by-side layout */
+    
+
+    .input-box.buttons .btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      color: white;
+      text-align:center ;
+      left: 30px;
+      right: 50px;
+      background-color: rgb(2, 2, 156);
+      transition: transform 0.3s ease;
+    }
+
+    .input-box.buttons .btn:hover {
+      box-shadow: 0 0 15px rgb(2, 2, 156);
+      transform: translateY(-6px);
+    }
+    .container1 button{
+      position: absolute;
+      right: 0;
+      top: 0;
+      border: 0;
+      background-color: white;
+    }
+    .container1 button:hover{
+      color: white;
+      background-color: red;
+    }
+
+    .input-box.button .btn:active {
+      background-color: white;
+      color: rgb(2, 2, 156);
+    }
+    #certBtn{
+        display:none;
+        position: absolute;
+        bottom: 250px;
+        padding: 20px;
+        font-size: 15px;
+        margin-top: 20px;
+        border: 1px solid rgb(2, 2, 156);
+        background-color: rgb(2, 2, 156);
+        color: white;
+        border-radius:10px ;
+        
+    }
+    
+    
+</style>
+<body>
+     
+    <div class="container" id="container">
+        <h1 id="head">QUIZ TIME!</h1>
+        <div id="question"></div>
+        <div id="choices"></div>
+        <div id="result"></div>
+        <button id="nextbtn" onclick="nextQuestion()">Next</button>
+        <button id="stopbtn" onclick="stop()">Stop</button>
+    </div>
+
+    <button id="certBtn"  onclick="openCertForm()">Get Certificate 🎓</button>
+
+    
+    <div class="container1" id="container1">
+        <button onclick="Mdocument()">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+             </button>
+        <div class="donate-box">
+        <h2>Submit  your name for Certificate</h2>
+        <form action="#" onsubmit="showcert();return false;">
+        <div class="input-box">
+          <input type="text" id="username" required>
+          <label>Name</label>
+        </div>
+        
+        <div class="input-box buttons">
+          <button class="btn" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+    </div>
+
+
+    <div class="certificate" id="certificate" style="display: block;">
+        <div class="Fline">
+            <div class="Sline">
+                <div class="head"><h1>Certificate of Achievement</h1>
+                <h2>This certificate that</h2>
+
+
+                </div><br>
+                <div class="name" id="certname"> </div><br><br>
+                <h2 id="">  has successfully completed the Earthquake &</h2>
+                <h2 id="score"> </h2>
+
+                <div class="stamp">
+                    <img src="stamp.jpg" alt="">
+                </div>
+                <div class="sig">
+                    <img src="logo.jpg" alt="">
+                </div>
+                <div class="sig1">
+                    <img src="sign.png" alt="">
+                </div>
+
+
+                <div class="bot">
+                    <h1>Awarded by Earthquake & Recovery project Team</h1>
+                </div>
+
+            </div>
+        </div>
+    
+
+    
+
+
+  
+    <script>
+        
+        const Qdata = [
+            {
+                question:"  What is the correct action to take when an earthquake starts?"  ,
+                choices:[" Run outside immediately " ," Drop, Cover, and Hold On" , "  Stand near windows","Use the elevator "]  ,
+                answer:1 ,
+            },
+            {
+                question:" Why should you (Drop) during an earthquake? "  ,
+                choices:["To avoid hitting furniture " ," To prevent being knocked over" , "  To crawl outside quickly"," To find your family"]  ,
+                answer:1,
+            },
+            {
+                question:" What should you protect when you (Cover) during an earthquake?"  ,
+                choices:[" Legs and arms" ," Head and neck " , " Furniture and belongings"," Windows and doors"]  ,
+                answer: 1,
+            },
+            {
+                question:" After an earthquake, why should you check for PTSD?"  ,
+                choices:[" To avoid financial loss " ,"To reduce hunger " , " To manage trauma and stress"," To rebuild houses faster"]  ,
+                answer: 2,
+            },
+            {
+                question:" Which of the following should be turned off if damaged after an earthquake?"  ,
+                choices:["Television, phone, and Wi-Fi " ," Gas, water, and electricity" , "Lights and fans only ","  Heater and air-conditioner"]  ,
+                answer: 1,
+            },
+            {
+                question:"  Which is the largest recorded earthquake in history?"  ,
+                choices:["1964 Good Friday Alaska Earthquake (9.2) " ," Indian Ocean Earthquake (9.2–9.3)" , "1960 Valdivia Earthquake (9.5) ","Japan Earthquake (9.0–9.1)"]  ,
+                answer: 2,
+            },
+            {
+                question:"  Which is the largest recorded earthquake in history?"  ,
+                choices:["1964 Good Friday Alaska Earthquake (9.2) " ," Indian Ocean Earthquake (9.2–9.3)" , "1960 Valdivia Earthquake (9.5) ","Japan Earthquake (9.0–9.1)"]  ,
+                answer: 2,
+            },
+            
+            {
+                question:" What was the magnitude range of the Ava Earthquake? "  ,
+                choices:[" 7.3–7.5" ," 7.7–7.9" , " 7.9–8.3","8.8–9.0 "]  ,
+                answer: 2,
+            },
+            {
+                question:"  Which item is NOT recommended in an emergency kit?"  ,
+                choices:["  Water and food (3 days supply)" ,"  First-aid kit, flashlight, batteries" , " Whistle, mask, documents, small cash "," Expensive jewelry and electronics "]  ,
+                answer: 3,
+            },
+            {
+                question:" Why should heavy furniture and appliances be secured at home? "  ,
+                choices:[" To prevent them from falling during an earthquake " ,"To make the house look tidy " , " To create more space "," To reduce insurance costs"]  ,
+                answer: 0,
+            },
+            {
+                question:"  Which method helps families prepare for earthquakes?"  ,
+                choices:[" Watching movies about disasters " ,"  Conducting earthquake drills" , "Building taller houses "," Using elevators daily "]  ,
+                answer:1 ,
+            },
+            {
+                question: "Which immediate support is most important for displaced people after a tsunami?" ,
+                choices:["Entertainment","Emergency shelter","Luxury housing", "Internet"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is the main cause of high casualites in coastal floading?" ,
+                choices:["Heavy rain","Earthquake","Huge wave", "Wind"],
+                answer: 2
+            },
+            {
+                question: "A volcano triggered after a earthquake may release:" ,
+                choices:["Water","Ice","Sand", "Lava"],
+                answer:3
+            },
+            {
+                question: "Short-term recovery includes supplying:" ,
+                choices:["Luxury goods","Food & water","Cars", "Electronics"],
+                answer:1
+            },
+            {
+                question: "Very thin cracks on walls caused by surface stress are called:" ,
+                choices:["Hairline","Moderate","Severe", "Diagonal"],
+                answer:0
+            },
+            
+            {
+                question: "Rebuilding damage housesafter an earthquake is part of:" ,
+                choices:["Rescue","Relief","Reconstruction", "Evacuation"],
+                answer:2
+            },
+            {
+                question: "Common physical injury afterr an earthquake is:" ,
+                choices:["Fever","Headache","Caugh", "Fracture"],
+                answer:3
+            },
+            {
+                question: "A common mental health issue after an earthquake is:" ,
+                choices:["Flu","Cancer","PTSD", "Fever"],
+                answer:2
+            },
+            {
+                question: "Long-term recovery includes rebuilding:" ,
+                choices:["Economy","Luxury house","Trust", "Palace"],
+                answer:0
+            },
+            {
+                question: "Which of the following is included in long-term recovery?" ,
+                choices:["Building earthquake-resistance structure","Playing games","Watching TV", "Collect toys"],
+                answer:0
+            },
+              
+            
+            
+        ]
+    const headEl=document.getElementById("head");
+    const questionEl=document.getElementById("question");
+    const choicesEl=document.getElementById("choices");
+    const resultEl=document.getElementById("result");
+    const nextbtn=document.getElementById("nextbtn");
+    const stopbtn=document.getElementById("stopbtn");
+    const container=document.getElementById("container");
+    const container1=document.getElementById("container1");
+    const certificate=document.getElementById("certificate");
+    container.style.display="block";
+    certificate.style.display="none";
+    
+
+    let current=0;
+    let score=0;
+
+    function loadQuestion(){
+        const q=Qdata[current];
+        questionEl.textContent=q.question;
+        choicesEl.innerHTML="";
+
+        q.choices.forEach((choice,index)=>{
+            const btn=document.createElement("button");
+            btn.classList.add("choices-btn");
+            btn.textContent=choice;
+            choicesEl.append(btn);
+
+            btn.onclick=function(){
+                checkAnswer(index);
+            }
+        });
+    }
+    loadQuestion();
+
+    function checkAnswer(selected){
+        const correct=Qdata[current].answer;
+        const buttons=document.querySelectorAll(".choices-btn");
+
+        buttons.forEach((btn,index)=>{ 
+            btn.disabled = true; 
+            if(index===correct){
+                btn.style.backgroundColor="green";
+            }
+            if(index===selected){
+                if(selected===correct){
+                    resultEl.textContent="Correct ✅";
+                    resultEl.style.color="green";
+                    score++;
+                }else{
+                    resultEl.textContent="Wrong ❌"
+                    btn.style.backgroundColor="red";
+                    resultEl.style.color="red";
+                }
+            }
+        });
+        nextbtn.style.display="inline-block";
+    }
+
+    function nextQuestion() {
+        current++;
+        headEl.textContent="QUIZ TIME!";
+        resultEl.textContent="";
+        nextbtn.style.display="";
+        stopbtn.style.display=""
+        if (current===5){
+            headEl.textContent="Do you want to stop?";
+            questionEl.textContent="We have a plan to give certificate🎓 if your score is over 15🫶";
+            choices.innerHTML="";
+            nextbtn.style.display="inline-block";
+            stopbtn.style.display="inline-block";
+        } else if (current < Qdata.length) {
+            loadQuestion();
+        } else {
+            finishquiz();
+        }
+    }
+
+    function finishquiz(){
+        headEl.textContent="";
+        questionEl.textContent = "🎉 Quiz Finished!";
+        choicesEl.innerHTML = "";
+        resultEl.textContent = `Your Score: ${score} / ${Qdata.length-1}`;
+        resultEl.style.color="green";
+        nextbtn.style.display = "none";
+        stopbtn.style.display="none";
+
+        
+        if(score >= 15){
+            document.getElementById("certBtn").style.display = "inline-block";
+        }
+    }
+
+    function Finished(){
+        headEl.textContent="";
+        questionEl.textContent = "🎉 Quiz Finished!";
+        choicesEl.innerHTML = "";
+        resultEl.textContent = `Your Score: ${score} / 5`;
+        resultEl.style.color="green";
+        nextbtn.style.display = "none";
+        stopbtn.style.display="none";
+    }
+
+    function stop(){
+        Finished();
+    }
+
+    // Open the name input form
+    function openCertForm(){
+        container1.style.display = "block";
+        container.style.display = "none";
+        certificate.style.display = "none";
+        document.getElementById("certBtn").style.display="none";
+
+        
+
+        
+    }
+
+    // Close the name input form
+    function Mdocument(){
+        container.style.display = "block";
+        container1.style.display="none";
+        document.getElementById("certBtn").style.display="block";
+    }
+
+    
+    function showcert(){
+
+        certificate.style.display = "block";
+        document.getElementById("certBtn").style.display="none";
+        container1.style.display="none";
+        container.style.display="none";
+    
+
+
+        let username = document.getElementById("username").value;
+        document.getElementById("certname").textContent = username;
+
+        document.getElementById("score").textContent = ` Recovery Quiz with a score of ${score}/${Qdata.length-1}.`  ;
+        
+    }
+    
+
+    </script>
+    
+</body>
+</html>     

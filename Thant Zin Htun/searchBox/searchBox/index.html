@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test for autocomplete</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- google fornt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="inputWrapper">
+          <input disabled class="autoCompleteInput form-control" placeholder="Search for emergency currently available for Myanmar">
+          <span class="search-icon">
+            <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="#38bdf8" stroke-width="2"/>
+              <line x1="16" y1="16" x2="21" y2="21" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="resultContainer"></div>
+      
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
