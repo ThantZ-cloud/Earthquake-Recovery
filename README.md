@@ -5,6 +5,8 @@ Real-time earthquake tracking and educational platform built with React, MUI, an
 ## ✨ Features
 
 - **🗺️ Live Earthquake Map** — Real-time data from USGS with tectonic plate overlays and color-coded magnitude markers
+- **🔍 Website Search** — Search across all pages and topics (safety tips, historical quakes, recovery resources, etc.)
+- **📞 Emergency Phone Numbers** — City-based emergency contact directory for 13 Myanmar cities
 - **🛡️ Safety Guide** — Drop, Cover, Hold On — essential steps explained visually
 - **📚 Earthquake Knowledge** — Magnitude scales, seismic zones, plate tectonics
 - **🏥 Recovery Resources** — Short-term, mid-term, and long-term recovery guidance
@@ -38,12 +40,18 @@ The Vite dev server proxies `/api/*` requests to the Express backend automatical
 ├── .claude/               # Claude skills & agents
 │   ├── skills/
 │   └── agents/
+├── CLAUDE.md              # Claude Code guidance
 └── src/
     ├── components/        # Shared React components
     │   ├── Layout.jsx
     │   ├── Navbar.jsx
     │   ├── Footer.jsx
-    │   └── EarthquakeMap.jsx
+    │   ├── EarthquakeMap.jsx
+    │   ├── SiteSearch.jsx         # Website content search
+    │   └── EmergencyPhones.jsx   # Emergency number lookup
+    ├── data/              # Static data
+    │   ├── siteSearchData.js     # Search index
+    │   └── emergencyPhones.js    # Phone numbers by city
     └── pages/             # Route pages
         ├── Home.jsx       # Live map + alert signup
         ├── About.jsx      # Meet the team

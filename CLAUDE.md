@@ -19,17 +19,22 @@ npm run preview          # Preview production build
 ## Architecture
 
 ```
-Frontend (React + Vite)           Backend (Express :3001)
-src/                              server.js
-├── components/                   ├── POST /api/subscribe
-│   ├── Layout.jsx               ├── POST /api/contact
-│   ├── Navbar.jsx               ├── GET  /api/recent (USGS proxy)
-│   ├── Footer.jsx               └── GET  /api/health
-│   └── EarthquakeMap.jsx
-└── pages/                        data/  (JSON file storage)
-    ├── Home.jsx                  .mcp.json  (Context7 MCP)
-    ├── About.jsx                 .claude/skills/
-    ├── Recovery.jsx              .claude/agents/
+Frontend (React + Vite)              Backend (Express :3001)
+src/                                 server.js
+├── components/                      ├── POST /api/subscribe
+│   ├── Layout.jsx                  ├── POST /api/contact
+│   ├── Navbar.jsx                  ├── GET  /api/recent (USGS proxy)
+│   ├── Footer.jsx                  └── GET  /api/health
+│   ├── EarthquakeMap.jsx
+│   ├── SiteSearch.jsx              data/  (JSON file storage)
+│   └── EmergencyPhones.jsx         .mcp.json  (Context7 MCP)
+├── data/                           .claude/skills/
+│   ├── siteSearchData.js           .claude/agents/
+│   └── emergencyPhones.js
+└── pages/
+    ├── Home.jsx
+    ├── About.jsx
+    ├── Recovery.jsx
     ├── Donate.jsx
     ├── Quiz.jsx
     └── History.jsx
@@ -53,6 +58,14 @@ Vite proxies `/api/*` to Express during dev. In production, frontend deploys to 
 
 See `.claude/skills/earthquake-api.md` for the full USGS API reference.
 
+## Navbar features
+
+### 🔍 SiteSearch (`src/components/SiteSearch.jsx`)
+Search box in the navbar that indexes all website content. Users can search for topics like "drop cover", "Bago", "tsunami", "recovery", "quiz". Results show matching pages with section tags — click to navigate. Data lives in `src/data/siteSearchData.js`.
+
+### 📞 EmergencyPhones (`src/components/EmergencyPhones.jsx`)
+Red phone icon button in the navbar. Opens a dialog with a city dropdown (13 Myanmar cities). Select a city to see emergency numbers (fire, ambulance, police, hospital, Red Cross). Data lives in `src/data/emergencyPhones.js`.
+
 ## Theme
 
 MUI theme supports dark/light mode toggle. `src/theme.js` defines the palette, typography (Poppins font), and component overrides. Cards have hover lift + shadow transitions.
@@ -60,7 +73,7 @@ MUI theme supports dark/light mode toggle. `src/theme.js` defines the palette, t
 ## Style conventions
 
 - Components are functional with hooks
-- Pages are in `src/pages/`, shared components in `src/components/`
+- Pages are in `src/pages/`, shared components in `src/components/`, data in `src/data/`
 - framer-motion `motion.div` with variants for staggered animations
 - Use MUI `sx` prop for styling (no separate CSS files for components)
 - Responsive: `{ xs: ..., md: ... }` breakpoints in sx props
