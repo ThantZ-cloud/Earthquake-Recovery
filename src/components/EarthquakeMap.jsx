@@ -43,7 +43,7 @@ export default function EarthquakeMap({ height = '70vh' }) {
       try {
         // Fetch both USGS quakes and tectonic plates in parallel
         const [quakeRes, plateRes] = await Promise.all([
-          fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson'),
+          fetch(' https://www.seismicportal.eu/fdsnws/event/1/query?format=json&minmag=2&limit=100'),
           fetch('https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'),
         ]);
 

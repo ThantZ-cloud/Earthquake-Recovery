@@ -24,7 +24,7 @@ const TABS = [
       {
         title: 'Search & Rescue',
         desc: 'Immediate search and rescue operations to save lives trapped under debris. First 72 hours are critical.',
-        img: 'https://images.unsplash.com/photo-1584531979252-6b9c8e7f45da?w=600&h=400&fit=crop',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjWe42TZo0T_waPRJSrxuIW0bKKJNEsP23u_VzC7uZhg&s=10',
       },
       {
         title: 'Emergency Medical Aid',
