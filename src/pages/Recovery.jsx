@@ -76,7 +76,7 @@ const TABS = [
       {
         title: 'Community Preparedness',
         desc: 'Establishing early warning systems, evacuation plans, and regular safety drills for the future.',
-        img: 'https://images.unsplash.com/photo-1576662715157-33f45fd8e6b6?w=600&h=400&fit=crop',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbNqTdaVMq9p5MY7Os740euFYE-c0YrTf4Onwk-O2Q8Q&s=10',
       },
     ],
   },
