@@ -7,73 +7,52 @@ import {
   Card,
   CardContent,
   Grid,
-  TextField,
-  MenuItem,
-  Snackbar,
-  Alert,
-  Chip,
 } from '@mui/material';
 import ShieldIcon from '@mui/icons-material/Shield';
 import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
+import LoginIcon from '@mui/icons-material/Login';
 import EarthquakeMap from '../components/EarthquakeMap';
-import axios from 'axios';
-
-const REGIONS = [
-  'All regions',
-  'North America',
-  'South America',
-  'Europe',
-  'Asia',
-  'Oceania',
-  'Africa',
-  'Middle East',
-];
+import LocationAlerts from '../components/LocationAlerts';
+import AuthDialog from '../components/AuthDialog';
+import { useAuth } from '../context/AuthContext';
 
 const SAFETY_TIPS = [
   {
     title: 'Drop',
-    description:
-      'Get low on your hands and knees to prevent being knocked over by the shaking.',
+    description: 'Get low on your hands and knees to prevent being knocked over by the shaking.',
     icon: <ArrowDownwardIcon fontSize="large" />,
     color: '#d32f2f',
   },
   {
     title: 'Cover',
-    description:
-      'Take shelter under sturdy furniture and protect your head and neck with your arms.',
+    description: 'Take shelter under sturdy furniture and protect your head and neck with your arms.',
     icon: <ShieldIcon fontSize="large" />,
     color: '#ed6c02',
   },
   {
     title: 'Hold On',
-    description:
-      'Hold on to your shelter until the shaking stops. Be prepared for aftershocks.',
+    description: 'Hold on to your shelter until the shaking stops. Be prepared for aftershocks.',
     icon: <SafetyCheckIcon fontSize="large" />,
     color: '#2e7d32',
   },
 ];
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [region, setRegion] = useState('All regions');
-  const [submitting, setSubmitting] = useState(false);
-  const [snackbar, setSnackbar] = useState({ open: false, severity: 'success', message: '' });
+  const { user } = useAuth();
+  const [alertsEnabled, setAlertsEnabled] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [locationRequested, setLocationRequested] = useState(false);
 
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubmitting(true);
-    try {
-      await axios.post('/api/subscribe', { email, region });
-      setSnackbar({ open: true, severity: 'success', message: 'Subscribed! You will receive earthquake alerts.' });
-      setEmail('');
-    } catch (err) {
-      const msg = err.response?.data?.message || err.response?.data?.error || 'Something went wrong.';
-      setSnackbar({ open: true, severity: err.response?.status === 409 ? 'info' : 'error', message: msg });
-    } finally {
-      setSubmitting(false);
+  const handleEnableAlerts = () => {
+    if (!user) {
+      // Not logged in — open auth dialog
+      setAuthOpen(true);
+    } else {
+      // Logged in — request location
+      setLocationRequested(true);
+      setAlertsEnabled(true);
     }
   };
 
@@ -90,7 +69,6 @@ export default function Home() {
           overflow: 'hidden',
         }}
       >
-        {/* Animated background circles */}
         <Box
           sx={{
             position: 'absolute',
@@ -151,16 +129,10 @@ export default function Home() {
           <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
             🌍 Live Earthquake Map
           </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            textAlign="center"
-            mb={4}
-          >
-            Each circle represents an earthquake in the past hour. Color shows magnitude.
+          <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
+            Each circle represents a recent earthquake. Color shows magnitude.
           </Typography>
           <EarthquakeMap height="65vh" />
-          {/* Legend */}
           <Box
             sx={{
               display: 'flex',
@@ -177,14 +149,7 @@ export default function Home() {
               { color: '#d32f2f', label: 'M 6+ - Strong' },
             ].map((item) => (
               <Box key={item.label} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Box
-                  sx={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: '50%',
-                    bgcolor: item.color,
-                  }}
-                />
+                <Box sx={{ width: 16, height: 16, borderRadius: '50%', bgcolor: item.color }} />
                 <Typography variant="caption">{item.label}</Typography>
               </Box>
             ))}
@@ -198,26 +163,13 @@ export default function Home() {
           <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
             🛡️ During an Earthquake
           </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            textAlign="center"
-            mb={5}
-          >
+          <Typography variant="body1" color="text.secondary" textAlign="center" mb={5}>
             Remember the three simple steps that could save your life.
           </Typography>
           <Grid container spacing={4}>
             {SAFETY_TIPS.map((tip) => (
               <Grid item xs={12} md={4} key={tip.title}>
-                <Card
-                  elevation={0}
-                  sx={{
-                    textAlign: 'center',
-                    py: 4,
-                    border: '2px solid',
-                    borderColor: 'divider',
-                  }}
-                >
+                <Card elevation={0} sx={{ textAlign: 'center', py: 4, border: '2px solid', borderColor: 'divider' }}>
                   <Box
                     sx={{
                       width: 72,
@@ -247,98 +199,69 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Alert Signup */}
-      <Box
-        sx={{
-          py: 8,
-          background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)',
-          color: '#fff',
-        }}
-      >
+      {/* Location-based Earthquake Alerts */}
+      <Box sx={{ py: 8, background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)', color: '#fff' }}>
         <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
-          <NotificationsActiveIcon sx={{ fontSize: 48, mb: 2 }} />
+          <MyLocationIcon sx={{ fontSize: 48, mb: 2 }} />
           <Typography variant="h4" fontWeight={700} gutterBottom>
-            Get Earthquake Alerts
+            Location-Based Earthquake Alerts
           </Typography>
           <Typography variant="body1" sx={{ mb: 4, opacity: 0.9 }}>
-            Sign up to receive notifications about significant earthquakes in your region.
+            {user
+              ? 'Enable location access and we\'ll alert you if an earthquake happens near you.'
+              : 'Login to enable location-based alerts. We\'ll monitor quakes near you in real time.'}
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubscribe}
-            sx={{
-              display: 'flex',
-              gap: 2,
-              flexDirection: { xs: 'column', sm: 'row' },
-            }}
-          >
-            <TextField
-              type="email"
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              size="medium"
-              sx={{
-                flex: 1,
-                '& .MuiOutlinedInput-root': {
-                  bgcolor: '#fff',
-                  borderRadius: 2,
-                },
-              }}
-            />
-            <TextField
-              select
-              value={region}
-              onChange={(e) => setRegion(e.target.value)}
-              size="medium"
-              sx={{
-                minWidth: 160,
-                '& .MuiOutlinedInput-root': {
-                  bgcolor: '#fff',
-                  borderRadius: 2,
-                },
-              }}
-            >
-              {REGIONS.map((r) => (
-                <MenuItem key={r} value={r}>
-                  {r}
-                </MenuItem>
-              ))}
-            </TextField>
+
+          {!user ? (
+            // Not logged in
             <Button
-              type="submit"
               variant="contained"
-              disabled={submitting}
+              size="large"
+              startIcon={<LoginIcon />}
+              onClick={() => setAuthOpen(true)}
               sx={{
                 bgcolor: '#fff',
                 color: '#d32f2f',
                 fontWeight: 700,
-                px: 4,
+                px: 5,
+                py: 1.5,
                 '&:hover': { bgcolor: '#ffe0e0' },
               }}
             >
-              {submitting ? 'Subscribing...' : 'Subscribe'}
+              Login to Enable Alerts
             </Button>
-          </Box>
+          ) : !alertsEnabled ? (
+            // Logged in but hasn't enabled yet
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<MyLocationIcon />}
+              onClick={handleEnableAlerts}
+              sx={{
+                bgcolor: '#fff',
+                color: '#d32f2f',
+                fontWeight: 700,
+                px: 5,
+                py: 1.5,
+                '&:hover': { bgcolor: '#ffe0e0' },
+              }}
+            >
+              Allow Location Access
+            </Button>
+          ) : (
+            // Alerts active
+            <Box>
+              <Typography variant="body2" sx={{ mb: 2, opacity: 0.85 }}>
+                You'll be notified if an earthquake occurs within 50 km of your location.
+              </Typography>
+              <LocationAlerts enabled={alertsEnabled} />
+            </Box>
+          )}
         </Container>
       </Box>
 
-      {/* Snackbar */}
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={5000}
-        onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert
-          severity={snackbar.severity}
-          onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
-          variant="filled"
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+      {/* Auth dialog */}
+      <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} initialTab={0} />
     </Box>
   );
 }

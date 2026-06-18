@@ -86,8 +86,8 @@ Rewrite the existing static HTML/CSS/JS earthquake site as a modern React + MUI 
 - Wallet address dialog with copy button
 
 ### Quiz (`/quiz`)
-- MUI Stepper for 6 questions
-- RadioGroup answer selection
+- MUI Stepper for 12 questions (scrolls 5 visible at a time)
+- RadioGroup answer selection with category labels
 - Progress bar
 - Score reveal with animated celebration
 
@@ -115,12 +115,30 @@ Rewrite the existing static HTML/CSS/JS earthquake site as a modern React + MUI 
 
 ---
 
-## Phase 5: Claude Code Integration ✅
+## Phase 5: Auth + Location Alerts ✅
 
-- `.mcp.json` — Context7 MCP for live docs
-- `.claude/skills/earthquake-api.md` — USGS data skill
-- `.claude/agents/earthquake-reviewer.md` — Code review agent
-- `CLAUDE.md` — Claude Code project guidance
+### Auth system
+- `bcryptjs` + `jsonwebtoken` for password hashing and JWT
+- `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
+- `AuthContext` wraps app — provides `user`, `token`, `login()`, `register()`, `logout()`
+- `AuthDialog` — MUI Dialog with Login/Register tabs
+- Navbar shows Login/Register when logged out, user chip + Logout when logged in
+- Mobile drawer includes auth section
+
+### Location-based Earthquake Alerts
+- Replaces email subscribe form
+- User must login first, then grant geolocation
+- Polls EMSC data every 30s, checks distance with Haversine formula
+- Alerts if quake within 50km of user
+
+## Phase 6: Data Source Change ✅
+- Switched from USGS to EMSC API for better Asia region coverage
+- Backend proxy at `/api/recent` caches EMSC data
+
+## Phase 7: Quiz Expansion ✅
+- Expanded from 6 to 12 questions
+- Stepper scrolls 5 visible at a time
+- Added category labels (Safety, Science, Geography)
 
 ---
 
@@ -134,16 +152,18 @@ Rewrite the existing static HTML/CSS/JS earthquake site as a modern React + MUI 
 ## Work Done
 
 1. ✅ Scaffold Vite + MUI + Router + backend
-2. ✅ Express server (4 endpoints)
+2. ✅ Express server (7 endpoints)
 3. ✅ Layout: Navbar + Footer + theme
-4. ✅ Home page: Hero + Map + Form + Safety cards
+4. ✅ Home page: Hero + Map + Location alerts
 5. ✅ About Us: Modern team profiles
 6. ✅ Recovery page: Tabbed resource cards
 7. ✅ Donate page: Payment options grid
-8. ✅ Quiz page: Interactive MUI quiz
+8. ✅ Quiz page: 12-question interactive quiz
 9. ✅ History page: Timeline + filter
-10. ✅ Frontend forms wired to backend
-11. ✅ .mcp.json, skill, agent, CLAUDE.md
-12. ✅ Website search + emergency phones in navbar
-13. ⬜ Deploy frontend + backend
-14. ⬜ Marp slides + report
+10. ✅ Website search + emergency phones in navbar
+11. ✅ .mcp.json, skill, agent, CLAUDE.md, plan.md
+12. ✅ Auth: Register, Login, Logout with JWT
+13. ✅ Location-based quake alerts (50km radius)
+14. ✅ EMSC data source for better Asia coverage
+15. ⬜ Deploy frontend + backend
+16. ⬜ Marp slides + report

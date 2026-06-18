@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import axios from 'axios';
 
 const DEFAULT_CENTER = [20, 0];
 const DEFAULT_ZOOM = 2;
@@ -14,7 +15,7 @@ function magColor(mag) {
   return '#2e7d32';
 }
 
-// Create SVG divIcon for each quake
+// SVG divIcon for each quake
 function quakeIcon(mag) {
   const fill = magColor(mag);
   const size = Math.max(24, Math.min(48, mag * 8));
@@ -41,28 +42,29 @@ export default function EarthquakeMap({ height = '70vh' }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch both USGS quakes and tectonic plates in parallel
+        // Fetch EMSC quakes via backend proxy + tectonic plates
         const [quakeRes, plateRes] = await Promise.all([
-          fetch(' https://www.seismicportal.eu/fdsnws/event/1/query?format=json&minmag=2&limit=100'),
+          axios.get('/api/recent'),
           fetch('https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'),
         ]);
 
-        if (!quakeRes.ok) throw new Error('Failed to load earthquake data');
-        const quakeData = await quakeRes.json();
+        // EMSC FDSN event format: { type: "FeatureCollection", features: [...] }
+        const quakeData = quakeRes.data?.data;
+        const features = quakeData?.features || [];
 
-        const parsed = (quakeData.features || [])
+        const parsed = features
           .map((f) => {
             const [lon, lat, depth] = f.geometry?.coordinates || [];
             const mag = f.properties?.mag;
             if (!lon || !lat || mag == null) return null;
             return {
-              id: f.id,
+              id: f.properties?.event_id || f.properties?.source_id || Math.random(),
               lat,
               lon,
-              depth: depth?.toFixed(1),
+              depth: depth?.toFixed(1) || '?',
               mag,
-              place: f.properties.place,
-              time: new Date(f.properties.time).toLocaleString(),
+              place: f.properties?.flynn_region || f.properties?.place || 'Unknown',
+              time: new Date(f.properties?.time).toLocaleString(),
             };
           })
           .filter(Boolean);
@@ -85,16 +87,7 @@ export default function EarthquakeMap({ height = '70vh' }) {
 
   if (loading) {
     return (
-      <Box
-        sx={{
-          height,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          bgcolor: 'grey.100',
-          borderRadius: 4,
-        }}
-      >
+      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'grey.100', borderRadius: 4 }}>
         <CircularProgress size={48} />
       </Box>
     );
@@ -102,18 +95,7 @@ export default function EarthquakeMap({ height = '70vh' }) {
 
   if (error) {
     return (
-      <Box
-        sx={{
-          height,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          bgcolor: 'grey.100',
-          borderRadius: 4,
-          flexDirection: 'column',
-          gap: 1,
-        }}
-      >
+      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'grey.100', borderRadius: 4, flexDirection: 'column', gap: 1 }}>
         <Typography color="error" fontWeight={600}>
           Unable to load earthquake data
         </Typography>
@@ -125,15 +107,7 @@ export default function EarthquakeMap({ height = '70vh' }) {
   }
 
   return (
-    <Box
-      sx={{
-        height,
-        width: '100%',
-        borderRadius: 4,
-        overflow: 'hidden',
-        boxShadow: 4,
-      }}
-    >
+    <Box sx={{ height, width: '100%', borderRadius: 4, overflow: 'hidden', boxShadow: 4 }}>
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
@@ -141,7 +115,6 @@ export default function EarthquakeMap({ height = '70vh' }) {
         zoomControl={true}
       >
         <LayersControl position="topright" collapsed={false}>
-          {/* Base layers */}
           <LayersControl.BaseLayer checked name="Street">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -166,38 +139,23 @@ export default function EarthquakeMap({ height = '70vh' }) {
             />
           </LayersControl.BaseLayer>
 
-          {/* Tectonic plates overlay */}
           {plates && (
             <LayersControl.Overlay checked name="Tectonic Plates">
-              <GeoJSON
-                data={plates}
-                style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }}
-              />
+              <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
             </LayersControl.Overlay>
           )}
         </LayersControl>
 
-        {/* Earthquake markers */}
         {quakes.map((q) => (
-          <Marker
-            key={q.id}
-            position={[q.lat, q.lon]}
-            icon={quakeIcon(q.mag)}
-          >
+          <Marker key={q.id} position={[q.lat, q.lon]} icon={quakeIcon(q.mag)}>
             <Popup>
               <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
                 <Typography variant="subtitle2" fontWeight={700}>
                   {q.place}
                 </Typography>
-                <Typography variant="body2">
-                  <strong>Magnitude:</strong> {q.mag}
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Depth:</strong> {q.depth} km
-                </Typography>
-                <Typography variant="body2">
-                  <strong>Time:</strong> {q.time}
-                </Typography>
+                <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
+                <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
+                <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
               </Box>
             </Popup>
           </Marker>

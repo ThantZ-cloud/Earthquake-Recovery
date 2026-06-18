@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import getTheme from './theme';
+import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -19,16 +20,18 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout mode={mode} toggleTheme={toggleTheme}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/recovery" element={<Recovery />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/history" element={<History />} />
-        </Routes>
-      </Layout>
+      <AuthProvider>
+        <Layout mode={mode} toggleTheme={toggleTheme}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/recovery" element={<Recovery />} />
+            <Route path="/donate" element={<Donate />} />
+            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/history" element={<History />} />
+          </Routes>
+        </Layout>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
