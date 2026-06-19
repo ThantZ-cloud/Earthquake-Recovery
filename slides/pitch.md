@@ -9,165 +9,53 @@ style: |
   section { font-family: 'Segoe UI', sans-serif; }
   h1 { color: #d32f2f; }
   h2 { color: #e65100; }
+transition: fade
+auto-advance: 20
 ---
 
-<!-- _class: lead -->
-# 🌍 Earthquake & Recovery
-## React + MUI · Express · Leaflet · Live Data
+# Who's my person?
 
-**Thant Zin Htun** · 1 MCP · 1 Skill · 1 Agent
-
----
-
-# 🏗️ What I Built
-
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-<div>
-
-**Frontend — React 19 + MUI v7**
-- 🗺️ **Live earthquake map** (Leaflet)
-- 🔐 **JWT auth** + location alerts
-- 📱 6 pages, dark/light mode
-- 🎬 framer-motion animations
-
-**Backend — Express**
-- 8 API endpoints
-- EMSC data proxy (Asia coverage)
-- bcrypt + JWT security
-
-</div>
-<div>
-
-**AI Tools**
-- 🔌 **MCP** — Context7 (live docs)
-- 🛠️ **Skill** — Earthquake API ref
-- 🤖 **Agent** — Code reviewer
-
-```
-src/components/  →  6 pages
-src/data/        →  search + phones
-server.js        →  8 endpoints
-.claude/         →  MCP, skill, agent
-```
-
-</div>
-</div>
+* **Target Audience**: Citizens and emergency responders in active seismic zones (specifically Myanmar/Asia).
+* **The User**: Someone who needs real-time, reliable earthquake data without wading through complex scientific feeds.
+* **The Presenter**: Thant Zin Htun · Utilizing 1 MCP, 1 Custom Skill, and 1 Autonomous Agent to deliver a rapid full-stack solution.
 
 ---
 
-# 🗺️ Key Features
+# Their problem
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-<div>
-
-### Live Earthquake Map
-- EMSC data every 30s
-- Color-coded by magnitude
-- Tectonic plate overlays
-- Click markers for details
-
-</div>
-<div>
-
-### Auth + Location Alerts
-- Register / Login with JWT
-- Browser geolocation
-- Haversine distance formula
-- Alert if quake < 50km away
-
-</div>
-<div>
-
-### 12-Question Quiz
-- MUI Stepper (5 visible)
-- 3 categories
-- Animated score reveal
-
-</div>
-<div>
-
-### Emergency Phones
-- 13 Myanmar cities
-- 20+ contacts each
-- Fire, ambulance, hospital
-
-</div>
-</div>
+* **Information Fragmentation**: Critical data (live maps, safety education, emergency hotlines) is scattered across old websites or static PDFs.
+* **Proximity Blindness**: Users don't know if a registered seismic event is close enough to be an immediate danger to their specific coordinates.
+* **Development Friction**: Building these tools manually takes too long when configuring complex maps, strict JWT auth, and live proxy APIs.
 
 ---
 
-# 🔌 MCP · Skill · Agent
+# What I built
 
-| Tool | What | How It Helps |
-|------|------|-------------|
-| **MCP** (Context7) | Live documentation | No guessing API signatures — queried MUI v7, react-leaflet v5, Express |
-| **Skill** (API ref) | USGS/EMSC feed guide | Claude knows all endpoints, color scheme, proxy strategy |
-| **Agent** (Reviewer) | Auto code review | Checks leaflet patterns, MUI a11y, error handling, state mgmt |
-
-```
-User: "Add a 7-day quake feed to the map"
-Claude + Skill → knows URL pattern, reads EarthquakeMap pattern, adds it correctly
-Claude + MCP → queries react-leaflet docs for current GeoJSON API
-Claude + Agent → reviewed before commit for stable keys + cleanup
-```
+* **Live Earthquake Map**: EMSC data proxy updating every 30s with color-coded magnitudes and tectonic plate overlays using React-Leaflet.
+* **Auth & Proximity Alerts**: JWT security paired with browser geolocation using the Haversine formula to trigger alerts if a quake hits within 50km.
+* **Safety & Readiness Tools**: A 12-question interactive MUI Stepper quiz and localized emergency directories for 13 Myanmar cities covering 20+ contacts each.
 
 ---
 
-# 📊 By The Numbers
+# How I built it
 
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;text-align:center;">
-<div>
-<h1 style="color:#d32f2f;">6</h1>
-<b>Pages</b><br>
-<small>Home · About · Recovery · Donate · Quiz · History</small>
-</div>
-<div>
-<h1 style="color:#d32f2f;">8</h1>
-<b>API Endpoints</b><br>
-<small>Auth · Subscribe · Contact · Proxy · Health</small>
-</div>
-<div>
-<h1 style="color:#d32f2f;">3</h1>
-<b>AI Tools</b><br>
-<small>MCP · Skill · Agent</small>
-</div>
-<div>
-<h1 style="color:#d32f2f;">12</h1>
-<b>Quiz Questions</b><br>
-<small>Safety · Science · Geography</small>
-</div>
-<div>
-<h1 style="color:#d32f2f;">13</h1>
-<b>Cities Covered</b><br>
-<small>Emergency contacts</small>
-</div>
-<div>
-<h1 style="color:#d32f2f;">15+</h1>
-<b>Commits</b><br>
-<small>7 development phases</small>
-</div>
-</div>
+* **MCP (Context7)**: Pulled live documentation for React 19, MUI v7, and react-leaflet v5 so there was zero guessing on API signatures.
+* **Skill (API ref)**: Injected USGS/EMSC feed specifications directly into Claude's context to map out correct URL patterns and data schemas instantly.
+* **Agent (Reviewer)**: Ran an autonomous code review loop before commits to enforce clean state management, error handling, and robust accessibility standards.
 
 ---
 
-<!-- _class: lead -->
-# 🚀 Try It Yourself
+# Why it matters
 
-```bash
-git clone https://github.com/ThantZ-cloud/Earthquake-Recovery.git
-cd earthquake-recovery
-npm install
-npm run dev          # Frontend :5173
-npm run server:dev   # Backend :3001
-```
+* **6 Pages / 8 Endpoints**: A comprehensive, production-ready frontend (Home, About, Quiz, etc.) backed by a secured Express server.
+* **Data in Numbers**: Tracks critical info across **13 cities** and drives interactive education via a **12-question** safety quiz.
+* **AI-Accelerated**: Completed across **15+ modular commits** and 7 development phases using integrated developer tools.
 
-```
-📁 earthquake-recovery/
-├── .mcp.json          ← MCP: Context7
-├── .claude/skills/    ← Skill: Earthquake API
-├── .claude/agents/    ← Agent: Code Reviewer
-├── slides/pitch.md    ← This presentation (6 slides)
-└── report.md          ← Full project report
-```
+---
 
-## Questions? 🙏
+# Done checklist
+
+- [x] Repository public and open for review
+- [x] Full AI Toolbelt integration verified (MCP + custom skill + autonomous reviewer agent utilized)
+- [x] Comprehensive `report.md` finalized and committed to the team repository
+- [x] Live development build validated on `:5173` (Frontend) and `:3001` (Backend)
