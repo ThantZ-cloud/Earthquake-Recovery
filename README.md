@@ -149,4 +149,5 @@ See the [About page](https://thantz-cloud.github.io/Earthquake-Recovery/about) f
 - Icons: [MUI Icons](https://mui.com/material-ui/icons/)
 
 
-<img width="2736" height="1824" alt="image" src="https://github.com/user-attachments/assets/084824a1-217f-4757-ac5e-d00891cc4094" />
+<img width="2674" height="1556" alt="Screenshot (22)" src="https://github.com/user-attachments/assets/8047b65b-f5f3-4505-863d-903f6b7ef504" />
+
