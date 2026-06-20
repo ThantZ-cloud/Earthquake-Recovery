@@ -41,54 +41,67 @@ What started as a classroom exercise is now a fully functional web application t
 ## 🚀 Quick Start
 
 ```bash
-# Install dependencies
-npm install
+# Install all dependencies (both frontend + backend)
+npm run install:all
 
 # Start frontend dev server (port 5173)
-npm run dev
+npm run dev:app
 
 # Start backend server in another terminal (port 3001)
-npm run server:dev
+npm run dev:api
 ```
 
 The Vite dev server proxies `/api/*` requests to the Express backend automatically.
+
+You can also run commands directly from each folder:
+
+```bash
+cd app && npm run dev    # Frontend only
+cd api && npm run dev    # Backend only
+```
 
 ---
 
 ## 📁 Project Structure
 
 ```
-├── server.js              # Express API backend
-├── middleware/             # Auth JWT middleware
-├── data/                  # JSON file storage (users, subscribers, messages)
+├── app/                           # Frontend (React + Vite)
+│   ├── index.html                 # Vite entry point
+│   ├── vite.config.js             # Vite config + API proxy
+│   ├── public/assets/             # Images (team, donate, logo)
+│   └── src/
+│       ├── components/            # Shared React components
+│       │   ├── Layout.jsx
+│       │   ├── Navbar.jsx
+│       │   ├── Footer.jsx
+│       │   ├── EarthquakeMap.jsx
+│       │   ├── SiteSearch.jsx     # Website content search
+│       │   ├── EmergencyPhones.jsx # Emergency number lookup
+│       │   ├── AuthDialog.jsx     # Login/Register dialog
+│       │   └── LocationAlerts.jsx # Location-based quake monitoring
+│       ├── data/                  # Static data
+│       │   ├── siteSearchData.js  # Search index
+│       │   └── emergencyPhones.js # Phone numbers by city
+│       ├── context/               # React context
+│       │   └── AuthContext.jsx    # Auth state management
+│       └── pages/                 # Route pages
+│           ├── Home.jsx           # Live map + location alert
+│           ├── About.jsx          # Meet the team (10 members)
+│           ├── Recovery.jsx       # Recovery resources (tabbed)
+│           ├── Donate.jsx         # Donation options (tabbed)
+│           ├── Quiz.jsx           # 12-question knowledge quiz
+│           └── History.jsx        # Historical earthquakes timeline
+│
+├── api/                           # Backend (Express.js)
+│   ├── server.js                  # API server
+│   ├── middleware/auth.js         # JWT auth middleware
+│   ├── data/                      # JSON file storage (users, subscribers, messages)
+│   └── .env.example               # Environment variable template
+│
 ├── .mcp.json              # Claude Code MCP configuration
 ├── .claude/               # Claude skills & agents
-│   ├── skills/
-│   └── agents/
 ├── CLAUDE.md              # Claude Code guidance
-├── plan.md                # Project plan & progress tracker
-└── src/
-    ├── components/        # Shared React components
-    │   ├── Layout.jsx
-    │   ├── Navbar.jsx
-    │   ├── Footer.jsx
-    │   ├── EarthquakeMap.jsx
-    │   ├── SiteSearch.jsx         # Website content search
-    │   ├── EmergencyPhones.jsx   # Emergency number lookup (sidebar)
-    │   ├── AuthDialog.jsx         # Login/Register dialog
-    │   └── LocationAlerts.jsx    # Location-based quake monitoring
-    ├── data/              # Static data
-    │   ├── siteSearchData.js     # Search index
-    │   └── emergencyPhones.js    # Phone numbers by city (20+ each)
-    ├── context/           # React context
-    │   └── AuthContext.jsx       # Auth state management
-    └── pages/             # Route pages
-        ├── Home.jsx       # Live map + location alert card
-        ├── About.jsx      # Meet the team (10 members)
-        ├── Recovery.jsx   # Recovery resources (tabbed)
-        ├── Donate.jsx     # Donation options (tabbed)
-        ├── Quiz.jsx       # 12-question knowledge quiz
-        └── History.jsx    # Historical earthquakes timeline
+└── plan.md                # Project plan & progress tracker
 ```
 
 ---
@@ -120,8 +133,8 @@ The Vite dev server proxies `/api/*` requests to the Express backend automatical
 
 ## 📦 Deployment
 
-- **Frontend**: Build with `npm run build`, deploy `dist/` to [Netlify](https://netlify.com)
-- **Backend**: Deploy `server.js` to [Render](https://render.com) (free tier)
+- **Frontend**: `cd app && npm run build`, deploy `app/dist/` to [Netlify](https://netlify.com)
+- **Backend**: Deploy the `api/` folder to [Render](https://render.com) (free tier)
 
 Set environment variables on Render:
 ```
