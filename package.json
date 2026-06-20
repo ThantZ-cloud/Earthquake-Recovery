@@ -2,42 +2,10 @@
   "name": "earthquake-recovery",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "server": "node server.js",
-    "server:dev": "nodemon server.js"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.3.6",
-    "@mui/material": "^7.3.6",
-    "axios": "^1.9.0",
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^4.21.0",
-    "framer-motion": "^12.8.0",
-    "jsonwebtoken": "^9.0.3",
-    "leaflet": "^1.9.4",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.6.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.3.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.6.0",
-    "nodemon": "^3.1.10",
-    "vite": "^8.0.12"
+    "dev:app": "cd app && npm run dev",
+    "dev:api": "cd api && npm run dev",
+    "build": "cd app && npm run build",
+    "install:all": "cd app && npm install && cd ../api && npm install"
   }
 }

@@ -12,8 +12,10 @@ dist
 dist-ssr
 *.local
 .env
-data/*.json
-!.gitkeep
+
+# Backend data (runtime JSON files)
+api/data/*.json
+!api/data/.gitkeep
 
 # Editor directories and files
 .vscode/*
