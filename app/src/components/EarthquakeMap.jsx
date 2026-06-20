@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const DEFAULT_CENTER = [20, 0];
@@ -33,65 +33,47 @@ function quakeIcon(mag) {
   });
 }
 
+// Fetcher functions
+const fetchQuakes = async () => {
+  const { data } = await axios.get('/api/recent');
+  const features = data?.data?.features || [];
+  return features
+    .map((f) => {
+      const [lon, lat, depth] = f.geometry?.coordinates || [];
+      const mag = f.properties?.mag;
+      if (!lon || !lat || mag == null) return null;
+      return {
+        id: f.properties?.event_id || f.properties?.source_id || Math.random(),
+        lat,
+        lon,
+        depth: depth?.toFixed(1) || '?',
+        mag,
+        place: f.properties?.flynn_region || f.properties?.place || 'Unknown',
+        time: new Date(f.properties?.time).toLocaleString(),
+      };
+    })
+    .filter(Boolean);
+};
+
+const fetchPlates = async () => {
+  const { data } = await axios.get(
+    'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
+  );
+  return data;
+};
+
 export default function EarthquakeMap({ height = '70vh' }) {
-  const [quakes, setQuakes] = useState([]);
-  const [plates, setPlates] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: quakes = [], isLoading, error } = useQuery({
+    queryKey: ['earthquakes'],
+    queryFn: fetchQuakes,
+    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+  });
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch EMSC quakes via backend proxy + tectonic plates
-        const [quakeRes, plateRes] = await Promise.all([
-          axios.get('/api/recent'),
-          fetch('https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'),
-        ]);
-
-        // EMSC FDSN event format: { type: "FeatureCollection", features: [...] }
-        const quakeData = quakeRes.data?.data;
-        const features = quakeData?.features || [];
-
-        const parsed = features
-          .map((f) => {
-            const [lon, lat, depth] = f.geometry?.coordinates || [];
-            const mag = f.properties?.mag;
-            if (!lon || !lat || mag == null) return null;
-            return {
-              id: f.properties?.event_id || f.properties?.source_id || Math.random(),
-              lat,
-              lon,
-              depth: depth?.toFixed(1) || '?',
-              mag,
-              place: f.properties?.flynn_region || f.properties?.place || 'Unknown',
-              time: new Date(f.properties?.time).toLocaleString(),
-            };
-          })
-          .filter(Boolean);
-
-        setQuakes(parsed);
-
-        if (plateRes.ok) {
-          const plateData = await plateRes.json();
-          setPlates(plateData);
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'grey.100', borderRadius: 4 }}>
-        <CircularProgress size={48} />
-      </Box>
-    );
-  }
+  const { data: plates } = useQuery({
+    queryKey: ['tectonicPlates'],
+    queryFn: fetchPlates,
+    staleTime: Infinity, // Plates don't change
+  });
 
   if (error) {
     return (
@@ -100,14 +82,39 @@ export default function EarthquakeMap({ height = '70vh' }) {
           Unable to load earthquake data
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {error}
+          {error.message}
         </Typography>
       </Box>
     );
   }
 
   return (
-    <Box sx={{ height, width: '100%', borderRadius: 4, overflow: 'hidden', boxShadow: 4 }}>
+    <Box sx={{ height, width: '100%', borderRadius: 4, overflow: 'hidden', boxShadow: 4, position: 'relative' }}>
+      {/* Loading overlay */}
+      {isLoading && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bgcolor: 'rgba(245, 245, 245, 0.9)',
+            zIndex: 1000,
+            gap: 2,
+          }}
+        >
+          <CircularProgress size={48} />
+          <Typography variant="body1" fontWeight={600} color="text.secondary">
+            Loading earthquake data...
+          </Typography>
+        </Box>
+      )}
+
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
