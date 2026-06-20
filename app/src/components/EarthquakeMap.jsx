@@ -1,6 +1,7 @@
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl } from 'react-leaflet';
+import { useState } from 'react';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
@@ -62,18 +63,41 @@ const fetchPlates = async () => {
   return data;
 };
 
+// Detect when Leaflet map tiles are loaded
+function MapReadyDetector({ onReady }) {
+  const map = useMap();
+  map.whenReady(() => {
+    // Small delay so tiles have time to render
+    setTimeout(() => onReady(), 500);
+  });
+  return null;
+}
+
 export default function EarthquakeMap({ height = '70vh' }) {
-  const { data: quakes = [], isLoading, error } = useQuery({
+  const [mapReady, setMapReady] = useState(false);
+
+  const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
     queryKey: ['earthquakes'],
     queryFn: fetchQuakes,
-    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    refetchInterval: 5 * 60 * 1000,
   });
 
-  const { data: plates } = useQuery({
+  const { data: plates, isLoading: platesLoading } = useQuery({
     queryKey: ['tectonicPlates'],
     queryFn: fetchPlates,
-    staleTime: Infinity, // Plates don't change
+    staleTime: Infinity,
   });
+
+  const loading = quakesLoading || platesLoading || !mapReady;
+
+  // Progress steps
+  const steps = [
+    { label: 'Map tiles', done: mapReady },
+    { label: 'Earthquake data', done: !quakesLoading },
+    { label: 'Tectonic plates', done: !platesLoading },
+  ];
+  const completedSteps = steps.filter((s) => s.done).length;
+  const progress = (completedSteps / steps.length) * 100;
 
   if (error) {
     return (
@@ -91,7 +115,7 @@ export default function EarthquakeMap({ height = '70vh' }) {
   return (
     <Box sx={{ height, width: '100%', borderRadius: 4, overflow: 'hidden', boxShadow: 4, position: 'relative' }}>
       {/* Loading overlay */}
-      {isLoading && (
+      {loading && (
         <Box
           sx={{
             position: 'absolute',
@@ -103,15 +127,33 @@ export default function EarthquakeMap({ height = '70vh' }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            bgcolor: 'rgba(245, 245, 245, 0.9)',
+            bgcolor: 'rgba(245, 245, 245, 0.95)',
             zIndex: 1000,
             gap: 2,
           }}
         >
           <CircularProgress size={48} />
           <Typography variant="body1" fontWeight={600} color="text.secondary">
-            Loading earthquake data...
+            Loading map data...
           </Typography>
+
+          {/* Progress bar */}
+          <Box sx={{ width: '60%', mt: 1 }}>
+            <LinearProgress variant="determinate" value={progress} sx={{ height: 8, borderRadius: 4 }} />
+          </Box>
+
+          {/* Step checklist */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, mt: 1 }}>
+            {steps.map((step) => (
+              <Typography
+                key={step.label}
+                variant="body2"
+                sx={{ color: step.done ? 'success.main' : 'text.secondary', fontWeight: step.done ? 600 : 400 }}
+              >
+                {step.done ? '✓' : '○'} {step.label}
+              </Typography>
+            ))}
+          </Box>
         </Box>
       )}
 
@@ -121,6 +163,8 @@ export default function EarthquakeMap({ height = '70vh' }) {
         style={{ width: '100%', height: '100%' }}
         zoomControl={true}
       >
+        <MapReadyDetector onReady={() => setMapReady(true)} />
+
         <LayersControl position="topright" collapsed={false}>
           <LayersControl.BaseLayer checked name="Street">
             <TileLayer
