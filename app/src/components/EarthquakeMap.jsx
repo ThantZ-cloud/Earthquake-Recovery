@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -232,10 +232,11 @@ export default function EarthquakeMap({ height = '70vh' }) {
           </LayersControl.BaseLayer>
 
           <LayersControl.Overlay name="Tectonic Plates">
-            <GeoJSON
-              data={plates || { type: 'FeatureCollection', features: [] }}
-              style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }}
-            />
+            <LayerGroup>
+              {plates && (
+                <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
+              )}
+            </LayerGroup>
           </LayersControl.Overlay>
 
         </LayersControl>
