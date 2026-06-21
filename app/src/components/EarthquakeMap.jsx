@@ -34,22 +34,6 @@ function quakeIcon(mag) {
   });
 }
 
-// EMSC-specific icon (diamond shape, cyan tones)
-function emscIcon(mag) {
-  const size = Math.max(24, Math.min(48, mag * 8));
-  const fontSize = Math.max(9, Math.min(14, size * 0.4));
-
-  return L.divIcon({
-    className: '',
-    html: `<svg width="${size}" height="${size}" viewBox="0 0 32 32">
-      <polygon points="16,3 29,16 16,29 3,16" fill="#00838f" stroke="#fff" stroke-width="2" opacity="0.9"/>
-      <text x="16" y="20" text-anchor="middle" font-size="${fontSize}" fill="#fff" font-family="Poppins,sans-serif" font-weight="700">${mag.toFixed(1)}</text>
-    </svg>`,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
-    popupAnchor: [0, -size / 2],
-  });
-}
 
 // Fetcher functions
 const fetchQuakes = async () => {
@@ -256,23 +240,8 @@ export default function EarthquakeMap({ height = '70vh' }) {
 
         </LayersControl>
 
-        {/* EMSC markers — always visible */}
-        {emscQuakes.map((q) => (
-          <Marker key={`emsc-${q.id}`} position={[q.lat, q.lon]} icon={emscIcon(q.mag)}>
-            <Popup>
-              <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
-                <Typography variant="subtitle2" fontWeight={700} sx={{ color: '#00838f' }}>
-                  EMSC — {q.place}
-                </Typography>
-                <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
-                <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
-                <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
-              </Box>
-            </Popup>
-          </Marker>
-        ))}
-
-        {quakes.map((q) => (
+        {/* All earthquake markers (USGS proxy + EMSC direct) */}
+        {[...quakes, ...emscQuakes].map((q) => (
           <Marker key={q.id} position={[q.lat, q.lon]} icon={quakeIcon(q.mag)}>
             <Popup>
               <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
