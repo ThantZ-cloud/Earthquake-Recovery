@@ -319,6 +319,28 @@ const emergencyPhones = {
     { name: 'Elderly Care Hotline', phone: '02-72588' },
     { name: 'Medical Emergency Transport', phone: '02-72199' },
   ],
+  'PyinOoLwin': [
+    { name: 'Fire Department', phone: '191' },
+    { name: 'Ambulance (Emergency)', phone: '192' },
+    { name: 'Police', phone: '199' },
+    { name: 'PyinOoLwin General Hospital', phone: '085-21012' },
+    { name: 'PyinOoLwin District Hospital', phone: '085-21123' },
+    { name: 'Government Technical Institute Hospital', phone: '085-21456' },
+    { name: 'Myanmar Red Cross PyinOoLwin', phone: '085-21678' },
+    { name: 'PyinOoLwin Blood Bank', phone: '085-21444' },
+    { name: 'Emergency Rescue Team', phone: '085-21999' },
+    { name: 'Electricity Emergency', phone: '085-21222' },
+    { name: 'Water Supply Emergency', phone: '085-21333' },
+    { name: 'Township Administration Office', phone: '085-21111' },
+    { name: 'Highway Police (PyinOoLwin-Lashio)', phone: '085-21888' },
+    { name: 'Highway Police (PyinOoLwin-Mandalay)', phone: '085-21777' },
+    { name: 'Disaster Management Office', phone: '085-21100' },
+    { name: 'National Kandawgyi Gardens Security', phone: '085-21055' },
+    { name: 'Tourist Police (Botanical Garden)', phone: '085-21088' },
+    { name: 'Child Helpline', phone: '1326' },
+    { name: 'Mental Health Counseling', phone: '085-21300' },
+    { name: 'Search & Rescue Post', phone: '085-21099' },
+  ],
 };
 
 export const cities = Object.keys(emergencyPhones).sort();
