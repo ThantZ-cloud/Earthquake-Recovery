@@ -231,11 +231,12 @@ export default function EarthquakeMap({ height = '70vh' }) {
             />
           </LayersControl.BaseLayer>
 
-          {plates && (
-            <LayersControl.Overlay name="Tectonic Plates">
-              <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
-            </LayersControl.Overlay>
-          )}
+          <LayersControl.Overlay name="Tectonic Plates">
+            <GeoJSON
+              data={plates || { type: 'FeatureCollection', features: [] }}
+              style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }}
+            />
+          </LayersControl.Overlay>
 
         </LayersControl>
 
