@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -81,7 +81,7 @@ const fetchEMSC = async () => {
     {
       params: {
         format: 'json',
-        minmag: 2.5,
+        minmag: 2,
         limit: 200,
         starttime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
       },
@@ -151,7 +151,7 @@ export default function EarthquakeMap({ height = '70vh' }) {
   const steps = [
     { label: 'Map tiles', done: mapReady },
     { label: 'USGS / EMSC data', done: !quakesLoading },
-    { label: 'EMSC (24h, M2.5+)', done: !emscLoading },
+    { label: 'EMSC (24h, M2+)', done: !emscLoading },
     { label: 'Tectonic plates', done: !platesLoading },
   ];
   const completedSteps = steps.filter((s) => s.done).length;
@@ -254,25 +254,23 @@ export default function EarthquakeMap({ height = '70vh' }) {
             </LayersControl.Overlay>
           )}
 
-          <LayersControl.Overlay checked name="EMSC (24h, M2.5+)">
-            <LayerGroup>
-              {emscQuakes.map((q) => (
-                <Marker key={`emsc-${q.id}`} position={[q.lat, q.lon]} icon={emscIcon(q.mag)}>
-                  <Popup>
-                    <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
-                      <Typography variant="subtitle2" fontWeight={700} sx={{ color: '#00838f' }}>
-                        EMSC — {q.place}
-                      </Typography>
-                      <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
-                      <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
-                      <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
-                    </Box>
-                  </Popup>
-                </Marker>
-              ))}
-            </LayerGroup>
-          </LayersControl.Overlay>
         </LayersControl>
+
+        {/* EMSC markers — always visible */}
+        {emscQuakes.map((q) => (
+          <Marker key={`emsc-${q.id}`} position={[q.lat, q.lon]} icon={emscIcon(q.mag)}>
+            <Popup>
+              <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
+                <Typography variant="subtitle2" fontWeight={700} sx={{ color: '#00838f' }}>
+                  EMSC — {q.place}
+                </Typography>
+                <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
+                <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
+                <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
+              </Box>
+            </Popup>
+          </Marker>
+        ))}
 
         {quakes.map((q) => (
           <Marker key={q.id} position={[q.lat, q.lon]} icon={quakeIcon(q.mag)}>
