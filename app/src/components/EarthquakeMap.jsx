@@ -129,14 +129,13 @@ export default function EarthquakeMap({ height = '70vh' }) {
     staleTime: Infinity,
   });
 
-  const loading = quakesLoading || emscLoading || platesLoading || !mapReady;
+  const loading = quakesLoading || emscLoading || !mapReady;
 
   // Progress steps
   const steps = [
     { label: 'Map tiles', done: mapReady },
     { label: 'USGS / EMSC data', done: !quakesLoading },
     { label: 'EMSC (24h, M2+)', done: !emscLoading },
-    { label: 'Tectonic plates', done: !platesLoading },
   ];
   const completedSteps = steps.filter((s) => s.done).length;
   const progress = (completedSteps / steps.length) * 100;
