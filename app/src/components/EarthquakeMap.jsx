@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -34,6 +34,23 @@ function quakeIcon(mag) {
   });
 }
 
+// EMSC-specific icon (diamond shape, cyan tones)
+function emscIcon(mag) {
+  const size = Math.max(24, Math.min(48, mag * 8));
+  const fontSize = Math.max(9, Math.min(14, size * 0.4));
+
+  return L.divIcon({
+    className: '',
+    html: `<svg width="${size}" height="${size}" viewBox="0 0 32 32">
+      <polygon points="16,3 29,16 16,29 3,16" fill="#00838f" stroke="#fff" stroke-width="2" opacity="0.9"/>
+      <text x="16" y="20" text-anchor="middle" font-size="${fontSize}" fill="#fff" font-family="Poppins,sans-serif" font-weight="700">${mag.toFixed(1)}</text>
+    </svg>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -size / 2],
+  });
+}
+
 // Fetcher functions
 const fetchQuakes = async () => {
   const { data } = await axios.get('/api/recent');
@@ -51,6 +68,40 @@ const fetchQuakes = async () => {
         mag,
         place: f.properties?.flynn_region || f.properties?.place || 'Unknown',
         time: new Date(f.properties?.time).toLocaleString(),
+        source: f.properties?.source_catalog || 'EMSC',
+      };
+    })
+    .filter(Boolean);
+};
+
+// Fetch EMSC earthquake data directly (better Asia/Europe coverage)
+const fetchEMSC = async () => {
+  const { data } = await axios.get(
+    'https://www.seismicportal.eu/fdsnws/event/1/query',
+    {
+      params: {
+        format: 'json',
+        minmag: 2.5,
+        limit: 200,
+        starttime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+      },
+    }
+  );
+  const features = data?.features || [];
+  return features
+    .map((f) => {
+      const [lon, lat, depth] = f.geometry?.coordinates || [];
+      const mag = f.properties?.mag;
+      if (!lon || !lat || mag == null) return null;
+      return {
+        id: f.properties?.source_id || f.id || Math.random(),
+        lat,
+        lon,
+        depth: depth?.toFixed(1) || '?',
+        mag,
+        place: f.properties?.flynn_region || 'Unknown',
+        time: new Date(f.properties?.time).toLocaleString(),
+        source: 'EMSC',
       };
     })
     .filter(Boolean);
@@ -82,18 +133,25 @@ export default function EarthquakeMap({ height = '70vh' }) {
     refetchInterval: 5 * 60 * 1000,
   });
 
+  const { data: emscQuakes = [], isLoading: emscLoading } = useQuery({
+    queryKey: ['emscEarthquakes'],
+    queryFn: fetchEMSC,
+    refetchInterval: 5 * 60 * 1000,
+  });
+
   const { data: plates, isLoading: platesLoading } = useQuery({
     queryKey: ['tectonicPlates'],
     queryFn: fetchPlates,
     staleTime: Infinity,
   });
 
-  const loading = quakesLoading || platesLoading || !mapReady;
+  const loading = quakesLoading || emscLoading || platesLoading || !mapReady;
 
   // Progress steps
   const steps = [
     { label: 'Map tiles', done: mapReady },
-    { label: 'Earthquake data', done: !quakesLoading },
+    { label: 'USGS / EMSC data', done: !quakesLoading },
+    { label: 'EMSC (24h, M2.5+)', done: !emscLoading },
     { label: 'Tectonic plates', done: !platesLoading },
   ];
   const completedSteps = steps.filter((s) => s.done).length;
@@ -195,6 +253,25 @@ export default function EarthquakeMap({ height = '70vh' }) {
               <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
             </LayersControl.Overlay>
           )}
+
+          <LayersControl.Overlay checked name="EMSC (24h, M2.5+)">
+            <LayerGroup>
+              {emscQuakes.map((q) => (
+                <Marker key={`emsc-${q.id}`} position={[q.lat, q.lon]} icon={emscIcon(q.mag)}>
+                  <Popup>
+                    <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
+                      <Typography variant="subtitle2" fontWeight={700} sx={{ color: '#00838f' }}>
+                        EMSC — {q.place}
+                      </Typography>
+                      <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
+                      <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
+                      <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
+                    </Box>
+                  </Popup>
+                </Marker>
+              ))}
+            </LayerGroup>
+          </LayersControl.Overlay>
         </LayersControl>
 
         {quakes.map((q) => (
