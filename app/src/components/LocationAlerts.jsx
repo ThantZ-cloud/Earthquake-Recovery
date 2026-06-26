@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Snackbar, Alert, Box, Chip, Typography } from '@mui/material';
-import axios from 'axios';
+import api from '../api';
 
 // Haversine distance in km between two [lat, lon] points
 function haversineKm(a, b) {
@@ -68,7 +68,7 @@ export default function LocationAlerts({ enabled }) {
   const checkQuakes = useCallback(async () => {
     if (!userPos) return;
     try {
-      const res = await axios.get('/api/recent');
+      const res = await api.get('/api/recent');
       const features = res.data?.data?.features || [];
       for (const f of features) {
         const [lon, lat] = f.geometry?.coordinates || [];

@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGr
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../api';
 
 const DEFAULT_CENTER = [20, 0];
 const DEFAULT_ZOOM = 2;
@@ -37,7 +37,7 @@ function quakeIcon(mag) {
 
 // Fetcher functions
 const fetchQuakes = async () => {
-  const { data } = await axios.get('/api/recent');
+  const { data } = await api.get('/api/recent');
   const features = data?.data?.features || [];
   return features
     .map((f) => {
@@ -60,7 +60,7 @@ const fetchQuakes = async () => {
 
 // Fetch EMSC earthquake data directly (better Asia/Europe coverage)
 const fetchEMSC = async () => {
-  const { data } = await axios.get(
+  const { data } = await api.get(
     'https://www.seismicportal.eu/fdsnws/event/1/query',
     {
       params: {
@@ -92,7 +92,7 @@ const fetchEMSC = async () => {
 };
 
 const fetchPlates = async () => {
-  const { data } = await axios.get(
+  const { data } = await api.get(
     'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
   );
   return data;

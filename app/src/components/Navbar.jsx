@@ -88,12 +88,6 @@ export default function Navbar({ mode, toggleTheme }) {
               flexShrink: 0,
             }}
           >
-            <Box
-              component="img"
-              src="/assets/logo/logo1.jpg"
-              alt="logo"
-              sx={{ height: 36, borderRadius: 1 }}
-            />
             <Typography
               variant="h6"
               sx={{

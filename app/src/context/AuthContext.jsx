@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const AuthContext = createContext(null);
 
@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
       return;
     }
 
-    axios
+    api
       .get('/api/auth/me', { headers: { Authorization: `Bearer ${stored}` } })
       .then((res) => {
         setUser(res.data.user);
@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const res = await axios.post('/api/auth/login', { email, password });
+    const res = await api.post('/api/auth/login', { email, password });
     const { token: t, user: u } = res.data;
     localStorage.setItem('token', t);
     setToken(t);
@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = useCallback(async (name, email, password) => {
-    const res = await axios.post('/api/auth/register', { name, email, password });
+    const res = await api.post('/api/auth/register', { name, email, password });
     const { token: t, user: u } = res.data;
     localStorage.setItem('token', t);
     setToken(t);

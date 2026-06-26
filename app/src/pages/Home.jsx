@@ -13,6 +13,8 @@ import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import LoginIcon from '@mui/icons-material/Login';
+import { motion } from 'framer-motion';
+import SafetyCharacter from '../components/SafetyCharacter';
 import EarthquakeMap from '../components/EarthquakeMap';
 import LocationAlerts from '../components/LocationAlerts';
 import AuthDialog from '../components/AuthDialog';
@@ -24,20 +26,33 @@ const SAFETY_TIPS = [
     description: 'Get low on your hands and knees to prevent being knocked over by the shaking.',
     icon: <ArrowDownwardIcon fontSize="large" />,
     color: '#d32f2f',
+    characterType: 'drop',
   },
   {
     title: 'Cover',
     description: 'Take shelter under sturdy furniture and protect your head and neck with your arms.',
     icon: <ShieldIcon fontSize="large" />,
     color: '#ed6c02',
+    characterType: 'cover',
   },
   {
     title: 'Hold On',
     description: 'Hold on to your shelter until the shaking stops. Be prepared for aftershocks.',
     icon: <SafetyCheckIcon fontSize="large" />,
     color: '#2e7d32',
+    characterType: 'holdOn',
   },
 ];
+
+/* Card entrance animation variants */
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.2, duration: 0.5, ease: 'easeOut' },
+  }),
+};
 
 export default function Home() {
   const { user } = useAuth();
@@ -157,8 +172,13 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Safety Tips */}
-      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
+      {/* Safety Tips — During an Earthquake */}
+      <Box
+        sx={{
+          py: 8,
+          background: 'linear-gradient(180deg, background.paper 0%, #f5f5f5 100%)',
+        }}
+      >
         <Container maxWidth="lg">
           <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
             🛡️ During an Earthquake
@@ -167,32 +187,64 @@ export default function Home() {
             Remember the three simple steps that could save your life.
           </Typography>
           <Grid container spacing={4}>
-            {SAFETY_TIPS.map((tip) => (
+            {SAFETY_TIPS.map((tip, index) => (
               <Grid item xs={12} md={4} key={tip.title}>
-                <Card elevation={0} sx={{ textAlign: 'center', py: 4, border: '2px solid', borderColor: 'divider' }}>
-                  <Box
+                <motion.div
+                  custom={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                >
+                  <Card
+                    elevation={0}
                     sx={{
-                      width: 72,
-                      height: 72,
-                      borderRadius: '50%',
-                      bgcolor: `${tip.color}15`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      mx: 'auto',
-                      mb: 2,
-                      color: tip.color,
+                      textAlign: 'center',
+                      py: 3,
+                      px: 2,
+                      border: '2px solid',
+                      borderColor: 'divider',
+                      borderRadius: 3,
+                      transition: 'transform 0.3s, box-shadow 0.3s',
+                      '&:hover': {
+                        transform: 'translateY(-6px)',
+                        boxShadow: `0 12px 32px ${tip.color}20`,
+                      },
                     }}
                   >
-                    {tip.icon}
-                  </Box>
-                  <Typography variant="h5" fontWeight={700} gutterBottom>
-                    {tip.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" px={3}>
-                    {tip.description}
-                  </Typography>
-                </Card>
+                    {/* Animated character */}
+                    <Box sx={{ mb: 1 }}>
+                      <SafetyCharacter type={tip.characterType} color={tip.color} />
+                    </Box>
+
+                    {/* Step number badge */}
+                    <Box
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: '50%',
+                        bgcolor: tip.color,
+                        color: '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        mx: 'auto',
+                        mb: 1.5,
+                        fontWeight: 700,
+                        fontSize: '0.9rem',
+                      }}
+                    >
+                      {index + 1}
+                    </Box>
+
+                    <Typography variant="h5" fontWeight={700} gutterBottom>
+                      {tip.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" px={2}>
+                      {tip.description}
+                    </Typography>
+                  </Card>
+                </motion.div>
               </Grid>
             ))}
           </Grid>

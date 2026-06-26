@@ -12,4 +12,6 @@ export default defineConfig({
       },
     },
   },
+  // In production, VITE_API_URL env var tells the frontend where the backend is
+  // e.g., VITE_API_URL=https://earthquake-api.onrender.com
 })
