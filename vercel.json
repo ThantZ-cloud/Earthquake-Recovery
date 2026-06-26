@@ -1,26 +1,18 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "app/dist",
+  "installCommand": "npm run install:all",
   "builds": [
     {
       "src": "api/server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "app/dist/**",
-      "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/server.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/app/dist/$1"
+      "source": "/api/(.*)",
+      "destination": "/api/server.js"
     }
   ]
 }
