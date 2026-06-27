@@ -76,30 +76,36 @@ export default function Navbar({ mode, toggleTheme }) {
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, lg: 4 }, gap: 1 }}>
-          {/* Logo */}
-          <Box
-            component={Link}
-            to="/"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1.5,
-              textDecoration: 'none',
-              flexShrink: 0,
-            }}
-          >
-            <Typography
-              variant="h6"
+          {/* Left side: hamburger (mobile) + logo */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {isMobile && (
+              <IconButton onClick={() => setDrawerOpen(true)} color="inherit" size="small">
+                <MenuIcon />
+              </IconButton>
+            )}
+            <Box
+              component={Link}
+              to="/"
               sx={{
-                fontWeight: 800,
-                color: 'primary.main',
-                display: { xs: 'none', lg: 'block' },
-                fontSize: '1rem',
-                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1.5,
+                textDecoration: 'none',
+                flexShrink: 0,
               }}
             >
-              Earthquake & Recovery
-            </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 800,
+                  color: 'primary.main',
+                  fontSize: '1rem',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Earthquake & Recovery
+              </Typography>
+            </Box>
           </Box>
 
           {/* Desktop nav links */}
@@ -199,13 +205,6 @@ export default function Navbar({ mode, toggleTheme }) {
                   </MenuItem>
                 </Menu>
               </>
-            )}
-
-            {/* Mobile hamburger */}
-            {isMobile && (
-              <IconButton onClick={() => setDrawerOpen(true)} color="inherit" size="small">
-                <MenuIcon />
-              </IconButton>
             )}
           </Box>
         </Toolbar>
