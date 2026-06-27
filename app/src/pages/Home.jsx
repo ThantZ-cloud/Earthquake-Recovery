@@ -147,7 +147,7 @@ export default function Home() {
           <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
             Each circle represents a recent earthquake. Color shows magnitude.
           </Typography>
-          <EarthquakeMap height="65vh" />
+          <EarthquakeMap height={{ xs: '52vh', md: '65vh' }} />
           <Box
             sx={{
               display: 'flex',
