@@ -1,16 +1,6 @@
 # 🌍 Earthquake & Recovery
 
-**One-line summary:** A real-time earthquake tracking and safety education platform with live maps, emergency contacts, and recovery resources for Myanmar.
-
 Real-time earthquake tracking and educational platform. Stay informed about seismic activity, learn safety protocols, and discover recovery resources.
-
----
-
-## 📸 Screenshots
-
-| Map | Quiz | Recovery |
-|-----|------|----------|
-| ![Earthquake Map](screenshots/map.png) | ![Quiz](screenshots/quiz.png) | ![Recovery](screenshots/recovery.png) |
 
 ---
 
