@@ -1,18 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "cd app && npm run build",
   "outputDirectory": "app/dist",
   "installCommand": "npm run install:all",
-  "builds": [
-    {
-      "src": "api/server.js",
-      "use": "@vercel/node"
-    }
-  ],
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/server.js"
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
