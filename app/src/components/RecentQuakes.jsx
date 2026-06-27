@@ -1,22 +1,13 @@
-import { useState } from 'react';
 import {
   Box,
   Typography,
   Card,
   CardContent,
   Chip,
-  Button,
-  Drawer,
-  IconButton,
-  Divider,
   CircularProgress,
-  Grid,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HeightIcon from '@mui/icons-material/Height';
-import PublicIcon from '@mui/icons-material/Public';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api';
 
@@ -93,7 +84,7 @@ function countryFlag(country) {
     Cambodia: '\u{1F1F0}\u{1F1ED}',
     Laos: '\u{1F1F1}\u{1F1E6}',
   };
-  return FLAGS[country] || '\u{1F30D}'; // globe emoji as fallback
+  return FLAGS[country] || '\u{1F30D}';
 }
 
 // Extract country from place string like "10km NE of Mandalay, Myanmar"
@@ -148,7 +139,6 @@ const fetchRecent = async () => {
 };
 
 export default function RecentQuakes() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const { data: quakes = [], isLoading } = useQuery({
     queryKey: ['recent-quakes'],
     queryFn: fetchRecent,
@@ -158,8 +148,6 @@ export default function RecentQuakes() {
   // Filter to 3 days
   const threeDaysAgo = Date.now() - 3 * 24 * 60 * 60 * 1000;
   const recent3d = quakes.filter((q) => new Date(q.time).getTime() >= threeDaysAgo);
-  const top4 = recent3d.slice(0, 4);
-  const rest = recent3d.slice(4);
 
   if (isLoading) {
     return (
@@ -175,150 +163,87 @@ export default function RecentQuakes() {
       <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
         🕐 Recent Earthquakes
       </Typography>
-      <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
-        Latest seismic activity from the past 3 days worldwide.
+      <Typography variant="body1" color="text.secondary" textAlign="center" mb={3}>
+        Swipe left to view more — {recent3d.length} earthquakes in the past 3 days.
       </Typography>
 
-      {/* Top 4 cards */}
-      <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: 3 }}>
-        {top4.map((q) => {
+      {/* Horizontal scroll row */}
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          overflowX: 'auto',
+          scrollSnapType: 'x mandatory',
+          pb: 2,
+          // Hide scrollbar on mobile, show thin on desktop
+          '&::-webkit-scrollbar': { height: 6 },
+          '&::-webkit-scrollbar-track': { bgcolor: 'transparent' },
+          '&::-webkit-scrollbar-thumb': { bgcolor: 'divider', borderRadius: 3 },
+          // Firefox
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'divider transparent',
+        }}
+      >
+        {recent3d.map((q) => {
           const country = extractCountry(q.place);
           return (
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={q.id}>
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  transition: 'transform 0.2s, box-shadow 0.2s',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: `0 8px 24px ${magColor(q.mag)}20`,
-                  },
-                }}
-              >
-                <CardContent sx={{ p: 2.5 }}>
-                  {/* Magnitude badge + country */}
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
-                    <Chip
-                      label={`M ${q.mag}`}
-                      size="small"
-                      sx={{
-                        bgcolor: magColor(q.mag),
-                        color: '#fff',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                      }}
-                    />
-                    <Typography variant="h6" component="span">
-                      {countryFlag(country)}
-                    </Typography>
-                  </Box>
-
-                  {/* Location */}
-                  <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 1, lineHeight: 1.3 }}>
-                    {q.place}
-                  </Typography>
-
-                  {/* Details */}
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
-                      <AccessTimeIcon sx={{ fontSize: 14 }} />
-                      <Typography variant="caption">{timeAgo(q.time)}</Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
-                      <HeightIcon sx={{ fontSize: 14 }} />
-                      <Typography variant="caption">{q.depth} km depth</Typography>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
-
-      {/* View More button */}
-      {rest.length > 0 && (
-        <Box sx={{ textAlign: 'center' }}>
-          <Button
-            variant="outlined"
-            endIcon={<ArrowForwardIcon />}
-            onClick={() => setDrawerOpen(true)}
-            sx={{ borderRadius: 3, px: 3 }}
-          >
-            View {rest.length} more earthquakes
-          </Button>
-        </Box>
-      )}
-
-      {/* Drawer with full list */}
-      <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <Box sx={{ width: { xs: 300, sm: 380 }, p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-          {/* Header */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Typography variant="h6" fontWeight={700}>
-              Past 3 Days
-            </Typography>
-            <IconButton onClick={() => setDrawerOpen(false)} size="small">
-              <CloseIcon />
-            </IconButton>
-          </Box>
-          <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
-            {recent3d.length} earthquakes recorded
-          </Typography>
-          <Divider sx={{ mb: 2 }} />
-
-          {/* Scrollable list */}
-          <Box sx={{ flex: 1, overflow: 'auto' }}>
-            {recent3d.map((q) => {
-              const country = extractCountry(q.place);
-              return (
-                <Box
-                  key={q.id}
-                  sx={{
-                    py: 1.5,
-                    px: 1,
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                    '&:last-child': { borderBottom: 'none' },
-                  }}
-                >
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.5 }}>
-                    <Chip
-                      label={`M ${q.mag}`}
-                      size="small"
-                      sx={{
-                        bgcolor: magColor(q.mag),
-                        color: '#fff',
-                        fontWeight: 700,
-                        fontSize: '0.7rem',
-                        height: 22,
-                      }}
-                    />
-                    <Typography variant="caption" color="text.secondary">
-                      {timeAgo(q.time)}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Typography variant="body2" sx={{ fontSize: '0.8rem' }}>
-                      {countryFlag(country)} {q.place}
-                    </Typography>
-                  </Box>
-                  <Typography variant="caption" color="text.secondary">
-                    Depth: {q.depth} km
+            <Card
+              key={q.id}
+              elevation={0}
+              sx={{
+                minWidth: { xs: 240, sm: 260 },
+                maxWidth: { xs: 240, sm: 260 },
+                flexShrink: 0,
+                scrollSnapAlign: 'start',
+                border: '1px solid',
+                borderColor: 'divider',
+                borderRadius: 3,
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: `0 8px 24px ${magColor(q.mag)}20`,
+                },
+              }}
+            >
+              <CardContent sx={{ p: 2.5 }}>
+                {/* Magnitude badge + country */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
+                  <Chip
+                    label={`M ${q.mag}`}
+                    size="small"
+                    sx={{
+                      bgcolor: magColor(q.mag),
+                      color: '#fff',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                    }}
+                  />
+                  <Typography variant="h6" component="span">
+                    {countryFlag(country)}
                   </Typography>
                 </Box>
-              );
-            })}
-          </Box>
-        </Box>
-      </Drawer>
+
+                {/* Location */}
+                <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 1, lineHeight: 1.3, minHeight: 36 }}>
+                  {q.place}
+                </Typography>
+
+                {/* Details */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
+                    <AccessTimeIcon sx={{ fontSize: 14 }} />
+                    <Typography variant="caption">{timeAgo(q.time)}</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
+                    <HeightIcon sx={{ fontSize: 14 }} />
+                    <Typography variant="caption">{q.depth} km depth</Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </Box>
     </>
   );
 }
