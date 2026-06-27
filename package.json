@@ -5,7 +5,6 @@
   "scripts": {
     "dev:app": "cd app && npm run dev",
     "dev:api": "cd api && npm run dev",
-    "build": "cd app && npm run build",
     "install:all": "cd app && npm install && cd ../api && npm install",
     "postinstall": "cd api && npm install",
     "start": "cd api && node server.js"
