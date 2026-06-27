@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
@@ -108,7 +108,7 @@ function MapReadyDetector({ onReady }) {
   return null;
 }
 
-export default function EarthquakeMap({ height = '70vh' }) {
+function EarthquakeMap({ height = '70vh' }) {
   const [mapReady, setMapReady] = useState(false);
 
   const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
@@ -260,3 +260,5 @@ export default function EarthquakeMap({ height = '70vh' }) {
     </Box>
   );
 }
+
+export default memo(EarthquakeMap);

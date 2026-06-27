@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Box,
   Typography,
@@ -140,7 +141,7 @@ const fetchRecent = async () => {
     .sort((a, b) => new Date(b.time) - new Date(a.time));
 };
 
-export default function RecentQuakes() {
+function RecentQuakes() {
   const { data: quakes = [], isLoading } = useQuery({
     queryKey: ['recent-quakes'],
     queryFn: fetchRecent,
@@ -249,3 +250,5 @@ export default function RecentQuakes() {
     </>
   );
 }
+
+export default memo(RecentQuakes);
