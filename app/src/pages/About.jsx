@@ -242,8 +242,8 @@ export default function About() {
                       src={member.photo}
                       alt={member.name}
                       sx={{
-                        width: 88,
-                        height: 88,
+                        width: { xs: 100, sm: 120 },
+                        height: { xs: 100, sm: 120 },
                         mb: 2,
                         border: '3px solid',
                         borderColor: member.roleColor,
@@ -311,8 +311,8 @@ export default function About() {
                 src={selected.photo}
                 alt={selected.name}
                 sx={{
-                  width: 100,
-                  height: 100,
+                  width: 160,
+                  height: 160,
                   mx: 'auto',
                   mb: 2,
                   border: '4px solid',
