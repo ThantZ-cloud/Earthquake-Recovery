@@ -73,7 +73,7 @@ export default function SiteSearch() {
   // On small screens: show icon button until expanded
   if (isSmall && !expanded) {
     return (
-      <IconButton onClick={handleExpand} color="inherit" size="small">
+      <IconButton onClick={handleExpand} size="small" sx={{ color: 'text.primary' }}>
         <SearchIcon fontSize="small" />
       </IconButton>
     );
@@ -104,7 +104,7 @@ export default function SiteSearch() {
           input: {
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon fontSize="small" color="action" />
+                <SearchIcon fontSize="small" sx={{ color: 'text.primary' }} />
               </InputAdornment>
             ),
           },

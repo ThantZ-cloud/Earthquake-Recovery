@@ -150,7 +150,7 @@ export default function Navbar({ mode, toggleTheme }) {
             <EmergencyPhones />
 
             {/* Theme toggle */}
-            <IconButton onClick={toggleTheme} color="inherit" size="small">
+            <IconButton onClick={toggleTheme} size="small" sx={{ color: 'text.primary' }}>
               {mode === 'dark' ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
             </IconButton>
 
