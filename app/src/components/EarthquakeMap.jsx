@@ -40,12 +40,12 @@ const fetchQuakes = async () => {
   const { data } = await api.get('/api/recent');
   const features = data?.data?.features || [];
   return features
-    .map((f) => {
+    .map((f, i) => {
       const [lon, lat, depth] = f.geometry?.coordinates || [];
       const mag = f.properties?.mag;
       if (!lon || !lat || mag == null) return null;
       return {
-        id: f.properties?.event_id || f.properties?.source_id || Math.random(),
+        id: `${f.properties?.event_id || f.properties?.source_id || 'eq'}-${i}`,
         lat,
         lon,
         depth: depth?.toFixed(1) || '?',
@@ -73,12 +73,12 @@ const fetchEMSC = async () => {
   );
   const features = data?.features || [];
   return features
-    .map((f) => {
+    .map((f, i) => {
       const [lon, lat, depth] = f.geometry?.coordinates || [];
       const mag = f.properties?.mag;
       if (!lon || !lat || mag == null) return null;
       return {
-        id: f.properties?.source_id || f.id || Math.random(),
+        id: `${f.properties?.source_id || f.id || 'emsc'}-${i}`,
         lat,
         lon,
         depth: depth?.toFixed(1) || '?',
