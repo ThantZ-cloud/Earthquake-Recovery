@@ -46,11 +46,9 @@ export default function EmergencyPhones() {
         onClick={() => setOpen(true)}
         title="Emergency Phone Numbers"
         sx={{
-          bgcolor: 'error.main',
-          color: '#fff',
+          color: 'text.primary',
           width: 38,
           height: 38,
-          '&:hover': { bgcolor: 'error.dark' },
         }}
       >
         <LocalPhoneIcon fontSize="small" />

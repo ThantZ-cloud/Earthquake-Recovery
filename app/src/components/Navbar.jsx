@@ -94,6 +94,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 flexShrink: 0,
               }}
             >
+              {/* Desktop: show text logo, Mobile: show search icon */}
               <Typography
                 variant="h6"
                 sx={{
@@ -101,10 +102,14 @@ export default function Navbar({ mode, toggleTheme }) {
                   color: 'primary.main',
                   fontSize: '1rem',
                   whiteSpace: 'nowrap',
+                  display: { xs: 'none', md: 'block' },
                 }}
               >
                 Earthquake & Recovery
               </Typography>
+              {isMobile && (
+                <SiteSearch />
+              )}
             </Box>
           </Box>
 
@@ -145,12 +150,13 @@ export default function Navbar({ mode, toggleTheme }) {
           )}
 
           {/* Actions */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 } }}>
-            <SiteSearch />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, mr: { xs: 1, sm: 0 } }}>
+            {/* Desktop: show search here; Mobile: search is on the left */}
+            {!isMobile && <SiteSearch />}
             <EmergencyPhones />
 
             {/* Theme toggle */}
-            <IconButton onClick={toggleTheme} size="small" sx={{ color: 'text.primary' }}>
+            <IconButton onClick={toggleTheme} sx={{ color: 'text.primary', width: 38, height: 38 }}>
               {mode === 'dark' ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
             </IconButton>
 

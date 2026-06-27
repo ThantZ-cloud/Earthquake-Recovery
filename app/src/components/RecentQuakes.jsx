@@ -9,7 +9,6 @@ import {
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HeightIcon from '@mui/icons-material/Height';
 import { useQuery } from '@tanstack/react-query';
-import api from '../api';
 
 // Country name → emoji flag
 function countryFlag(country) {
@@ -115,22 +114,25 @@ function magColor(mag) {
   return '#2e7d32';
 }
 
-// Fetcher
+// Fetcher — USGS 7-day feed (has unique IDs)
 const fetchRecent = async () => {
-  const { data } = await api.get('/api/recent');
-  const features = data?.data?.features || [];
+  const res = await fetch(
+    'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
+  );
+  const data = await res.json();
+  const features = data?.features || [];
   return features
-    .map((f, i) => {
+    .map((f) => {
       const [lon, lat, depth] = f.geometry?.coordinates || [];
       const mag = f.properties?.mag;
       if (!lon || !lat || mag == null) return null;
       return {
-        id: `${f.properties?.event_id || 'q'}-${i}`,
+        id: f.id, // USGS guarantees unique IDs
         lat,
         lon,
         depth: depth?.toFixed(1) || '?',
         mag: +mag.toFixed(1),
-        place: f.properties?.flynn_region || f.properties?.place || 'Unknown',
+        place: f.properties?.place || 'Unknown',
         time: f.properties?.time,
       };
     })
