@@ -16,6 +16,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { motion } from 'framer-motion';
 import SafetyCharacter from '../components/SafetyCharacter';
 import EarthquakeMap from '../components/EarthquakeMap';
+import RecentQuakes from '../components/RecentQuakes';
 import LocationAlerts from '../components/LocationAlerts';
 import AuthDialog from '../components/AuthDialog';
 import { useAuth } from '../context/AuthContext';
@@ -139,7 +140,7 @@ export default function Home() {
       </Box>
 
       {/* Map Section */}
-      <Box id="map-section" sx={{ py: 8, bgcolor: 'background.default' }}>
+      <Box id="map-section" sx={{ py: 8, mt: 2, bgcolor: 'background.default' }}>
         <Container maxWidth="lg">
           <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
             🌍 Live Earthquake Map
@@ -169,6 +170,13 @@ export default function Home() {
               </Box>
             ))}
           </Box>
+        </Container>
+      </Box>
+
+      {/* Recent Earthquakes */}
+      <Box sx={{ py: 6, bgcolor: 'background.default' }}>
+        <Container maxWidth="lg">
+          <RecentQuakes />
         </Container>
       </Box>
 
