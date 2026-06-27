@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
@@ -221,4 +221,4 @@ function EarthquakeMap({ height = '70vh' }) {
   );
 }
 
-export default memo(EarthquakeMap);
+export default EarthquakeMap;

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import getTheme from './theme';
@@ -15,7 +15,7 @@ export default function App() {
   const [mode, setMode] = useState('light');
   const theme = useMemo(() => getTheme(mode), [mode]);
 
-  const toggleTheme = useCallback(() => setMode((m) => (m === 'light' ? 'dark' : 'light')), []);
+  const toggleTheme = () => setMode((m) => (m === 'light' ? 'dark' : 'light'));
 
   return (
     <ThemeProvider theme={theme}>
