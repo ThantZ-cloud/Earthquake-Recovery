@@ -186,9 +186,9 @@ export default function Home() {
           <Typography variant="body1" color="text.secondary" textAlign="center" mb={5}>
             Remember the three simple steps that could save your life.
           </Typography>
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
             {SAFETY_TIPS.map((tip, index) => (
-              <Grid item xs={12} md={4} key={tip.title}>
+              <Grid item xs={12} sm={4} key={tip.title}>
                 <motion.div
                   custom={index}
                   initial="hidden"
