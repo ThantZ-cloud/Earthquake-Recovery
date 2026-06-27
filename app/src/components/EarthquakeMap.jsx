@@ -58,39 +58,6 @@ const fetchQuakes = async () => {
     .filter(Boolean);
 };
 
-// Fetch EMSC earthquake data directly (better Asia/Europe coverage)
-const fetchEMSC = async () => {
-  const { data } = await api.get(
-    'https://www.seismicportal.eu/fdsnws/event/1/query',
-    {
-      params: {
-        format: 'json',
-        minmag: 2,
-        limit: 200,
-        starttime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-      },
-    }
-  );
-  const features = data?.features || [];
-  return features
-    .map((f, i) => {
-      const [lon, lat, depth] = f.geometry?.coordinates || [];
-      const mag = f.properties?.mag;
-      if (!lon || !lat || mag == null) return null;
-      return {
-        id: `${f.properties?.source_id || f.id || 'emsc'}-${i}`,
-        lat,
-        lon,
-        depth: depth?.toFixed(1) || '?',
-        mag,
-        place: f.properties?.flynn_region || 'Unknown',
-        time: new Date(f.properties?.time).toLocaleString(),
-        source: 'EMSC',
-      };
-    })
-    .filter(Boolean);
-};
-
 const fetchPlates = async () => {
   const { data } = await api.get(
     'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
@@ -117,19 +84,13 @@ function EarthquakeMap({ height = '70vh' }) {
     refetchInterval: 5 * 60 * 1000,
   });
 
-  const { data: emscQuakes = [], isLoading: emscLoading } = useQuery({
-    queryKey: ['emscEarthquakes'],
-    queryFn: fetchEMSC,
-    refetchInterval: 5 * 60 * 1000,
-  });
-
   const { data: plates, isLoading: platesLoading } = useQuery({
     queryKey: ['tectonicPlates'],
     queryFn: fetchPlates,
     staleTime: Infinity,
   });
 
-  const loading = quakesLoading || emscLoading || !mapReady;
+  const loading = quakesLoading || !mapReady;
 
   // Progress steps
   const steps = [
@@ -242,7 +203,7 @@ function EarthquakeMap({ height = '70vh' }) {
         </LayersControl>
 
         {/* All earthquake markers (USGS proxy + EMSC direct) */}
-        {[...quakes, ...emscQuakes].map((q) => (
+        {quakes.map((q) => (
           <Marker key={q.id} position={[q.lat, q.lon]} icon={quakeIcon(q.mag)}>
             <Popup>
               <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
