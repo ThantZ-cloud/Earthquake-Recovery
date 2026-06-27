@@ -16,7 +16,6 @@ import LoginIcon from '@mui/icons-material/Login';
 import { motion } from 'framer-motion';
 import SafetyCharacter from '../components/SafetyCharacter';
 import EarthquakeMap from '../components/EarthquakeMap';
-import RecentQuakes from '../components/RecentQuakes';
 import LocationAlerts from '../components/LocationAlerts';
 import AuthDialog from '../components/AuthDialog';
 import { useAuth } from '../context/AuthContext';
@@ -170,13 +169,6 @@ export default function Home() {
               </Box>
             ))}
           </Box>
-        </Container>
-      </Box>
-
-      {/* Recent Earthquakes */}
-      <Box sx={{ py: 6, bgcolor: 'background.default' }}>
-        <Container maxWidth="lg">
-          <RecentQuakes />
         </Container>
       </Box>
 
