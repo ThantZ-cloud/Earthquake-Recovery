@@ -79,7 +79,7 @@ export default function Navbar({ mode, toggleTheme }) {
           {/* Left side: hamburger (mobile) + logo */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {isMobile && (
-              <IconButton onClick={() => setDrawerOpen(true)} color="inherit" size="small">
+              <IconButton onClick={() => setDrawerOpen(true)} size="small" sx={{ color: 'text.primary' }}>
                 <MenuIcon />
               </IconButton>
             )}
