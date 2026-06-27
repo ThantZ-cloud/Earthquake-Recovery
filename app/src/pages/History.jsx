@@ -129,11 +129,11 @@ export default function History() {
 
       {/* Filter */}
       <Container maxWidth="md" sx={{ py: 6 }}>
-        <Card elevation={0} sx={{ p: 4, mb: 5, border: '1px solid', borderColor: 'divider' }}>
+        <Card elevation={0} sx={{ p: { xs: 2, sm: 3, md: 4 }, mb: 5, border: '1px solid', borderColor: 'divider' }}>
           <Typography variant="subtitle1" fontWeight={700} gutterBottom>
             Filter by minimum magnitude
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, sm: 3 }, flexWrap: 'wrap' }}>
             <Slider
               value={minMag}
               onChange={(_, v) => setMinMag(v)}

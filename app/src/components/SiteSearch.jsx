@@ -11,6 +11,9 @@ import {
   ListItemText,
   Chip,
   ClickAwayListener,
+  IconButton,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import siteSearchData from '../data/siteSearchData';
@@ -19,8 +22,12 @@ export default function SiteSearch() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const anchorRef = useRef(null);
+  const inputRef = useRef(null);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (query.trim().length < 2) {
@@ -46,16 +53,36 @@ export default function SiteSearch() {
   const handleSelect = (item) => {
     setQuery('');
     setOpen(false);
+    setExpanded(false);
     navigate(item.path);
   };
 
   const handleClickAway = () => {
     setOpen(false);
+    if (isSmall) {
+      setExpanded(false);
+      setQuery('');
+    }
   };
+
+  const handleExpand = () => {
+    setExpanded(true);
+    setTimeout(() => inputRef.current?.focus(), 100);
+  };
+
+  // On small screens: show icon button until expanded
+  if (isSmall && !expanded) {
+    return (
+      <IconButton onClick={handleExpand} color="inherit" size="small">
+        <SearchIcon fontSize="small" />
+      </IconButton>
+    );
+  }
 
   return (
     <Box ref={anchorRef}>
       <TextField
+        inputRef={inputRef}
         size="small"
         placeholder="Search earthquake info..."
         value={query}
@@ -64,7 +91,8 @@ export default function SiteSearch() {
           if (results.length > 0) setOpen(true);
         }}
         sx={{
-          minWidth: { xs: 140, sm: 220, md: 280 },
+          minWidth: { xs: 160, sm: 220, md: 280 },
+          maxWidth: { xs: 200, sm: 'none' },
           '& .MuiOutlinedInput-root': {
             borderRadius: 3,
             bgcolor: 'action.hover',

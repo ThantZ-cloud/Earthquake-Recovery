@@ -190,8 +190,8 @@ export default function Quiz() {
             />
 
             {/* Stepper — scrolls as user advances */}
-            <Box sx={{ overflow: 'hidden' }}>
-              <Stepper activeStep={step % 5} alternativeLabel sx={{ mb: 2 }}>
+            <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.7rem', sm: '0.8rem' } } }}>
+              <Stepper activeStep={step % 5} alternativeLabel sx={{ mb: 2, minWidth: 0 }}>
                 {stepperSteps.map((_, i) => {
                   const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
                   return (
@@ -216,7 +216,7 @@ export default function Quiz() {
                 exit="exit"
                 transition={{ duration: 0.3 }}
               >
-                <Card elevation={2} sx={{ p: 4 }}>
+                <Card elevation={2} sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
                   <CardContent>
                     <Typography variant="caption" color="primary" fontWeight={600} sx={{ mb: 1, display: 'block' }}>
                       {QUESTIONS[step].category}
@@ -274,7 +274,7 @@ export default function Quiz() {
         ) : (
           /* Result card */
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}>
-            <Card elevation={4} sx={{ textAlign: 'center', py: 6, px: 4 }}>
+            <Card elevation={4} sx={{ textAlign: 'center', py: { xs: 4, md: 6 }, px: { xs: 2, sm: 4 } }}>
               <EmojiEventsIcon
                 sx={{
                   fontSize: 80,
