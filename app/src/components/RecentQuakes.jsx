@@ -120,12 +120,12 @@ const fetchRecent = async () => {
   const { data } = await api.get('/api/recent');
   const features = data?.data?.features || [];
   return features
-    .map((f) => {
+    .map((f, i) => {
       const [lon, lat, depth] = f.geometry?.coordinates || [];
       const mag = f.properties?.mag;
       if (!lon || !lat || mag == null) return null;
       return {
-        id: f.properties?.event_id || `${lon}-${lat}-${mag}-${f.properties?.time}` || Math.random(),
+        id: `${f.properties?.event_id || 'q'}-${i}`,
         lat,
         lon,
         depth: depth?.toFixed(1) || '?',
