@@ -95,8 +95,7 @@ function EarthquakeMap({ height = '70vh' }) {
   // Progress steps
   const steps = [
     { label: 'Map tiles', done: mapReady },
-    { label: 'USGS / EMSC data', done: !quakesLoading },
-    { label: 'EMSC (24h, M2+)', done: !emscLoading },
+    { label: 'Earthquake data', done: !quakesLoading },
   ];
   const completedSteps = steps.filter((s) => s.done).length;
   const progress = (completedSteps / steps.length) * 100;
