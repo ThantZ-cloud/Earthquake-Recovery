@@ -200,12 +200,10 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// ---------- Start (local dev only) ----------
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`🌍 Earthquake API running on http://localhost:${PORT}`);
-  });
-}
+// ---------- Start ----------
+app.listen(PORT, () => {
+  console.log(`🌍 Earthquake API running on http://localhost:${PORT}`);
+});
 
 // Export for Vercel
 export default app;
