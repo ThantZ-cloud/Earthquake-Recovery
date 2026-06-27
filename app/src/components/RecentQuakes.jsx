@@ -133,7 +133,7 @@ const fetchRecent = async () => {
       const mag = f.properties?.mag;
       if (!lon || !lat || mag == null) return null;
       return {
-        id: f.properties?.event_id || Math.random(),
+        id: f.properties?.event_id || `${lon}-${lat}-${mag}-${f.properties?.time}` || Math.random(),
         lat,
         lon,
         depth: depth?.toFixed(1) || '?',
@@ -183,7 +183,7 @@ export default function RecentQuakes() {
         {top4.map((q) => {
           const country = extractCountry(q.place);
           return (
-            <Grid item xs={12} sm={6} md={3} key={q.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={q.id}>
               <Card
                 elevation={0}
                 sx={{

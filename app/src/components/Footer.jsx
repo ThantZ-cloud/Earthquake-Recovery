@@ -53,7 +53,7 @@ export default function Footer() {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           {columns.map((col) => (
-            <Grid item xs={6} sm={4} md={3} key={col.title}>
+            <Grid size={{ xs: 6, sm: 4, md: 3 }} key={col.title}>
               <Typography variant="subtitle2" fontWeight={700} gutterBottom>
                 {col.title}
               </Typography>
@@ -73,7 +73,7 @@ export default function Footer() {
           ))}
 
           {/* Social column */}
-          <Grid item xs={12} sm={12} md={3}>
+          <Grid size={{ xs: 12, sm: 12, md: 3 }}>
             <Typography variant="subtitle2" fontWeight={700} gutterBottom>
               Follow Us
             </Typography>

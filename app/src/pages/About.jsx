@@ -221,7 +221,7 @@ export default function About() {
         >
           <Grid container spacing={3}>
             {TEAM.map((member) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={member.name}>
+              <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={member.name}>
                 <motion.div variants={cardVariants}>
                   <Card
                     onClick={() => setSelected(member)}

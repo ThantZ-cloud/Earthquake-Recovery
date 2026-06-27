@@ -196,7 +196,7 @@ export default function Home() {
           </Typography>
           <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
             {SAFETY_TIPS.map((tip, index) => (
-              <Grid item xs={12} sm={4} key={tip.title}>
+              <Grid size={{ xs: 12, sm: 4 }} key={tip.title}>
                 <motion.div
                   custom={index}
                   initial="hidden"

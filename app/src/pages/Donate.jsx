@@ -108,7 +108,7 @@ export default function Donate() {
         >
           <Grid container spacing={3}>
             {DONATE_ITEMS[tabKeys[tab]].map((item) => (
-              <Grid item xs={6} sm={4} md={3} key={item.name}>
+              <Grid size={{ xs: 6, sm: 4, md: 3 }} key={item.name}>
                 <motion.div variants={itemVariants}>
                   <Card
                     onClick={() => item.address && setDialog(item)}
