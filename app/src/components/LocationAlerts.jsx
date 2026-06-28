@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { Snackbar, Alert, Box, Chip, Typography } from '@mui/material';
-import api from '../api';
+import { useState, useEffect, useRef } from 'react';
+import { Snackbar, Alert, Box, Chip } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 
 // Haversine distance in km between two [lat, lon] points
 function haversineKm(a, b) {
@@ -64,36 +64,29 @@ export default function LocationAlerts({ enabled }) {
     };
   }, [enabled]);
 
-  // Poll earthquakes
-  const checkQuakes = useCallback(async () => {
-    if (!userPos) return;
-    try {
-      const res = await api.get('/api/recent');
-      const features = res.data?.data?.features || [];
-      for (const f of features) {
-        const [lon, lat] = f.geometry?.coordinates || [];
-        const mag = f.properties?.mag;
-        if (!lon || !lat || !mag || mag < 2) continue;
-
-        const dist = haversineKm(userPos, [lat, lon]);
-        if (dist <= RADIUS_KM) {
-          const place = f.properties?.place || f.properties?.flynn_region || 'Nearby';
-          setAlertQuake({ place, mag, dist: dist.toFixed(1) });
-          setSnackOpen(true);
-          return; // one alert at a time
-        }
-      }
-    } catch {
-      // silent fail — don't spam user
-    }
-  }, [userPos]);
+  // Read earthquake data from react-query cache (shared with EarthquakeMap)
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!enabled || !userPos) return;
+
+    const checkQuakes = () => {
+      const features = queryClient.getQueryData(['earthquakes']) || [];
+      for (const q of features) {
+        if (!q.lat || !q.lon || !q.mag || q.mag < 2) continue;
+        const dist = haversineKm(userPos, [q.lat, q.lon]);
+        if (dist <= RADIUS_KM) {
+          setAlertQuake({ place: q.place, mag: q.mag, dist: dist.toFixed(1) });
+          setSnackOpen(true);
+          return;
+        }
+      }
+    };
+
     checkQuakes(); // initial check
     const interval = setInterval(checkQuakes, POLL_MS);
     return () => clearInterval(interval);
-  }, [enabled, userPos, checkQuakes]);
+  }, [enabled, userPos, queryClient]);
 
   if (locationError) {
     return (

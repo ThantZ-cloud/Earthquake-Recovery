@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   Grid,
+  useTheme,
 } from '@mui/material';
 import ShieldIcon from '@mui/icons-material/Shield';
 import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
@@ -55,6 +56,7 @@ const cardVariants = {
 };
 
 export default function Home() {
+  const theme = useTheme();
   const { user } = useAuth();
   const [alertsEnabled, setAlertsEnabled] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -176,7 +178,7 @@ export default function Home() {
       <Box
         sx={{
           py: 8,
-          background: 'linear-gradient(180deg, background.paper 0%, #f5f5f5 100%)',
+          background: `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.mode === 'dark' ? '#1a1a1a' : '#f5f5f5'} 100%)`,
         }}
       >
         <Container maxWidth="lg">
