@@ -56,7 +56,7 @@ earthquake-recovery/
 └── .mcp.json                       # Context7 MCP config
 ```
 
-Vite proxies `/api/*` to Express during dev. In production, frontend deploys to Netlify, backend to Render.
+Vite proxies `/api/*` to Express during dev. In production, frontend deploys to Vercel, backend to Railway.
 
 ## Key dependencies
 
@@ -67,12 +67,24 @@ Vite proxies `/api/*` to Express during dev. In production, frontend deploys to 
 - **axios** — HTTP requests to backend
 - **express** + **cors** — backend API
 
-## Map data sources
+## Map (`app/src/components/EarthquakeMap.jsx`)
 
-- USGS hourly feed: `https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`
-- Tectonic plates: `https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json`
+### Data sources
+- USGS hourly feed via backend proxy: `GET /api/recent`
+- Tectonic plates: bundled locally at `app/public/tectonicplates.json` (GitHub raw URL blocked in some networks)
 
 See `.claude/skills/earthquake-api.md` for the full USGS API reference.
+
+### Rendering
+- Earthquake markers: `CircleMarker` rendered on a single `<canvas>` via `L.canvas()` renderer — fast pan/zoom
+- Markers colored by magnitude: green (<2), yellow (2–4), orange (4–6), red (6+)
+- Tectonic plates: `GeoJSON` with default SVG renderer (Canvas renderer doesn't work with GeoJSON)
+- Street tiles: CartoDB Positron (`basemaps.cartocdn.com`) — OSM tile server blocked in some networks
+
+### Performance notes
+- Don't use `L.divIcon` with SVG/IMG for hundreds of markers — too many DOM nodes
+- Don't use `L.canvas()` renderer on GeoJSON — it doesn't render
+- `fetchPlates` uses native `fetch`, not the project's `api` axios instance (absolute external URL)
 
 ## Navbar features
 
@@ -93,3 +105,7 @@ MUI theme supports dark/light mode toggle. `app/src/theme.js` defines the palett
 - framer-motion `motion.div` with variants for staggered animations
 - Use MUI `sx` prop for styling (no separate CSS files for components)
 - Responsive: `{ xs: ..., md: ... }` breakpoints in sx props
+- Page routes (except Home) are lazy-loaded via `React.lazy()` in `App.jsx`
+- Earthquake data cached with `@tanstack/react-query` (queryKey: `['earthquakes']`)
+- `LocationAlerts` reads from react-query cache — don't add independent fetches for `/api/recent`
+- Hero gradients are intentionally dark (work in both themes); other sections use `theme.palette` for dark mode support
