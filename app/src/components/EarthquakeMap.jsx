@@ -1,4 +1,4 @@
-import { useState, useMemo, memo } from 'react';
+import { useState, useMemo, memo, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
@@ -61,10 +61,11 @@ const fetchPlates = async () => {
 // Detect when Leaflet map tiles are loaded
 function MapReadyDetector({ onReady }) {
   const map = useMap();
-  map.whenReady(() => {
-    // Small delay so tiles have time to render
-    setTimeout(() => onReady(), 500);
-  });
+  useEffect(() => {
+    map.whenReady(() => {
+      setTimeout(() => onReady(), 500);
+    });
+  }, [map, onReady]);
   return null;
 }
 

@@ -148,6 +148,7 @@ export default function Quiz() {
   };
 
   const stepperSteps = visibleSteps(QUESTIONS, step);
+  const stepperStart = Math.min(step, QUESTIONS.length - 5);
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -191,7 +192,7 @@ export default function Quiz() {
 
             {/* Stepper — scrolls as user advances */}
             <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.7rem', sm: '0.8rem' } } }}>
-              <Stepper activeStep={step % 5} alternativeLabel sx={{ mb: 2, minWidth: 0 }}>
+              <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: 2, minWidth: 0 }}>
                 {stepperSteps.map((_, i) => {
                   const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
                   return (
