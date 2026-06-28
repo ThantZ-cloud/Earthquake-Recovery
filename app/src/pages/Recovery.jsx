@@ -9,7 +9,6 @@ import {
   Grid,
   Tab,
   Tabs,
-  Chip,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import HealingIcon from '@mui/icons-material/Healing';
@@ -155,6 +154,7 @@ export default function Recovery() {
                       height="200"
                       image={item.img}
                       alt={item.title}
+                      loading="lazy"
                       sx={{ objectFit: 'cover' }}
                     />
                     <CardContent>

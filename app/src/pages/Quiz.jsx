@@ -117,7 +117,7 @@ export default function Quiz() {
   const [score, setScore] = useState(null);
 
   const handleSelect = (qIdx, val) => {
-    setAnswers((prev) => ({ ...prev, [qIdx]: parseInt(val) }));
+    setAnswers((prev) => ({ ...prev, [qIdx]: parseInt(val, 10) }));
   };
 
   const handleNext = () => {

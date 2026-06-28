@@ -14,6 +14,8 @@ import {
   DialogTitle,
   IconButton,
   Button,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -59,6 +61,7 @@ const itemVariants = {
 export default function Donate() {
   const [tab, setTab] = useState(0);
   const [dialog, setDialog] = useState(null);
+  const [copySnack, setCopySnack] = useState(null); // 'success' | 'error' | null
 
   const tabKeys = Object.keys(DONATE_ITEMS);
 
@@ -194,7 +197,9 @@ export default function Donate() {
                 variant="outlined"
                 size="small"
                 onClick={() => {
-                  navigator.clipboard.writeText(dialog.address);
+                  navigator.clipboard.writeText(dialog.address)
+                    .then(() => setCopySnack('success'))
+                    .catch(() => setCopySnack('error'));
                 }}
               >
                 Copy Address
@@ -203,6 +208,21 @@ export default function Donate() {
           </>
         )}
       </Dialog>
+
+      <Snackbar
+        open={!!copySnack}
+        autoHideDuration={3000}
+        onClose={() => setCopySnack(null)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          severity={copySnack === 'success' ? 'success' : 'error'}
+          variant="filled"
+          onClose={() => setCopySnack(null)}
+        >
+          {copySnack === 'success' ? 'Address copied to clipboard!' : 'Failed to copy — try selecting manually'}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

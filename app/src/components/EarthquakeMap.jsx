@@ -79,6 +79,7 @@ function EarthquakeMap({ height = '70vh' }) {
     queryKey: ['earthquakes'],
     queryFn: fetchQuakes,
     refetchInterval: 5 * 60 * 1000,
+    staleTime: 4 * 60 * 1000, // data fresh for 4 min, skip refetch on remount
   });
 
   const { data: plates, isLoading: platesLoading } = useQuery({
