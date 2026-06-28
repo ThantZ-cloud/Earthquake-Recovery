@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
+import { useState, useMemo, memo } from 'react';
+import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -16,23 +16,18 @@ function magColor(mag) {
   return '#2e7d32';
 }
 
-// SVG divIcon for each quake
-function quakeIcon(mag) {
-  const fill = magColor(mag);
-  const size = Math.max(24, Math.min(48, mag * 8));
-  const fontSize = Math.max(9, Math.min(14, size * 0.4));
 
-  return L.divIcon({
-    className: '',
-    html: `<svg width="${size}" height="${size}" viewBox="0 0 32 32">
-      <circle cx="16" cy="16" r="11" fill="${fill}" stroke="#fff" stroke-width="2" opacity="0.9"/>
-      <text x="16" y="20" text-anchor="middle" font-size="${fontSize}" fill="#fff" font-family="Poppins,sans-serif" font-weight="700">${mag.toFixed(1)}</text>
-    </svg>`,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
-    popupAnchor: [0, -size / 2],
-  });
-}
+// Memoized popup
+const QuakePopup = memo(function QuakePopup({ q }) {
+  return (
+    <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
+      <Typography variant="subtitle2" fontWeight={700}>{q.place}</Typography>
+      <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
+      <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
+      <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
+    </Box>
+  );
+});
 
 
 // Fetcher functions
@@ -59,10 +54,8 @@ const fetchQuakes = async () => {
 };
 
 const fetchPlates = async () => {
-  const { data } = await api.get(
-    'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
-  );
-  return data;
+  const res = await fetch('/tectonicplates.json');
+  return res.json();
 };
 
 // Detect when Leaflet map tiles are loaded
@@ -77,6 +70,9 @@ function MapReadyDetector({ onReady }) {
 
 function EarthquakeMap({ height = '70vh' }) {
   const [mapReady, setMapReady] = useState(false);
+
+  // Canvas renderer for tectonic plates — draws on a single canvas instead of SVG paths
+  const canvasRenderer = useMemo(() => L.canvas({ padding: 0.2 }), []);
 
   const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
     queryKey: ['earthquakes'],
@@ -169,8 +165,9 @@ function EarthquakeMap({ height = '70vh' }) {
         <LayersControl position="topright" collapsed={false}>
           <LayersControl.BaseLayer checked name="Street">
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              subdomains="abcd"
               maxZoom={19}
             />
           </LayersControl.BaseLayer>
@@ -191,7 +188,7 @@ function EarthquakeMap({ height = '70vh' }) {
             />
           </LayersControl.BaseLayer>
 
-          <LayersControl.Overlay name="Tectonic Plates">
+          <LayersControl.Overlay name="Tectonic Plates" checked>
             <LayerGroup>
               {plates && (
                 <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
@@ -201,20 +198,24 @@ function EarthquakeMap({ height = '70vh' }) {
 
         </LayersControl>
 
-        {/* All earthquake markers (USGS proxy + EMSC direct) */}
+        {/* All earthquake markers — Canvas-rendered circles */}
         {quakes.map((q) => (
-          <Marker key={q.id} position={[q.lat, q.lon]} icon={quakeIcon(q.mag)}>
+          <CircleMarker
+            key={q.id}
+            center={[q.lat, q.lon]}
+            radius={Math.max(4, Math.min(12, q.mag * 3))}
+            pathOptions={{
+              fillColor: magColor(q.mag),
+              fillOpacity: 0.85,
+              color: '#fff',
+              weight: 1.5,
+            }}
+            renderer={canvasRenderer}
+          >
             <Popup>
-              <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
-                <Typography variant="subtitle2" fontWeight={700}>
-                  {q.place}
-                </Typography>
-                <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
-                <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
-                <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
-              </Box>
+              <QuakePopup q={q} />
             </Popup>
-          </Marker>
+          </CircleMarker>
         ))}
       </MapContainer>
     </Box>
