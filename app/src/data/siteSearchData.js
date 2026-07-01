@@ -44,9 +44,6 @@ const siteSearchData = [
   // Donate
   { title: 'Donate', keywords: ['donate', 'donation', 'bitcoin', 'ethereum', 'paypal', 'KBZ pay', 'wave pay', 'support'], section: 'Donate', path: '/donate' },
 
-  // About Us
-  { title: 'Our Team', keywords: ['team', 'about us', 'members', 'students', 'UTYCC', 'meet the team'], section: 'About Us', path: '/about' },
-
   // Tsunami
   { title: 'Tsunami Information', keywords: ['tsunami', 'waves', 'coastal flooding', 'tsunami safety', 'tsunami warning'], section: 'Home', path: '/' },
   { title: 'Volcano Information', keywords: ['volcano', 'eruption', 'lava', 'ashfall', 'lahars', 'pyroclastic'], section: 'Home', path: '/' },

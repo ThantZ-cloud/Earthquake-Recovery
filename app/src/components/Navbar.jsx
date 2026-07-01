@@ -39,7 +39,6 @@ const NAV_ITEMS = [
   { label: 'Donate', path: '/donate' },
   { label: 'Quiz', path: '/quiz' },
   { label: 'History', path: '/history' },
-  { label: 'About Us', path: '/about' },
 ];
 
 export default function Navbar({ mode, toggleTheme }) {
@@ -128,19 +127,18 @@ export default function Navbar({ mode, toggleTheme }) {
                     fontSize: '0.8rem',
                     px: 1,
                     position: 'relative',
-                    '&::after': isActive(item.path)
-                      ? {
-                          content: '""',
-                          position: 'absolute',
-                          bottom: 2,
-                          left: '50%',
-                          transform: 'translateX(-50%)',
-                          width: 16,
-                          height: 3,
-                          borderRadius: 2,
-                          bgcolor: 'primary.main',
-                        }
-                      : {},
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 2,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: isActive(item.path) ? 16 : 0,
+                      height: 3,
+                      borderRadius: 2,
+                      bgcolor: 'primary.main',
+                      transition: 'width 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                    },
                   }}
                 >
                   {item.label}
@@ -192,7 +190,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   label={user.name?.split(' ')[0]}
                   onClick={(e) => setAnchorEl(e.currentTarget)}
                   size="small"
-                  sx={{ fontWeight: 600, cursor: 'pointer', ml: 0.5 }}
+                  sx={{ fontWeight: 600, cursor: 'pointer', ml: 0.5, '&:hover': { bgcolor: 'action.hover' } }}
                 />
                 <Menu
                   anchorEl={anchorEl}

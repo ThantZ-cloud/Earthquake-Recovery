@@ -6,7 +6,6 @@ import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 
-const About = lazy(() => import('./pages/About'));
 const Recovery = lazy(() => import('./pages/Recovery'));
 const Donate = lazy(() => import('./pages/Donate'));
 const Quiz = lazy(() => import('./pages/Quiz'));
@@ -26,7 +25,6 @@ export default function App() {
           <Suspense fallback={<Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}><CircularProgress /></Box>}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
               <Route path="/recovery" element={<Recovery />} />
               <Route path="/donate" element={<Donate />} />
               <Route path="/quiz" element={<Quiz />} />
