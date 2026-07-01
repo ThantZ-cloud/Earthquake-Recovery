@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="ocean" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#4fc3f7"/>
+      <stop offset="100%" stop-color="#0277bd"/>
+    </radialGradient>
+    <clipPath id="circle">
+      <circle cx="50" cy="50" r="48"/>
+    </clipPath>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="url(#ocean)" stroke="#01579b" stroke-width="2"/>
+  <g clip-path="url(#circle)">
+    <!-- Continents -->
+    <path d="M30 20 Q35 15 42 18 Q48 22 45 30 Q40 35 35 32 Q28 28 30 20Z" fill="#4caf50"/>
+    <path d="M55 22 Q62 18 68 22 Q72 28 68 35 Q62 38 56 34 Q50 28 55 22Z" fill="#4caf50"/>
+    <path d="M25 40 Q32 36 40 38 Q48 42 50 50 Q48 58 42 60 Q34 58 28 52 Q22 46 25 40Z" fill="#4caf50"/>
+    <path d="M58 42 Q64 38 72 40 Q78 45 76 52 Q72 58 66 56 Q58 52 55 48 Q54 44 58 42Z" fill="#4caf50"/>
+    <path d="M35 65 Q42 60 50 62 Q56 66 54 72 Q48 78 40 76 Q32 72 35 65Z" fill="#4caf50"/>
+    <path d="M60 62 Q66 58 74 60 Q80 64 78 70 Q74 76 68 74 Q60 70 60 62Z" fill="#4caf50"/>
+    <!-- Latitude lines -->
+    <ellipse cx="50" cy="50" rx="48" ry="12" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+    <ellipse cx="50" cy="50" rx="48" ry="28" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+    <!-- Longitude lines -->
+    <ellipse cx="50" cy="50" rx="12" ry="48" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+    <ellipse cx="50" cy="50" rx="28" ry="48" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+    <!-- Equator -->
+    <line x1="2" y1="50" x2="98" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+  </g>
+</svg>
