@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Container,
@@ -373,8 +373,6 @@ function StoryCard({ q, index }) {
 export default function History() {
   const [tab, setTab] = useState(0);
   const [minMag, setMinMag] = useState(6);
-  const [isSticky, setIsSticky] = useState(false);
-  const sentinelRef = useRef(null);
 
   const currentQuakes = tab === 0 ? INTERNATIONAL_QUAKES : MYANMAR_QUAKES;
   const filtered = currentQuakes.filter((q) => q.magnitude >= minMag);
@@ -383,22 +381,6 @@ export default function History() {
     setTab(v);
     setMinMag(6);
   };
-
-  // IntersectionObserver: detect when the sentinel (placed right after hero) scrolls out of view
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // When sentinel is NOT intersecting, the hero has scrolled past → make tabs fixed
-        setIsSticky(!entry.isIntersecting);
-      },
-      { threshold: 0, rootMargin: '-1px 0px 0px 0px' }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <Box sx={{ bgcolor: 'background.default' }}>
@@ -431,34 +413,16 @@ export default function History() {
         </Container>
       </Box>
 
-      {/* Sentinel: invisible element at the hero-tabs boundary for IntersectionObserver */}
-      <Box ref={sentinelRef} sx={{ height: 0 }} />
+      {/* Tabs */}
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Tabs value={tab} onChange={handleTabChange} centered>
+          <Tab label="International" />
+          <Tab label="Myanmar (Local)" />
+        </Tabs>
+      </Container>
 
-      {/* Spacer: takes up space when tabs become fixed */}
-      {isSticky && <Box sx={{ height: { xs: 130, sm: 120 } }} />}
-
-      {/* ── Sticky Tabs + Filter ── */}
-      <Box
-        sx={{
-          position: isSticky ? 'fixed' : 'relative',
-          top: isSticky ? 64 : 'auto',
-          left: 0,
-          right: 0,
-          zIndex: 1100,
-          bgcolor: 'background.default',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
-          boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
-          transition: 'box-shadow 0.3s',
-        }}
-      >
-        <Container maxWidth="lg">
-          <Tabs value={tab} onChange={handleTabChange} centered sx={{ pt: 1 }}>
-            <Tab label="International" />
-            <Tab label="Myanmar (Local)" />
-          </Tabs>
-        </Container>
-        <Container maxWidth="lg" sx={{ pb: 2, pt: 1 }}>
+      {/* Filter */}
+      <Container maxWidth="lg" sx={{ py: 2 }}>
           <Box
             sx={{
               display: 'flex',
@@ -495,8 +459,7 @@ export default function History() {
             />
             <Chip label={`≥ M${minMag}`} color="primary" variant="outlined" />
           </Box>
-        </Container>
-      </Box>
+      </Container>
 
       {/* ── Masonry Story Cards ── */}
       <Container maxWidth="lg" sx={{ py: 4 }}>

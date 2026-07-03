@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Container,
@@ -325,20 +325,7 @@ const TAB_DATA = [
 
 export default function Recovery() {
   const [tab, setTab] = useState(0);
-  const [isSticky, setIsSticky] = useState(false);
-  const sentinelRef = useRef(null);
   const theme = useTheme();
-
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsSticky(!entry.isIntersecting),
-      { threshold: 0, rootMargin: '-1px 0px 0px 0px' }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -365,46 +352,25 @@ export default function Recovery() {
         </Container>
       </Box>
 
-      {/* Sentinel */}
-      <Box ref={sentinelRef} sx={{ height: 0 }} />
-
-      {/* Spacer when fixed */}
-      {isSticky && <Box sx={{ height: { xs: 80, sm: 72 } }} />}
-
-      {/* ── Sticky Tabs ── */}
-      <Box
-        sx={{
-          position: isSticky ? 'fixed' : 'relative',
-          top: isSticky ? 64 : 'auto',
-          left: 0,
-          right: 0,
-          zIndex: 1100,
-          bgcolor: 'background.default',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
-          boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
-          transition: 'box-shadow 0.3s',
-        }}
-      >
-        <Container maxWidth="lg">
-          <Tabs
-            value={tab}
-            onChange={(_, v) => setTab(v)}
-            centered
-            variant="fullWidth"
-            TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
-          >
-            {TAB_DATA.map((t, i) => (
-              <Tab
-                key={t.label}
-                icon={t.icon}
-                label={t.label}
-                sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
-              />
-            ))}
-          </Tabs>
-        </Container>
-      </Box>
+      {/* Tabs */}
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Tabs
+          value={tab}
+          onChange={(_, v) => setTab(v)}
+          centered
+          variant="fullWidth"
+          TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
+        >
+          {TAB_DATA.map((t, i) => (
+            <Tab
+              key={t.label}
+              icon={t.icon}
+              label={t.label}
+              sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
+            />
+          ))}
+        </Tabs>
+      </Container>
 
       {/* ── Content ── */}
       <Container maxWidth="lg" sx={{ py: 6 }}>

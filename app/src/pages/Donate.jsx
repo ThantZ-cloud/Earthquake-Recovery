@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Container,
@@ -210,19 +210,6 @@ export default function Donate() {
   const [tab, setTab] = useState(0);
   const [dialog, setDialog] = useState(null);
   const [copySnack, setCopySnack] = useState(null);
-  const [isSticky, setIsSticky] = useState(false);
-  const sentinelRef = useRef(null);
-
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsSticky(!entry.isIntersecting),
-      { threshold: 0, rootMargin: '-1px 0px 0px 0px' }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
 
   const handleCopy = (text) => {
     navigator.clipboard
@@ -263,45 +250,24 @@ export default function Donate() {
         </Container>
       </Box>
 
-      {/* Sentinel */}
-      <Box ref={sentinelRef} sx={{ height: 0 }} />
-
-      {/* Spacer when fixed */}
-      {isSticky && <Box sx={{ height: { xs: 80, sm: 72 } }} />}
-
-      {/* ── Sticky Tabs ── */}
-      <Box
-        sx={{
-          position: isSticky ? 'fixed' : 'relative',
-          top: isSticky ? 64 : 'auto',
-          left: 0,
-          right: 0,
-          zIndex: 1100,
-          bgcolor: 'background.default',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
-          boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
-          transition: 'box-shadow 0.3s',
-        }}
-      >
-        <Container maxWidth="lg">
-          <Tabs
-            value={tab}
-            onChange={(_, v) => setTab(v)}
-            centered
-            variant="fullWidth"
-            TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
-          >
-            {TAB_LABELS.map((label, i) => (
-              <Tab
-                key={label}
-                label={label}
-                sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
-              />
-            ))}
-          </Tabs>
-        </Container>
-      </Box>
+      {/* Tabs */}
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Tabs
+          value={tab}
+          onChange={(_, v) => setTab(v)}
+          centered
+          variant="fullWidth"
+          TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
+        >
+          {TAB_LABELS.map((label, i) => (
+            <Tab
+              key={label}
+              label={label}
+              sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
+            />
+          ))}
+        </Tabs>
+      </Container>
 
       {/* ── Payment Cards ── */}
       <Container maxWidth="lg" sx={{ py: 6 }}>
