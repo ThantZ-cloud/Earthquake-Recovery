@@ -1,9 +1,10 @@
 import { useState, useMemo, Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider, CssBaseline, CircularProgress, Box } from '@mui/material';
+import { ThemeProvider, CssBaseline } from '@mui/material';
 import getTheme from './theme';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
+import PageSkeleton from './components/PageSkeleton';
 import Home from './pages/Home';
 
 const Recovery = lazy(() => import('./pages/Recovery'));
@@ -22,15 +23,41 @@ export default function App() {
       <CssBaseline />
       <AuthProvider>
         <Layout mode={mode} toggleTheme={toggleTheme}>
-          <Suspense fallback={<Box sx={{ display: 'flex', justifyContent: 'center', py: 10 }}><CircularProgress /></Box>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/recovery" element={<Recovery />} />
-              <Route path="/donate" element={<Donate />} />
-              <Route path="/quiz" element={<Quiz />} />
-              <Route path="/history" element={<History />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/recovery"
+              element={
+                <Suspense fallback={<PageSkeleton variant="recovery" />}>
+                  <Recovery />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/donate"
+              element={
+                <Suspense fallback={<PageSkeleton variant="donate" />}>
+                  <Donate />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/quiz"
+              element={
+                <Suspense fallback={<PageSkeleton variant="quiz" />}>
+                  <Quiz />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/history"
+              element={
+                <Suspense fallback={<PageSkeleton variant="history" />}>
+                  <History />
+                </Suspense>
+              }
+            />
+          </Routes>
         </Layout>
       </AuthProvider>
     </ThemeProvider>
