@@ -77,6 +77,7 @@ export default function HowToMeasure() {
               viewport={{ once: true, margin: '-50px' }}
               custom={1}
               variants={fadeUp}
+              style={{ height: '100%' }}
             >
               <Paper
                 elevation={0}
@@ -114,6 +115,7 @@ export default function HowToMeasure() {
               viewport={{ once: true, margin: '-50px' }}
               custom={2}
               variants={fadeUp}
+              style={{ height: '100%' }}
             >
               <Paper
                 elevation={0}

@@ -116,6 +116,7 @@ export default function SafetyGuide() {
                 viewport={{ once: true, margin: '-50px' }}
                 custom={i + 1}
                 variants={fadeUp}
+                style={{ height: '100%' }}
               >
                 <Paper
                   elevation={0}

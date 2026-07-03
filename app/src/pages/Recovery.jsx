@@ -417,7 +417,7 @@ export default function Recovery() {
           <Grid container spacing={3}>
             {TAB_DATA[tab].sections.map((section, i) => (
               <Grid size={{ xs: 12, md: 6 }} key={section.title}>
-                <motion.div variants={itemVariants}>
+                <motion.div variants={itemVariants} style={{ height: '100%' }}>
                   <Paper
                     elevation={0}
                     sx={{
