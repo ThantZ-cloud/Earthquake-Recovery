@@ -8,14 +8,16 @@ const siteSearchData = [
   { title: 'Magnitude Scale', keywords: ['magnitude', 'richter', 'moment magnitude', 'scale', 'measure'], section: 'Home', path: '/' },
 
   // Safety
-  { title: 'Drop, Cover, Hold On', keywords: ['drop', 'cover', 'hold on', 'safety', 'earthquake safety', 'during earthquake'], section: 'Home', path: '/' },
+  { title: 'Drop, Cover, Hold On', keywords: ['drop', 'cover', 'hold on', 'safety', 'earthquake safety', 'during earthquake', 'stay calm'], section: 'Home', path: '/' },
   { title: 'Emergency Kit', keywords: ['emergency kit', 'preparedness', 'supplies', 'first aid', 'water', 'food'], section: 'Home', path: '/' },
   { title: 'Evacuation Guide', keywords: ['evacuation', 'escape', 'exit', 'emergency exit', 'shelter'], section: 'Home', path: '/' },
   { title: 'If Inside During Earthquake', keywords: ['inside', 'building', 'indoors', 'table', 'desk', 'stay inside'], section: 'Home', path: '/' },
   { title: 'If Outside During Earthquake', keywords: ['outside', 'open area', 'outdoors', 'street', 'buildings'], section: 'Home', path: '/' },
   { title: 'If in a Vehicle', keywords: ['car', 'vehicle', 'driving', 'bridge', 'parking'], section: 'Home', path: '/' },
   { title: 'Near the Coast', keywords: ['coast', 'tsunami', 'higher ground', 'beach', 'ocean'], section: 'Home', path: '/' },
-  { title: 'After an Earthquake', keywords: ['after', 'aftershock', 'injuries', 'PTSD', 'turn off gas', 'utilities'], section: 'Home', path: '/' },
+  { title: 'After an Earthquake', keywords: ['after', 'aftershock', 'aftershocks', 'injuries', 'PTSD', 'turn off gas', 'utilities', 'recovery', 'hazards'], section: 'Home', path: '/' },
+  { title: 'Before an Earthquake', keywords: ['before', 'prepare', 'preparation', 'emergency kit', 'family plan', 'checklist', 'readiness'], section: 'Home', path: '/' },
+  { title: 'What is an Earthquake', keywords: ['what is', 'definition', 'tectonic', 'fault', 'seismic waves', 'plates', 'earthquake science'], section: 'Home', path: '/' },
 
   // Recovery
   { title: 'Search & Rescue', keywords: ['rescue', 'search', 'first 72 hours', 'trapped'], section: 'Recovery', path: '/recovery' },

@@ -85,7 +85,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth PaperProps={{ sx: { borderRadius: 3 } }}>
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle sx={{ pb: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h6" fontWeight={700}>

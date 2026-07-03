@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Container,
@@ -16,37 +16,183 @@ import {
   Button,
   Snackbar,
   Alert,
+  Chip,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CloseIcon from '@mui/icons-material/Close';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+
+/* ──────────────────────── DATA ──────────────────────── */
 
 const DONATE_ITEMS = {
   crypto: [
-    { name: 'Bitcoin (BTC)', img: '/assets/donate/bitcoin.jpg', address: 'bc1q...example' },
-    { name: 'Ethereum (ETH)', img: '/assets/donate/ethereum.jpg', address: '0x71C...example' },
-    { name: 'Tether (USDT)', img: '/assets/donate/tether.jpg', address: '0x71C...example' },
-    { name: 'Binance Coin (BNB)', img: '/assets/donate/binance.jpg', address: 'bnb1...example' },
-    { name: 'Cardano (ADA)', img: '/assets/donate/cardano.jpg', address: 'addr1...example' },
-    { name: 'Solana (SOL)', img: '/assets/donate/solana.jpg', address: 'SoL...example' },
-    { name: 'Polkadot (DOT)', img: '/assets/donate/polkadot.jpg', address: '1exa...example' },
-    { name: 'Ripple (XRP)', img: '/assets/donate/ripple.jpg', address: 'rPp...example' },
+    {
+      name: 'Binance',
+      img: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png',
+      detail: 'bc1qSAMPLEADDRESS1234567890abcdef',
+      detailLabel: 'Wallet Address',
+      instructions: [
+        'Open the Binance app or go to binance.com',
+        'Go to Wallet → Spot Wallet',
+        'Tap "Withdraw" and select the coin you want to donate',
+        'Paste the wallet address below',
+        'Enter the amount you want to donate',
+        'Confirm the withdrawal',
+      ],
+    },
+    {
+      name: 'Bybit',
+      img: '/assets/donate/bybit.png',
+      detail: '0xSAMPLE1234567890abcdefABCDEF1234',
+      detailLabel: 'Wallet Address',
+      instructions: [
+        'Open the Bybit app or go to bybit.com',
+        'Go to Assets → Spot Account',
+        'Tap "Withdraw" and select the coin',
+        'Paste the wallet address below',
+        'Enter the amount you want to donate',
+        'Confirm the withdrawal',
+      ],
+    },
   ],
   mobile: [
-    { name: 'KBZ Pay', img: '/assets/donate/kbz.jpg' },
-    { name: 'Wave Pay', img: '/assets/donate/wavepay.jpg' },
-    { name: 'KPay', img: '/assets/donate/kpay.jpg' },
-    { name: 'CB Pay', img: '/assets/donate/cb.jpg' },
-    { name: 'AYA Pay', img: '/assets/donate/aya.jpg' },
-    { name: 'Yoma Bank', img: '/assets/donate/yoma.jpg' },
+    {
+      name: 'KBZ Pay',
+      img: '/assets/donate/kbz.jpg',
+      detail: '09 XXX XXX XXX',
+      detailLabel: 'Phone Number',
+      instructions: [
+        'Open the KBZ Pay app on your phone',
+        'Tap "Send Money" on the home screen',
+        'Enter phone number: 09 XXX XXX XXX',
+        'Enter the amount you want to donate',
+        'Add a note like "Earthquake donation"',
+        'Confirm with your PIN',
+      ],
+    },
+    {
+      name: 'Wave Pay',
+      img: '/assets/donate/wavepay.jpg',
+      detail: '09 XXX XXX XXX',
+      detailLabel: 'Phone Number',
+      instructions: [
+        'Open the Wave Pay app on your phone',
+        'Tap "Transfer" or "Send Money"',
+        'Enter phone number: 09 XXX XXX XXX',
+        'Enter the amount you want to donate',
+        'Add a note like "Earthquake donation"',
+        'Confirm with your PIN',
+      ],
+    },
+    {
+      name: 'KPay',
+      img: '/assets/donate/kpay.jpg',
+      detail: '09 XXX XXX XXX',
+      detailLabel: 'Phone Number',
+      instructions: [
+        'Open the KPay app on your phone',
+        'Tap "Send Money"',
+        'Enter phone number: 09 XXX XXX XXX',
+        'Enter the amount you want to donate',
+        'Add a note like "Earthquake donation"',
+        'Confirm with your PIN',
+      ],
+    },
+    {
+      name: 'CB Pay',
+      img: '/assets/donate/cb.jpg',
+      detail: '09 XXX XXX XXX',
+      detailLabel: 'Phone Number',
+      instructions: [
+        'Open the CB Pay app on your phone',
+        'Tap "Transfer" or "Send Money"',
+        'Enter phone number: 09 XXX XXX XXX',
+        'Enter the amount you want to donate',
+        'Add a note like "Earthquake donation"',
+        'Confirm with your PIN',
+      ],
+    },
+    {
+      name: 'AYA Pay',
+      img: '/assets/donate/aya.jpg',
+      detail: '09 XXX XXX XXX',
+      detailLabel: 'Phone Number',
+      instructions: [
+        'Open the AYA Pay app on your phone',
+        'Tap "Send Money"',
+        'Enter phone number: 09 XXX XXX XXX',
+        'Enter the amount you want to donate',
+        'Add a note like "Earthquake donation"',
+        'Confirm with your PIN',
+      ],
+    },
+    {
+      name: 'Yoma Bank',
+      img: '/assets/donate/yoma.jpg',
+      detail: 'XXXX XXXX XXXX',
+      detailLabel: 'Account Number',
+      instructions: [
+        'Open your Yoma Bank mobile app or visit a branch',
+        'Select "Transfer" or "Send Money"',
+        'Enter account number: XXXX XXXX XXXX',
+        'Enter the amount you want to donate',
+        'Add a note like "Earthquake donation"',
+        'Confirm the transfer',
+      ],
+    },
   ],
   international: [
-    { name: 'PayPal', img: '/assets/donate/paypal.jpg' },
-    { name: 'A+', img: '/assets/donate/A+.jpg' },
-    { name: 'USD', img: '/assets/donate/usd.jpg' },
+    {
+      name: 'PayPal',
+      img: '/assets/donate/paypal.jpg',
+      detail: 'sample@email.com',
+      detailLabel: 'PayPal Email',
+      instructions: [
+        'Go to paypal.com or open the PayPal app',
+        'Click "Send" or "Send & Request"',
+        'Enter email: sample@email.com',
+        'Enter the amount and select currency',
+        'Choose "Friends and Family" to avoid fees',
+        'Add a note like "Earthquake donation"',
+        'Click "Send Now"',
+      ],
+    },
+    {
+      name: 'A+',
+      img: '/assets/donate/A+.jpg',
+      detail: '+95 9 XXX XXX XXX',
+      detailLabel: 'Contact',
+      instructions: [
+        'Send a WhatsApp message to +95 9 XXX XXX XXX',
+        'Mention you want to donate to the earthquake relief',
+        'The team will guide you through the transfer process',
+        'You can donate via bank transfer or mobile payment',
+      ],
+    },
+    {
+      name: 'USD Transfer',
+      img: '/assets/donate/usd.jpg',
+      detail: 'SWIFT: XXXXXXXX | Account: XXXXXXXXXX',
+      detailLabel: 'Bank Details',
+      instructions: [
+        'Open your bank app or visit your bank',
+        'Select "International Wire Transfer" or "SWIFT Transfer"',
+        'Enter SWIFT code: XXXXXXXX',
+        'Enter account number: XXXXXXXXXX',
+        'Account name: Sample Account Name',
+        'Enter the amount in USD',
+        'Add reference: "Donation - Earthquake Relief"',
+        'Confirm the transfer',
+      ],
+    },
   ],
 };
+
+const TAB_LABELS = ['💎 Crypto', '📱 Mobile Payment', '🌍 International'];
+const TAB_KEYS = Object.keys(DONATE_ITEMS);
 
 const containerVariants = {
   hidden: {},
@@ -58,16 +204,36 @@ const itemVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
 };
 
+/* ──────────────────────── PAGE ──────────────────────── */
+
 export default function Donate() {
   const [tab, setTab] = useState(0);
   const [dialog, setDialog] = useState(null);
-  const [copySnack, setCopySnack] = useState(null); // 'success' | 'error' | null
+  const [copySnack, setCopySnack] = useState(null);
+  const [isSticky, setIsSticky] = useState(false);
+  const sentinelRef = useRef(null);
 
-  const tabKeys = Object.keys(DONATE_ITEMS);
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSticky(!entry.isIntersecting),
+      { threshold: 0, rootMargin: '-1px 0px 0px 0px' }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleCopy = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => setCopySnack('success'))
+      .catch(() => setCopySnack('error'));
+  };
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
-      {/* Hero */}
+      {/* ── Hero ── */}
       <Box
         sx={{
           background: 'linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%)',
@@ -77,32 +243,68 @@ export default function Donate() {
         }}
       >
         <Container maxWidth="md">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <FavoriteIcon sx={{ fontSize: 52, mb: 2 }} />
-            <Typography variant="h2" fontWeight={800} sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}>
+            <Typography
+              variant="h2"
+              sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
+            >
               Support Recovery Efforts
             </Typography>
             <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
-              Your contribution helps earthquake-affected communities rebuild their lives.
+              Your contribution helps earthquake-affected communities rebuild
+              their lives.
             </Typography>
           </motion.div>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Tabs
-          value={tab}
-          onChange={(_, v) => setTab(v)}
-          centered
-          variant="fullWidth"
-          sx={{ mb: 5 }}
-          TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
-        >
-          <Tab label="💎 Crypto" sx={{ fontWeight: tab === 0 ? 700 : 400 }} />
-          <Tab label="📱 Mobile Payment" sx={{ fontWeight: tab === 1 ? 700 : 400 }} />
-          <Tab label="🌍 International" sx={{ fontWeight: tab === 2 ? 700 : 400 }} />
-        </Tabs>
+      {/* Sentinel */}
+      <Box ref={sentinelRef} sx={{ height: 0 }} />
 
+      {/* Spacer when fixed */}
+      {isSticky && <Box sx={{ height: { xs: 80, sm: 72 } }} />}
+
+      {/* ── Sticky Tabs ── */}
+      <Box
+        sx={{
+          position: isSticky ? 'fixed' : 'relative',
+          top: isSticky ? 64 : 'auto',
+          left: 0,
+          right: 0,
+          zIndex: 1100,
+          bgcolor: 'background.default',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+          boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
+          transition: 'box-shadow 0.3s',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Tabs
+            value={tab}
+            onChange={(_, v) => setTab(v)}
+            centered
+            variant="fullWidth"
+            TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
+          >
+            {TAB_LABELS.map((label, i) => (
+              <Tab
+                key={label}
+                label={label}
+                sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
+              />
+            ))}
+          </Tabs>
+        </Container>
+      </Box>
+
+      {/* ── Payment Cards ── */}
+      <Container maxWidth="lg" sx={{ py: 6 }}>
         <motion.div
           key={tab}
           initial="hidden"
@@ -110,17 +312,25 @@ export default function Donate() {
           variants={containerVariants}
         >
           <Grid container spacing={3}>
-            {DONATE_ITEMS[tabKeys[tab]].map((item) => (
+            {DONATE_ITEMS[TAB_KEYS[tab]].map((item) => (
               <Grid size={{ xs: 6, sm: 4, md: 3 }} key={item.name}>
                 <motion.div variants={itemVariants}>
                   <Card
-                    onClick={() => item.address && setDialog(item)}
+                    onClick={() => setDialog(item)}
                     sx={{
-                      cursor: item.address ? 'pointer' : 'default',
+                      cursor: 'pointer',
                       textAlign: 'center',
                       py: 3,
                       px: 2,
                       height: '100%',
+                      transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        boxShadow: (theme) =>
+                          theme.palette.mode === 'dark'
+                            ? '0 8px 30px rgba(211,47,47,0.2)'
+                            : '0 8px 30px rgba(211,47,47,0.12)',
+                      },
                     }}
                   >
                     <CardMedia
@@ -140,11 +350,13 @@ export default function Donate() {
                       <Typography variant="subtitle2" fontWeight={600}>
                         {item.name}
                       </Typography>
-                      {item.address && (
-                        <Button size="small" sx={{ mt: 1, fontSize: '0.7rem' }}>
-                          View Address
-                        </Button>
-                      )}
+                      <Typography
+                        variant="caption"
+                        color="text.disabled"
+                        sx={{ mt: 0.5, display: 'block' }}
+                      >
+                        Tap to see how to donate
+                      </Typography>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -154,11 +366,16 @@ export default function Donate() {
         </motion.div>
       </Container>
 
-      {/* Wallet Dialog */}
-      <Dialog open={!!dialog} onClose={() => setDialog(null)} maxWidth="xs" fullWidth>
+      {/* ── Donation Dialog ── */}
+      <Dialog
+        open={!!dialog}
+        onClose={() => setDialog(null)}
+        maxWidth="xs"
+        fullWidth
+      >
         {dialog && (
           <>
-            <DialogTitle sx={{ textAlign: 'center', pt: 3 }}>
+            <DialogTitle sx={{ textAlign: 'center', pt: 3, pb: 1 }}>
               <IconButton
                 onClick={() => setDialog(null)}
                 sx={{ position: 'absolute', right: 8, top: 8 }}
@@ -169,46 +386,86 @@ export default function Donate() {
                 component="img"
                 src={dialog.img}
                 alt={dialog.name}
-                sx={{ width: 60, height: 60, objectFit: 'contain', mb: 1 }}
+                sx={{ width: 64, height: 64, objectFit: 'contain', mb: 1 }}
               />
               <Typography variant="h6" fontWeight={700}>
                 {dialog.name}
               </Typography>
             </DialogTitle>
-            <DialogContent sx={{ px: 3, pb: 3, textAlign: 'center' }}>
+
+            <DialogContent sx={{ px: 3, pb: 3 }}>
+              {/* Detail field */}
               <Typography variant="body2" color="text.secondary" gutterBottom>
-                Send your donation to:
+                {dialog.detailLabel}:
               </Typography>
               <Box
                 sx={{
-                  bgcolor: 'grey.100',
+                  bgcolor: 'action.hover',
                   borderRadius: 2,
                   p: 2,
                   fontFamily: 'monospace',
-                  fontSize: '0.8rem',
+                  fontSize: '0.82rem',
                   wordBreak: 'break-all',
                   mb: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 1,
                 }}
               >
-                {dialog.address}
+                <Box sx={{ flex: 1, minWidth: 0 }}>{dialog.detail}</Box>
+                <IconButton
+                  size="small"
+                  onClick={() => handleCopy(dialog.detail)}
+                  sx={{ flexShrink: 0 }}
+                >
+                  <ContentCopyIcon sx={{ fontSize: 18 }} />
+                </IconButton>
               </Box>
+
               <Button
-                startIcon={<ContentCopyIcon />}
+                fullWidth
                 variant="outlined"
                 size="small"
-                onClick={() => {
-                  navigator.clipboard.writeText(dialog.address)
-                    .then(() => setCopySnack('success'))
-                    .catch(() => setCopySnack('error'));
-                }}
+                startIcon={<ContentCopyIcon />}
+                onClick={() => handleCopy(dialog.detail)}
+                sx={{ mb: 3 }}
               >
-                Copy Address
+                Copy to Clipboard
               </Button>
+
+              {/* Instructions */}
+              <Typography
+                variant="subtitle2"
+                fontWeight={700}
+                gutterBottom
+                sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+              >
+                <CheckCircleIcon sx={{ fontSize: 18, color: 'success.main' }} />
+                How to donate
+              </Typography>
+              <Box component="ol" sx={{ m: 0, pl: 2.5 }}>
+                {dialog.instructions.map((step, i) => (
+                  <Box
+                    component="li"
+                    key={i}
+                    sx={{
+                      mb: 1,
+                      '&:last-child': { mb: 0 },
+                    }}
+                  >
+                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                      {step}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
             </DialogContent>
           </>
         )}
       </Dialog>
 
+      {/* ── Copy Snackbar ── */}
       <Snackbar
         open={!!copySnack}
         autoHideDuration={3000}
@@ -220,7 +477,9 @@ export default function Donate() {
           variant="filled"
           onClose={() => setCopySnack(null)}
         >
-          {copySnack === 'success' ? 'Address copied to clipboard!' : 'Failed to copy — try selecting manually'}
+          {copySnack === 'success'
+            ? 'Copied to clipboard!'
+            : 'Failed to copy — try selecting manually'}
         </Alert>
       </Snackbar>
     </Box>

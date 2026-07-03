@@ -94,6 +94,115 @@ const QUESTIONS = [
     answer: 1,
     category: 'Science',
   },
+  // --- questions 13–30 ---
+  {
+    q: 'What is the "epicenter" of an earthquake?',
+    options: ['The deepest point inside the Earth', 'The point on the surface directly above the focus', 'The loudest part of the quake', 'The last area to stop shaking'],
+    answer: 1,
+    category: 'Science',
+  },
+  {
+    q: 'What should you do if you are driving during an earthquake?',
+    options: ['Speed up to escape the area', 'Pull over, stop, and stay inside the car', 'Get out of the car immediately', 'Keep driving slowly'],
+    answer: 1,
+    category: 'Safety',
+  },
+  {
+    q: 'What is a fault line?',
+    options: ['A type of earthquake', 'A crack in the Earth\'s crust where movement occurs', 'A man-made structure', 'A type of building damage'],
+    answer: 1,
+    category: 'Science',
+  },
+  {
+    q: 'Which country has the most earthquakes per year?',
+    options: ['United States', 'Japan', 'Indonesia', 'Chile'],
+    answer: 2,
+    category: 'Geography',
+  },
+  {
+    q: 'What is "liquefaction" during an earthquake?',
+    options: ['Water flowing from pipes', 'Solid ground temporarily behaving like a liquid', 'Buildings melting from heat', 'Gas leaking from the ground'],
+    answer: 1,
+    category: 'Science',
+  },
+  {
+    q: 'How should you protect yourself from falling objects during an earthquake?',
+    options: ['Run to the nearest wall', 'Get under a sturdy table or desk', 'Stand in the middle of the room', 'Lie flat on the ground'],
+    answer: 1,
+    category: 'Safety',
+  },
+  {
+    q: 'What is the "focus" (hypocenter) of an earthquake?',
+    options: ['The loudest point of the quake', 'The point inside the Earth where the quake originates', 'The surface point above the quake', 'The area of worst damage'],
+    answer: 1,
+    category: 'Science',
+  },
+  {
+    q: 'What year did the devastating earthquake hit Bago, Myanmar?',
+    options: ['1975', '1930', '2016', '2004'],
+    answer: 1,
+    category: 'Geography',
+  },
+  {
+    q: 'What is the primary danger after an earthquake?',
+    options: ['Aftershocks', 'Heavy rain', 'Cold weather', 'Strong winds'],
+    answer: 0,
+    category: 'Safety',
+  },
+  {
+    q: 'What magnitude is considered a "major" earthquake?',
+    options: ['4.0–4.9', '5.0–5.9', '7.0 and above', '3.0 and below'],
+    answer: 2,
+    category: 'Science',
+  },
+  {
+    q: 'What should you do after an earthquake if you are in a damaged building?',
+    options: ['Stay inside and wait', 'Evacuate carefully and move to open ground', 'Go to the roof', 'Use the elevator to leave'],
+    answer: 1,
+    category: 'Safety',
+  },
+  {
+    q: 'What is P-waves stands for?',
+    options: ['Primary waves', 'Power waves', 'Pressure waves', 'Passive waves'],
+    answer: 0,
+    category: 'Science',
+  },
+  {
+    q: 'Which organization provides earthquake early warnings in many countries?',
+    options: ['WHO', 'USGS', 'UNESCO', 'IMF'],
+    answer: 1,
+    category: 'Geography',
+  },
+  {
+    q: 'What is the "Ring of Fire"?',
+    options: ['A volcanic mountain range', 'A zone of frequent earthquakes and volcanoes around the Pacific Ocean', 'A type of earthquake measurement', 'A fire caused by earthquakes'],
+    answer: 1,
+    category: 'Geography',
+  },
+  {
+    q: 'What is the best way to secure heavy furniture at home?',
+    options: ['Leave it as is', 'Anchor it to the wall with brackets or straps', 'Place it near windows', 'Put heavy items on top shelves'],
+    answer: 1,
+    category: 'Safety',
+  },
+  {
+    q: 'How much of the Earth\'s surface is affected by the Ring of Fire?',
+    options: ['About 10%', 'About 25%', 'About 40%', 'About 75%'],
+    answer: 2,
+    category: 'Geography',
+  },
+  {
+    q: 'What is a seismograph used for?',
+    options: ['Measuring wind speed', 'Recording earthquake waves', 'Predicting weather', 'Measuring temperature'],
+    answer: 1,
+    category: 'Science',
+  },
+  {
+    q: 'What should you do if you smell gas after an earthquake?',
+    options: ['Light a match to check', 'Turn on lights to inspect', 'Open windows, leave the building, and call from outside', 'Ignore it if the smell is mild'],
+    answer: 2,
+    category: 'Safety',
+  },
 ];
 
 const slideVariants = {
@@ -168,7 +277,7 @@ export default function Quiz() {
             ) : (
               <EmojiEventsIcon sx={{ fontSize: 52, mb: 2, color: 'secondary.main' }} />
             )}
-            <Typography variant="h2" fontWeight={800} sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, mb: 2 }}>
+            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, mb: 2 }}>
               {score === null ? 'Earthquake Knowledge Quiz' : 'Quiz Complete!'}
             </Typography>
             <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
@@ -187,12 +296,12 @@ export default function Quiz() {
             <LinearProgress
               variant="determinate"
               value={((step + 1) / QUESTIONS.length) * 100}
-              sx={{ mb: 4, height: 8, borderRadius: 4 }}
+              sx={{ mb: { xs: 2, sm: 4 }, height: 8, borderRadius: 4 }}
             />
 
             {/* Stepper — scrolls as user advances */}
             <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.7rem', sm: '0.8rem' } } }}>
-              <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: 2, minWidth: 0 }}>
+              <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: { xs: 1, sm: 2 }, minWidth: 0 }}>
                 {stepperSteps.map((_, i) => {
                   const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
                   return (
@@ -204,7 +313,7 @@ export default function Quiz() {
               </Stepper>
             </Box>
 
-            <Typography variant="caption" color="text.secondary" textAlign="center" display="block" sx={{ mb: 3 }}>
+            <Typography variant="caption" color="text.secondary" textAlign="center" display="block" sx={{ mb: { xs: 1.5, sm: 3 } }}>
               Question {step + 1} of {QUESTIONS.length}
             </Typography>
 
@@ -217,12 +326,12 @@ export default function Quiz() {
                 exit="exit"
                 transition={{ duration: 0.3 }}
               >
-                <Card elevation={2} sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+                <Card elevation={2} sx={{ p: { xs: 1.5, sm: 3, md: 4 } }}>
                   <CardContent>
                     <Typography variant="caption" color="primary" fontWeight={600} sx={{ mb: 1, display: 'block' }}>
                       {QUESTIONS[step].category}
                     </Typography>
-                    <Typography variant="h5" fontWeight={700} gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {QUESTIONS[step].q}
                     </Typography>
                     <FormControl component="fieldset" sx={{ mt: 3, width: '100%' }}>
@@ -241,12 +350,18 @@ export default function Quiz() {
                               px: 2,
                               my: 0.5,
                               borderRadius: 2,
+                              border: '1px solid',
+                              borderColor: answers[step] === oIdx ? 'primary.main' : 'divider',
                               bgcolor: answers[step] === oIdx ? 'primary.main' : 'transparent',
                               color: answers[step] === oIdx ? '#fff' : 'text.primary',
                               '& .MuiRadio-root': {
                                 color: answers[step] === oIdx ? '#fff' : undefined,
                               },
-                              transition: 'all 0.2s',
+                              '&:hover': answers[step] !== oIdx ? {
+                                bgcolor: 'action.hover',
+                                borderColor: 'primary.light',
+                              } : {},
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             }}
                           />
                         ))}
@@ -283,16 +398,16 @@ export default function Quiz() {
                   mb: 2,
                 }}
               />
-              <Typography variant="h3" fontWeight={800} gutterBottom>
-                {score >= 10 ? '🏆 Amazing!' : score >= 7 ? '👍 Good Job!' : '📚 Keep Learning!'}
+              <Typography variant="h3" gutterBottom>
+                {score >= 25 ? '🏆 Amazing!' : score >= 15 ? '👍 Good Job!' : '📚 Keep Learning!'}
               </Typography>
-              <Typography variant="h4" fontWeight={700} color="primary" gutterBottom>
+              <Typography variant="h4" color="primary" gutterBottom>
                 {score} / {QUESTIONS.length}
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                {score >= 10
+                {score >= 25
                   ? "You're an earthquake safety expert!"
-                  : score >= 7
+                  : score >= 15
                   ? 'You know the basics — keep building your knowledge!'
                   : 'Review the safety tips on our home page and try again!'}
               </Typography>

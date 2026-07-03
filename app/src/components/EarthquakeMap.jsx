@@ -1,7 +1,7 @@
 import { useState, useMemo, memo, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Box, CircularProgress, Typography, LinearProgress } from '@mui/material';
+import { Box, CircularProgress, Typography, LinearProgress, useTheme } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api';
 
@@ -20,7 +20,7 @@ function magColor(mag) {
 // Memoized popup
 const QuakePopup = memo(function QuakePopup({ q }) {
   return (
-    <Box sx={{ fontFamily: 'Poppins,sans-serif', lineHeight: 1.6 }}>
+    <Box sx={{ lineHeight: 1.6 }}>
       <Typography variant="subtitle2" fontWeight={700}>{q.place}</Typography>
       <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
       <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
@@ -70,6 +70,7 @@ function MapReadyDetector({ onReady }) {
 }
 
 function EarthquakeMap({ height = '70vh' }) {
+  const theme = useTheme();
   const [mapReady, setMapReady] = useState(false);
 
   // Canvas renderer for tectonic plates — draws on a single canvas instead of SVG paths
@@ -100,7 +101,7 @@ function EarthquakeMap({ height = '70vh' }) {
 
   if (error) {
     return (
-      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'grey.100', borderRadius: 4, flexDirection: 'column', gap: 1 }}>
+      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'action.hover', borderRadius: 4, flexDirection: 'column', gap: 1 }}>
         <Typography color="error" fontWeight={600}>
           Unable to load earthquake data
         </Typography>
@@ -126,7 +127,7 @@ function EarthquakeMap({ height = '70vh' }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            bgcolor: 'rgba(245, 245, 245, 0.95)',
+            bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(245, 245, 245, 0.95)',
             zIndex: 1000,
             gap: 2,
           }}

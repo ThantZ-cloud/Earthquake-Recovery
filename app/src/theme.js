@@ -24,10 +24,10 @@ const getTheme = (mode) =>
     typography: {
       fontFamily: '"Poppins", "Roboto", "Helvetica Neue", Arial, sans-serif',
       h1: { fontWeight: 800, letterSpacing: '-0.02em' },
-      h2: { fontWeight: 700, letterSpacing: '-0.01em' },
-      h3: { fontWeight: 700 },
-      h4: { fontWeight: 600 },
-      h5: { fontWeight: 600 },
+      h2: { fontWeight: 800, letterSpacing: '-0.01em' },
+      h3: { fontWeight: 800 },
+      h4: { fontWeight: 700 },
+      h5: { fontWeight: 700 },
       h6: { fontWeight: 600 },
     },
     shape: {
@@ -64,6 +64,13 @@ const getTheme = (mode) =>
           root: {
             borderRadius: 8,
             fontWeight: 500,
+          },
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            borderRadius: 24,
           },
         },
       },

@@ -195,7 +195,6 @@ export default function About() {
             <GroupsIcon sx={{ fontSize: 56, mb: 2, color: 'secondary.main' }} />
             <Typography
               variant="h2"
-              fontWeight={800}
               sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
             >
               Meet the Team
@@ -222,7 +221,7 @@ export default function About() {
           <Grid container spacing={3}>
             {TEAM.map((member) => (
               <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={member.name}>
-                <motion.div variants={cardVariants}>
+                <motion.div variants={cardVariants} style={{ height: '100%' }}>
                   <Card
                     onClick={() => setSelected(member)}
                     sx={{
@@ -296,7 +295,6 @@ export default function About() {
         onClose={() => setSelected(null)}
         maxWidth="sm"
         fullWidth
-        PaperProps={{ sx: { borderRadius: 3 } }}
       >
         {selected && (
           <>
@@ -329,7 +327,7 @@ export default function About() {
                   mb: 1,
                 }}
               />
-              <Typography variant="h5" fontWeight={800}>
+              <Typography variant="h5">
                 {selected.name}
               </Typography>
             </DialogTitle>
@@ -399,7 +397,7 @@ export default function About() {
       <Box
         sx={{
           bgcolor: 'background.paper',
-          py: 6,
+          py: 8,
           textAlign: 'center',
           borderTop: '1px solid',
           borderColor: 'divider',
@@ -407,7 +405,7 @@ export default function About() {
       >
         <Container maxWidth="sm">
           <RocketLaunchIcon sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
-          <Typography variant="h5" fontWeight={700} gutterBottom>
+          <Typography variant="h5" gutterBottom>
             Our Mission
           </Typography>
           <Typography variant="body1" color="text.secondary">

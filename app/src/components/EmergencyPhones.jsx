@@ -165,6 +165,8 @@ export default function EmergencyPhones() {
                           display: 'flex',
                           justifyContent: 'space-between',
                           gap: 1,
+                          transition: 'background-color 0.2s',
+                          '&:hover': { bgcolor: 'action.selected' },
                         }}
                       >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>

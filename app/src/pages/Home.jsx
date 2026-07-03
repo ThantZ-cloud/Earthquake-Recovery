@@ -1,59 +1,23 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Button,
-  Card,
-  CardContent,
-  Grid,
   useTheme,
 } from '@mui/material';
-import ShieldIcon from '@mui/icons-material/Shield';
-import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import LoginIcon from '@mui/icons-material/Login';
-import { motion } from 'framer-motion';
-import SafetyCharacter from '../components/SafetyCharacter';
 import EarthquakeMap from '../components/EarthquakeMap';
 import LocationAlerts from '../components/LocationAlerts';
 import AuthDialog from '../components/AuthDialog';
+import WhatIsEarthquake from '../components/WhatIsEarthquake';
+import HowToMeasure from '../components/HowToMeasure';
+import SafetyGuide from '../components/SafetyGuide';
+import BeforeEarthquake from '../components/BeforeEarthquake';
+import DuringEarthquake from '../components/DuringEarthquake';
+import AfterEarthquake from '../components/AfterEarthquake';
 import { useAuth } from '../context/AuthContext';
-
-const SAFETY_TIPS = [
-  {
-    title: 'Drop',
-    description: 'Get low on your hands and knees to prevent being knocked over by the shaking.',
-    icon: <ArrowDownwardIcon fontSize="large" />,
-    color: '#d32f2f',
-    characterType: 'drop',
-  },
-  {
-    title: 'Cover',
-    description: 'Take shelter under sturdy furniture and protect your head and neck with your arms.',
-    icon: <ShieldIcon fontSize="large" />,
-    color: '#ed6c02',
-    characterType: 'cover',
-  },
-  {
-    title: 'Hold On',
-    description: 'Hold on to your shelter until the shaking stops. Be prepared for aftershocks.',
-    icon: <SafetyCheckIcon fontSize="large" />,
-    color: '#2e7d32',
-    characterType: 'holdOn',
-  },
-];
-
-/* Card entrance animation variants */
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.2, duration: 0.5, ease: 'easeOut' },
-  }),
-};
 
 export default function Home() {
   const theme = useTheme();
@@ -105,7 +69,6 @@ export default function Home() {
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
           <Typography
             variant="h2"
-            fontWeight={800}
             sx={{ fontSize: { xs: '2rem', md: '3.2rem' }, mb: 2 }}
           >
             Stay Informed.
@@ -127,12 +90,11 @@ export default function Home() {
             href="#map-section"
             sx={{
               bgcolor: 'secondary.main',
-              color: '#000',
-              fontWeight: 700,
+              color: (t) => t.palette.getContrastText(t.palette.secondary.main),
               px: 5,
               py: 1.5,
               fontSize: '1.1rem',
-              '&:hover': { bgcolor: '#ff9800' },
+              '&:hover': { bgcolor: 'secondary.dark' },
             }}
           >
             View Live Map
@@ -141,9 +103,9 @@ export default function Home() {
       </Box>
 
       {/* Map Section */}
-      <Box id="map-section" sx={{ py: 8, mt: 2, bgcolor: 'background.default' }}>
+      <Box id="map-section" sx={{ py: 8, bgcolor: 'background.default' }}>
         <Container maxWidth="lg">
-          <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
+          <Typography variant="h4" textAlign="center" gutterBottom>
             🌍 Live Earthquake Map
           </Typography>
           <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
@@ -174,90 +136,11 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Safety Tips — During an Earthquake */}
-      <Box
-        sx={{
-          py: 8,
-          background: `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.mode === 'dark' ? '#1a1a1a' : '#f5f5f5'} 100%)`,
-        }}
-      >
-        <Container maxWidth="lg">
-          <Typography variant="h4" fontWeight={700} textAlign="center" gutterBottom>
-            🛡️ During an Earthquake
-          </Typography>
-          <Typography variant="body1" color="text.secondary" textAlign="center" mb={5}>
-            Remember the three simple steps that could save your life.
-          </Typography>
-          <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
-            {SAFETY_TIPS.map((tip, index) => (
-              <Grid size={{ xs: 12, sm: 4 }} key={tip.title}>
-                <motion.div
-                  custom={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                >
-                  <Card
-                    elevation={0}
-                    sx={{
-                      textAlign: 'center',
-                      py: 3,
-                      px: 2,
-                      border: '2px solid',
-                      borderColor: 'divider',
-                      borderRadius: 3,
-                      transition: 'transform 0.3s, box-shadow 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-6px)',
-                        boxShadow: `0 12px 32px ${tip.color}20`,
-                      },
-                    }}
-                  >
-                    {/* Animated character */}
-                    <Box sx={{ mb: 1 }}>
-                      <SafetyCharacter type={tip.characterType} color={tip.color} />
-                    </Box>
-
-                    {/* Step number badge */}
-                    <Box
-                      sx={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: '50%',
-                        bgcolor: tip.color,
-                        color: '#fff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        mx: 'auto',
-                        mb: 1.5,
-                        fontWeight: 700,
-                        fontSize: '0.9rem',
-                      }}
-                    >
-                      {index + 1}
-                    </Box>
-
-                    <Typography variant="h5" fontWeight={700} gutterBottom>
-                      {tip.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" px={2}>
-                      {tip.description}
-                    </Typography>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
       {/* Location-based Earthquake Alerts */}
       <Box sx={{ py: 8, background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)', color: '#fff' }}>
         <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
           <MyLocationIcon sx={{ fontSize: 48, mb: 2 }} />
-          <Typography variant="h4" fontWeight={700} gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Location-Based Earthquake Alerts
           </Typography>
           <Typography variant="body1" sx={{ mb: 4, opacity: 0.9 }}>
@@ -274,12 +157,11 @@ export default function Home() {
               startIcon={<LoginIcon />}
               onClick={() => setAuthOpen(true)}
               sx={{
-                bgcolor: '#fff',
-                color: '#d32f2f',
-                fontWeight: 700,
+                bgcolor: 'background.paper',
+                color: 'primary.main',
                 px: 5,
                 py: 1.5,
-                '&:hover': { bgcolor: '#ffe0e0' },
+                '&:hover': { bgcolor: (t) => t.palette.mode === 'dark' ? 'grey.200' : '#ffe0e0' },
               }}
             >
               Login to Enable Alerts
@@ -292,12 +174,11 @@ export default function Home() {
               startIcon={<MyLocationIcon />}
               onClick={handleEnableAlerts}
               sx={{
-                bgcolor: '#fff',
-                color: '#d32f2f',
-                fontWeight: 700,
+                bgcolor: 'background.paper',
+                color: 'primary.main',
                 px: 5,
                 py: 1.5,
-                '&:hover': { bgcolor: '#ffe0e0' },
+                '&:hover': { bgcolor: (t) => t.palette.mode === 'dark' ? 'grey.200' : '#ffe0e0' },
               }}
             >
               Allow Location Access
@@ -313,6 +194,24 @@ export default function Home() {
           )}
         </Container>
       </Box>
+
+      {/* What is an Earthquake? */}
+      <WhatIsEarthquake />
+
+      {/* How to Measure an Earthquake */}
+      <HowToMeasure />
+
+      {/* Earthquake Safety Guide: Drop, Cover, Hold On, Stay Calm */}
+      <SafetyGuide />
+
+      {/* Before an Earthquake */}
+      <BeforeEarthquake />
+
+      {/* During an Earthquake */}
+      <DuringEarthquake />
+
+      {/* After an Earthquake */}
+      <AfterEarthquake />
 
       {/* Auth dialog */}
       <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} initialTab={0} />

@@ -12,6 +12,7 @@ import {
   Chip,
   ClickAwayListener,
   IconButton,
+  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -47,7 +48,7 @@ export default function SiteSearch() {
       .slice(0, 8); // max 8 results
 
     setResults(found);
-    setOpen(found.length > 0);
+    setOpen(query.trim().length >= 2);
   }, [query]);
 
   const handleSelect = (item) => {
@@ -88,7 +89,7 @@ export default function SiteSearch() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => {
-          if (results.length > 0) setOpen(true);
+          if (query.trim().length >= 2) setOpen(true);
         }}
         sx={{
           minWidth: { xs: 160, sm: 220, md: 280 },
@@ -129,31 +130,37 @@ export default function SiteSearch() {
               borderColor: 'divider',
             }}
           >
-            <List dense>
-              {results.map((item) => (
-                <ListItemButton
-                  key={item.title}
-                  onClick={() => handleSelect(item)}
-                  sx={{ py: 1.5 }}
-                >
-                  <ListItemText
-                    primary={item.title}
-                    secondary={item.section}
-                    primaryTypographyProps={{
-                      fontWeight: 600,
-                      fontSize: '0.9rem',
-                    }}
-                    secondaryTypographyProps={{ fontSize: '0.75rem' }}
-                  />
-                  <Chip
-                    label={item.section}
-                    size="small"
-                    variant="outlined"
-                    sx={{ ml: 1, fontSize: '0.65rem' }}
-                  />
-                </ListItemButton>
-              ))}
-            </List>
+            {results.length > 0 ? (
+              <List dense>
+                {results.map((item) => (
+                  <ListItemButton
+                    key={item.title}
+                    onClick={() => handleSelect(item)}
+                    sx={{ py: 1.5 }}
+                  >
+                    <ListItemText
+                      primary={item.title}
+                      primaryTypographyProps={{
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                      }}
+                    />
+                    <Chip
+                      label={item.section}
+                      size="small"
+                      variant="outlined"
+                      sx={{ ml: 1, fontSize: '0.7rem' }}
+                    />
+                  </ListItemButton>
+                ))}
+              </List>
+            ) : (
+              <Box sx={{ py: 3, px: 2, textAlign: 'center' }}>
+                <Typography variant="body2" color="text.secondary">
+                  No results found for "{query}"
+                </Typography>
+              </Box>
+            )}
           </Paper>
         </ClickAwayListener>
       </Popper>

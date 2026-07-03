@@ -88,6 +88,7 @@ export default function Footer() {
                   aria-label={s.label}
                   sx={{
                     color: 'text.secondary',
+                    transition: 'color 0.2s',
                     '&:hover': { color: 'primary.main' },
                   }}
                 >

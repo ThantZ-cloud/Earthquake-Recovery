@@ -28,7 +28,6 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
-import SiteSearch from './SiteSearch';
 import EmergencyPhones from './EmergencyPhones';
 import AuthDialog from './AuthDialog';
 import { useAuth } from '../context/AuthContext';
@@ -93,7 +92,6 @@ export default function Navbar({ mode, toggleTheme }) {
                 flexShrink: 0,
               }}
             >
-              {/* Desktop: show text logo, Mobile: show search icon */}
               <Typography
                 variant="h6"
                 sx={{
@@ -101,14 +99,10 @@ export default function Navbar({ mode, toggleTheme }) {
                   color: 'primary.main',
                   fontSize: '1rem',
                   whiteSpace: 'nowrap',
-                  display: { xs: 'none', md: 'block' },
                 }}
               >
                 Earthquake & Recovery
               </Typography>
-              {isMobile && (
-                <SiteSearch />
-              )}
             </Box>
           </Box>
 
@@ -149,8 +143,6 @@ export default function Navbar({ mode, toggleTheme }) {
 
           {/* Actions */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, mr: { xs: 1, sm: 0 } }}>
-            {/* Desktop: show search here; Mobile: search is on the left */}
-            {!isMobile && <SiteSearch />}
             <EmergencyPhones />
 
             {/* Theme toggle */}
