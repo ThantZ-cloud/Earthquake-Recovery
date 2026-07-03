@@ -289,19 +289,19 @@ export default function Quiz() {
         </Container>
       </Box>
 
-      <Container maxWidth="md" sx={{ py: 6 }}>
+      <Container maxWidth="sm" sx={{ py: { xs: 2, md: 3 } }}>
         {score === null ? (
           <>
             {/* Progress */}
             <LinearProgress
               variant="determinate"
               value={((step + 1) / QUESTIONS.length) * 100}
-              sx={{ mb: { xs: 2, sm: 4 }, height: 8, borderRadius: 4 }}
+              sx={{ mb: { xs: 1, sm: 2 }, height: 8, borderRadius: 4 }}
             />
 
             {/* Stepper — scrolls as user advances */}
             <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.7rem', sm: '0.8rem' } } }}>
-              <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: { xs: 1, sm: 2 }, minWidth: 0 }}>
+              <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: { xs: 0.5, sm: 1 }, minWidth: 0 }}>
                 {stepperSteps.map((_, i) => {
                   const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
                   return (
@@ -313,7 +313,7 @@ export default function Quiz() {
               </Stepper>
             </Box>
 
-            <Typography variant="caption" color="text.secondary" textAlign="center" display="block" sx={{ mb: { xs: 1.5, sm: 3 } }}>
+            <Typography variant="caption" color="text.secondary" textAlign="center" display="block" sx={{ mb: { xs: 1, sm: 1.5 } }}>
               Question {step + 1} of {QUESTIONS.length}
             </Typography>
 
@@ -326,7 +326,7 @@ export default function Quiz() {
                 exit="exit"
                 transition={{ duration: 0.3 }}
               >
-                <Card elevation={2} sx={{ p: { xs: 1.5, sm: 3, md: 4 } }}>
+                <Card elevation={2} sx={{ p: { xs: 1.5, sm: 2, md: 2.5 } }}>
                   <CardContent>
                     <Typography variant="caption" color="primary" fontWeight={600} sx={{ mb: 1, display: 'block' }}>
                       {QUESTIONS[step].category}
@@ -334,7 +334,7 @@ export default function Quiz() {
                     <Typography variant="h5" gutterBottom>
                       {QUESTIONS[step].q}
                     </Typography>
-                    <FormControl component="fieldset" sx={{ mt: 3, width: '100%' }}>
+                    <FormControl component="fieldset" sx={{ mt: 2, width: '100%' }}>
                       <RadioGroup
                         value={answers[step] !== undefined ? String(answers[step]) : ''}
                         onChange={(e) => handleSelect(step, e.target.value)}
@@ -346,9 +346,9 @@ export default function Quiz() {
                             control={<Radio />}
                             label={opt}
                             sx={{
-                              py: 1,
+                              py: 0.75,
                               px: 2,
-                              my: 0.5,
+                              my: 0.4,
                               borderRadius: 2,
                               border: '1px solid',
                               borderColor: answers[step] === oIdx ? 'primary.main' : 'divider',
