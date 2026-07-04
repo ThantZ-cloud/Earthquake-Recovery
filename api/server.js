@@ -180,8 +180,8 @@ app.get('/api/health', (_req, res) => {
 });
 
 // ---------- Start ----------
-app.listen(PORT, () => {
-  console.log(`🌍 Earthquake API running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🌍 Earthquake API running on http://0.0.0.0:${PORT}`);
 });
 
 // Export for Vercel
