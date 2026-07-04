@@ -161,7 +161,7 @@ function EarthquakeMap({ height = '70vh' }) {
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
         style={{ width: '100%', height: '100%' }}
-        zoomControl={true}
+        zoomControl={false}
       >
         <MapReadyDetector onReady={() => setMapReady(true)} />
 
@@ -198,7 +198,6 @@ function EarthquakeMap({ height = '70vh' }) {
               )}
             </LayerGroup>
           </LayersControl.Overlay>
-
         </LayersControl>
 
         {/* All earthquake markers — Canvas-rendered circles */}

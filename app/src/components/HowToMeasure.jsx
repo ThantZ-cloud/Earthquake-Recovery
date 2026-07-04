@@ -13,7 +13,16 @@ const fadeUp = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.5 },
+    transition: { delay: i * 0.1, duration: 0.35 },
+  }),
+};
+
+const fadeUpFast = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.01, duration: 0.2 },
   }),
 };
 
@@ -171,8 +180,8 @@ export default function HowToMeasure() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-30px' }}
-              custom={i + 4}
-              variants={fadeUp}
+              custom={i}
+              variants={fadeUpFast}
             >
               <Paper
                 elevation={0}
