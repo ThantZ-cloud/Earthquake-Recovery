@@ -1,0 +1,29 @@
+generator client {
+  provider        = "prisma-client-js"
+  engineType      = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  name      String
+  email     String     @unique
+  password  String
+  locations Location[]
+  createdAt DateTime   @default(now())
+}
+
+model Location {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  latitude  Float
+  longitude Float
+  label     String?
+  radius    Int      @default(50)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
