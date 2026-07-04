@@ -428,12 +428,15 @@ export default function History() {
               display: 'flex',
               alignItems: 'center',
               gap: { xs: 1.5, sm: 3 },
-              flexWrap: 'wrap',
+              flexDirection: { xs: 'column', sm: 'row' },
             }}
           >
-            <Typography variant="body2" fontWeight={600} color="text.secondary" sx={{ whiteSpace: 'nowrap' }}>
-              Min magnitude:
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, width: { xs: '100%', sm: 'auto' } }}>
+              <Typography variant="body2" fontWeight={600} color="text.secondary" sx={{ whiteSpace: 'nowrap' }}>
+                Min magnitude:
+              </Typography>
+              <Chip label={`≥ M${minMag}`} color="primary" variant="outlined" size="small" />
+            </Box>
             <Slider
               value={minMag}
               onChange={(_, v) => setMinMag(v)}
@@ -443,21 +446,20 @@ export default function History() {
               marks={
                 tab === 0
                   ? [
-                      { value: 6, label: 'M6' },
-                      { value: 7, label: 'M7' },
-                      { value: 8, label: 'M8' },
-                      { value: 9, label: 'M9' },
-                      { value: 9.5, label: 'M9.5' },
+                      { value: 6, label: '6' },
+                      { value: 7, label: '7' },
+                      { value: 8, label: '8' },
+                      { value: 9, label: '9' },
+                      { value: 9.5, label: '9.5' },
                     ]
                   : [
-                      { value: 6, label: 'M6' },
-                      { value: 7, label: 'M7' },
-                      { value: 8, label: 'M8' },
+                      { value: 6, label: '6' },
+                      { value: 7, label: '7' },
+                      { value: 8, label: '8' },
                     ]
               }
-              sx={{ flex: 1 }}
+              sx={{ width: { xs: '100%', sm: 'auto' }, flex: 1 }}
             />
-            <Chip label={`≥ M${minMag}`} color="primary" variant="outlined" />
           </Box>
       </Container>
 

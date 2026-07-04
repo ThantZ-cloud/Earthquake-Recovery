@@ -1,5 +1,5 @@
-import { useState, useMemo, Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useState, useMemo, Suspense, lazy, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import getTheme from './theme';
 import { AuthProvider } from './context/AuthContext';
@@ -12,6 +12,14 @@ const Donate = lazy(() => import('./pages/Donate'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const History = lazy(() => import('./pages/History'));
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 export default function App() {
   const [mode, setMode] = useState('light');
   const theme = useMemo(() => getTheme(mode), [mode]);
@@ -23,6 +31,7 @@ export default function App() {
       <CssBaseline />
       <AuthProvider>
         <Layout mode={mode} toggleTheme={toggleTheme}>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

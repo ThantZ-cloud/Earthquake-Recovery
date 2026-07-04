@@ -69,6 +69,28 @@ function MapReadyDetector({ onReady }) {
   return null;
 }
 
+// Auto-collapse LayersControl after user selects a layer
+function AutoCollapseLayers() {
+  const map = useMap();
+  useEffect(() => {
+    const collapse = () => {
+      const control = document.querySelector('.leaflet-control-layers');
+      if (control?.classList.contains('leaflet-control-layers-expanded')) {
+        control.classList.remove('leaflet-control-layers-expanded');
+      }
+    };
+    map.on('baselayerchange', collapse);
+    map.on('overlayadd', collapse);
+    map.on('overlayremove', collapse);
+    return () => {
+      map.off('baselayerchange', collapse);
+      map.off('overlayadd', collapse);
+      map.off('overlayremove', collapse);
+    };
+  }, [map]);
+  return null;
+}
+
 function EarthquakeMap({ height = '70vh' }) {
   const theme = useTheme();
   const [mapReady, setMapReady] = useState(false);
@@ -164,8 +186,9 @@ function EarthquakeMap({ height = '70vh' }) {
         zoomControl={false}
       >
         <MapReadyDetector onReady={() => setMapReady(true)} />
+        <AutoCollapseLayers />
 
-        <LayersControl position="topright" collapsed={false}>
+        <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="Street">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
@@ -220,6 +243,7 @@ function EarthquakeMap({ height = '70vh' }) {
           </CircleMarker>
         ))}
       </MapContainer>
+
     </Box>
   );
 }
