@@ -3,7 +3,3 @@ node_modules
 .env
 
 /generated/prisma
-
-# SQLite database
-*.db
-*.db-journal
