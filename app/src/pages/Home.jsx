@@ -185,9 +185,9 @@ export default function Home() {
             </Button>
           ) : (
             // Alerts active
-            <Box>
+            <Box sx={{ mb: 2 }}>
               <Typography variant="body2" sx={{ mb: 2, opacity: 0.85 }}>
-                You'll be notified if an earthquake occurs within 50 km of your location.
+                You'll be notified if a M3+ earthquake occurs within 50 km of your location.
               </Typography>
               <LocationAlerts enabled={alertsEnabled} />
             </Box>

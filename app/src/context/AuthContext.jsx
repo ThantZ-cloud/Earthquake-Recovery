@@ -1,61 +1,64 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import api from '../api';
+import supabase from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token'));
-  const [loading, setLoading] = useState(true); // true until initial session check
+  const [loading, setLoading] = useState(true);
 
-  // On mount, verify stored token
+  // On mount, check for existing session
   useEffect(() => {
-    const stored = localStorage.getItem('token');
-    if (!stored) {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setUser({
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.name || session.user.email,
+        });
+      }
       setLoading(false);
-      return;
-    }
+    });
 
-    api
-      .get('/api/auth/me', { headers: { Authorization: `Bearer ${stored}` } })
-      .then((res) => {
-        setUser(res.data.user);
-        setToken(stored);
-      })
-      .catch(() => {
-        localStorage.removeItem('token');
-        setToken(null);
+    // Listen for login/logout events
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser({
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.name || session.user.email,
+        });
+      } else {
         setUser(null);
-      })
-      .finally(() => setLoading(false));
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const res = await api.post('/api/auth/login', { email, password });
-    const { token: t, user: u } = res.data;
-    localStorage.setItem('token', t);
-    setToken(t);
-    setUser(u);
-    return u;
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    return data.user;
   }, []);
 
   const register = useCallback(async (name, email, password) => {
-    const res = await api.post('/api/auth/register', { name, email, password });
-    const { token: t, user: u } = res.data;
-    localStorage.setItem('token', t);
-    setToken(t);
-    setUser(u);
-    return u;
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    });
+    if (error) throw error;
+    return data.user;
   }, []);
 
-  const logout = useCallback(() => {
-    localStorage.removeItem('token');
-    setToken(null);
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
     setUser(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

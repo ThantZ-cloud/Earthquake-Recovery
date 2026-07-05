@@ -45,7 +45,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
         reset();
       }, 600);
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed.');
+      setError(err.message || 'Login failed.');
     } finally {
       setLoading(false);
     }
@@ -61,13 +61,13 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
     setLoading(true);
     try {
       await register(regName, regEmail, regPass);
-      setSuccess('Account created!');
+      setSuccess('Account created! Check your email to confirm.');
       setTimeout(() => {
         onClose();
         reset();
-      }, 600);
+      }, 1500);
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed.');
+      setError(err.message || 'Registration failed.');
     } finally {
       setLoading(false);
     }

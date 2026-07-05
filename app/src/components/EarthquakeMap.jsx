@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, L
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress, useTheme } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import api from '../api';
 
 const DEFAULT_CENTER = [20, 0];
 const DEFAULT_ZOOM = 2;
@@ -31,9 +30,22 @@ const QuakePopup = memo(function QuakePopup({ q }) {
 
 
 // Fetcher functions
+const EMSC_BASE = 'https://www.seismicportal.eu/fdsnws/event/1/query';
+
 const fetchQuakes = async () => {
-  const { data } = await api.get('/api/recent');
-  const features = data?.data?.features || [];
+  const end = new Date();
+  const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const params = new URLSearchParams({
+    format: 'json',
+    minmag: '1',
+    limit: '700',
+    starttime: start.toISOString(),
+    endtime: end.toISOString(),
+  });
+  const res = await fetch(`${EMSC_BASE}?${params}`);
+  if (!res.ok) throw new Error('Failed to fetch earthquake data');
+  const data = await res.json();
+  const features = data?.features || [];
   return features
     .map((f, i) => {
       const [lon, lat, depth] = f.geometry?.coordinates || [];
@@ -101,8 +113,8 @@ function EarthquakeMap({ height = '70vh' }) {
   const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
     queryKey: ['earthquakes'],
     queryFn: fetchQuakes,
-    refetchInterval: 5 * 60 * 1000,
-    staleTime: 4 * 60 * 1000, // data fresh for 4 min, skip refetch on remount
+    refetchInterval: 5 * 1000,
+    staleTime: 4 * 1000,
   });
 
   const { data: plates, isLoading: platesLoading } = useQuery({
