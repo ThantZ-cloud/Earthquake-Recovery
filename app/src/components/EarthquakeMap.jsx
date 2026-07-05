@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, L
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress, useTheme } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { classifyDams } from '../utils/damRisk';
 
 const DEFAULT_CENTER = [19.76, 96.08];
 const DEFAULT_ZOOM = 5;
@@ -40,21 +39,22 @@ const QuakePopup = memo(function QuakePopup({ q }) {
 
 // Dam popup
 const DamPopup = memo(function DamPopup({ dam }) {
+  const p = dam.properties;
   return (
     <Box sx={{ lineHeight: 1.6 }}>
-      <Typography variant="subtitle2" fontWeight={700}>{dam.name}</Typography>
-      <Typography variant="body2"><strong>Type:</strong> {dam.dam_type || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Function:</strong> {dam.function || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>River:</strong> {dam.river || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>State:</strong> {dam.state || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Capacity:</strong> {dam.capacity_mw ? `${dam.capacity_mw} MW` : 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Height:</strong> {dam.height_m && dam.height_m !== '-' ? `${dam.height_m} m` : 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Year:</strong> {dam.year || 'N/A'}</Typography>
-      <Typography variant="body2" sx={{ mt: 1, fontWeight: 700, color: dam.color }}>
-        ⚠️ {dam.label}
+      <Typography variant="subtitle2" fontWeight={700}>{p.name}</Typography>
+      <Typography variant="body2"><strong>Type:</strong> {p.dam_type || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Function:</strong> {p.function || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>River:</strong> {p.river || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>State:</strong> {p.state || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Capacity:</strong> {p.capacity_mw ? `${p.capacity_mw} MW` : 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Height:</strong> {p.height_m && p.height_m !== '-' ? `${p.height_m} m` : 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Year:</strong> {p.year || 'N/A'}</Typography>
+      <Typography variant="body2" sx={{ mt: 1, fontWeight: 700, color: p.color }}>
+        ⚠️ {p.label}
       </Typography>
       <Typography variant="caption" color="text.secondary">
-        Distance to nearest fault: {dam.distanceKm} km
+        Distance to nearest fault: {p.distanceKm} km
       </Typography>
     </Box>
   );
@@ -103,7 +103,7 @@ const fetchPlates = async () => {
 };
 
 const fetchDams = async () => {
-  const res = await fetch('/myanmar_dams.geojson');
+  const res = await fetch('/myanmar_dams.json');
   return res.json();
 };
 
@@ -160,21 +160,13 @@ function EarthquakeMap({ height = '84vh' }) {
     staleTime: Infinity,
   });
 
-  const { data: damsRaw } = useQuery({
+  const { data: damsData } = useQuery({
     queryKey: ['myanmarDams'],
     queryFn: fetchDams,
     staleTime: Infinity,
   });
 
-  // Classify dams by risk level — use state + useEffect to avoid blocking render
-  const [dams, setDams] = useState([]);
-  useEffect(() => {
-    if (!damsRaw || !plates) return;
-    // Defer heavy computation to next frame so UI renders first
-    requestAnimationFrame(() => {
-      setDams(classifyDams(damsRaw, plates));
-    });
-  }, [damsRaw, plates]);
+  const dams = damsData?.features || [];
 
   const loading = quakesLoading || !mapReady;
 
@@ -292,8 +284,8 @@ function EarthquakeMap({ height = '84vh' }) {
               {dams.map((dam, i) => (
                 <Marker
                   key={`dam-${i}`}
-                  position={[dam.coordinates[1], dam.coordinates[0]]}
-                  icon={makeTriangleIcon(dam.color)}
+                  position={[dam.geometry.coordinates[1], dam.geometry.coordinates[0]]}
+                  icon={makeTriangleIcon(dam.properties.color)}
                 >
                   <Popup>
                     <DamPopup dam={dam} />
