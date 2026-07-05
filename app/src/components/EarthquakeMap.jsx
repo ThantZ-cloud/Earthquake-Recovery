@@ -48,20 +48,25 @@ const QuakePopup = memo(function QuakePopup({ q }) {
 const DamPopup = memo(function DamPopup({ dam }) {
   const p = dam.properties;
   return (
-    <Box sx={{ lineHeight: 1.6 }}>
-      <Typography variant="subtitle2" fontWeight={700}>{p.name}</Typography>
-      <Typography variant="body2"><strong>Type:</strong> {p.dam_type || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Function:</strong> {p.function || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>River:</strong> {p.river || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>State:</strong> {p.state || 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Capacity:</strong> {p.capacity_mw ? `${p.capacity_mw} MW` : 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Height:</strong> {p.height_m && p.height_m !== '-' ? `${p.height_m} m` : 'N/A'}</Typography>
-      <Typography variant="body2"><strong>Year:</strong> {p.year || 'N/A'}</Typography>
-      <Typography variant="body2" sx={{ mt: 1, fontWeight: 700, color: p.color }}>
+    <Box sx={{ lineHeight: 1.4, fontSize: { xs: '0.75rem', md: '0.875rem' }, maxWidth: { xs: 180, md: 260 } }}>
+      <Typography variant="subtitle2" fontWeight={700} sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' }, mb: 0.5 }}>
+        {p.name}
+      </Typography>
+      <Typography variant="caption" display="block"><strong>Type:</strong> {p.dam_type || 'N/A'}</Typography>
+      <Typography variant="caption" display="block"><strong>Capacity:</strong> {p.capacity_mw ? `${p.capacity_mw} MW` : 'N/A'}</Typography>
+      <Typography variant="caption" display="block"><strong>Height:</strong> {p.height_m && p.height_m !== '-' ? `${p.height_m} m` : 'N/A'}</Typography>
+      {/* Extra fields hidden on mobile */}
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Typography variant="caption" display="block"><strong>Function:</strong> {p.function || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>River:</strong> {p.river || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>State:</strong> {p.state || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>Year:</strong> {p.year || 'N/A'}</Typography>
+      </Box>
+      <Typography variant="caption" sx={{ mt: 0.5, fontWeight: 700, color: p.color, display: 'block' }}>
         ⚠️ {p.label}
       </Typography>
-      <Typography variant="caption" color="text.secondary">
-        Distance to nearest fault: {p.distanceKm} km
+      <Typography variant="caption" color="text.secondary" display="block">
+        {p.distanceKm} km from fault
       </Typography>
     </Box>
   );
