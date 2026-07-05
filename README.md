@@ -13,9 +13,11 @@ It worked. But it was exactly what you'd expect from a second-year project — i
 A year later, I decided to give it a second life. With **Claude Code** as my pair programmer, I rebuilt the entire project from the ground up:
 
 - The **frontend** was completely rewritten in **React 19** with **Material UI (MUI 7)**, replacing every inline style with a consistent component library. Each section became its own route with smooth page transitions via **Framer Motion**.
-- The **backend** — which didn't exist before — was built with **Express.js**, adding real API endpoints for user authentication, earthquake alerts, contact forms, and a cached proxy to the **EMSC earthquake API** (which has far better coverage for Asia than USGS).
-- New features were added that the original never had: **website-wide search**, an **emergency phone directory** (20+ contacts per city across 13 Myanmar cities), a **12-question interactive quiz**, **user registration and login** with JWT authentication, and **location-based earthquake alerts** that watch your position and notify you if a quake strikes within 50 kilometers.
-- The **About Us** page was redesigned from a cramped 3D carousel into a modern team profile gallery with individual detail dialogs and staggered entrance animations.
+- **Authentication** uses **Supabase** — real user accounts with instant signup, no backend required.
+- **Earthquake data** is fetched directly from the **EMSC seismic portal** — no backend proxy needed.
+- **Myanmar dams** are displayed on the map with **risk assessment** based on proximity to tectonic plate boundaries using **Turf.js**.
+- **Real-time alerts** check for earthquakes every 5 seconds with a **30-second emergency siren** and **browser notifications**.
+- Location-based alerts watch your position and notify you if a quake strikes within 50 kilometers.
 
 What started as a classroom exercise is now a fully functional web application that I'm proud to show — and it keeps improving.
 
@@ -24,16 +26,18 @@ What started as a classroom exercise is now a fully functional web application t
 ## ✨ Features
 
 - **🗺️ Live Earthquake Map** — Real-time data from EMSC with tectonic plate overlays and color-coded magnitude markers
-- **🔍 Website Search** — Search across all pages and topics (safety tips, historical quakes, recovery resources, etc.)
-- **📞 Emergency Phone Directory** — 20+ contacts per city across 13 Myanmar cities, with in-sidebar search
-- **📍 Location-Based Alerts** — Login, grant location access, and get notified if an earthquake happens near you
+- **🇲🇲 Myanmar Dams** — 254 dams displayed with risk assessment (red/orange/green) based on distance to fault lines
+- **📍 Location-Based Alerts** — Real-time monitoring with emergency siren sound and browser notifications
+- **🔊 Emergency Siren** — 30-second alarm sound when earthquake detected near you
+- **🔍 Website Search** — Search across all pages and topics
+- **📞 Emergency Phone Directory** — 20+ contacts per city across 13 Myanmar cities
 - **🛡️ Safety Guide** — Drop, Cover, Hold On — essential steps explained visually
 - **📚 Earthquake Knowledge** — Magnitude scales, seismic zones, plate tectonics
-- **🏥 Recovery Resources** — Short-term, mid-term, and long-term recovery guidance with tabbed navigation
-- **📜 Historical Earthquakes** — Interactive timeline of major quakes worldwide with magnitude filtering
+- **🏥 Recovery Resources** — Short-term, mid-term, and long-term recovery guidance
+- **📜 Historical Earthquakes** — Interactive timeline of major quakes worldwide
 - **💰 Donate** — Crypto, mobile payment, and international donation options
 - **🧠 Quiz** — 12-question interactive earthquake knowledge test
-- **🔐 User Accounts** — Register, login, and logout with JWT authentication
+- **🔐 User Accounts** — Register and login with Supabase authentication
 - **🌓 Dark/Light Mode** — Full theme support
 
 ---
@@ -41,24 +45,21 @@ What started as a classroom exercise is now a fully functional web application t
 ## 🚀 Quick Start
 
 ```bash
-# Install all dependencies (both frontend + backend)
-npm run install:all
+# Install dependencies
+cd app && npm install
 
-# Start frontend dev server (port 5173)
-npm run dev:app
-
-# Start backend server in another terminal (port 3001)
-npm run dev:api
+# Start dev server (port 5173)
+npm run dev
 ```
 
-The Vite dev server proxies `/api/*` requests to the Express backend automatically.
+Create `app/.env` with your Supabase credentials:
 
-You can also run commands directly from each folder:
-
-```bash
-cd app && npm run dev    # Frontend only
-cd api && npm run dev    # Backend only
 ```
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+Enable instant signup in Supabase: **Authentication → Settings → Email → Toggle off "Confirm email"**
 
 ---
 
@@ -66,57 +67,45 @@ cd api && npm run dev    # Backend only
 
 ```
 ├── app/                           # Frontend (React + Vite)
-│   ├── index.html                 # Vite entry point
-│   ├── vite.config.js             # Vite config + API proxy
-│   ├── public/assets/             # Images (team, donate, logo)
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── public/
+│   │   ├── assets/                # Images + alert-sound.mp3
+│   │   ├── tectonicplates.json    # Global tectonic plate boundaries
+│   │   └── myanmar_dams.geojson   # 254 Myanmar dam locations
 │   └── src/
-│       ├── components/            # Shared React components
+│       ├── components/
 │       │   ├── Layout.jsx
 │       │   ├── Navbar.jsx
 │       │   ├── Footer.jsx
-│       │   ├── EarthquakeMap.jsx
-│       │   ├── SiteSearch.jsx     # Website content search
-│       │   ├── EmergencyPhones.jsx # Emergency number lookup
-│       │   ├── AuthDialog.jsx     # Login/Register dialog
-│       │   └── LocationAlerts.jsx # Location-based quake monitoring
-│       ├── data/                  # Static data
-│       │   ├── siteSearchData.js  # Search index
-│       │   └── emergencyPhones.js # Phone numbers by city
-│       ├── context/               # React context
-│       │   └── AuthContext.jsx    # Auth state management
-│       └── pages/                 # Route pages
-│           ├── Home.jsx           # Live map + location alert
-│           ├── About.jsx          # Meet the team (10 members)
-│           ├── Recovery.jsx       # Recovery resources (tabbed)
-│           ├── Donate.jsx         # Donation options (tabbed)
-│           ├── Quiz.jsx           # 12-question knowledge quiz
-│           └── History.jsx        # Historical earthquakes timeline
+│       │   ├── EarthquakeMap.jsx  # Map with earthquakes, plates, dams
+│       │   ├── SiteSearch.jsx
+│       │   ├── EmergencyPhones.jsx
+│       │   ├── AuthDialog.jsx     # Supabase login/register
+│       │   └── LocationAlerts.jsx # Real-time alerts + siren
+│       ├── lib/
+│       │   └── supabase.js        # Supabase client config
+│       ├── utils/
+│       │   └── damRisk.js         # Turf.js distance + risk classification
+│       ├── context/
+│       │   └── AuthContext.jsx    # Supabase auth state
+│       ├── data/
+│       │   ├── siteSearchData.js
+│       │   └── emergencyPhones.js
+│       └── pages/
+│           ├── Home.jsx
+│           ├── About.jsx
+│           ├── Recovery.jsx
+│           ├── Donate.jsx
+│           ├── Quiz.jsx
+│           └── History.jsx
 │
-├── api/                           # Backend (Express.js)
-│   ├── server.js                  # API server
-│   ├── middleware/auth.js         # JWT auth middleware
-│   ├── data/                      # JSON file storage (users, subscribers, messages)
-│   └── .env.example               # Environment variable template
+├── supabase/
+│   └── locations.sql              # Database schema for saved locations
 │
-├── .mcp.json              # Claude Code MCP configuration
-├── .claude/               # Claude skills & agents
-├── CLAUDE.md              # Claude Code guidance
-└── plan.md                # Project plan & progress tracker
+├── .claude/                       # Claude Code config
+└── CLAUDE.md
 ```
-
----
-
-## 🔌 API Endpoints
-
-| Method | Route | Description |
-|--------|-------|-------------|
-| `POST` | `/api/auth/register` | Create an account |
-| `POST` | `/api/auth/login` | Log in |
-| `GET` | `/api/auth/me` | Get current user (requires token) |
-| `POST` | `/api/subscribe` | Subscribe to earthquake alerts |
-| `POST` | `/api/contact` | Send a contact message |
-| `GET` | `/api/recent` | Get recent earthquakes (EMSC proxy with 5min cache) |
-| `GET` | `/api/health` | Health check |
 
 ---
 
@@ -125,42 +114,25 @@ cd api && npm run dev    # Backend only
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React 19, Vite, MUI 7, Leaflet, Framer Motion, React Router v7 |
-| Backend | Node.js, Express.js, JWT (jsonwebtoken + bcryptjs) |
+| Auth | Supabase (free tier) |
 | Map Data | EMSC Earthquake API, OpenStreetMap, MapTiler, ArcGIS |
-| Dev Tools | Claude Code (MCP, Skills, Agents), ESLint, Nodemon |
+| Spatial Analysis | Turf.js (distance calculation, risk zones) |
+| Sound | Web Audio API / HTML5 Audio |
 
 ---
 
-## 📦 Deployment
+## 📄 Data Sources & Credits
 
-- **Frontend**: `cd app && npm run build`, deploy `app/dist/` to [Netlify](https://netlify.com)
-- **Backend**: Deploy the `api/` folder to [Render](https://render.com) (free tier)
-
-Set environment variables on Render:
-```
-PORT=3001
-JWT_SECRET=your-random-secret-here
-CORS_ORIGIN=https://your-netlify-domain.netlify.app
-```
+- **Earthquake data**: [EMSC](https://www.seismicportal.eu/) (real-time seismic monitoring)
+- **Myanmar dams**: [mmeqopendata](https://github.com/akzedevops/mmeqopendata) (Open Development Mekong / IFC / WLE, CC BY-SA 4.0)
+- **Tectonic plates**: [fraxen/tectonicplates](https://github.com/fraxen/tectonicplates)
+- **Map tiles**: [OpenStreetMap](https://openstreetmap.org), [MapTiler](https://maptiler.com), [ArcGIS](https://arcgis.com), [OpenTopoMap](https://opentopomap.org)
+- **UI components**: [MUI](https://mui.com/)
+- **Icons**: [MUI Icons](https://mui.com/material-ui/icons/)
+- **Alert sound**: [Pixabay](https://pixabay.com/sound-effects/) (Emergency Warning System)
 
 ---
 
 ## 👥 Team
 
 Originally built by 10 UTYCC students (13th batch, IST Major) as a second-year frontend project. Upgraded and maintained by **Thant Zin Htun** with the help of Claude Code.
-
-See the [About page](https://thantz-cloud.github.io/Earthquake-Recovery/about) for individual team profiles.
-
----
-
-## 📄 Credits
-
-- Earthquake data: [EMSC](https://www.seismicportal.eu/)
-- Map tiles: [OpenStreetMap](https://openstreetmap.org), [MapTiler](https://maptiler.com), [ArcGIS](https://arcgis.com), [OpenTopoMap](https://opentopomap.org)
-- Tectonic plates: [fraxen/tectonicplates](https://github.com/fraxen/tectonicplates)
-- UI components: [MUI](https://mui.com/)
-- Icons: [MUI Icons](https://mui.com/material-ui/icons/)
-
-
-<img width="2674" height="1556" alt="Screenshot (22)" src="https://github.com/user-attachments/assets/8047b65b-f5f3-4505-863d-903f6b7ef504" />
-

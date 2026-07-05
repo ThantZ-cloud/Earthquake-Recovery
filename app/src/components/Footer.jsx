@@ -23,6 +23,14 @@ const socialLinks = [
   { icon: <TelegramIcon />, href: 'https://t.me/+vN0xEVxCWkw0ZWE1', label: 'Telegram' },
 ];
 
+const credits = [
+  { label: 'USGS', href: 'https://www.usgs.gov' },
+  { label: 'OpenStreetMap', href: 'https://www.openstreetmap.org' },
+  { label: 'MapTiler Cloud', href: 'https://www.maptiler.com' },
+  { label: 'mmeqopendata', href: 'https://github.com/akzedevops/mmeqopendata' },
+  { label: 'EMSC', href: 'https://www.seismicportal.eu' },
+];
+
 const columns = [
   {
     title: 'Get Help',
@@ -31,10 +39,6 @@ const columns = [
   {
     title: 'Legal',
     links: ['Accessibility', 'Privacy Policy', 'Site Policies', 'Copyright'],
-  },
-  {
-    title: 'Credits',
-    links: ['USGS', 'OpenStreetMap', 'MapTiler Cloud', 'Other Sources'],
   },
 ];
 
@@ -72,6 +76,27 @@ export default function Footer() {
             </Grid>
           ))}
 
+          {/* Credits column */}
+          <Grid size={{ xs: 6, sm: 4, md: 3 }}>
+            <Typography variant="subtitle2" fontWeight={700} gutterBottom>
+              Credits
+            </Typography>
+            {credits.map((c) => (
+              <Link
+                key={c.label}
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="hover"
+                color="text.secondary"
+                display="block"
+                sx={{ fontSize: '0.875rem', py: 0.3 }}
+              >
+                {c.label}
+              </Link>
+            ))}
+          </Grid>
+
           {/* Social column */}
           <Grid size={{ xs: 12, sm: 12, md: 3 }}>
             <Typography variant="subtitle2" fontWeight={700} gutterBottom>
@@ -107,6 +132,19 @@ export default function Footer() {
           textAlign="center"
         >
           © {new Date().getFullYear()} Earthquake & Recovery. Built with care for earthquake awareness.
+        </Typography>
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          textAlign="center"
+          display="block"
+          sx={{ mt: 1 }}
+        >
+          Myanmar dams data from{' '}
+          <Link href="https://github.com/akzedevops/mmeqopendata" target="_blank" rel="noopener noreferrer" underline="hover">
+            mmeqopendata
+          </Link>
+          {' '}(Open Development Mekong / IFC / WLE, CC BY-SA 4.0)
         </Typography>
       </Container>
     </Box>

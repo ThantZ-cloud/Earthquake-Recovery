@@ -1,11 +1,22 @@
 import { useState, useMemo, memo, useEffect } from 'react';
-import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, LayerGroup, useMap, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress, useTheme } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import { classifyDams } from '../utils/damRisk';
 
-const DEFAULT_CENTER = [20, 0];
-const DEFAULT_ZOOM = 2;
+const DEFAULT_CENTER = [19.76, 96.08];
+const DEFAULT_ZOOM = 5;
+
+// CSS triangle icons — tiny div with borders, no SVG
+function makeTriangleIcon(color) {
+  return L.divIcon({
+    className: '',
+    iconSize: [0, 0],
+    iconAnchor: [6, 12],
+    html: `<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid ${color};filter:drop-shadow(0 0 2px rgba(255,255,255,0.8))"></div>`,
+  });
+}
 
 // Color by magnitude
 function magColor(mag) {
@@ -15,7 +26,6 @@ function magColor(mag) {
   return '#2e7d32';
 }
 
-
 // Memoized popup
 const QuakePopup = memo(function QuakePopup({ q }) {
   return (
@@ -24,6 +34,28 @@ const QuakePopup = memo(function QuakePopup({ q }) {
       <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
       <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
       <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
+    </Box>
+  );
+});
+
+// Dam popup
+const DamPopup = memo(function DamPopup({ dam }) {
+  return (
+    <Box sx={{ lineHeight: 1.6 }}>
+      <Typography variant="subtitle2" fontWeight={700}>{dam.name}</Typography>
+      <Typography variant="body2"><strong>Type:</strong> {dam.dam_type || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Function:</strong> {dam.function || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>River:</strong> {dam.river || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>State:</strong> {dam.state || 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Capacity:</strong> {dam.capacity_mw ? `${dam.capacity_mw} MW` : 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Height:</strong> {dam.height_m && dam.height_m !== '-' ? `${dam.height_m} m` : 'N/A'}</Typography>
+      <Typography variant="body2"><strong>Year:</strong> {dam.year || 'N/A'}</Typography>
+      <Typography variant="body2" sx={{ mt: 1, fontWeight: 700, color: dam.color }}>
+        ⚠️ {dam.label}
+      </Typography>
+      <Typography variant="caption" color="text.secondary">
+        Distance to nearest fault: {dam.distanceKm} km
+      </Typography>
     </Box>
   );
 });
@@ -70,6 +102,11 @@ const fetchPlates = async () => {
   return res.json();
 };
 
+const fetchDams = async () => {
+  const res = await fetch('/myanmar_dams.geojson');
+  return res.json();
+};
+
 // Detect when Leaflet map tiles are loaded
 function MapReadyDetector({ onReady }) {
   const map = useMap();
@@ -103,11 +140,11 @@ function AutoCollapseLayers() {
   return null;
 }
 
-function EarthquakeMap({ height = '70vh' }) {
+function EarthquakeMap({ height = '84vh' }) {
   const theme = useTheme();
   const [mapReady, setMapReady] = useState(false);
 
-  // Canvas renderer for tectonic plates — draws on a single canvas instead of SVG paths
+  // Canvas renderer for earthquakes
   const canvasRenderer = useMemo(() => L.canvas({ padding: 0.2 }), []);
 
   const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
@@ -122,6 +159,22 @@ function EarthquakeMap({ height = '70vh' }) {
     queryFn: fetchPlates,
     staleTime: Infinity,
   });
+
+  const { data: damsRaw } = useQuery({
+    queryKey: ['myanmarDams'],
+    queryFn: fetchDams,
+    staleTime: Infinity,
+  });
+
+  // Classify dams by risk level — use state + useEffect to avoid blocking render
+  const [dams, setDams] = useState([]);
+  useEffect(() => {
+    if (!damsRaw || !plates) return;
+    // Defer heavy computation to next frame so UI renders first
+    requestAnimationFrame(() => {
+      setDams(classifyDams(damsRaw, plates));
+    });
+  }, [damsRaw, plates]);
 
   const loading = quakesLoading || !mapReady;
 
@@ -231,6 +284,22 @@ function EarthquakeMap({ height = '70vh' }) {
               {plates && (
                 <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
               )}
+            </LayerGroup>
+          </LayersControl.Overlay>
+
+          <LayersControl.Overlay name="Myanmar Dams">
+            <LayerGroup>
+              {dams.map((dam, i) => (
+                <Marker
+                  key={`dam-${i}`}
+                  position={[dam.coordinates[1], dam.coordinates[0]]}
+                  icon={makeTriangleIcon(dam.color)}
+                >
+                  <Popup>
+                    <DamPopup dam={dam} />
+                  </Popup>
+                </Marker>
+              ))}
             </LayerGroup>
           </LayersControl.Overlay>
         </LayersControl>
