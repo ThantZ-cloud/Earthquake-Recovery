@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "cd app && npm run build",
   "outputDirectory": "app/dist",
-  "installCommand": "npm run install:all",
+  "installCommand": "cd app && npm install",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
