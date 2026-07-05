@@ -1,5 +1,5 @@
 import { useState, useMemo, memo, useEffect } from 'react';
-import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, LayersControl, LayerGroup, useMap, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, CircleMarker, Polygon, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress, useTheme } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -7,14 +7,21 @@ import { useQuery } from '@tanstack/react-query';
 const DEFAULT_CENTER = [19.76, 96.08];
 const DEFAULT_ZOOM = 5;
 
-// CSS triangle icons — tiny div with borders, no SVG
-function makeTriangleIcon(color) {
-  return L.divIcon({
-    className: '',
-    iconSize: [0, 0],
-    iconAnchor: [6, 12],
-    html: `<div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:12px solid ${color};filter:drop-shadow(0 0 2px rgba(255,255,255,0.8))"></div>`,
-  });
+// Dam color by risk level
+function damColor(color) {
+  if (color === '#d32f2f') return '#d32f2f'; // high
+  if (color === '#ed6c02') return '#ed6c02'; // medium
+  return '#2e7d32'; // low
+}
+
+// Triangle vertices for dam markers (points up)
+function damTriangle(lat, lng) {
+  const s = 0.18; // size in degrees
+  return [
+    [lat + s, lng],           // top
+    [lat - s * 0.6, lng - s], // bottom-left
+    [lat - s * 0.6, lng + s], // bottom-right
+  ];
 }
 
 // Color by magnitude
@@ -282,15 +289,21 @@ function EarthquakeMap({ height = '84vh' }) {
           <LayersControl.Overlay name="Myanmar Dams">
             <LayerGroup>
               {dams.map((dam, i) => (
-                <Marker
+                <Polygon
                   key={`dam-${i}`}
-                  position={[dam.geometry.coordinates[1], dam.geometry.coordinates[0]]}
-                  icon={makeTriangleIcon(dam.properties.color)}
+                  positions={damTriangle(dam.geometry.coordinates[1], dam.geometry.coordinates[0])}
+                  pathOptions={{
+                    fillColor: damColor(dam.properties.color),
+                    fillOpacity: 0.9,
+                    color: '#fff',
+                    weight: 1.5,
+                  }}
+                  renderer={canvasRenderer}
                 >
                   <Popup>
                     <DamPopup dam={dam} />
                   </Popup>
-                </Marker>
+                </Polygon>
               ))}
             </LayerGroup>
           </LayersControl.Overlay>
