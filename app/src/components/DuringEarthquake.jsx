@@ -29,99 +29,51 @@ const SCENARIOS = [
     icon: <HomeIcon sx={{ fontSize: 40 }} />,
     emoji: '🏠',
     titleKey: 'during.scenarios.indoors.title',
+    dosKey: 'during.scenarios.indoors.dos',
+    dontsKey: 'during.scenarios.indoors.donts',
+    dosCount: 8,
+    dontsCount: 4,
     color: '#1565C0',
-    dos: [
-      'Drop, Cover, and Hold On immediately',
-      'Get under a sturdy desk or table',
-      'Stay away from windows, mirrors, and glass doors',
-      'Move away from heavy furniture that could topple',
-      'If in a kitchen, move away from the stove and refrigerator',
-      'Stay inside until the shaking stops completely',
-      'After shaking stops, check for injuries and damage',
-      'Use stairs instead of elevators if evacuating',
-    ],
-    donts: [
-      'Do NOT run outside during shaking — most injuries happen from falling debris near exits',
-      'Do NOT stand in a doorway (this is an outdated myth — you\'re safer under a table)',
-      'Do NOT use elevators',
-      'Do NOT light matches or candles (gas leaks may be present)',
-    ],
   },
   {
     icon: <ParkIcon sx={{ fontSize: 40 }} />,
     emoji: '🌳',
     titleKey: 'during.scenarios.outdoors.title',
+    dosKey: 'during.scenarios.outdoors.dos',
+    dontsKey: 'during.scenarios.outdoors.donts',
+    dosCount: 6,
+    dontsCount: 4,
     color: '#2E7D32',
-    dos: [
-      'Move to an open area away from buildings, trees, and power lines',
-      'Drop to the ground and protect your head and neck',
-      'Stay in the open until the shaking stops',
-      'Watch for falling debris, broken glass, and collapsed structures',
-      'If near a tall building, move away from it — facades and windows can fall',
-      'Be aware of cracks in the ground, especially near slopes',
-    ],
-    donts: [
-      'Do NOT run into traffic or onto roads',
-      'Do NOT go near damaged buildings after the shaking stops',
-      'Do NOT stand under power lines or near utility poles',
-      'Do NOT enter tunnels, bridges, or overpasses',
-    ],
   },
   {
     icon: <DirectionsCarIcon sx={{ fontSize: 40 }} />,
     emoji: '🚗',
     titleKey: 'during.scenarios.driving.title',
+    dosKey: 'during.scenarios.driving.dos',
+    dontsKey: 'during.scenarios.driving.donts',
+    dosCount: 6,
+    dontsCount: 4,
     color: '#E65100',
-    dos: [
-      'Pull over to the side of the road as quickly and safely as possible',
-      'Stop away from buildings, trees, overpasses, and utility wires',
-      'Stay inside your vehicle — it provides protection from falling debris',
-      'Set the parking brake and stay buckled in',
-      'Listen to the radio for emergency instructions',
-      'After shaking stops, drive carefully — watch for cracks, fallen debris, and damaged roads',
-    ],
-    donts: [
-      'Do NOT stop on or under bridges, overpasses, or tunnels',
-      'Do NOT park near buildings or power lines',
-      'Do NOT rush to drive home — roads may be damaged',
-      'Do NOT drive through standing water (may hide road damage)',
-    ],
   },
   {
     icon: <BedIcon sx={{ fontSize: 40 }} />,
     emoji: '🛏️',
     titleKey: 'during.scenarios.bed.title',
+    dosKey: 'during.scenarios.bed.dos',
+    dontsKey: 'during.scenarios.bed.donts',
+    dosCount: 5,
+    dontsCount: 2,
     color: '#7B1FA2',
-    dos: [
-      'Stay in bed and cover your head with a pillow',
-      'Hold onto the bed frame for stability',
-      'Wait for the shaking to stop before getting up',
-      'After shaking stops, carefully get up and check for hazards (broken glass, fallen objects)',
-      'Put on shoes immediately to protect your feet from debris',
-    ],
-    donts: [
-      'Do NOT try to get up and run — you may fall or step on broken glass',
-      'Do NOT turn on lights (use a flashlight instead — sparks can ignite gas leaks)',
-    ],
   },
   {
     icon: <WaterIcon sx={{ fontSize: 40 }} />,
     emoji: '🏖️',
     titleKey: 'during.scenarios.highrise.title',
+    dosKey: 'during.scenarios.highrise.dos',
+    dontsKey: 'during.scenarios.highrise.donts',
+    dosCount: 6,
+    dontsCount: 3,
     color: '#00838F',
-    dos: [
-      'Drop, Cover, and Hold On first — the shaking itself can be dangerous',
-      'After shaking stops, move to high ground immediately (at least 30 meters above sea level)',
-      'Move at least 2 km inland from the shoreline',
-      'Listen for tsunami warnings on radio or emergency alerts',
-      'If you see the ocean recede unusually far, treat it as a tsunami warning — move inland NOW',
-      'Stay away from the coast for several hours after the earthquake',
-    ],
-    donts: [
-      'Do NOT wait for an official warning if the ocean behaves strangely',
-      'Do NOT go to the beach to watch for waves',
-      'Do NOT return to low-lying areas until authorities say it\'s safe',
-    ],
   },
 ];
 
@@ -239,17 +191,17 @@ export default function DuringEarthquake() {
                       {t('during.labelDo')}
                     </Typography>
                     <Box component="ul" sx={{ pl: 2.5, m: 0 }}>
-                      {scenario.dos.map((item) => (
+                      {Array.from({ length: scenario.dosCount }, (_, i) => (
                         <Box
                           component="li"
-                          key={item}
+                          key={i}
                           sx={{
                             mb: 0.8,
                             '&::marker': { color: 'success.main' },
                           }}
                         >
                           <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                            {item}
+                            {t(`${scenario.dosKey}.${i}`)}
                           </Typography>
                         </Box>
                       ))}
@@ -271,17 +223,17 @@ export default function DuringEarthquake() {
                       {t('during.labelDont')}
                     </Typography>
                     <Box component="ul" sx={{ pl: 2.5, m: 0 }}>
-                      {scenario.donts.map((item) => (
+                      {Array.from({ length: scenario.dontsCount }, (_, i) => (
                         <Box
                           component="li"
-                          key={item}
+                          key={i}
                           sx={{
                             mb: 0.8,
                             '&::marker': { color: 'error.main' },
                           }}
                         >
                           <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                            {item}
+                            {t(`${scenario.dontsKey}.${i}`)}
                           </Typography>
                         </Box>
                       ))}
