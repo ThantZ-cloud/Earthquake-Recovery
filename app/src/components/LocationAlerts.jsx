@@ -8,6 +8,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import EditIcon from '@mui/icons-material/Edit';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../context/AuthContext';
+import { useLang } from '../i18n';
 import supabase from '../lib/supabase';
 
 // Haversine distance in km
@@ -45,6 +46,7 @@ function startSiren() {
 
 export default function LocationAlerts({ enabled }) {
   const { user } = useAuth();
+  const { t } = useLang();
   const [alertQuake, setAlertQuake] = useState(null);
   const [snackOpen, setSnackOpen] = useState(false);
   const [userPos, setUserPos] = useState(null);
@@ -260,6 +262,11 @@ export default function LocationAlerts({ enabled }) {
           <Chip label={locationError} color="warning" variant="outlined" size="small" />
         </Box>
       )}
+
+      {/* Educational disclaimer */}
+      <Alert severity="info" sx={{ mt: 2, fontSize: '0.85rem' }}>
+        {t('alerts.disclaimer')}
+      </Alert>
 
       {/* Edit location dialog */}
       <Dialog open={editOpen} onClose={() => setEditOpen(false)} maxWidth="xs" fullWidth>

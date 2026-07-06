@@ -667,7 +667,8 @@
     "alertMsg": "M{mag} earthquake detected {dist} km away — {place}",
     "geoNotSupported": "Geolocation is not supported by your browser.",
     "allowLocation": "Please allow location access to receive alerts.",
-    "notifTitle": "Earthquake Alert"
+    "notifTitle": "Earthquake Alert",
+    "disclaimer": "⚠️ This alert system is for educational purposes only. It may not detect every earthquake or provide timely warnings. Always rely on official sources for critical safety decisions."
   },
   "map": {
     "unableToLoad": "Unable to load earthquake data",
