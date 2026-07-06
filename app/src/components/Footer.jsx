@@ -7,20 +7,10 @@ import {
   Link,
   Divider,
 } from '@mui/material';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import TelegramIcon from '@mui/icons-material/Telegram';
 
 const socialLinks = [
-  { icon: <FacebookIcon />, href: '#', label: 'Facebook' },
-  { icon: <InstagramIcon />, href: '#', label: 'Instagram' },
-  { icon: <LinkedInIcon />, href: '#', label: 'LinkedIn' },
-  { icon: <GitHubIcon />, href: '#', label: 'GitHub' },
-  { icon: <YouTubeIcon />, href: '#', label: 'YouTube' },
-  { icon: <TelegramIcon />, href: 'https://t.me/+vN0xEVxCWkw0ZWE1', label: 'Telegram' },
+  { icon: <TelegramIcon />, href: 'https://t.me/ThantZ44', label: 'Telegram' },
 ];
 
 const credits = [

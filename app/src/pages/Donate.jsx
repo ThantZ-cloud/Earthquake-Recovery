@@ -24,6 +24,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 /* ──────────────────────── DATA ──────────────────────── */
 
@@ -249,6 +250,22 @@ export default function Donate() {
           </motion.div>
         </Container>
       </Box>
+
+      {/* Temporary notice */}
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Alert
+          severity="info"
+          icon={<InfoOutlinedIcon />}
+          sx={{ borderRadius: 2, mb: 2 }}
+        >
+          <Typography variant="body2" fontWeight={600}>
+            Donations are temporarily unavailable
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            We are currently updating our donation channels. Please check back later. Thank you for your support!
+          </Typography>
+        </Alert>
+      </Container>
 
       {/* Tabs */}
       <Container maxWidth="lg" sx={{ pt: 4 }}>
