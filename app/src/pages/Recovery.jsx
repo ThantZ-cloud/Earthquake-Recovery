@@ -45,82 +45,45 @@ const itemVariants = {
 const ASSESS_SECTIONS = [
   {
     emoji: '🔍',
-    title: 'Exterior Inspection',
-    intro: 'Walk around the outside of your building before entering. Look for these signs from a safe distance:',
-    items: [
-      'Check the foundation for new cracks, shifting, or separation from the walls',
-      'Look for tilting or leaning walls, chimney damage, or a shifted roof',
-      'Inspect porches, decks, and balconies for sagging or detachment',
-      'Check for downed power lines, broken gas lines, or water main leaks',
-      'Look for cracks in the ground near the building (may indicate soil movement)',
-      'If the building looks structurally unsafe — DO NOT ENTER. Call a professional.',
-    ],
+    titleKey: 'recovery.tab1Sections.sec1.title',
+    introKey: 'recovery.tab1Sections.sec1.intro',
+    itemsKey: 'recovery.tab1Sections.sec1.items',
+    count: 6,
   },
   {
     emoji: '🏠',
-    title: 'Interior Inspection',
-    intro: 'If the exterior looks safe, enter carefully. Bring a flashlight and wear sturdy shoes. Watch for:',
-    items: [
-      'Check for cracks in walls, especially around door frames and windows',
-      'Look for sagging ceilings, warped floors, or doors/windows that no longer close properly',
-      'Inspect for broken glass, fallen objects, and spilled hazardous materials',
-      'Check if the floor feels soft or spongy (may indicate water damage or structural compromise)',
-      'Smell for gas — if detected, leave immediately and call the gas company from outside',
-      'Test light switches and outlets cautiously — if sparking or burning smell, turn off electricity at the breaker',
-    ],
+    titleKey: 'recovery.tab1Sections.sec2.title',
+    introKey: 'recovery.tab1Sections.sec2.intro',
+    itemsKey: 'recovery.tab1Sections.sec2.items',
+    count: 6,
   },
   {
     emoji: '🔧',
-    title: 'Utility Safety',
-    intro: 'Damaged utilities are one of the biggest post-earthquake hazards. Know how to check and shut them off:',
-    items: [
-      'GAS: If you smell gas or hear hissing, open windows, leave the building, and call the gas company. Do NOT use any electrical switches or open flames.',
-      'WATER: Check for leaks around water heater, pipes, and toilets. If pipes are damaged, shut off the main water valve.',
-      'ELECTRICITY: If you see frayed wires, sparks, or smell burning, turn off the main breaker. Do not touch wet electrical panels.',
-      'SEWAGE: If sewage lines are damaged, do not use toilets or drains until repaired.',
-      'Keep a wrench near your gas shut-off valve so you can turn it off quickly in emergencies.',
-      'Do NOT turn utilities back on yourself — wait for a professional inspection.',
-    ],
+    titleKey: 'recovery.tab1Sections.sec3.title',
+    introKey: 'recovery.tab1Sections.sec3.intro',
+    itemsKey: 'recovery.tab1Sections.sec3.items',
+    count: 6,
   },
   {
     emoji: '🚦',
-    title: 'Re-Entry Decision: Tag System',
-    intro: 'After major earthquakes, building inspectors assign colored tags to indicate safety:',
-    items: [
-      'GREEN TAG — The building is safe to enter. Minor damage only. You can continue living there.',
-      'YELLOW TAG — Limited access. Some areas are unsafe. Enter briefly to retrieve belongings, but do not stay.',
-      'RED TAG — Do not enter. The building is structurally unsafe and may collapse. You need professional help.',
-      'If no inspector has visited, use your own judgment: when in doubt, stay out.',
-      'Contact your local building department to request an inspection if one hasn\'t been done.',
-    ],
+    titleKey: 'recovery.tab1Sections.sec4.title',
+    introKey: 'recovery.tab1Sections.sec4.intro',
+    itemsKey: 'recovery.tab1Sections.sec4.items',
+    count: 5,
   },
   {
     emoji: '📸',
-    title: 'Documenting Damage',
-    intro: 'Thorough documentation is essential for insurance claims and disaster aid applications:',
-    items: [
-      'Take photos and videos of ALL damage — wide shots and close-ups',
-      'Document each room from multiple angles, including ceilings and floors',
-      'Photograph damaged personal belongings (electronics, furniture, clothing)',
-      'Write a detailed description of each damaged item with estimated value',
-      'Keep all receipts for emergency repairs, temporary housing, and other expenses',
-      'Save damaged items if possible — your insurance company may want to inspect them',
-      'Make a home inventory list if you don\'t have one already',
-    ],
+    titleKey: 'recovery.tab1Sections.sec5.title',
+    introKey: 'recovery.tab1Sections.sec5.intro',
+    itemsKey: 'recovery.tab1Sections.sec5.items',
+    count: 7,
   },
   {
     emoji: '🩹',
-    title: 'Temporary Repairs',
-    intro: 'You can make temporary fixes to prevent further damage, but know your limits:',
-    items: [
-      'Cover broken windows with plywood or heavy plastic sheeting',
-      'Place tarps over roof damage to prevent water damage',
-      'Remove fallen debris that blocks exits or creates hazards',
-      'Board up holes in walls to prevent weather and animal damage',
-      'Do NOT attempt structural repairs (cracked foundation, leaning walls) — hire a professional',
-      'Do NOT use damaged electrical, gas, or plumbing systems until inspected',
-      'Keep receipts for all temporary repair materials — these are usually reimbursable',
-    ],
+    titleKey: 'recovery.tab1Sections.sec6.title',
+    introKey: 'recovery.tab1Sections.sec6.intro',
+    itemsKey: 'recovery.tab1Sections.sec6.items',
+    count: 7,
   },
 ];
 
@@ -406,19 +369,19 @@ export default function Recovery() {
                       {section.emoji}
                     </Typography>
                     <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                      {section.title}
+                      {t(section.titleKey)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
-                      {section.intro}
+                      {t(section.introKey)}
                     </Typography>
                     <List dense>
-                      {section.items.map((item) => (
-                        <ListItem key={item} sx={{ px: 0, py: 0.5 }}>
+                      {Array.from({ length: section.count }, (_, i) => (
+                        <ListItem key={i} sx={{ px: 0, py: 0.5 }}>
                           <ListItemIcon sx={{ minWidth: 28 }}>
                             <CheckCircleOutlineIcon sx={{ fontSize: 18, color: 'success.main' }} />
                           </ListItemIcon>
                           <ListItemText
-                            primary={item}
+                            primary={t(`${section.itemsKey}.${i}`)}
                             primaryTypographyProps={{
                               variant: 'body2',
                               color: 'text.secondary',
