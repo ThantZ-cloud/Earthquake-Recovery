@@ -19,6 +19,7 @@ import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import BuildIcon from '@mui/icons-material/Build';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -304,19 +305,19 @@ const REBUILD_SECTIONS = [
 
 const TAB_DATA = [
   {
-    label: 'Assess & Secure',
+    labelKey: 'recovery.tab1',
     icon: <HomeWorkIcon />,
     emoji: '🏚️',
     sections: ASSESS_SECTIONS,
   },
   {
-    label: 'Insurance & Aid',
+    labelKey: 'recovery.tab2',
     icon: <HealingIcon />,
     emoji: '📝',
     sections: INSURANCE_SECTIONS,
   },
   {
-    label: 'Rebuild Stronger',
+    labelKey: 'recovery.tab3',
     icon: <BuildIcon />,
     emoji: '🔨',
     sections: REBUILD_SECTIONS,
@@ -326,6 +327,7 @@ const TAB_DATA = [
 export default function Recovery() {
   const [tab, setTab] = useState(0);
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -342,11 +344,10 @@ export default function Recovery() {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <HealingIcon sx={{ fontSize: 52, mb: 2 }} />
             <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}>
-              Recovery Resources
+              {t('recovery.title')}
             </Typography>
             <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
-              Practical step-by-step guides for every phase of earthquake recovery —
-              from assessing damage to rebuilding stronger.
+              {t('recovery.subtitle')}
             </Typography>
           </motion.div>
         </Container>
@@ -361,11 +362,11 @@ export default function Recovery() {
           variant="fullWidth"
           TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
         >
-          {TAB_DATA.map((t, i) => (
+          {TAB_DATA.map((tabItem, i) => (
             <Tab
-              key={t.label}
-              icon={t.icon}
-              label={t.label}
+              key={tabItem.labelKey}
+              icon={tabItem.icon}
+              label={t(tabItem.labelKey)}
               sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
             />
           ))}
