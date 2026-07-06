@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -25,8 +26,8 @@ const fadeUp = {
 const SECTIONS = [
   {
     emoji: '🎒',
-    title: 'Build an Emergency Kit',
-    desc: 'Prepare a kit that can sustain you and your family for at least 72 hours. Store it in an accessible location and check it every 6 months to replace expired items.',
+    titleKey: 'before.sections.sec1.title',
+    descKey: 'before.sections.sec1.desc',
     items: [
       'Water — at least 4 liters per person per day (3-day supply minimum)',
       'Non-perishable food — canned goods, energy bars, dried fruits, nuts',
@@ -44,8 +45,8 @@ const SECTIONS = [
   },
   {
     emoji: '🏠',
-    title: 'Secure Your Home',
-    desc: 'Many earthquake injuries come from falling objects, not building collapse. Walk through your home and identify hazards — then fix them before the next quake.',
+    titleKey: 'before.sections.sec2.title',
+    descKey: 'before.sections.sec2.desc',
     items: [
       'Anchor heavy furniture (bookcases, cabinets, wardrobes) to wall studs',
       'Secure water heater with metal straps to prevent gas leaks',
@@ -60,8 +61,8 @@ const SECTIONS = [
   },
   {
     emoji: '👨‍👩‍👧‍👦',
-    title: 'Make a Family Emergency Plan',
-    desc: 'Every family member should know what to do and where to go during an earthquake. Practice your plan at least twice a year.',
+    titleKey: 'before.sections.sec3.title',
+    descKey: 'before.sections.sec3.desc',
     items: [
       'Identify safe spots in every room — under sturdy desks, against interior walls',
       'Choose two meeting points — one near home, one outside the neighborhood',
@@ -76,8 +77,8 @@ const SECTIONS = [
   },
   {
     emoji: '⚠️',
-    title: 'Know Your Risk',
-    desc: 'Understanding the earthquake risk in your area helps you prepare appropriately. Research local fault lines, building codes, and community emergency plans.',
+    titleKey: 'before.sections.sec4.title',
+    descKey: 'before.sections.sec4.desc',
     items: [
       'Research whether you live near an active fault line',
       'Check if your building meets current earthquake-resistant building codes',
@@ -93,6 +94,7 @@ const SECTIONS = [
 
 export default function BeforeEarthquake() {
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box
@@ -116,7 +118,7 @@ export default function BeforeEarthquake() {
             gutterBottom
             sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
           >
-            📋 Before an Earthquake
+            📋 {t('before.title')}
           </Typography>
           <Typography
             variant="body1"
@@ -124,9 +126,7 @@ export default function BeforeEarthquake() {
             textAlign="center"
             sx={{ maxWidth: 750, mx: 'auto', mb: 6, fontSize: '1.1rem', lineHeight: 1.8 }}
           >
-            Preparation is your best defense against earthquakes. The actions you take before
-            an earthquake can save lives, reduce injuries, and protect your property. Don't
-            wait — start preparing today.
+            {t('before.intro')}
           </Typography>
         </motion.div>
 
@@ -163,10 +163,10 @@ export default function BeforeEarthquake() {
                     {section.emoji}
                   </Typography>
                   <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                    {section.title}
+                    {t(section.titleKey)}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
-                    {section.desc}
+                    {t(section.descKey)}
                   </Typography>
                   <List dense>
                     {section.items.map((item) => (

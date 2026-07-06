@@ -7,6 +7,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -39,6 +40,7 @@ const MAGNITUDE_SCALE = [
 
 export default function HowToMeasure() {
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box
@@ -62,7 +64,7 @@ export default function HowToMeasure() {
             gutterBottom
             sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
           >
-            📏 How to Measure an Earthquake?
+            📏 {t('measure.title')}
           </Typography>
           <Typography
             variant="body1"
@@ -70,10 +72,7 @@ export default function HowToMeasure() {
             textAlign="center"
             sx={{ maxWidth: 750, mx: 'auto', mb: 6, fontSize: '1.1rem', lineHeight: 1.8 }}
           >
-            Earthquakes are measured using two main systems: <strong>magnitude</strong> (energy
-            released at the source) and <strong>intensity</strong> (how much shaking is felt at a
-            specific location). The most well-known scale is the Richter Scale, but scientists
-            now primarily use the Moment Magnitude Scale.
+            {t('measure.intro')}
           </Typography>
         </motion.div>
 
@@ -99,19 +98,13 @@ export default function HowToMeasure() {
                 }}
               >
                 <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                  📐 Richter Scale
+                  📐 {t('measure.richter.title')}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8, mb: 2 }}>
-                  Developed in 1935 by Charles Richter, this was the first widely used magnitude
-                  scale. It measures the amplitude of the largest seismic wave recorded on a
-                  seismograph. The scale is <strong>logarithmic</strong> — each whole number increase
-                  represents a <strong>10× increase in wave amplitude</strong> and roughly
-                  <strong> 31.6× more energy released</strong>.
+                  {t('measure.richter.p1')}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                  For example, a magnitude 6 earthquake releases about 31.6 times more energy
-                  than a magnitude 5. The Richter Scale works best for local, moderate earthquakes
-                  and is less accurate for very large quakes (M8+) or those far from seismometers.
+                  {t('measure.richter.p2')}
                 </Typography>
               </Paper>
             </motion.div>
@@ -137,18 +130,13 @@ export default function HowToMeasure() {
                 }}
               >
                 <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                  🔬 Moment Magnitude Scale (Mw)
+                  🔬 {t('measure.moment.title')}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8, mb: 2 }}>
-                  The modern standard for measuring earthquakes. Unlike the Richter Scale, it
-                  measures the <strong>total energy released</strong> by calculating the area of
-                  the fault that ruptured, the distance the rock moved, and the rigidity of the
-                  rock. This makes it accurate for earthquakes of all sizes, anywhere in the world.
+                  {t('measure.moment.p1')}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                  Today, when you hear "magnitude 7.1 earthquake" on the news, it's almost always
-                  the Moment Magnitude (Mw). For small earthquakes (below M3.5), the two scales
-                  give nearly identical numbers, but they diverge significantly for major events.
+                  {t('measure.moment.p2')}
                 </Typography>
               </Paper>
             </motion.div>
@@ -169,7 +157,7 @@ export default function HowToMeasure() {
             gutterBottom
             sx={{ fontSize: { xs: '1.4rem', md: '1.8rem' }, fontWeight: 600, mb: 4 }}
           >
-            🔢 Magnitude Scale Explained
+            🔢 {t('measure.scaleTitle')}
           </Typography>
         </motion.div>
 
@@ -245,7 +233,7 @@ export default function HowToMeasure() {
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: 500 }}>
-              💡 <strong>Energy comparison:</strong> A magnitude 9.0 earthquake releases as much
+              💡 <strong>{t('measure.energyTitle')}:</strong> A magnitude 9.0 earthquake releases as much
               energy as 480 million tons of TNT — equivalent to about 31,000 Hiroshima atomic bombs.
             </Typography>
           </Box>

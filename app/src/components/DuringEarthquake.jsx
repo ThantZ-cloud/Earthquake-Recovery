@@ -13,6 +13,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import BedIcon from '@mui/icons-material/Bed';
 import WaterIcon from '@mui/icons-material/Water';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -27,7 +28,7 @@ const SCENARIOS = [
   {
     icon: <HomeIcon sx={{ fontSize: 40 }} />,
     emoji: '🏠',
-    title: 'If You Are Indoors',
+    titleKey: 'during.scenarios.indoors.title',
     color: '#1565C0',
     dos: [
       'Drop, Cover, and Hold On immediately',
@@ -49,7 +50,7 @@ const SCENARIOS = [
   {
     icon: <ParkIcon sx={{ fontSize: 40 }} />,
     emoji: '🌳',
-    title: 'If You Are Outdoors',
+    titleKey: 'during.scenarios.outdoors.title',
     color: '#2E7D32',
     dos: [
       'Move to an open area away from buildings, trees, and power lines',
@@ -69,7 +70,7 @@ const SCENARIOS = [
   {
     icon: <DirectionsCarIcon sx={{ fontSize: 40 }} />,
     emoji: '🚗',
-    title: 'If You Are Driving',
+    titleKey: 'during.scenarios.driving.title',
     color: '#E65100',
     dos: [
       'Pull over to the side of the road as quickly and safely as possible',
@@ -89,7 +90,7 @@ const SCENARIOS = [
   {
     icon: <BedIcon sx={{ fontSize: 40 }} />,
     emoji: '🛏️',
-    title: 'If You Are in Bed',
+    titleKey: 'during.scenarios.bed.title',
     color: '#7B1FA2',
     dos: [
       'Stay in bed and cover your head with a pillow',
@@ -106,7 +107,7 @@ const SCENARIOS = [
   {
     icon: <WaterIcon sx={{ fontSize: 40 }} />,
     emoji: '🏖️',
-    title: 'If You Are Near the Coast',
+    titleKey: 'during.scenarios.highrise.title',
     color: '#00838F',
     dos: [
       'Drop, Cover, and Hold On first — the shaking itself can be dangerous',
@@ -126,6 +127,7 @@ const SCENARIOS = [
 
 export default function DuringEarthquake() {
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box
@@ -149,7 +151,7 @@ export default function DuringEarthquake() {
             gutterBottom
             sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
           >
-            ⚡ During an Earthquake
+            ⚡ {t('during.title')}
           </Typography>
           <Typography
             variant="body1"
@@ -157,9 +159,7 @@ export default function DuringEarthquake() {
             textAlign="center"
             sx={{ maxWidth: 750, mx: 'auto', mb: 3, fontSize: '1.1rem', lineHeight: 1.8 }}
           >
-            When the ground starts shaking, you may only have seconds to react. Know what to
-            do based on where you are. The key principle is always the same: <strong>Drop, Cover,
-            and Hold On</strong>.
+            {t('during.intro')}
           </Typography>
 
           {/* Warning box */}
@@ -178,9 +178,7 @@ export default function DuringEarthquake() {
           >
             <WarningAmberIcon sx={{ color: '#d32f2f', fontSize: 32, flexShrink: 0 }} />
             <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: 1.7 }}>
-              <strong>Remember:</strong> Most earthquake injuries come from falling objects and
-              broken glass — not building collapse. The biggest mistake people make is trying
-              to run during shaking.
+              {t('during.warning')}
             </Typography>
           </Box>
         </motion.div>
@@ -221,7 +219,7 @@ export default function DuringEarthquake() {
                     </Typography>
                     <Box>
                       <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                        {scenario.title}
+                        {t(scenario.titleKey)}
                       </Typography>
                     </Box>
                   </Box>
@@ -238,7 +236,7 @@ export default function DuringEarthquake() {
                         letterSpacing: 1,
                       }}
                     >
-                      ✅ Do This
+                      {t('during.labelDo')}
                     </Typography>
                     <Box component="ul" sx={{ pl: 2.5, m: 0 }}>
                       {scenario.dos.map((item) => (
@@ -270,7 +268,7 @@ export default function DuringEarthquake() {
                         letterSpacing: 1,
                       }}
                     >
-                      ❌ Do NOT Do This
+                      {t('during.labelDont')}
                     </Typography>
                     <Box component="ul" sx={{ pl: 2.5, m: 0 }}>
                       {scenario.donts.map((item) => (

@@ -13,6 +13,7 @@ import {
 import { motion } from 'framer-motion';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -26,8 +27,8 @@ const fadeUp = {
 const SECTIONS = [
   {
     emoji: '🩹',
-    title: 'Check for Injuries',
-    desc: 'Your first priority after the shaking stops is to check yourself and others for injuries. Provide first aid where needed and call for emergency help.',
+    titleKey: 'after.sections.sec1.title',
+    descKey: 'after.sections.sec1.desc',
     items: [
       'Check yourself for injuries before helping others',
       'Check family members, neighbors, and people nearby',
@@ -41,8 +42,8 @@ const SECTIONS = [
   },
   {
     emoji: '🔄',
-    title: 'Expect Aftershocks',
-    desc: 'Aftershocks are smaller earthquakes that follow the main shock. They can occur minutes, hours, days, or even weeks later. Some aftershocks can be strong enough to cause additional damage to weakened structures.',
+    titleKey: 'after.sections.sec2.title',
+    descKey: 'after.sections.sec2.desc',
     items: [
       'Be ready to Drop, Cover, and Hold On again at any moment',
       'Aftershocks can be nearly as strong as the original earthquake',
@@ -55,8 +56,8 @@ const SECTIONS = [
   },
   {
     emoji: '⚠️',
-    title: 'Check for Hazards',
-    desc: 'Earthquakes can cause hidden hazards that aren\'t immediately visible. Gas leaks, electrical damage, and structural weaknesses can be deadly after the shaking stops.',
+    titleKey: 'after.sections.sec3.title',
+    descKey: 'after.sections.sec3.desc',
     items: [
       'Smell for gas — if you detect a leak, open windows, leave the building, and call the gas company',
       'Do NOT turn on lights, use matches, or create any spark if you smell gas',
@@ -71,8 +72,8 @@ const SECTIONS = [
   },
   {
     emoji: '📱',
-    title: 'Communicate and Connect',
-    desc: 'After an earthquake, communication networks may be overloaded. Use smart communication strategies to reach loved ones and get help.',
+    titleKey: 'after.sections.sec4.title',
+    descKey: 'after.sections.sec4.desc',
     items: [
       'Text messages are more reliable than phone calls during emergencies',
       'Use social media to mark yourself as "safe" (Facebook Safety Check, etc.)',
@@ -86,8 +87,8 @@ const SECTIONS = [
   },
   {
     emoji: '🏗️',
-    title: 'Rebuild and Recover',
-    desc: 'Recovery from an earthquake takes time. Focus on safety first, then begin the process of rebuilding your life and community.',
+    titleKey: 'after.sections.sec5.title',
+    descKey: 'after.sections.sec5.desc',
     items: [
       'Do not re-enter damaged buildings until they have been inspected by professionals',
       'Document damage with photos and videos for insurance claims',
@@ -112,6 +113,7 @@ const DONT_DO = [
 
 export default function AfterEarthquake() {
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box
@@ -135,7 +137,7 @@ export default function AfterEarthquake() {
             gutterBottom
             sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
           >
-            🔄 After an Earthquake
+            🔄 {t('after.title')}
           </Typography>
           <Typography
             variant="body1"
@@ -143,9 +145,7 @@ export default function AfterEarthquake() {
             textAlign="center"
             sx={{ maxWidth: 750, mx: 'auto', mb: 6, fontSize: '1.1rem', lineHeight: 1.8 }}
           >
-            The danger isn't over when the shaking stops. Aftershocks, gas leaks, structural
-            damage, and other hazards can be just as deadly. Stay alert, check for injuries,
-            and follow these steps to stay safe during recovery.
+            {t('after.intro')}
           </Typography>
         </motion.div>
 
@@ -182,10 +182,10 @@ export default function AfterEarthquake() {
                     {section.emoji}
                   </Typography>
                   <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                    {section.title}
+                    {t(section.titleKey)}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
-                    {section.desc}
+                    {t(section.descKey)}
                   </Typography>
                   <List dense>
                     {section.items.map((item) => (
