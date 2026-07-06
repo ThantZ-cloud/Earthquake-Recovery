@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import SafetyCharacter from './SafetyCharacter';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -21,32 +22,33 @@ const fadeUp = {
 const STEPS = [
   {
     type: 'drop',
-    title: 'DROP',
-    desc: 'As soon as you feel shaking, get down on your hands and knees. This prevents you from being knocked down and allows you to crawl to safety. Do this immediately — don\'t wait to assess the situation.',
-    tip: 'If you\'re in a wheelchair, lock the wheels and bend forward, covering your head with your arms.',
+    titleKey: 'safety.step1.title',
+    descKey: 'safety.step1.desc',
+    tipKey: 'safety.step1.tip',
   },
   {
     type: 'cover',
-    title: 'COVER',
-    desc: 'Take cover under a sturdy desk, table, or furniture. If nothing is available, crouch against an interior wall and protect your head and neck with your arms. Stay away from windows, mirrors, and heavy objects that could fall.',
-    tip: 'If you\'re in bed, stay there and cover your head with a pillow. Moving around in the dark increases injury risk.',
+    titleKey: 'safety.step2.title',
+    descKey: 'safety.step2.desc',
+    tipKey: 'safety.step2.tip',
   },
   {
     type: 'holdOn',
-    title: 'HOLD ON',
-    desc: 'Hold on to your shelter (desk, table, or furniture) and be prepared to move with it until the shaking stops. If there\'s nothing to hold on to, keep protecting your head and neck with your arms and hands.',
-    tip: 'The shaking may last anywhere from a few seconds to over a minute. Stay in position until it completely stops.',
+    titleKey: 'safety.step3.title',
+    descKey: 'safety.step3.desc',
+    tipKey: 'safety.step3.tip',
   },
   {
     type: 'stayCalm',
-    title: 'STAY CALM',
-    desc: 'Panicking leads to poor decisions. Take deep breaths and focus on what you need to do. After the shaking stops, check yourself and others for injuries. Be prepared for aftershocks — they can be strong enough to cause additional damage.',
-    tip: 'Count slowly to 60 after the shaking stops. This helps you stay calm and gives debris time to settle before you move.',
+    titleKey: 'safety.step4.title',
+    descKey: 'safety.step4.desc',
+    tipKey: 'safety.step4.tip',
   },
 ];
 
 export default function SafetyGuide() {
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box
@@ -86,7 +88,7 @@ export default function SafetyGuide() {
             gutterBottom
             sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
           >
-            🛡️ Earthquake Safety Guide
+            🛡️ {t('safety.title')}
           </Typography>
           <Typography
             variant="body1"
@@ -100,9 +102,7 @@ export default function SafetyGuide() {
               lineHeight: 1.8,
             }}
           >
-            When an earthquake strikes, every second counts. Follow these four steps to
-            protect yourself and minimize injury. Practice them regularly so they become
-            second nature.
+            {t('safety.intro')}
           </Typography>
         </motion.div>
 
@@ -161,12 +161,12 @@ export default function SafetyGuide() {
 
                   {/* Title */}
                   <Typography variant="h5" gutterBottom sx={{ fontWeight: 700 }}>
-                    {step.title}
+                    {t(step.titleKey)}
                   </Typography>
 
                   {/* Description */}
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, mb: 2 }}>
-                    {step.desc}
+                    {t(step.descKey)}
                   </Typography>
 
                   {/* Tip */}
@@ -179,7 +179,7 @@ export default function SafetyGuide() {
                     }}
                   >
                     <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                      💡 <strong>Tip:</strong> {step.tip}
+                      💡 <strong>Tip:</strong> {t(step.tipKey)}
                     </Typography>
                   </Box>
                 </Paper>

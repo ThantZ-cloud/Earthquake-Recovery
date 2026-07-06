@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import PublicIcon from '@mui/icons-material/Public';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import WavesIcon from '@mui/icons-material/Waves';
+import { useLang } from '../i18n';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -24,25 +25,26 @@ const CARDS = [
   {
     icon: <PublicIcon sx={{ fontSize: 48, color: '#1565C0' }} />,
     emoji: '🌍',
-    title: 'Tectonic Plates',
-    desc: "Earth's outer shell is divided into large pieces called tectonic plates. These plates float on the semi-fluid mantle beneath them and constantly move — some as fast as a few centimeters per year. Where plates meet (plate boundaries), the pressure builds up over time. When that pressure is suddenly released, it causes an earthquake.",
+    titleKey: 'whatIs.plates.title',
+    descKey: 'whatIs.plates.desc',
   },
   {
     icon: <TerrainIcon sx={{ fontSize: 48, color: '#D32F2F' }} />,
     emoji: '⛰️',
-    title: 'Fault Lines',
-    desc: 'A fault is a fracture in the Earth\'s crust where blocks of rock have moved past each other. The most dangerous faults are active faults — those that have moved recently and are likely to move again. The San Andreas Fault in California and the Sagaing Fault in Myanmar are examples of major active faults that produce frequent earthquakes.',
+    titleKey: 'whatIs.faults.title',
+    descKey: 'whatIs.faults.desc',
   },
   {
     icon: <WavesIcon sx={{ fontSize: 48, color: '#E65100' }} />,
     emoji: '🌊',
-    title: 'Seismic Waves',
-    desc: "When an earthquake occurs, it releases energy in the form of seismic waves. P-waves (Primary) travel fastest and arrive first — they push and pull rock. S-waves (Secondary) are slower but cause more shaking — they move rock up and down. Surface waves travel along the ground and cause the most damage to buildings.",
+    titleKey: 'whatIs.waves.title',
+    descKey: 'whatIs.waves.desc',
   },
 ];
 
 export default function WhatIsEarthquake() {
   const theme = useTheme();
+  const { t } = useLang();
 
   return (
     <Box
@@ -82,7 +84,7 @@ export default function WhatIsEarthquake() {
             gutterBottom
             sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
           >
-            🌋 What is an Earthquake?
+            🌋 {t('whatIs.title')}
           </Typography>
           <Typography
             variant="body1"
@@ -90,10 +92,7 @@ export default function WhatIsEarthquake() {
             textAlign="center"
             sx={{ maxWidth: 750, mx: 'auto', mb: 6, fontSize: '1.1rem', lineHeight: 1.8 }}
           >
-            An earthquake is the sudden shaking of the ground caused by the release of energy
-            stored in the Earth's crust. This happens when tectonic plates grind against each
-            other along fault lines, sending seismic waves in all directions. Some earthquakes
-            are barely noticeable, while others can level entire cities.
+            {t('whatIs.intro')}
           </Typography>
         </motion.div>
 
@@ -133,10 +132,10 @@ export default function WhatIsEarthquake() {
                     </Typography>
                   </Box>
                   <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                    {card.title}
+                    {t(card.titleKey)}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                    {card.desc}
+                    {t(card.descKey)}
                   </Typography>
                 </Paper>
               </motion.div>
@@ -162,7 +161,7 @@ export default function WhatIsEarthquake() {
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: 500 }}>
-              💡 <strong>Did you know?</strong> About 500,000 earthquakes are detected worldwide
+              💡 <strong>{t('whatIs.didYouKnow')}</strong> About 500,000 earthquakes are detected worldwide
               each year, but only about 100,000 are felt, and fewer than 100 cause damage.
             </Typography>
           </Box>

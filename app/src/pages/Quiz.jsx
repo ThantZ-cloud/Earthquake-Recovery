@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import QuizIcon from '@mui/icons-material/Quiz';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ReplayIcon from '@mui/icons-material/Replay';
+import { useLang } from '../i18n';
 
 const QUESTIONS = [
   {
@@ -228,6 +229,7 @@ function visibleSteps(questions, current) {
 }
 
 export default function Quiz() {
+  const { t } = useLang();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
@@ -293,12 +295,12 @@ export default function Quiz() {
               <EmojiEventsIcon sx={{ fontSize: 52, mb: 2, color: 'secondary.main' }} />
             )}
             <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, mb: 2 }}>
-              {score === null ? 'Earthquake Knowledge Quiz' : 'Quiz Complete!'}
+              {score === null ? t('quiz.title') : t('quiz.complete')}
             </Typography>
             <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
               {score === null
-                ? `Test your knowledge with ${QUESTIONS.length} questions about earthquake safety and science.`
-                : `You scored ${score} out of ${QUESTIONS.length}`}
+                ? t('quiz.subtitle').replace('{count}', QUESTIONS.length)
+                : t('quiz.score').replace('{score}', score).replace('{total}', QUESTIONS.length)}
             </Typography>
           </motion.div>
         </Container>
@@ -329,7 +331,7 @@ export default function Quiz() {
             </Box>
 
             <Typography variant="caption" color="text.secondary" textAlign="center" display="block" sx={{ mb: { xs: 1, sm: 1.5 } }}>
-              Question {step + 1} of {QUESTIONS.length}
+              {t('quiz.questionOf').replace('{current}', step + 1).replace('{total}', QUESTIONS.length)}
             </Typography>
 
             <AnimatePresence mode="wait">
@@ -390,7 +392,7 @@ export default function Quiz() {
             {/* Navigation */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
               <Button onClick={handleBack} disabled={step === 0} variant="outlined">
-                Back
+                {t('quiz.back')}
               </Button>
               <Button
                 onClick={handleNext}
@@ -398,7 +400,7 @@ export default function Quiz() {
                 variant="contained"
                 size="large"
               >
-                {step === QUESTIONS.length - 1 ? 'Submit' : 'Next'}
+                {step === QUESTIONS.length - 1 ? t('quiz.submit') : t('quiz.next')}
               </Button>
             </Box>
           </>
@@ -414,17 +416,17 @@ export default function Quiz() {
                 }}
               />
               <Typography variant="h3" gutterBottom>
-                {score >= 25 ? '🏆 Amazing!' : score >= 15 ? '👍 Good Job!' : '📚 Keep Learning!'}
+                {score >= 25 ? t('quiz.amazing') : score >= 15 ? t('quiz.goodJob') : t('quiz.keepLearning')}
               </Typography>
               <Typography variant="h4" color="primary" gutterBottom>
                 {score} / {QUESTIONS.length}
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
                 {score >= 25
-                  ? "You're an earthquake safety expert!"
+                  ? t('quiz.msgAmazing')
                   : score >= 15
-                  ? 'You know the basics — keep building your knowledge!'
-                  : 'Review the safety tips on our home page and try again!'}
+                  ? t('quiz.msgGood')
+                  : t('quiz.msgKeep')}
               </Typography>
               <Button
                 variant="contained"
@@ -433,7 +435,7 @@ export default function Quiz() {
                 onClick={handleRestart}
                 sx={{ px: 5 }}
               >
-                Try Again
+                {t('quiz.tryAgain')}
               </Button>
             </Card>
           </motion.div>
