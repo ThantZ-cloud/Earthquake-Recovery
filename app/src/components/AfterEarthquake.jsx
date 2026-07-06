@@ -29,87 +29,40 @@ const SECTIONS = [
     emoji: '🩹',
     titleKey: 'after.sections.sec1.title',
     descKey: 'after.sections.sec1.desc',
-    items: [
-      'Check yourself for injuries before helping others',
-      'Check family members, neighbors, and people nearby',
-      'Provide first aid for minor injuries — cuts, scrapes, bruises',
-      'Call emergency services (ambulance, fire department) for serious injuries',
-      'Do not move seriously injured people unless they are in immediate danger',
-      'If someone is trapped, do not try to dig them out alone — call for professional rescue',
-      'Cover injured people with blankets to prevent shock',
-      'If trained, perform CPR on anyone who has stopped breathing',
-    ],
+    itemsKey: 'after.sections.sec1.items',
+    count: 8,
   },
   {
     emoji: '🔄',
     titleKey: 'after.sections.sec2.title',
     descKey: 'after.sections.sec2.desc',
-    items: [
-      'Be ready to Drop, Cover, and Hold On again at any moment',
-      'Aftershocks can be nearly as strong as the original earthquake',
-      'Stay away from damaged buildings — aftershocks can cause them to collapse',
-      'If you are in a damaged building, evacuate to an open area',
-      'Sleep outside or in a vehicle if your home is damaged',
-      'Keep your emergency kit accessible — you may need it again',
-      'Stay informed through radio or emergency broadcasts',
-    ],
+    itemsKey: 'after.sections.sec2.items',
+    count: 7,
   },
   {
     emoji: '⚠️',
     titleKey: 'after.sections.sec3.title',
     descKey: 'after.sections.sec3.desc',
-    items: [
-      'Smell for gas — if you detect a leak, open windows, leave the building, and call the gas company',
-      'Do NOT turn on lights, use matches, or create any spark if you smell gas',
-      'Check for electrical damage — sparks, frayed wires, burning smell',
-      'Turn off electricity at the main breaker if you see electrical damage',
-      'Inspect your home for cracks in walls, foundation, and chimney',
-      'Check for water leaks — broken pipes can cause flooding',
-      'Do NOT use damaged appliances or utilities until inspected',
-      'Watch for fallen power lines — stay at least 10 meters away',
-      'Be cautious of broken glass, nails, and sharp debris on the ground',
-    ],
+    itemsKey: 'after.sections.sec3.items',
+    count: 9,
   },
   {
     emoji: '📱',
     titleKey: 'after.sections.sec4.title',
     descKey: 'after.sections.sec4.desc',
-    items: [
-      'Text messages are more reliable than phone calls during emergencies',
-      'Use social media to mark yourself as "safe" (Facebook Safety Check, etc.)',
-      'Call your out-of-area emergency contact to relay messages',
-      'Conserve your phone battery — reduce screen brightness, close apps',
-      'Listen to emergency radio for official instructions and updates',
-      'Do not make non-emergency calls — keep lines open for rescue operations',
-      'Check on neighbors, especially elderly, disabled, or those living alone',
-      'If you have a working phone, share your location with family members',
-    ],
+    itemsKey: 'after.sections.sec4.items',
+    count: 8,
   },
   {
     emoji: '🏗️',
     titleKey: 'after.sections.sec5.title',
     descKey: 'after.sections.sec5.desc',
-    items: [
-      'Do not re-enter damaged buildings until they have been inspected by professionals',
-      'Document damage with photos and videos for insurance claims',
-      'Contact your insurance company as soon as possible',
-      'Keep receipts for all emergency expenses (temporary housing, food, repairs)',
-      'Apply for disaster assistance from government and relief organizations',
-      'Seek mental health support — earthquake trauma can cause PTSD, anxiety, and depression',
-      'Join community recovery efforts — helping others helps you heal',
-      'Learn from the experience — update your emergency plan and kit',
-    ],
+    itemsKey: 'after.sections.sec5.items',
+    count: 8,
   },
 ];
 
-const DONT_DO = [
-  'Do not enter damaged buildings until cleared by authorities',
-  'Do not drink tap water until officials confirm it\'s safe',
-  'Do not use the toilet if sewage lines may be damaged',
-  'Do not spread rumors — rely on official sources for information',
-  'Do not return to coastal areas if a tsunami warning was issued',
-  'Do not ignore boil-water advisories',
-];
+const DONT_DO_COUNT = 6;
 
 export default function AfterEarthquake() {
   const theme = useTheme();
@@ -188,15 +141,15 @@ export default function AfterEarthquake() {
                     {t(section.descKey)}
                   </Typography>
                   <List dense>
-                    {section.items.map((item) => (
-                      <ListItem key={item} sx={{ px: 0, py: 0.5 }}>
+                    {Array.from({ length: section.count }, (_, i) => (
+                      <ListItem key={i} sx={{ px: 0, py: 0.5 }}>
                         <ListItemIcon sx={{ minWidth: 32 }}>
                           <CheckCircleOutlineIcon
                             sx={{ fontSize: 20, color: 'success.main' }}
                           />
                         </ListItemIcon>
                         <ListItemText
-                          primary={item}
+                          primary={t(`${section.itemsKey}.${i}`)}
                           primaryTypographyProps={{
                             variant: 'body2',
                             color: 'text.secondary',
@@ -232,16 +185,16 @@ export default function AfterEarthquake() {
             }}
           >
             <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, color: 'error.main' }}>
-              ⛔ Things to Avoid After an Earthquake
+              ⛔ {t('after.avoidTitle')}
             </Typography>
             <List dense>
-              {DONT_DO.map((item) => (
-                <ListItem key={item} sx={{ px: 0, py: 0.5 }}>
+              {Array.from({ length: DONT_DO_COUNT }, (_, i) => (
+                <ListItem key={i} sx={{ px: 0, py: 0.5 }}>
                   <ListItemIcon sx={{ minWidth: 32 }}>
                     <CancelOutlinedIcon sx={{ fontSize: 20, color: 'error.main' }} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={item}
+                    primary={t(`after.dontDo.${i}`)}
                     primaryTypographyProps={{
                       variant: 'body2',
                       color: 'text.secondary',
