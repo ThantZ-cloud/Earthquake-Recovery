@@ -28,67 +28,29 @@ const SECTIONS = [
     emoji: '🎒',
     titleKey: 'before.sections.sec1.title',
     descKey: 'before.sections.sec1.desc',
-    items: [
-      'Water — at least 4 liters per person per day (3-day supply minimum)',
-      'Non-perishable food — canned goods, energy bars, dried fruits, nuts',
-      'First aid kit — bandages, antiseptic, pain relievers, prescription medications',
-      'Flashlight and extra batteries (avoid candles due to fire risk)',
-      'Battery-powered or hand-crank radio for emergency broadcasts',
-      'Whistle to signal for help if trapped under debris',
-      'Dust masks to filter contaminated air from debris',
-      'Plastic sheeting and duct tape for temporary shelter',
-      'Wrench or pliers to turn off gas and water valves',
-      'Local maps (in case GPS/internet is unavailable)',
-      'Cash in small denominations (ATMs may not work)',
-      'Copies of important documents in a waterproof bag',
-    ],
+    itemsKey: 'before.sections.sec1.items',
+    count: 12,
   },
   {
     emoji: '🏠',
     titleKey: 'before.sections.sec2.title',
     descKey: 'before.sections.sec2.desc',
-    items: [
-      'Anchor heavy furniture (bookcases, cabinets, wardrobes) to wall studs',
-      'Secure water heater with metal straps to prevent gas leaks',
-      'Install latches on cabinets to prevent items from falling out',
-      'Move heavy objects to lower shelves',
-      'Hang picture frames and mirrors away from beds and seating areas',
-      'Repair defective electrical wiring and gas connections immediately',
-      'Ensure your home is bolted to its foundation (older homes may not be)',
-      'Store hazardous materials (cleaning chemicals, pesticides) on lower shelves in sealed containers',
-      'Know where your gas, electric, and water shut-off valves are located',
-    ],
+    itemsKey: 'before.sections.sec2.items',
+    count: 9,
   },
   {
     emoji: '👨‍👩‍👧‍👦',
     titleKey: 'before.sections.sec3.title',
     descKey: 'before.sections.sec3.desc',
-    items: [
-      'Identify safe spots in every room — under sturdy desks, against interior walls',
-      'Choose two meeting points — one near home, one outside the neighborhood',
-      'Designate an out-of-area contact person for family check-ins',
-      'Know your children\'s school emergency plan and pickup procedures',
-      'Plan for pets — include food, carriers, and veterinary records',
-      'Practice "Drop, Cover, Hold On" drills with all family members',
-      'Learn how to turn off gas, water, and electricity at main switches',
-      'Keep a list of emergency phone numbers (police, fire, hospital, Red Cross)',
-      'Store emergency contact info in every family member\'s phone',
-    ],
+    itemsKey: 'before.sections.sec3.items',
+    count: 9,
   },
   {
     emoji: '⚠️',
     titleKey: 'before.sections.sec4.title',
     descKey: 'before.sections.sec4.desc',
-    items: [
-      'Research whether you live near an active fault line',
-      'Check if your building meets current earthquake-resistant building codes',
-      'Learn about local hazards — liquefaction zones, landslide-prone areas, tsunami risk',
-      'Identify the safest evacuation routes from your home and workplace',
-      'Know the location of the nearest emergency shelter',
-      'Sign up for local earthquake early warning alerts if available',
-      'Understand the difference between earthquake advisories and warnings',
-      'Join your community\'s disaster preparedness program or CERT team',
-    ],
+    itemsKey: 'before.sections.sec4.items',
+    count: 8,
   },
 ];
 
@@ -169,15 +131,15 @@ export default function BeforeEarthquake() {
                     {t(section.descKey)}
                   </Typography>
                   <List dense>
-                    {section.items.map((item) => (
-                      <ListItem key={item} sx={{ px: 0, py: 0.5 }}>
+                    {Array.from({ length: section.count }, (_, i) => (
+                      <ListItem key={i} sx={{ px: 0, py: 0.5 }}>
                         <ListItemIcon sx={{ minWidth: 32 }}>
                           <CheckCircleOutlineIcon
                             sx={{ fontSize: 20, color: 'success.main' }}
                           />
                         </ListItemIcon>
                         <ListItemText
-                          primary={item}
+                          primary={t(`${section.itemsKey}.${i}`)}
                           primaryTypographyProps={{
                             variant: 'body2',
                             color: 'text.secondary',
