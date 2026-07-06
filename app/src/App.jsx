@@ -5,7 +5,9 @@ import getTheme from './theme';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import PageSkeleton from './components/PageSkeleton';
-import Home from './pages/Home';
+import HomeSkeleton from './components/HomeSkeleton';
+
+const Home = lazy(() => import('./pages/Home'));
 
 const Recovery = lazy(() => import('./pages/Recovery'));
 const Donate = lazy(() => import('./pages/Donate'));
@@ -33,7 +35,7 @@ export default function App() {
         <Layout mode={mode} toggleTheme={toggleTheme}>
           <ScrollToTop />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><Home /></Suspense>} />
             <Route
               path="/recovery"
               element={

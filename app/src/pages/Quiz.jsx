@@ -211,12 +211,19 @@ const slideVariants = {
   exit: { opacity: 0, x: -60 },
 };
 
-// Show 5 steps at a time in stepper, scroll as user progresses
+// Show 5 steps at a time in stepper, scroll when active step goes past the window
 function visibleSteps(questions, current) {
   const total = questions.length;
   const maxVisible = 5;
   if (total <= maxVisible) return questions;
-  const start = Math.min(current, total - maxVisible);
+  let start;
+  if (current < maxVisible) {
+    start = 0;
+  } else if (current >= total - maxVisible) {
+    start = total - maxVisible;
+  } else {
+    start = current - maxVisible + 1;
+  }
   return questions.slice(start, start + maxVisible);
 }
 
@@ -257,7 +264,15 @@ export default function Quiz() {
   };
 
   const stepperSteps = visibleSteps(QUESTIONS, step);
-  const stepperStart = Math.min(step, QUESTIONS.length - 5);
+  const maxVisible = 5;
+  let stepperStart;
+  if (step < maxVisible) {
+    stepperStart = 0;
+  } else if (step >= QUESTIONS.length - maxVisible) {
+    stepperStart = QUESTIONS.length - maxVisible;
+  } else {
+    stepperStart = step - maxVisible + 1;
+  }
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>

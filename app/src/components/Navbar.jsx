@@ -20,10 +20,15 @@ import {
   Divider,
   Avatar,
   ListItemIcon,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -45,6 +50,7 @@ export default function Navbar({ mode, toggleTheme }) {
   const [authOpen, setAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -147,7 +153,7 @@ export default function Navbar({ mode, toggleTheme }) {
 
             {/* Theme toggle */}
             <IconButton onClick={toggleTheme} sx={{ color: 'text.primary', width: 38, height: 38 }}>
-              {mode === 'dark' ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
+              {mode === 'dark' ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
             </IconButton>
 
             {/* Auth: desktop */}
@@ -225,7 +231,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 variant="outlined"
                 color="error"
                 startIcon={<LogoutIcon />}
-                onClick={() => { handleLogout(); setDrawerOpen(false); }}
+                onClick={() => { setDrawerOpen(false); setLogoutConfirmOpen(true); }}
               >
                 Logout
               </Button>
@@ -280,6 +286,24 @@ export default function Navbar({ mode, toggleTheme }) {
           </List>
         </Box>
       </Drawer>
+
+      {/* Logout confirmation dialog (mobile) */}
+      <Dialog open={logoutConfirmOpen} onClose={() => setLogoutConfirmOpen(false)}>
+        <DialogTitle>Confirm Logout</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Are you sure you want to log out?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setLogoutConfirmOpen(false)}>Cancel</Button>
+          <Button
+            color="error"
+            variant="contained"
+            onClick={() => { handleLogout(); setLogoutConfirmOpen(false); }}
+          >
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {/* Auth dialog */}
       <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} initialTab={authTab} />
