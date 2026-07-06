@@ -153,6 +153,7 @@ function magGradient(mag) {
 /* ──────────────────── STORY CARD ──────────────────────── */
 
 function StoryCard({ q, index }) {
+  const { t } = useLang();
   const [expanded, setExpanded] = useState(false);
   const color = magColor(q.magnitude);
   const barPercent = Math.round((q.magnitude / 10) * 100);

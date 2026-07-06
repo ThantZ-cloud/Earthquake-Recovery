@@ -28,14 +28,14 @@ const fadeUpFast = {
 };
 
 const MAGNITUDE_SCALE = [
-  { mag: '1–2', label: 'Micro', color: '#4caf50', desc: 'Not felt by people. Recorded by seismographs only. Millions occur each year.' },
-  { mag: '3–3.9', label: 'Minor', color: '#8bc34a', desc: 'Felt by some people indoors. Rarely causes damage. Like a passing truck.' },
-  { mag: '4–4.9', label: 'Light', color: '#ffeb3b', desc: 'Felt by most people. Dishes rattle, doors swing. Minor damage possible.' },
-  { mag: '5–5.9', label: 'Moderate', color: '#ff9800', desc: 'Felt by everyone. Furniture moves. Some structural damage to weak buildings.' },
-  { mag: '6–6.9', label: 'Strong', color: '#ff5722', desc: 'Damage to well-built structures. Felt over wide areas. Can be destructive in populated regions.' },
-  { mag: '7–7.9', label: 'Major', color: '#f44336', desc: 'Serious damage over large areas. Buildings collapse. Ground cracks appear.' },
-  { mag: '8–8.9', label: 'Great', color: '#d32f2f', desc: 'Severe damage over vast areas. Total destruction near the epicenter. Affects millions.' },
-  { mag: '9+', label: 'Devastating', color: '#b71c1c', desc: 'Catastrophic destruction. Entire regions leveled. Triggers tsunamis and landslides.' },
+  { mag: '1–2', color: '#4caf50', key: 'micro' },
+  { mag: '3–3.9', color: '#8bc34a', key: 'minor' },
+  { mag: '4–4.9', color: '#ffeb3b', key: 'light' },
+  { mag: '5–5.9', color: '#ff9800', key: 'moderate' },
+  { mag: '6–6.9', color: '#ff5722', key: 'strong' },
+  { mag: '7–7.9', color: '#f44336', key: 'major' },
+  { mag: '8–8.9', color: '#d32f2f', key: 'great' },
+  { mag: '9+', color: '#b71c1c', key: 'devastating' },
 ];
 
 export default function HowToMeasure() {
@@ -204,10 +204,10 @@ export default function HowToMeasure() {
                 {/* Label + description */}
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
-                    {item.label}
+                    {t(`measure.scale.${item.key}.label`)}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    {item.desc}
+                    {t(`measure.scale.${item.key}.desc`)}
                   </Typography>
                 </Box>
               </Paper>
@@ -233,8 +233,7 @@ export default function HowToMeasure() {
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: 500 }}>
-              💡 <strong>{t('measure.energyTitle')}:</strong> A magnitude 9.0 earthquake releases as much
-              energy as 480 million tons of TNT — equivalent to about 31,000 Hiroshima atomic bombs.
+              💡 <strong>{t('measure.energyTitle')}:</strong> {t('measure.energyDesc')}
             </Typography>
           </Box>
         </motion.div>

@@ -231,7 +231,18 @@
       "p2": "It measures the total energy released by the earthquake."
     },
     "scaleTitle": "Magnitude Scale Explained",
-    "energyTitle": "Energy Comparison"
+    "energyTitle": "Energy Comparison",
+    "energyDesc": "A magnitude 9.0 earthquake releases as much energy as 480 million tons of TNT — equivalent to about 31,000 Hiroshima atomic bombs.",
+    "scale": {
+      "micro": { "label": "Micro", "desc": "Not felt by people. Recorded by seismographs only. Millions occur each year." },
+      "minor": { "label": "Minor", "desc": "Felt by some people indoors. Rarely causes damage. Like a passing truck." },
+      "light": { "label": "Light", "desc": "Felt by most people. Dishes rattle, doors swing. Minor damage possible." },
+      "moderate": { "label": "Moderate", "desc": "Felt by everyone. Furniture moves. Some structural damage to weak buildings." },
+      "strong": { "label": "Strong", "desc": "Damage to well-built structures. Felt over wide areas. Can be destructive in populated regions." },
+      "major": { "label": "Major", "desc": "Serious damage over large areas. Buildings collapse. Ground cracks appear." },
+      "great": { "label": "Great", "desc": "Severe damage over vast areas. Total destruction near the epicenter. Affects millions." },
+      "devastating": { "label": "Devastating", "desc": "Catastrophic destruction. Entire regions leveled. Triggers tsunamis and landslides." }
+    }
   },
   "safety": {
     "title": "Earthquake Safety Guide",

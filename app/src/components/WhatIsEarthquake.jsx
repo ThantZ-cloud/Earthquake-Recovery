@@ -99,7 +99,7 @@ export default function WhatIsEarthquake() {
         {/* Cards */}
         <Grid container spacing={4}>
           {CARDS.map((card, i) => (
-            <Grid size={{ xs: 12, md: 4 }} key={card.title}>
+            <Grid size={{ xs: 12, md: 4 }} key={card.titleKey}>
               <motion.div
                 initial="hidden"
                 whileInView="visible"
