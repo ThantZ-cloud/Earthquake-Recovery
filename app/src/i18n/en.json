@@ -69,7 +69,159 @@
       "Safety": "Safety",
       "Science": "Science",
       "Geography": "Geography"
-    }
+    },
+    "questions": [
+      {
+        "q": "What should you do FIRST during an earthquake if you are indoors?",
+        "options": ["Run outside immediately", "Drop, Cover, and Hold On", "Stand in a doorway", "Call emergency services"],
+        "category": "Safety"
+      },
+      {
+        "q": "Which scale is used to measure earthquake magnitude?",
+        "options": ["Fahrenheit scale", "Richter scale / Moment Magnitude Scale", "Beaufort scale", "pH scale"],
+        "category": "Science"
+      },
+      {
+        "q": "What is the Earth's outermost layer called?",
+        "options": ["Mantle", "Core", "Crust", "Atmosphere"],
+        "category": "Science"
+      },
+      {
+        "q": "Which region experiences the most earthquakes?",
+        "options": ["Sahara Desert", "Pacific Ring of Fire", "Siberian Plains", "Amazon Rainforest"],
+        "category": "Geography"
+      },
+      {
+        "q": "What is an aftershock?",
+        "options": ["A warning before an earthquake", "A smaller earthquake following the main shock", "A volcanic eruption", "A type of tsunami"],
+        "category": "Science"
+      },
+      {
+        "q": "What should you avoid during an earthquake?",
+        "options": ["Staying under a table", "Using elevators", "Covering your head", "Staying away from windows"],
+        "category": "Safety"
+      },
+      {
+        "q": "How fast do seismic waves travel through the Earth?",
+        "options": ["1–10 km/h", "100–200 km/h", "3–14 km/s", "300,000 km/s"],
+        "category": "Science"
+      },
+      {
+        "q": "What causes most earthquake-related deaths?",
+        "options": ["The shaking itself", "Building collapse", "Tsunamis", "Fires"],
+        "category": "Safety"
+      },
+      {
+        "q": "What is a tsunami?",
+        "options": ["A type of earthquake", "A giant ocean wave often triggered by underwater earthquakes", "A volcanic eruption", "A weather phenomenon"],
+        "category": "Science"
+      },
+      {
+        "q": "Which Myanmar city sits near the Sagaing Fault?",
+        "options": ["Yangon", "Mandalay", "Pathein", "Sittwe"],
+        "category": "Geography"
+      },
+      {
+        "q": "What should your emergency kit include?",
+        "options": ["Only food", "Water, food, first-aid kit, flashlight, batteries", "A phone charger only", "Just a blanket"],
+        "category": "Safety"
+      },
+      {
+        "q": "What is the Modified Mercalli Intensity (MMI) scale based on?",
+        "options": ["Energy released at the source", "Observed effects and damage at a location", "Depth of the earthquake", "Distance from the epicenter"],
+        "category": "Science"
+      },
+      {
+        "q": "What is the \"epicenter\" of an earthquake?",
+        "options": ["The deepest point inside the Earth", "The point on the surface directly above the focus", "The loudest part of the quake", "The last area to stop shaking"],
+        "category": "Science"
+      },
+      {
+        "q": "What should you do if you are driving during an earthquake?",
+        "options": ["Speed up to escape the area", "Pull over, stop, and stay inside the car", "Get out of the car immediately", "Keep driving slowly"],
+        "category": "Safety"
+      },
+      {
+        "q": "What is a fault line?",
+        "options": ["A type of earthquake", "A crack in the Earth's crust where movement occurs", "A man-made structure", "A type of building damage"],
+        "category": "Science"
+      },
+      {
+        "q": "Which country has the most earthquakes per year?",
+        "options": ["United States", "Japan", "Indonesia", "Chile"],
+        "category": "Geography"
+      },
+      {
+        "q": "What is \"liquefaction\" during an earthquake?",
+        "options": ["Water flowing from pipes", "Solid ground temporarily behaving like a liquid", "Buildings melting from heat", "Gas leaking from the ground"],
+        "category": "Science"
+      },
+      {
+        "q": "How should you protect yourself from falling objects during an earthquake?",
+        "options": ["Run to the nearest wall", "Get under a sturdy table or desk", "Stand in the middle of the room", "Lie flat on the ground"],
+        "category": "Safety"
+      },
+      {
+        "q": "What is the \"focus\" (hypocenter) of an earthquake?",
+        "options": ["The loudest point of the quake", "The point inside the Earth where the quake originates", "The surface point above the quake", "The area of worst damage"],
+        "category": "Science"
+      },
+      {
+        "q": "What year did the devastating earthquake hit Bago, Myanmar?",
+        "options": ["1975", "1930", "2016", "2004"],
+        "category": "Geography"
+      },
+      {
+        "q": "What is the primary danger after an earthquake?",
+        "options": ["Aftershocks", "Heavy rain", "Cold weather", "Strong winds"],
+        "category": "Safety"
+      },
+      {
+        "q": "What magnitude is considered a \"major\" earthquake?",
+        "options": ["4.0–4.9", "5.0–5.9", "7.0 and above", "3.0 and below"],
+        "category": "Science"
+      },
+      {
+        "q": "What should you do after an earthquake if you are in a damaged building?",
+        "options": ["Stay inside and wait", "Evacuate carefully and move to open ground", "Go to the roof", "Use the elevator to leave"],
+        "category": "Safety"
+      },
+      {
+        "q": "What does P-waves stand for?",
+        "options": ["Primary waves", "Power waves", "Pressure waves", "Passive waves"],
+        "category": "Science"
+      },
+      {
+        "q": "Which organization provides earthquake early warnings in many countries?",
+        "options": ["WHO", "USGS", "UNESCO", "IMF"],
+        "category": "Geography"
+      },
+      {
+        "q": "What is the \"Ring of Fire\"?",
+        "options": ["A volcanic mountain range", "A zone of frequent earthquakes and volcanoes around the Pacific Ocean", "A type of earthquake measurement", "A fire caused by earthquakes"],
+        "category": "Geography"
+      },
+      {
+        "q": "What is the best way to secure heavy furniture at home?",
+        "options": ["Leave it as is", "Anchor it to the wall with brackets or straps", "Place it near windows", "Put heavy items on top shelves"],
+        "category": "Safety"
+      },
+      {
+        "q": "How much of the Earth's surface is affected by the Ring of Fire?",
+        "options": ["About 10%", "About 25%", "About 40%", "About 75%"],
+        "category": "Geography"
+      },
+      {
+        "q": "What is a seismograph used for?",
+        "options": ["Measuring wind speed", "Recording earthquake waves", "Predicting weather", "Measuring temperature"],
+        "category": "Science"
+      },
+      {
+        "q": "What should you do if you smell gas after an earthquake?",
+        "options": ["Light a match to check", "Turn on lights to inspect", "Open windows, leave the building, and call from outside", "Ignore it if the smell is mild"],
+        "category": "Safety"
+      }
+    ]
   },
   "donate": {
     "title": "Support Recovery Efforts",
@@ -83,7 +235,106 @@
     "copyClipboard": "Copy to Clipboard",
     "howToDonate": "How to donate",
     "copied": "Copied to clipboard!",
-    "copyFailed": "Failed to copy — try selecting manually"
+    "copyFailed": "Failed to copy — try selecting manually",
+    "detailLabels": {
+      "walletAddress": "Wallet Address",
+      "phoneNumber": "Phone Number",
+      "accountNumber": "Account Number",
+      "paypalEmail": "PayPal Email",
+      "contact": "Contact",
+      "bankDetails": "Bank Details"
+    },
+    "instructions": {
+      "binance": [
+        "Open the Binance app or go to binance.com",
+        "Go to Wallet → Spot Wallet",
+        "Tap \"Withdraw\" and select the coin you want to donate",
+        "Paste the wallet address below",
+        "Enter the amount you want to donate",
+        "Confirm the withdrawal"
+      ],
+      "bybit": [
+        "Open the Bybit app or go to bybit.com",
+        "Go to Assets → Spot Account",
+        "Tap \"Withdraw\" and select the coin",
+        "Paste the wallet address below",
+        "Enter the amount you want to donate",
+        "Confirm the withdrawal"
+      ],
+      "kbzPay": [
+        "Open the KBZ Pay app on your phone",
+        "Tap \"Send Money\" on the home screen",
+        "Enter phone number: 09 XXX XXX XXX",
+        "Enter the amount you want to donate",
+        "Add a note like \"Earthquake donation\"",
+        "Confirm with your PIN"
+      ],
+      "wavePay": [
+        "Open the Wave Pay app on your phone",
+        "Tap \"Transfer\" or \"Send Money\"",
+        "Enter phone number: 09 XXX XXX XXX",
+        "Enter the amount you want to donate",
+        "Add a note like \"Earthquake donation\"",
+        "Confirm with your PIN"
+      ],
+      "kPay": [
+        "Open the KPay app on your phone",
+        "Tap \"Send Money\"",
+        "Enter phone number: 09 XXX XXX XXX",
+        "Enter the amount you want to donate",
+        "Add a note like \"Earthquake donation\"",
+        "Confirm with your PIN"
+      ],
+      "cbPay": [
+        "Open the CB Pay app on your phone",
+        "Tap \"Transfer\" or \"Send Money\"",
+        "Enter phone number: 09 XXX XXX XXX",
+        "Enter the amount you want to donate",
+        "Add a note like \"Earthquake donation\"",
+        "Confirm with your PIN"
+      ],
+      "ayaPay": [
+        "Open the AYA Pay app on your phone",
+        "Tap \"Send Money\"",
+        "Enter phone number: 09 XXX XXX XXX",
+        "Enter the amount you want to donate",
+        "Add a note like \"Earthquake donation\"",
+        "Confirm with your PIN"
+      ],
+      "yomaBank": [
+        "Open your Yoma Bank mobile app or visit a branch",
+        "Select \"Transfer\" or \"Send Money\"",
+        "Enter account number: XXXX XXXX XXXX",
+        "Enter the amount you want to donate",
+        "Add a note like \"Earthquake donation\"",
+        "Confirm the transfer"
+      ],
+      "paypal": [
+        "Go to paypal.com or open the PayPal app",
+        "Click \"Send\" or \"Send & Request\"",
+        "Enter email: sample@email.com",
+        "Enter the amount and select currency",
+        "Choose \"Friends and Family\" to avoid fees",
+        "Add a note like \"Earthquake donation\"",
+        "Click \"Send Now\""
+      ],
+      "aplus": [
+        "Send a WhatsApp message to +95 9 XXX XXX XXX",
+        "Mention you want to donate to the earthquake relief",
+        "The team will guide you through the transfer process",
+        "You can donate via bank transfer or mobile payment"
+      ],
+      "usdTransfer": [
+        "Open your bank app or visit your bank",
+        "Select \"International Wire Transfer\" or \"SWIFT Transfer\"",
+        "Enter SWIFT code: XXXXXXXX",
+        "Enter account number: XXXXXXXXXX",
+        "Account name: Sample Account Name",
+        "Enter the amount in USD",
+        "Add reference: \"Donation - Earthquake Relief\"",
+        "Confirm the transfer"
+      ]
+    }
   },
   "history": {
     "title": "Historical Earthquakes",
@@ -96,7 +347,22 @@
     "showLess": "Show less",
     "readMore": "Read more",
     "mag": "Mag",
-    "depth": "{depth} km deep"
+    "depth": "{depth} km deep",
+    "quakes": {
+      "intl_1960": "The largest earthquake ever recorded. Triggered a massive tsunami that struck Hawaii, Japan, and the Philippines. Over 1,600 people killed and 2 million left homeless.",
+      "intl_1964": "Lasted 4.5 minutes. Triggered landslides and tsunamis. Caused ground liquefaction in Anchorage. 131 people killed.",
+      "intl_2004": "Triggered a devastating tsunami that affected 14 countries. Over 230,000 people killed. One of the deadliest natural disasters in recorded history.",
+      "intl_2011": "Caused a massive tsunami and the Fukushima Daiichi nuclear disaster. Over 15,000 deaths. Most powerful earthquake ever recorded in Japan.",
+      "intl_1952": "Generated a destructive tsunami in the Pacific Ocean. Severo-Kurilsk was completely destroyed. Waves reached heights of 18 meters.",
+      "intl_2010": "526 people killed. Tsunami warnings issued for 53 countries. Triggered coastal uplift and subsidence along the Chilean coast.",
+      "mmr_2025": "Struck near Mandalay causing widespread destruction across central Myanmar. Thousands of buildings collapsed, including historical pagodas and monasteries. One of the most devastating earthquakes in Myanmar's recent history.",
+      "mmr_1839": "Devastated the ancient capital of Ava (Innwa). Numerous pagodas and buildings collapsed. Felt across a wide area including present-day Mandalay and Sagaing.",
+      "mmr_1946": "Major destruction along the Sagaing Fault. Significant damage to Mandalay and Sagaing cities. Triggered landslides across central Myanmar.",
+      "mmr_2016": "Caused significant damage to ancient temples in Bagan, including the collapse of spires and walls on several pagodas. Felt across Myanmar and neighboring countries.",
+      "mmr_2012": "Struck near Shwebo in Sagaing Region. Caused casualties and damage to buildings. A bridge under construction collapsed into the Irrawaddy River.",
+      "mmr_1930": "Caused widespread destruction in Bago. Many historical structures damaged. Felt strongly in Yangon. Triggered fires that added to the devastation.",
+      "mmr_1975": "Damaged numerous ancient pagodas and temples in the Bagan archaeological zone. Several stupas lost their upper sections. Prompted restoration efforts for heritage structures."
+    }
   },
   "recovery": {
     "title": "Recovery Resources",

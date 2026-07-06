@@ -27,48 +27,42 @@ const INTERNATIONAL_QUAKES = [
     location: 'Valdivia (Biobío), Chile',
     magnitude: 9.5,
     depth: 33,
-    impact:
-      'The largest earthquake ever recorded. Triggered a massive tsunami that struck Hawaii, Japan, and the Philippines. Over 1,600 people killed and 2 million left homeless.',
+    tKey: 'intl_1960',
   },
   {
     year: 1964,
     location: 'Good Friday, Alaska, USA',
     magnitude: 9.2,
     depth: 25,
-    impact:
-      'Lasted 4.5 minutes. Triggered landslides and tsunamis. Caused ground liquefaction in Anchorage. 131 people killed.',
+    tKey: 'intl_1964',
   },
   {
     year: 2004,
     location: 'Indian Ocean (Sumatra)',
     magnitude: 9.2,
     depth: 30,
-    impact:
-      'Triggered a devastating tsunami that affected 14 countries. Over 230,000 people killed. One of the deadliest natural disasters in recorded history.',
+    tKey: 'intl_2004',
   },
   {
     year: 2011,
     location: 'Tōhoku, Japan',
     magnitude: 9.1,
     depth: 29,
-    impact:
-      'Caused a massive tsunami and the Fukushima Daiichi nuclear disaster. Over 15,000 deaths. Most powerful earthquake ever recorded in Japan.',
+    tKey: 'intl_2011',
   },
   {
     year: 1952,
     location: 'Severo-Kurilsk, Russia',
     magnitude: 9.0,
     depth: 30,
-    impact:
-      'Generated a destructive tsunami in the Pacific Ocean. Severo-Kurilsk was completely destroyed. Waves reached heights of 18 meters.',
+    tKey: 'intl_1952',
   },
   {
     year: 2010,
     location: 'Maule, Chile',
     magnitude: 8.8,
     depth: 35,
-    impact:
-      '526 people killed. Tsunami warnings issued for 53 countries. Triggered coastal uplift and subsidence along the Chilean coast.',
+    tKey: 'intl_2010',
   },
 ];
 
@@ -78,56 +72,49 @@ const MYANMAR_QUAKES = [
     location: 'Sagaing, Myanmar',
     magnitude: 7.7,
     depth: 10,
-    impact:
-      "Struck near Mandalay causing widespread destruction across central Myanmar. Thousands of buildings collapsed, including historical pagodas and monasteries. One of the most devastating earthquakes in Myanmar's recent history.",
+    tKey: 'mmr_2025',
   },
   {
     year: 1839,
     location: 'Ava (Innwa), Myanmar',
     magnitude: 8.3,
     depth: 12,
-    impact:
-      'Devastated the ancient capital of Ava (Innwa). Numerous pagodas and buildings collapsed. Felt across a wide area including present-day Mandalay and Sagaing.',
+    tKey: 'mmr_1839',
   },
   {
     year: 1946,
     location: 'Sagaing-Mandalay, Myanmar',
     magnitude: 7.8,
     depth: 15,
-    impact:
-      'Major destruction along the Sagaing Fault. Significant damage to Mandalay and Sagaing cities. Triggered landslides across central Myanmar.',
+    tKey: 'mmr_1946',
   },
   {
     year: 2016,
     location: 'Chauk, Myanmar',
     magnitude: 6.8,
     depth: 84,
-    impact:
-      'Caused significant damage to ancient temples in Bagan, including the collapse of spires and walls on several pagodas. Felt across Myanmar and neighboring countries.',
+    tKey: 'mmr_2016',
   },
   {
     year: 2012,
     location: 'Shwebo, Myanmar',
     magnitude: 6.8,
     depth: 10,
-    impact:
-      'Struck near Shwebo in Sagaing Region. Caused casualties and damage to buildings. A bridge under construction collapsed into the Irrawaddy River.',
+    tKey: 'mmr_2012',
   },
   {
     year: 1930,
     location: 'Bago (Pegu), Myanmar',
     magnitude: 7.3,
     depth: 10,
-    impact:
-      'Caused widespread destruction in Bago. Many historical structures damaged. Felt strongly in Yangon. Triggered fires that added to the devastation.',
+    tKey: 'mmr_1930',
   },
   {
     year: 1975,
     location: 'Bagan, Myanmar',
     magnitude: 6.5,
     depth: 30,
-    impact:
-      'Damaged numerous ancient pagodas and temples in the Bagan archaeological zone. Several stupas lost their upper sections. Prompted restoration efforts for heritage structures.',
+    tKey: 'mmr_1975',
   },
 ];
 
@@ -315,7 +302,7 @@ function StoryCard({ q, index }) {
                 maxHeight: expanded ? 300 : 68,
               }}
             >
-              {q.impact}
+              {t(`history.quakes.${q.tKey}`)}
             </Typography>
 
             {/* Fade overlay when collapsed */}

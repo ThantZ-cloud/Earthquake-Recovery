@@ -346,10 +346,10 @@ export default function Quiz() {
                 <Card elevation={2} sx={{ p: { xs: 1.5, sm: 2, md: 2.5 } }}>
                   <CardContent>
                     <Typography variant="caption" color="primary" fontWeight={600} sx={{ mb: 1, display: 'block' }}>
-                      {QUESTIONS[step].category}
+                      {t(`quiz.categories.${QUESTIONS[step].category}`)}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                      {QUESTIONS[step].q}
+                      {t(`quiz.questions.${step}.q`)}
                     </Typography>
                     <FormControl component="fieldset" sx={{ mt: 2, width: '100%' }}>
                       <RadioGroup
@@ -361,7 +361,7 @@ export default function Quiz() {
                             key={oIdx}
                             value={String(oIdx)}
                             control={<Radio />}
-                            label={opt}
+                            label={t(`quiz.questions.${step}.options.${oIdx}`)}
                             sx={{
                               py: 0.75,
                               px: 2,

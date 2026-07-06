@@ -35,29 +35,15 @@ const DONATE_ITEMS = {
       name: 'Binance',
       img: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png',
       detail: 'bc1qSAMPLEADDRESS1234567890abcdef',
-      detailLabel: 'Wallet Address',
-      instructions: [
-        'Open the Binance app or go to binance.com',
-        'Go to Wallet → Spot Wallet',
-        'Tap "Withdraw" and select the coin you want to donate',
-        'Paste the wallet address below',
-        'Enter the amount you want to donate',
-        'Confirm the withdrawal',
-      ],
+      detailLabelKey: 'donate.detailLabels.walletAddress',
+      instructionKey: 'donate.instructions.binance',
     },
     {
       name: 'Bybit',
       img: '/assets/donate/bybit.png',
       detail: '0xSAMPLE1234567890abcdefABCDEF1234',
-      detailLabel: 'Wallet Address',
-      instructions: [
-        'Open the Bybit app or go to bybit.com',
-        'Go to Assets → Spot Account',
-        'Tap "Withdraw" and select the coin',
-        'Paste the wallet address below',
-        'Enter the amount you want to donate',
-        'Confirm the withdrawal',
-      ],
+      detailLabelKey: 'donate.detailLabels.walletAddress',
+      instructionKey: 'donate.instructions.bybit',
     },
   ],
   mobile: [
@@ -65,85 +51,43 @@ const DONATE_ITEMS = {
       name: 'KBZ Pay',
       img: '/assets/donate/kbz.jpg',
       detail: '09 XXX XXX XXX',
-      detailLabel: 'Phone Number',
-      instructions: [
-        'Open the KBZ Pay app on your phone',
-        'Tap "Send Money" on the home screen',
-        'Enter phone number: 09 XXX XXX XXX',
-        'Enter the amount you want to donate',
-        'Add a note like "Earthquake donation"',
-        'Confirm with your PIN',
-      ],
+      detailLabelKey: 'donate.detailLabels.phoneNumber',
+      instructionKey: 'donate.instructions.kbzPay',
     },
     {
       name: 'Wave Pay',
       img: '/assets/donate/wavepay.jpg',
       detail: '09 XXX XXX XXX',
-      detailLabel: 'Phone Number',
-      instructions: [
-        'Open the Wave Pay app on your phone',
-        'Tap "Transfer" or "Send Money"',
-        'Enter phone number: 09 XXX XXX XXX',
-        'Enter the amount you want to donate',
-        'Add a note like "Earthquake donation"',
-        'Confirm with your PIN',
-      ],
+      detailLabelKey: 'donate.detailLabels.phoneNumber',
+      instructionKey: 'donate.instructions.wavePay',
     },
     {
       name: 'KPay',
       img: '/assets/donate/kpay.jpg',
       detail: '09 XXX XXX XXX',
-      detailLabel: 'Phone Number',
-      instructions: [
-        'Open the KPay app on your phone',
-        'Tap "Send Money"',
-        'Enter phone number: 09 XXX XXX XXX',
-        'Enter the amount you want to donate',
-        'Add a note like "Earthquake donation"',
-        'Confirm with your PIN',
-      ],
+      detailLabelKey: 'donate.detailLabels.phoneNumber',
+      instructionKey: 'donate.instructions.kPay',
     },
     {
       name: 'CB Pay',
       img: '/assets/donate/cb.jpg',
       detail: '09 XXX XXX XXX',
-      detailLabel: 'Phone Number',
-      instructions: [
-        'Open the CB Pay app on your phone',
-        'Tap "Transfer" or "Send Money"',
-        'Enter phone number: 09 XXX XXX XXX',
-        'Enter the amount you want to donate',
-        'Add a note like "Earthquake donation"',
-        'Confirm with your PIN',
-      ],
+      detailLabelKey: 'donate.detailLabels.phoneNumber',
+      instructionKey: 'donate.instructions.cbPay',
     },
     {
       name: 'AYA Pay',
       img: '/assets/donate/aya.jpg',
       detail: '09 XXX XXX XXX',
-      detailLabel: 'Phone Number',
-      instructions: [
-        'Open the AYA Pay app on your phone',
-        'Tap "Send Money"',
-        'Enter phone number: 09 XXX XXX XXX',
-        'Enter the amount you want to donate',
-        'Add a note like "Earthquake donation"',
-        'Confirm with your PIN',
-      ],
+      detailLabelKey: 'donate.detailLabels.phoneNumber',
+      instructionKey: 'donate.instructions.ayaPay',
     },
     {
       name: 'Yoma Bank',
       img: '/assets/donate/yoma.jpg',
       detail: 'XXXX XXXX XXXX',
-      detailLabel: 'Account Number',
-      instructions: [
-        'Open your Yoma Bank mobile app or visit a branch',
-        'Select "Transfer" or "Send Money"',
-        'Enter account number: XXXX XXXX XXXX',
-        'Enter the amount you want to donate',
-        'Add a note like "Earthquake donation"',
-        'Confirm the transfer',
-      ],
+      detailLabelKey: 'donate.detailLabels.accountNumber',
+      instructionKey: 'donate.instructions.yomaBank',
     },
   ],
   international: [
@@ -151,44 +95,22 @@ const DONATE_ITEMS = {
       name: 'PayPal',
       img: '/assets/donate/paypal.jpg',
       detail: 'sample@email.com',
-      detailLabel: 'PayPal Email',
-      instructions: [
-        'Go to paypal.com or open the PayPal app',
-        'Click "Send" or "Send & Request"',
-        'Enter email: sample@email.com',
-        'Enter the amount and select currency',
-        'Choose "Friends and Family" to avoid fees',
-        'Add a note like "Earthquake donation"',
-        'Click "Send Now"',
-      ],
+      detailLabelKey: 'donate.detailLabels.paypalEmail',
+      instructionKey: 'donate.instructions.paypal',
     },
     {
       name: 'A+',
       img: '/assets/donate/A+.jpg',
       detail: '+95 9 XXX XXX XXX',
-      detailLabel: 'Contact',
-      instructions: [
-        'Send a WhatsApp message to +95 9 XXX XXX XXX',
-        'Mention you want to donate to the earthquake relief',
-        'The team will guide you through the transfer process',
-        'You can donate via bank transfer or mobile payment',
-      ],
+      detailLabelKey: 'donate.detailLabels.contact',
+      instructionKey: 'donate.instructions.aplus',
     },
     {
       name: 'USD Transfer',
       img: '/assets/donate/usd.jpg',
       detail: 'SWIFT: XXXXXXXX | Account: XXXXXXXXXX',
-      detailLabel: 'Bank Details',
-      instructions: [
-        'Open your bank app or visit your bank',
-        'Select "International Wire Transfer" or "SWIFT Transfer"',
-        'Enter SWIFT code: XXXXXXXX',
-        'Enter account number: XXXXXXXXXX',
-        'Account name: Sample Account Name',
-        'Enter the amount in USD',
-        'Add reference: "Donation - Earthquake Relief"',
-        'Confirm the transfer',
-      ],
+      detailLabelKey: 'donate.detailLabels.bankDetails',
+      instructionKey: 'donate.instructions.usdTransfer',
     },
   ],
 };
@@ -380,7 +302,7 @@ export default function Donate() {
             <DialogContent sx={{ px: 3, pb: 3 }}>
               {/* Detail field */}
               <Typography variant="body2" color="text.secondary" gutterBottom>
-                {dialog.detailLabel}:
+                {t(dialog.detailLabelKey)}:
               </Typography>
               <Box
                 sx={{
@@ -429,7 +351,7 @@ export default function Donate() {
                 {t('donate.howToDonate')}
               </Typography>
               <Box component="ol" sx={{ m: 0, pl: 2.5 }}>
-                {dialog.instructions.map((step, i) => (
+                {t(dialog.instructionKey).map((step, i) => (
                   <Box
                     component="li"
                     key={i}
