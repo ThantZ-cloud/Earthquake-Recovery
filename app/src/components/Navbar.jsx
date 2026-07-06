@@ -83,7 +83,12 @@ export default function Navbar({ mode, toggleTheme }) {
           {/* Left side: hamburger (mobile) + logo */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {isMobile && (
-              <IconButton onClick={() => setDrawerOpen(true)} size="small" sx={{ color: 'text.primary' }}>
+              <IconButton
+                onClick={() => setDrawerOpen(true)}
+                size="small"
+                aria-label="Open navigation menu"
+                sx={{ color: 'text.primary' }}
+              >
                 <MenuIcon />
               </IconButton>
             )}
@@ -152,7 +157,11 @@ export default function Navbar({ mode, toggleTheme }) {
             <EmergencyPhones />
 
             {/* Theme toggle */}
-            <IconButton onClick={toggleTheme} sx={{ color: 'text.primary', width: 38, height: 38 }}>
+            <IconButton
+              onClick={toggleTheme}
+              aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              sx={{ color: 'text.primary', width: 38, height: 38 }}
+            >
               {mode === 'dark' ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
             </IconButton>
 

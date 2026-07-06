@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import {
   Box,
   Container,
@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import LoginIcon from '@mui/icons-material/Login';
-import EarthquakeMap from '../components/EarthquakeMap';
 import LocationAlerts from '../components/LocationAlerts';
 import AuthDialog from '../components/AuthDialog';
 import WhatIsEarthquake from '../components/WhatIsEarthquake';
@@ -18,6 +17,8 @@ import BeforeEarthquake from '../components/BeforeEarthquake';
 import DuringEarthquake from '../components/DuringEarthquake';
 import AfterEarthquake from '../components/AfterEarthquake';
 import { useAuth } from '../context/AuthContext';
+
+const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
 
 export default function Home() {
   const theme = useTheme();
@@ -111,7 +112,9 @@ export default function Home() {
           <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
             Each circle represents a recent earthquake. Color shows magnitude.
           </Typography>
-          <EarthquakeMap height={{ xs: '62vh', md: '78vh' }} />
+          <Suspense fallback={<Box sx={{ height: { xs: '62vh', md: '78vh' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography color="text.secondary">Loading map...</Typography></Box>}>
+            <EarthquakeMap height={{ xs: '62vh', md: '78vh' }} />
+          </Suspense>
           <Box
             sx={{
               display: 'flex',

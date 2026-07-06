@@ -1,9 +1,11 @@
 import { useState, useMemo, Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import { AnimatePresence } from 'framer-motion';
 import getTheme from './theme';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
+import AnimatedPage from './components/AnimatedPage';
 import PageSkeleton from './components/PageSkeleton';
 import HomeSkeleton from './components/HomeSkeleton';
 
@@ -25,6 +27,7 @@ function ScrollToTop() {
 export default function App() {
   const [mode, setMode] = useState('light');
   const theme = useMemo(() => getTheme(mode), [mode]);
+  const location = useLocation();
 
   const toggleTheme = () => setMode((m) => (m === 'light' ? 'dark' : 'light'));
 
@@ -34,41 +37,51 @@ export default function App() {
       <AuthProvider>
         <Layout mode={mode} toggleTheme={toggleTheme}>
           <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><Home /></Suspense>} />
-            <Route
-              path="/recovery"
-              element={
-                <Suspense fallback={<PageSkeleton variant="recovery" />}>
-                  <Recovery />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/donate"
-              element={
-                <Suspense fallback={<PageSkeleton variant="donate" />}>
-                  <Donate />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/quiz"
-              element={
-                <Suspense fallback={<PageSkeleton variant="quiz" />}>
-                  <Quiz />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/history"
-              element={
-                <Suspense fallback={<PageSkeleton variant="history" />}>
-                  <History />
-                </Suspense>
-              }
-            />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<AnimatedPage><Suspense fallback={<HomeSkeleton />}><Home /></Suspense></AnimatedPage>} />
+              <Route
+                path="/recovery"
+                element={
+                  <AnimatedPage>
+                    <Suspense fallback={<PageSkeleton variant="recovery" />}>
+                      <Recovery />
+                    </Suspense>
+                  </AnimatedPage>
+                }
+              />
+              <Route
+                path="/donate"
+                element={
+                  <AnimatedPage>
+                    <Suspense fallback={<PageSkeleton variant="donate" />}>
+                      <Donate />
+                    </Suspense>
+                  </AnimatedPage>
+                }
+              />
+              <Route
+                path="/quiz"
+                element={
+                  <AnimatedPage>
+                    <Suspense fallback={<PageSkeleton variant="quiz" />}>
+                      <Quiz />
+                    </Suspense>
+                  </AnimatedPage>
+                }
+              />
+              <Route
+                path="/history"
+                element={
+                  <AnimatedPage>
+                    <Suspense fallback={<PageSkeleton variant="history" />}>
+                      <History />
+                    </Suspense>
+                  </AnimatedPage>
+                }
+              />
+            </Routes>
+          </AnimatePresence>
         </Layout>
       </AuthProvider>
     </ThemeProvider>
