@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import FeedbackButton from './FeedbackButton';
 
 export default function Layout({ children, mode, toggleTheme }) {
   return (
@@ -10,6 +11,7 @@ export default function Layout({ children, mode, toggleTheme }) {
         {children}
       </Box>
       <Footer />
+      <FeedbackButton />
     </Box>
   );
 }
