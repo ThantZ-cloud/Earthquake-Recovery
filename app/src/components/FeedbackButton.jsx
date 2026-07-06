@@ -21,17 +21,11 @@ import StarIcon from '@mui/icons-material/Star';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import supabase from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
-
-const labels = {
-  1: 'Poor',
-  2: 'Fair',
-  3: 'Good',
-  4: 'Very Good',
-  5: 'Excellent',
-};
+import { useLang } from '../i18n';
 
 export default function FeedbackButton() {
   const { user } = useAuth();
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(-1);
@@ -99,10 +93,10 @@ export default function FeedbackButton() {
           </IconButton>
           <RateReviewIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
           <Typography variant="h6" fontWeight={700}>
-            Share Your Feedback
+            {t('feedback.title')}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            How was your experience?
+            {t('feedback.subtitle')}
           </Typography>
         </DialogTitle>
 
@@ -122,7 +116,7 @@ export default function FeedbackButton() {
             />
             {rating !== null && (
               <Typography variant="body2" sx={{ mt: 1, minHeight: 24 }}>
-                {hover !== -1 ? labels[hover] : rating !== 0 ? labels[rating] : ''}
+                {hover !== -1 ? t(`feedback.ratings.${hover}`) : rating !== 0 ? t(`feedback.ratings.${rating}`) : ''}
               </Typography>
             )}
           </Box>
@@ -132,7 +126,7 @@ export default function FeedbackButton() {
             multiline
             rows={3}
             fullWidth
-            placeholder="Tell us more (optional)"
+            placeholder={t('feedback.placeholder')}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             sx={{ mt: 1 }}
@@ -141,7 +135,7 @@ export default function FeedbackButton() {
 
         <DialogActions sx={{ px: 3, pb: 3, justifyContent: 'center' }}>
           <Button onClick={() => setOpen(false)} variant="outlined">
-            Cancel
+            {t('nav.cancel')}
           </Button>
           <Button
             onClick={handleSubmit}
@@ -149,7 +143,7 @@ export default function FeedbackButton() {
             disabled={rating === 0 || submitting}
             startIcon={<CheckCircleIcon />}
           >
-            {submitting ? 'Submitting...' : 'Submit'}
+            {submitting ? t('feedback.submitting') : t('feedback.submit')}
           </Button>
         </DialogActions>
       </Dialog>
@@ -167,8 +161,8 @@ export default function FeedbackButton() {
           onClose={() => setSnack(null)}
         >
           {snack === 'success'
-            ? 'Thank you for your feedback!'
-            : 'Failed to submit feedback. Please try again.'}
+            ? t('feedback.success')
+            : t('feedback.error')}
         </Alert>
       </Snackbar>
     </>

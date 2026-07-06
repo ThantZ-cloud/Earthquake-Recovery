@@ -2,8 +2,11 @@ import { Box } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FeedbackButton from './FeedbackButton';
+import { useLang } from '../i18n';
 
 export default function Layout({ children, mode, toggleTheme }) {
+  const { t } = useLang();
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Skip to content link for keyboard users */}
@@ -24,7 +27,7 @@ export default function Layout({ children, mode, toggleTheme }) {
           '&:focus': { top: 0 },
         }}
       >
-        Skip to content
+        {t('skipToContent')}
       </Box>
       <Navbar mode={mode} toggleTheme={toggleTheme} />
       <Box component="main" id="main-content" sx={{ flex: 1 }} tabIndex={-1}>

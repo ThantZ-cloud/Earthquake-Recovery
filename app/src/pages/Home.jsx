@@ -17,12 +17,14 @@ import BeforeEarthquake from '../components/BeforeEarthquake';
 import DuringEarthquake from '../components/DuringEarthquake';
 import AfterEarthquake from '../components/AfterEarthquake';
 import { useAuth } from '../context/AuthContext';
+import { useLang } from '../i18n';
 
 const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
 
 export default function Home() {
   const theme = useTheme();
   const { user } = useAuth();
+  const { t } = useLang();
   const [alertsEnabled, setAlertsEnabled] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [locationRequested, setLocationRequested] = useState(false);
@@ -72,18 +74,17 @@ export default function Home() {
             variant="h2"
             sx={{ fontSize: { xs: '2rem', md: '3.2rem' }, mb: 2 }}
           >
-            Stay Informed.
+            {t('home.hero.title')}
             <Box component="span" sx={{ color: 'secondary.main' }}>
               {' '}
-              Stay Safe.
+              {t('home.hero.titleHighlight')}
             </Box>
           </Typography>
           <Typography
             variant="h6"
             sx={{ opacity: 0.85, mb: 4, fontWeight: 400, maxWidth: 600, mx: 'auto' }}
           >
-            Real-time earthquake tracking, safety guides, and recovery resources —
-            all in one place.
+            {t('home.hero.subtitle')}
           </Typography>
           <Button
             variant="contained"
@@ -98,7 +99,7 @@ export default function Home() {
               '&:hover': { bgcolor: 'secondary.dark' },
             }}
           >
-            View Live Map
+            {t('home.hero.cta')}
           </Button>
         </Container>
       </Box>
@@ -107,12 +108,12 @@ export default function Home() {
       <Box id="map-section" sx={{ py: 8, bgcolor: 'background.default' }}>
         <Container maxWidth="lg">
           <Typography variant="h4" textAlign="center" gutterBottom>
-            🌍 Live Earthquake Map
+            {t('home.map.title')}
           </Typography>
           <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
-            Each circle represents a recent earthquake. Color shows magnitude.
+            {t('home.map.desc')}
           </Typography>
-          <Suspense fallback={<Box sx={{ height: { xs: '62vh', md: '78vh' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography color="text.secondary">Loading map...</Typography></Box>}>
+          <Suspense fallback={<Box sx={{ height: { xs: '62vh', md: '78vh' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography color="text.secondary">{t('home.map.loading')}</Typography></Box>}>
             <EarthquakeMap height={{ xs: '62vh', md: '78vh' }} />
           </Suspense>
           <Box
@@ -125,10 +126,10 @@ export default function Home() {
             }}
           >
             {[
-              { color: '#2e7d32', label: 'M < 2 - Minor' },
-              { color: '#f9a825', label: 'M 2-4 - Light' },
-              { color: '#ed6c02', label: 'M 4-6 - Moderate' },
-              { color: '#d32f2f', label: 'M 6+ - Strong' },
+              { color: '#2e7d32', label: t('home.map.legend.minor') },
+              { color: '#f9a825', label: t('home.map.legend.light') },
+              { color: '#ed6c02', label: t('home.map.legend.moderate') },
+              { color: '#d32f2f', label: t('home.map.legend.strong') },
             ].map((item) => (
               <Box key={item.label} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Box sx={{ width: 16, height: 16, borderRadius: '50%', bgcolor: item.color }} />
@@ -144,12 +145,12 @@ export default function Home() {
         <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
           <MyLocationIcon sx={{ fontSize: 48, mb: 2 }} />
           <Typography variant="h4" gutterBottom>
-            Location-Based Earthquake Alerts
+            {t('home.alerts.title')}
           </Typography>
           <Typography variant="body1" sx={{ mb: 4, opacity: 0.9 }}>
             {user
-              ? 'Enable location access and we\'ll alert you if an earthquake happens near you.'
-              : 'Login to enable location-based alerts. We\'ll monitor quakes near you in real time.'}
+              ? t('home.alerts.descLoggedIn')
+              : t('home.alerts.descLoggedOut')}
           </Typography>
 
           {!user ? (
@@ -167,7 +168,7 @@ export default function Home() {
                 '&:hover': { bgcolor: (t) => t.palette.mode === 'dark' ? 'grey.200' : '#ffe0e0' },
               }}
             >
-              Login to Enable Alerts
+              {t('home.alerts.ctaLogin')}
             </Button>
           ) : !alertsEnabled ? (
             // Logged in but hasn't enabled yet
@@ -184,13 +185,13 @@ export default function Home() {
                 '&:hover': { bgcolor: (t) => t.palette.mode === 'dark' ? 'grey.200' : '#ffe0e0' },
               }}
             >
-              Allow Location Access
+              {t('home.alerts.ctaLocation')}
             </Button>
           ) : (
             // Alerts active
             <Box sx={{ mb: 2 }}>
               <Typography variant="body2" sx={{ mb: 2, opacity: 0.85 }}>
-                You'll be notified if a M3+ earthquake occurs within 50 km of your location.
+                {t('home.alerts.activeMsg')}
               </Typography>
               <LocationAlerts enabled={alertsEnabled} />
             </Box>

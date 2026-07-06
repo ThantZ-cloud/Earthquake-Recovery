@@ -8,6 +8,7 @@ import {
   Divider,
 } from '@mui/material';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import { useLang } from '../i18n';
 
 const socialLinks = [
   { icon: <TelegramIcon />, href: 'https://t.me/ThantZ44', label: 'Telegram' },
@@ -21,18 +22,20 @@ const credits = [
   { label: 'EMSC', href: 'https://www.seismicportal.eu' },
 ];
 
-const columns = [
-  {
-    title: 'Get Help',
-    links: ['FAQ', 'Web Tools', 'Programs', 'Content'],
-  },
-  {
-    title: 'Legal',
-    links: ['Accessibility', 'Privacy Policy', 'Site Policies', 'Copyright'],
-  },
-];
-
 export default function Footer() {
+  const { t } = useLang();
+
+  const columns = [
+    {
+      title: t('footer.help'),
+      links: ['FAQ', 'Web Tools', 'Programs', 'Content'],
+    },
+    {
+      title: t('footer.legal'),
+      links: ['Accessibility', 'Privacy Policy', 'Site Policies', 'Copyright'],
+    },
+  ];
+
   return (
     <Box
       component="footer"
@@ -69,7 +72,7 @@ export default function Footer() {
           {/* Credits column */}
           <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <Typography variant="subtitle2" fontWeight={700} gutterBottom>
-              Credits
+              {t('footer.credits')}
             </Typography>
             {credits.map((c) => (
               <Link
@@ -90,7 +93,7 @@ export default function Footer() {
           {/* Social column */}
           <Grid size={{ xs: 12, sm: 12, md: 3 }}>
             <Typography variant="subtitle2" fontWeight={700} gutterBottom>
-              Follow Us
+              {t('footer.followUs')}
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {socialLinks.map((s) => (
@@ -121,7 +124,7 @@ export default function Footer() {
           color="text.secondary"
           textAlign="center"
         >
-          © {new Date().getFullYear()} Earthquake & Recovery. Built with care for earthquake awareness.
+          {t('footer.copyright').replace('{year}', new Date().getFullYear())}
         </Typography>
         <Typography
           variant="caption"
@@ -130,11 +133,7 @@ export default function Footer() {
           display="block"
           sx={{ mt: 1 }}
         >
-          Myanmar dams data from{' '}
-          <Link href="https://github.com/akzedevops/mmeqopendata" target="_blank" rel="noopener noreferrer" underline="hover">
-            mmeqopendata
-          </Link>
-          {' '}(Open Development Mekong / IFC / WLE, CC BY-SA 4.0)
+          {t('footer.damsCredit')}
         </Typography>
       </Container>
     </Box>

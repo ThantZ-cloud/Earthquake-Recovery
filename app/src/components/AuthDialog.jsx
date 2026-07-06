@@ -15,9 +15,11 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAuth } from '../context/AuthContext';
+import { useLang } from '../i18n';
 
 export default function AuthDialog({ open, onClose, initialTab = 0 }) {
   const { login, register } = useAuth();
+  const { t } = useLang();
   const [tab, setTab] = useState(initialTab);
 
   // Login fields
@@ -39,13 +41,13 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
     setLoading(true);
     try {
       await login(loginEmail, loginPass);
-      setSuccess('Logged in!');
+      setSuccess(t('auth.loginSuccess'));
       setTimeout(() => {
         onClose();
         reset();
       }, 600);
     } catch (err) {
-      setError(err.message || 'Login failed.');
+      setError(err.message || t('auth.loginError'));
     } finally {
       setLoading(false);
     }
@@ -55,19 +57,19 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
     e.preventDefault();
     setError('');
     if (regPass.length < 6) {
-      setError('Password must be at least 6 characters.');
+      setError(t('auth.passwordMin'));
       return;
     }
     setLoading(true);
     try {
       await register(regName, regEmail, regPass);
-      setSuccess('Account created! Check your email to confirm.');
+      setSuccess(t('auth.registerSuccess'));
       setTimeout(() => {
         onClose();
         reset();
       }, 1500);
     } catch (err) {
-      setError(err.message || 'Registration failed.');
+      setError(err.message || t('auth.registerError'));
     } finally {
       setLoading(false);
     }
@@ -89,7 +91,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
       <DialogTitle sx={{ pb: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h6" fontWeight={700}>
-            {tab === 0 ? 'Welcome Back' : 'Create Account'}
+            {tab === 0 ? t('auth.welcomeBack') : t('auth.createAccount')}
           </Typography>
           <Box sx={{ flex: 1 }} />
           <IconButton onClick={onClose} size="small">
@@ -100,8 +102,8 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
 
       <DialogContent sx={{ pt: 2 }}>
         <Tabs value={tab} onChange={(_, v) => { setTab(v); setError(''); setSuccess(''); }} sx={{ mb: 3 }}>
-          <Tab label="Login" />
-          <Tab label="Register" />
+          <Tab label={t('auth.loginBtn')} />
+          <Tab label={t('auth.registerBtn')} />
         </Tabs>
 
         {error && (
@@ -118,7 +120,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
         {tab === 0 ? (
           <Box component="form" onSubmit={handleLogin}>
             <TextField
-              label="Email"
+              label={t('auth.email')}
               type="email"
               fullWidth
               size="small"
@@ -128,7 +130,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
               sx={{ mb: 2 }}
             />
             <TextField
-              label="Password"
+              label={t('auth.password')}
               type="password"
               fullWidth
               size="small"
@@ -138,13 +140,13 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
               sx={{ mb: 2 }}
             />
             <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ py: 1.2 }}>
-              {loading ? <CircularProgress size={22} /> : 'Login'}
+              {loading ? <CircularProgress size={22} /> : t('auth.loginBtn')}
             </Button>
           </Box>
         ) : (
           <Box component="form" onSubmit={handleRegister}>
             <TextField
-              label="Full Name"
+              label={t('auth.fullName')}
               fullWidth
               size="small"
               value={regName}
@@ -153,7 +155,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
               sx={{ mb: 2 }}
             />
             <TextField
-              label="Email"
+              label={t('auth.email')}
               type="email"
               fullWidth
               size="small"
@@ -163,18 +165,18 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
               sx={{ mb: 2 }}
             />
             <TextField
-              label="Password"
+              label={t('auth.password')}
               type="password"
               fullWidth
               size="small"
               value={regPass}
               onChange={(e) => setRegPass(e.target.value)}
               required
-              helperText="Minimum 6 characters"
+              helperText={t('auth.minChars')}
               sx={{ mb: 2 }}
             />
             <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ py: 1.2 }}>
-              {loading ? <CircularProgress size={22} /> : 'Create Account'}
+              {loading ? <CircularProgress size={22} /> : t('auth.registerBtn')}
             </Button>
           </Box>
         )}

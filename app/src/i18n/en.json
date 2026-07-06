@@ -1,0 +1,281 @@
+{
+  "nav": {
+    "home": "Home",
+    "recovery": "Recovery",
+    "donate": "Donate",
+    "quiz": "Quiz",
+    "history": "History",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "account": "Account",
+    "confirmLogout": "Confirm Logout",
+    "confirmLogoutMsg": "Are you sure you want to log out?",
+    "cancel": "Cancel",
+    "siteName": "Earthquake & Recovery"
+  },
+  "home": {
+    "hero": {
+      "title": "Stay Informed.",
+      "titleHighlight": "Stay Safe.",
+      "subtitle": "Real-time earthquake tracking, safety guides, and recovery resources — all in one place.",
+      "cta": "View Live Map"
+    },
+    "map": {
+      "title": "🌍 Live Earthquake Map",
+      "desc": "Each circle represents a recent earthquake. Color shows magnitude.",
+      "loading": "Loading map...",
+      "legend": {
+        "minor": "M < 2 - Minor",
+        "light": "M 2-4 - Light",
+        "moderate": "M 4-6 - Moderate",
+        "strong": "M 6+ - Strong"
+      }
+    },
+    "alerts": {
+      "title": "Location-Based Earthquake Alerts",
+      "descLoggedIn": "Enable location access and we'll alert you if an earthquake happens near you.",
+      "descLoggedOut": "Login to enable location-based alerts. We'll monitor quakes near you in real time.",
+      "ctaLogin": "Login to Enable Alerts",
+      "ctaLocation": "Allow Location Access",
+      "activeMsg": "You'll be notified if a M3+ earthquake occurs within 50 km of your location."
+    }
+  },
+  "footer": {
+    "help": "Get Help",
+    "legal": "Legal",
+    "credits": "Credits",
+    "followUs": "Follow Us",
+    "copyright": "© {year} Earthquake & Recovery. Built with care for earthquake awareness.",
+    "damsCredit": "Myanmar dams data from mmeqopendata (Open Development Mekong / IFC / WLE, CC BY-SA 4.0)"
+  },
+  "quiz": {
+    "title": "Earthquake Knowledge Quiz",
+    "complete": "Quiz Complete!",
+    "subtitle": "Test your knowledge with {count} questions about earthquake safety and science.",
+    "score": "You scored {score} out of {total}",
+    "questionOf": "Question {current} of {total}",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "tryAgain": "Try Again",
+    "amazing": "🏆 Amazing!",
+    "goodJob": "👍 Good Job!",
+    "keepLearning": "📚 Keep Learning!",
+    "msgAmazing": "You're an earthquake safety expert!",
+    "msgGood": "You know the basics — keep building your knowledge!",
+    "msgKeep": "Review the safety tips on our home page and try again!",
+    "categories": {
+      "Safety": "Safety",
+      "Science": "Science",
+      "Geography": "Geography"
+    }
+  },
+  "donate": {
+    "title": "Support Recovery Efforts",
+    "subtitle": "Your contribution helps earthquake-affected communities rebuild their lives.",
+    "tempNotice": "Donations are temporarily unavailable",
+    "tempDesc": "We are currently updating our donation channels. Please check back later. Thank you for your support!",
+    "tabCrypto": "💎 Crypto",
+    "tabMobile": "📱 Mobile Payment",
+    "tabInternational": "🌍 International",
+    "tapToSee": "Tap to see how to donate",
+    "copyClipboard": "Copy to Clipboard",
+    "howToDonate": "How to donate",
+    "copied": "Copied to clipboard!",
+    "copyFailed": "Failed to copy — try selecting manually"
+  },
+  "history": {
+    "title": "Historical Earthquakes",
+    "subtitle": "Stories of the world's most powerful earthquakes.",
+    "tabInternational": "International",
+    "tabMyanmar": "Myanmar (Local)",
+    "minMag": "Min magnitude:",
+    "noResults": "No earthquakes match this filter",
+    "noResultsDesc": "Try lowering the minimum magnitude to see more results.",
+    "showLess": "Show less",
+    "readMore": "Read more",
+    "mag": "Mag",
+    "depth": "{depth} km deep"
+  },
+  "recovery": {
+    "title": "Recovery Resources",
+    "subtitle": "Practical step-by-step guides for every phase of earthquake recovery — from assessing damage to rebuilding stronger.",
+    "tab1": "Assess & Secure",
+    "tab2": "Insurance & Aid",
+    "tab3": "Rebuild Stronger"
+  },
+  "feedback": {
+    "title": "Share Your Feedback",
+    "subtitle": "How was your experience?",
+    "placeholder": "Tell us more (optional)",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "success": "Thank you for your feedback!",
+    "error": "Failed to submit feedback. Please try again.",
+    "ratings": {
+      "1": "Poor",
+      "2": "Fair",
+      "3": "Good",
+      "4": "Very Good",
+      "5": "Excellent"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "loginBtn": "Login",
+    "registerBtn": "Create Account",
+    "minChars": "Minimum 6 characters",
+    "loginSuccess": "Logged in!",
+    "registerSuccess": "Account created! Check your email to confirm.",
+    "loginError": "Login failed.",
+    "registerError": "Registration failed.",
+    "passwordMin": "Password must be at least 6 characters."
+  },
+  "emergency": {
+    "title": "Emergency Numbers",
+    "selectCity": "Select a city to view contacts",
+    "cityLabel": "Select City",
+    "contacts": "contacts",
+    "searchPlaceholder": "Search by name or number...",
+    "noResults": "No matching contacts found.",
+    "chooseCity": "Choose a city from the dropdown above",
+    "stats": "13 cities · 20+ emergency contacts each",
+    "warning": "In life-threatening situations, always call 191 / 192 / 199 first."
+  },
+  "alerts": {
+    "testAlert": "Test Alert",
+    "currentLocation": "Current location",
+    "noLocation": "No location set",
+    "edit": "Edit",
+    "save": "Save",
+    "saving": "Saving...",
+    "editLocation": "Edit Location",
+    "saveLocation": "Save Location",
+    "updateMsg": "Update your monitoring location.",
+    "saveMsg": "Save your current location for earthquake alerts.",
+    "labelPlaceholder": "Label (e.g. Home, Office)",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "stopSound": "Stop Sound",
+    "alertMsg": "M{mag} earthquake detected {dist} km away — {place}",
+    "geoNotSupported": "Geolocation is not supported by your browser.",
+    "allowLocation": "Please allow location access to receive alerts.",
+    "notifTitle": "Earthquake Alert"
+  },
+  "map": {
+    "unableToLoad": "Unable to load earthquake data",
+    "loadingData": "Loading map data...",
+    "tileStep": "Map tiles",
+    "dataStep": "Earthquake data",
+    "popup": {
+      "magnitude": "Magnitude:",
+      "depth": "Depth:",
+      "time": "Time:"
+    },
+    "damPopup": {
+      "type": "Type:",
+      "capacity": "Capacity:",
+      "height": "Height:",
+      "function": "Function:",
+      "river": "River:",
+      "state": "State:",
+      "year": "Year:"
+    },
+    "faultDist": "km from fault",
+    "layers": {
+      "street": "Street",
+      "satellite": "Satellite",
+      "topo": "Topographic",
+      "plates": "Tectonic Plates",
+      "dams": "Myanmar Dams"
+    }
+  },
+  "search": {
+    "placeholder": "Search earthquake info...",
+    "noResults": "No results found for \"{query}\""
+  },
+  "skipToContent": "Skip to content",
+  "whatIs": {
+    "title": "What is an Earthquake?",
+    "intro": "An earthquake is the sudden shaking of the Earth's surface caused by the release of energy in the Earth's crust.",
+    "plates": {
+      "title": "Tectonic Plates",
+      "desc": "The Earth's outer shell is divided into several plates that glide over the mantle."
+    },
+    "faults": {
+      "title": "Fault Lines",
+      "desc": "A fault is a fracture in the Earth's crust where blocks of rock have moved relative to each other."
+    },
+    "waves": {
+      "title": "Seismic Waves",
+      "desc": "Energy from earthquakes travels through the Earth as seismic waves."
+    },
+    "didYouKnow": "Did you know?"
+  },
+  "measure": {
+    "title": "How to Measure an Earthquake?",
+    "intro": "Earthquakes are measured using instruments called seismometers. The two main scales used are the Richter Scale and the Moment Magnitude Scale.",
+    "richter": {
+      "title": "Richter Scale",
+      "p1": "Developed by Charles Richter in 1935, this was the first widely used earthquake magnitude scale.",
+      "p2": "It measures the amplitude of seismic waves recorded by seismometers."
+    },
+    "moment": {
+      "title": "Moment Magnitude Scale (Mw)",
+      "p1": "The modern standard for measuring large earthquakes, developed in 1979.",
+      "p2": "It measures the total energy released by the earthquake."
+    },
+    "scaleTitle": "Magnitude Scale Explained",
+    "energyTitle": "Energy Comparison"
+  },
+  "safety": {
+    "title": "Earthquake Safety Guide",
+    "intro": "Remember the three essential steps: Drop, Cover, and Hold On. Stay calm and protect yourself.",
+    "step1": { "title": "DROP", "desc": "Drop to your hands and knees. This position prevents you from being knocked down.", "tip": "Don't run outside during shaking!" },
+    "step2": { "title": "COVER", "desc": "Cover your head and neck with your arms. If possible, get under a sturdy table or desk.", "tip": "Stay away from windows and heavy objects." },
+    "step3": { "title": "HOLD ON", "desc": "Hold on to your shelter until the shaking stops. Be prepared to move with your shelter.", "tip": "If no shelter is nearby, cover your head and neck." },
+    "step4": { "title": "STAY CALM", "desc": "After shaking stops, check for injuries and damage. Be prepared for aftershocks.", "tip": "Aftershocks can be strong — stay alert!" }
+  },
+  "before": {
+    "title": "Before an Earthquake",
+    "intro": "Preparation is key to surviving an earthquake. Take these steps before the ground starts shaking.",
+    "sections": {
+      "sec1": { "title": "Secure Your Space", "desc": "Identify safe spots in each room and secure heavy furniture." },
+      "sec2": { "title": "Make a Plan", "desc": "Create a family emergency plan and practice it regularly." },
+      "sec3": { "title": "Build a Kit", "desc": "Prepare an emergency supply kit that lasts at least 72 hours." },
+      "sec4": { "title": "Know Your Risks", "desc": "Understand the earthquake risk in your area and take appropriate precautions." }
+    }
+  },
+  "during": {
+    "title": "During an Earthquake",
+    "intro": "If an earthquake strikes, remember: Drop, Cover, and Hold On. Stay calm and protect yourself.",
+    "warning": "⚠️ Do NOT run outside during shaking — falling debris is the biggest danger.",
+    "labelDo": "✅ Do This",
+    "labelDont": "❌ Do NOT Do This",
+    "scenarios": {
+      "indoors": { "title": "Indoors" },
+      "outdoors": { "title": "Outdoors" },
+      "driving": { "title": "Driving" },
+      "bed": { "title": "In Bed" },
+      "highrise": { "title": "High-Rise Building" }
+    }
+  },
+  "after": {
+    "title": "After an Earthquake",
+    "intro": "The shaking has stopped, but dangers remain. Follow these steps to stay safe after an earthquake.",
+    "avoidTitle": "Things to Avoid After an Earthquake",
+    "recoveryCta": "Need help with recovery? Visit our Recovery Resources page for step-by-step guides.",
+    "sections": {
+      "sec1": { "title": "Check for Injuries", "desc": "First check yourself for injuries, then help others if you can do so safely." },
+      "sec2": { "title": "Check for Hazards", "desc": "Look for fire, gas leaks, structural damage, and downed power lines." },
+      "sec3": { "title": "Stay Informed", "desc": "Listen to official sources for updates and instructions." },
+      "sec4": { "title": "Aftershocks", "desc": "Be prepared for aftershocks — they can be nearly as strong as the main quake." },
+      "sec5": { "title": "Help Others", "desc": "If you are able, help neighbors and community members who need assistance." }
+    }
+  }
+}

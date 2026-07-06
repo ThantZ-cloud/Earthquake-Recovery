@@ -33,16 +33,18 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
+import TranslateIcon from '@mui/icons-material/Translate';
 import EmergencyPhones from './EmergencyPhones';
 import AuthDialog from './AuthDialog';
 import { useAuth } from '../context/AuthContext';
+import { useLang } from '../i18n';
 
 const NAV_ITEMS = [
-  { label: 'Home', path: '/' },
-  { label: 'Recovery', path: '/recovery' },
-  { label: 'Donate', path: '/donate' },
-  { label: 'Quiz', path: '/quiz' },
-  { label: 'History', path: '/history' },
+  { key: 'nav.home', path: '/' },
+  { key: 'nav.recovery', path: '/recovery' },
+  { key: 'nav.donate', path: '/donate' },
+  { key: 'nav.quiz', path: '/quiz' },
+  { key: 'nav.history', path: '/history' },
 ];
 
 export default function Navbar({ mode, toggleTheme }) {
@@ -55,6 +57,7 @@ export default function Navbar({ mode, toggleTheme }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { user, logout } = useAuth();
+  const { lang, setLang, t } = useLang();
 
   const isActive = (path) => location.pathname === path;
 
@@ -146,7 +149,7 @@ export default function Navbar({ mode, toggleTheme }) {
                     },
                   }}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Button>
               ))}
             </Box>
@@ -165,6 +168,15 @@ export default function Navbar({ mode, toggleTheme }) {
               {mode === 'dark' ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
             </IconButton>
 
+            {/* Language toggle */}
+            <IconButton
+              onClick={() => setLang(lang === 'en' ? 'my' : 'en')}
+              aria-label={lang === 'en' ? 'Switch to Myanmar' : 'Switch to English'}
+              sx={{ color: 'text.primary', width: 38, height: 38, fontSize: '0.75rem', fontWeight: 700 }}
+            >
+              {lang === 'en' ? 'မြန်' : 'EN'}
+            </IconButton>
+
             {/* Auth: desktop */}
             {!isMobile && !user && (
               <Box sx={{ display: 'flex', gap: 0.5, ml: 0.5 }}>
@@ -175,7 +187,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   onClick={() => openAuth(0)}
                   sx={{ fontSize: '0.75rem', px: 1.5 }}
                 >
-                  Login
+                  {t('nav.login')}
                 </Button>
                 <Button
                   size="small"
@@ -184,7 +196,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   onClick={() => openAuth(1)}
                   sx={{ fontSize: '0.75rem', px: 1.5 }}
                 >
-                  Register
+                  {t('nav.register')}
                 </Button>
               </Box>
             )}
@@ -212,7 +224,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   <Divider />
                   <MenuItem onClick={handleLogout}>
                     <LogoutIcon fontSize="small" sx={{ mr: 1 }} />
-                    Logout
+                    {t('nav.logout')}
                   </MenuItem>
                 </Menu>
               </>
@@ -242,13 +254,13 @@ export default function Navbar({ mode, toggleTheme }) {
                 startIcon={<LogoutIcon />}
                 onClick={() => { setDrawerOpen(false); setLogoutConfirmOpen(true); }}
               >
-                Logout
+                {t('nav.logout')}
               </Button>
               <Divider sx={{ mt: 1.5 }} />
             </Box>
           ) : (
             <Box sx={{ px: 2, pb: 1 }}>
-              <Typography fontWeight={700} gutterBottom>Account</Typography>
+              <Typography fontWeight={700} gutterBottom>{t('nav.account')}</Typography>
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <Button
                   fullWidth
@@ -257,7 +269,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   startIcon={<LoginIcon />}
                   onClick={() => { openAuth(0); setDrawerOpen(false); }}
                 >
-                  Login
+                  {t('nav.login')}
                 </Button>
                 <Button
                   fullWidth
@@ -266,7 +278,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   startIcon={<PersonAddIcon />}
                   onClick={() => { openAuth(1); setDrawerOpen(false); }}
                 >
-                  Register
+                  {t('nav.register')}
                 </Button>
               </Box>
               <Divider sx={{ mt: 1.5 }} />
@@ -284,7 +296,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   selected={isActive(item.path)}
                 >
                   <ListItemText
-                    primary={item.label}
+                    primary={t(item.key)}
                     primaryTypographyProps={{
                       fontWeight: isActive(item.path) ? 700 : 400,
                     }}
@@ -298,18 +310,18 @@ export default function Navbar({ mode, toggleTheme }) {
 
       {/* Logout confirmation dialog (mobile) */}
       <Dialog open={logoutConfirmOpen} onClose={() => setLogoutConfirmOpen(false)}>
-        <DialogTitle>Confirm Logout</DialogTitle>
+        <DialogTitle>{t('nav.confirmLogout')}</DialogTitle>
         <DialogContent>
-          <DialogContentText>Are you sure you want to log out?</DialogContentText>
+          <DialogContentText>{t('nav.confirmLogoutMsg')}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setLogoutConfirmOpen(false)}>Cancel</Button>
+          <Button onClick={() => setLogoutConfirmOpen(false)}>{t('nav.cancel')}</Button>
           <Button
             color="error"
             variant="contained"
             onClick={() => { handleLogout(); setLogoutConfirmOpen(false); }}
           >
-            Logout
+            {t('nav.logout')}
           </Button>
         </DialogActions>
       </Dialog>

@@ -4,6 +4,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import { AnimatePresence } from 'framer-motion';
 import getTheme from './theme';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './i18n';
 import Layout from './components/Layout';
 import AnimatedPage from './components/AnimatedPage';
 import PageSkeleton from './components/PageSkeleton';
@@ -34,6 +35,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <LanguageProvider>
       <AuthProvider>
         <Layout mode={mode} toggleTheme={toggleTheme}>
           <ScrollToTop />
@@ -84,6 +86,7 @@ export default function App() {
           </AnimatePresence>
         </Layout>
       </AuthProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
