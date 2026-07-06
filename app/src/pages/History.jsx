@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LayersIcon from '@mui/icons-material/Layers';
+import { useLang } from '../i18n';
 
 /* ──────────────────────────── DATA ──────────────────────────── */
 
@@ -295,7 +296,7 @@ function StoryCard({ q, index }) {
             />
             <Chip
               icon={<LayersIcon sx={{ fontSize: 14 }} />}
-              label={`${q.depth} km deep`}
+              label={t('history.depth').replace('{depth}', q.depth)}
               size="small"
               variant="outlined"
             />
@@ -354,11 +355,11 @@ function StoryCard({ q, index }) {
           >
             {expanded ? (
               <>
-                Show less <ExpandLessIcon sx={{ fontSize: 18 }} />
+                {t('history.showLess')} <ExpandLessIcon sx={{ fontSize: 18 }} />
               </>
             ) : (
               <>
-                Read more <ExpandMoreIcon sx={{ fontSize: 18 }} />
+                {t('history.readMore')} <ExpandMoreIcon sx={{ fontSize: 18 }} />
               </>
             )}
           </Box>
@@ -371,6 +372,7 @@ function StoryCard({ q, index }) {
 /* ──────────────────── PAGE ──────────────────────────── */
 
 export default function History() {
+  const { t } = useLang();
   const [tab, setTab] = useState(0);
   const [minMag, setMinMag] = useState(6);
 
@@ -404,10 +406,10 @@ export default function History() {
               variant="h2"
               sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
             >
-              Historical Earthquakes
+              {t('history.title')}
             </Typography>
             <Typography variant="h6" sx={{ opacity: 0.8, fontWeight: 400 }}>
-              Stories of the world's most powerful earthquakes.
+              {t('history.subtitle')}
             </Typography>
           </motion.div>
         </Container>
@@ -416,8 +418,8 @@ export default function History() {
       {/* Tabs */}
       <Container maxWidth="lg" sx={{ pt: 4 }}>
         <Tabs value={tab} onChange={handleTabChange} centered>
-          <Tab label="International" />
-          <Tab label="Myanmar (Local)" />
+          <Tab label={t('history.tabInternational')} />
+          <Tab label={t('history.tabMyanmar')} />
         </Tabs>
       </Container>
 
@@ -433,7 +435,7 @@ export default function History() {
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, width: { xs: '100%', sm: 'auto' } }}>
               <Typography variant="body2" fontWeight={600} color="text.secondary" sx={{ whiteSpace: 'nowrap' }}>
-                Min magnitude:
+                {t('history.minMag')}
               </Typography>
               <Chip label={`≥ M${minMag}`} color="primary" variant="outlined" size="small" />
             </Box>
@@ -471,10 +473,10 @@ export default function History() {
               sx={{ fontSize: 56, color: 'text.disabled', mb: 2 }}
             />
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              No earthquakes match this filter
+              {t('history.noResults')}
             </Typography>
             <Typography variant="body2" color="text.disabled">
-              Try lowering the minimum magnitude to see more results.
+              {t('history.noResultsDesc')}
             </Typography>
           </Box>
         ) : (

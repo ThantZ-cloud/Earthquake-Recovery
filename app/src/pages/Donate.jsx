@@ -25,6 +25,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useLang } from '../i18n';
 
 /* ──────────────────────── DATA ──────────────────────── */
 
@@ -192,7 +193,7 @@ const DONATE_ITEMS = {
   ],
 };
 
-const TAB_LABELS = ['💎 Crypto', '📱 Mobile Payment', '🌍 International'];
+const TAB_LABEL_KEYS = ['donate.tabCrypto', 'donate.tabMobile', 'donate.tabInternational'];
 const TAB_KEYS = Object.keys(DONATE_ITEMS);
 
 const containerVariants = {
@@ -208,6 +209,7 @@ const itemVariants = {
 /* ──────────────────────── PAGE ──────────────────────── */
 
 export default function Donate() {
+  const { t } = useLang();
   const [tab, setTab] = useState(0);
   const [dialog, setDialog] = useState(null);
   const [copySnack, setCopySnack] = useState(null);
@@ -241,11 +243,10 @@ export default function Donate() {
               variant="h2"
               sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
             >
-              Support Recovery Efforts
+              {t('donate.title')}
             </Typography>
             <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
-              Your contribution helps earthquake-affected communities rebuild
-              their lives.
+              {t('donate.subtitle')}
             </Typography>
           </motion.div>
         </Container>
@@ -259,10 +260,10 @@ export default function Donate() {
           sx={{ borderRadius: 2, mb: 2 }}
         >
           <Typography variant="body2" fontWeight={600}>
-            Donations are temporarily unavailable
+            {t('donate.tempNotice')}
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            We are currently updating our donation channels. Please check back later. Thank you for your support!
+            {t('donate.tempDesc')}
           </Typography>
         </Alert>
       </Container>
@@ -276,10 +277,10 @@ export default function Donate() {
           variant="fullWidth"
           TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
         >
-          {TAB_LABELS.map((label, i) => (
+          {TAB_LABEL_KEYS.map((key, i) => (
             <Tab
-              key={label}
-              label={label}
+              key={key}
+              label={t(key)}
               sx={{ fontWeight: tab === i ? 700 : 400, py: 2 }}
             />
           ))}
@@ -338,7 +339,7 @@ export default function Donate() {
                         color="text.disabled"
                         sx={{ mt: 0.5, display: 'block' }}
                       >
-                        Tap to see how to donate
+                        {t('donate.tapToSee')}
                       </Typography>
                     </CardContent>
                   </Card>
@@ -414,7 +415,7 @@ export default function Donate() {
                 onClick={() => handleCopy(dialog.detail)}
                 sx={{ mb: 3 }}
               >
-                Copy to Clipboard
+                {t('donate.copyClipboard')}
               </Button>
 
               {/* Instructions */}
@@ -425,7 +426,7 @@ export default function Donate() {
                 sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
               >
                 <CheckCircleIcon sx={{ fontSize: 18, color: 'success.main' }} />
-                How to donate
+                {t('donate.howToDonate')}
               </Typography>
               <Box component="ol" sx={{ m: 0, pl: 2.5 }}>
                 {dialog.instructions.map((step, i) => (
@@ -461,8 +462,8 @@ export default function Donate() {
           onClose={() => setCopySnack(null)}
         >
           {copySnack === 'success'
-            ? 'Copied to clipboard!'
-            : 'Failed to copy — try selecting manually'}
+            ? t('donate.copied')
+            : t('donate.copyFailed')}
         </Alert>
       </Snackbar>
     </Box>
