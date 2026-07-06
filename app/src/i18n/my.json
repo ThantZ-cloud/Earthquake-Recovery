@@ -47,7 +47,7 @@
     "credits": "အသိအမှတ်ပြု",
     "followUs": "ကျွန်တော်တို့ကို followပါ",
     "copyright": "© {year} ငလျင်နှင့် ပြန်လည်ထူထောင်ရေး။ ငလျင်အသိပညာအတွက် ဂရုစိုက်ဖန်တီးထားပါတယ်။",
-    "damsCredit": "မြန်မာ ရေအားလျှပ်စစ် ဒေတာ — mmeqopendata (Open Development Mekong / IFC / WLE, CC BY-SA 4.0)"
+    "damsCredit": "မြန်မ ငလျင်ဒေတာ ဒေတာ — mmeqopendata (Open Development Mekong / IFC / WLE, CC BY-SA 4.0)"
   },
   "quiz": {
     "title": "ငလျင်ပညာ ဉာဏ်စမ်း",
@@ -192,7 +192,7 @@
       "satellite": "ဂြိုဟ်တုမြေပုံ",
       "topo": "မြေမျက်နှာပြင်",
       "plates": "ပတ်ဝန်းကျင် ပြတ်ရွေ့မျဉ်း",
-      "dams": "မြန်မာ ရေအားလျှပ်စစ်"
+      "dams": "မြန်မ ငလျင်ဒေတာ"
     }
   },
   "search": {
