@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Fab,
   Dialog,
@@ -32,6 +32,22 @@ export default function FeedbackButton() {
   const [comment, setComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [snack, setSnack] = useState(null);
+  const [alreadySubmitted, setAlreadySubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    const checkFeedback = async () => {
+      const { data } = await supabase
+        .from('feedback')
+        .select('id')
+        .eq('user_id', user.id)
+        .limit(1);
+      if (data && data.length > 0) {
+        setAlreadySubmitted(true);
+      }
+    };
+    checkFeedback();
+  }, [user]);
 
   const handleSubmit = async () => {
     if (rating === 0) return;
@@ -44,6 +60,7 @@ export default function FeedbackButton() {
       });
       if (error) throw error;
       setSnack('success');
+      setAlreadySubmitted(true);
       setOpen(false);
       setRating(0);
       setComment('');
@@ -54,6 +71,28 @@ export default function FeedbackButton() {
       setSubmitting(false);
     }
   };
+
+  if (alreadySubmitted && user) {
+    return (
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1, type: 'spring', stiffness: 200 }}
+        style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000 }}
+      >
+        <Fab
+          color="success"
+          aria-label="feedback submitted"
+          disabled
+          sx={{
+            boxShadow: '0 4px 20px rgba(46,125,50,0.3)',
+          }}
+        >
+          <CheckCircleIcon />
+        </Fab>
+      </motion.div>
+    );
+  }
 
   return (
     <>

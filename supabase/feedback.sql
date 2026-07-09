@@ -4,7 +4,8 @@ create table feedback (
   user_id uuid references auth.users(id) on delete set null,
   rating int not null check (rating between 1 and 5),
   comment text default '',
-  created_at timestamp with time zone default now()
+  created_at timestamp with time zone default now(),
+  unique(user_id)
 );
 
 alter table feedback enable row level security;
