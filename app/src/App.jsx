@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import getTheme from './theme';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './i18n';
+import ThemeContext from './context/ThemeContext';
 import Layout from './components/Layout';
 import AnimatedPage from './components/AnimatedPage';
 import PageSkeleton from './components/PageSkeleton';
@@ -35,6 +36,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <ThemeContext.Provider value={{ mode, toggleTheme, setMode }}>
       <LanguageProvider>
       <AuthProvider>
         <Layout mode={mode} toggleTheme={toggleTheme}>
@@ -87,6 +89,7 @@ export default function App() {
         </Layout>
       </AuthProvider>
       </LanguageProvider>
+      </ThemeContext.Provider>
     </ThemeProvider>
   );
 }
