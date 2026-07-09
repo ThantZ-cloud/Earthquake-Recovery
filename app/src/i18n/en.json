@@ -718,7 +718,8 @@
       "title": "Seismic Waves",
       "desc": "Energy from earthquakes travels through the Earth as seismic waves."
     },
-    "didYouKnow": "Did you know?"
+    "didYouKnow": "Did you know?",
+    "didYouKnowFact": "Around 500,000 earthquakes are detected worldwide each year, but only about 100,000 are felt by people, and fewer than 100 cause damage."
   },
   "measure": {
     "title": "How to Measure an Earthquake?",

@@ -161,7 +161,7 @@ export default function WhatIsEarthquake() {
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: 500 }}>
-              💡 <strong>{t('whatIs.didYouKnow')}</strong> နှစ်စဉ် တစ်ကမ္ဘာလုံး အတိုင်းအတာနဲ့ ငလျင်အကြိမ်ရေ ၅ သိန်း (၅၀၀,၀၀၀) ခန့်ကို ထောက်လှမ်းသိရှိရပေမဲ့ ၁ သိန်း (၁၀၀,၀၀၀) ခန့်ကိုပဲ လူတွေ ခံစားသိရှိနိုင်ပြီး ၁၀၀ အောက်ကသာ ပျက်စီးဆုံးရှုံးမှု ဖြစ်စေပါတယ်။
+              💡 <strong>{t('whatIs.didYouKnow')}</strong> {t('whatIs.didYouKnowFact')}
             </Typography>
           </Box>
         </motion.div>
