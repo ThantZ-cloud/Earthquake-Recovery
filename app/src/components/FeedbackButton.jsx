@@ -34,6 +34,9 @@ export default function FeedbackButton() {
   const [snack, setSnack] = useState(null);
   const [alreadySubmitted, setAlreadySubmitted] = useState(false);
 
+  // Don't show button for non-logged-in users
+  if (!user) return null;
+
   useEffect(() => {
     if (!user) return;
     const checkFeedback = async () => {
