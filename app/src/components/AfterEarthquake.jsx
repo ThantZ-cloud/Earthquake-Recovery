@@ -14,7 +14,6 @@ import { motion } from 'framer-motion';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { useLang } from '../i18n';
-import { useThemeMode } from '../context/ThemeContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -68,11 +67,6 @@ const DONT_DO_COUNT = 6;
 export default function AfterEarthquake() {
   const theme = useTheme();
   const { t } = useLang();
-  const { setMode } = useThemeMode();
-
-  const handleRecoveryClick = () => {
-    setMode('light');
-  };
 
   return (
     <Box
@@ -236,15 +230,15 @@ export default function AfterEarthquake() {
               <Typography
                 component="a"
                 href="/recovery"
-                onClick={handleRecoveryClick}
                 sx={{
                   color: 'primary.main',
                   fontWeight: 600,
                   textDecoration: 'underline',
                   cursor: 'pointer',
+                  '&:hover': { opacity: 0.8 },
                 }}
               >
-                Recovery Resources
+                ပြန်လည်ထူထောင်ရေးအကူအညီများ
               </Typography>{' '}
               စာမျက်နှာမှာ ဝင်ရောက်ကြည့်ရှုနိုင်ပါတယ်။
             </Typography>

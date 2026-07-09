@@ -27,16 +27,25 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(() => localStorage.getItem('themeMode') || 'light');
   const theme = useMemo(() => getTheme(mode), [mode]);
   const location = useLocation();
 
-  const toggleTheme = () => setMode((m) => (m === 'light' ? 'dark' : 'light'));
+  const handleSetMode = (newMode) => {
+    localStorage.setItem('themeMode', newMode);
+    setMode(newMode);
+  };
+
+  const toggleTheme = () => {
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    localStorage.setItem('themeMode', newMode);
+    setMode(newMode);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ThemeContext.Provider value={{ mode, toggleTheme, setMode }}>
+      <ThemeContext.Provider value={{ mode, toggleTheme, setMode: handleSetMode }}>
       <LanguageProvider>
       <AuthProvider>
         <Layout mode={mode} toggleTheme={toggleTheme}>
