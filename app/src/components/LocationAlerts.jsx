@@ -28,16 +28,21 @@ function haversineKm(a, b) {
 const RADIUS_KM = 50;
 const POLL_MS = 5_000;
 
+// Preload siren audio once at module level — instant play on first trigger
+const sirenAudio = new Audio('/assets/alert-sound.mp3');
+sirenAudio.loop = true;
+sirenAudio.volume = 1;
+sirenAudio.preload = 'auto';
+
 // Emergency siren — returns a stop function
 function startSiren() {
   try {
-    const audio = new Audio('/assets/alert-sound.mp3');
-    audio.loop = true;
-    audio.volume = 1;
-    audio.play();
+    // Reset in case it was played before
+    sirenAudio.currentTime = 0;
+    sirenAudio.play();
     return () => {
-      audio.pause();
-      audio.currentTime = 0;
+      sirenAudio.pause();
+      sirenAudio.currentTime = 0;
     };
   } catch {
     return () => {};
