@@ -4,6 +4,7 @@ import {
   Container,
   Typography,
   Button,
+  CircularProgress,
   useTheme,
 } from '@mui/material';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
@@ -113,7 +114,7 @@ export default function Home() {
           <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
             {t('home.map.desc')}
           </Typography>
-          <Suspense fallback={<Box sx={{ height: { xs: '62vh', md: '78vh' }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography color="text.secondary">{t('home.map.loading')}</Typography></Box>}>
+          <Suspense fallback={<Box sx={{ height: { xs: '62vh', md: '78vh' }, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2, bgcolor: 'action.hover', borderRadius: 4 }}><CircularProgress size={40} /><Typography color="text.secondary">{t('home.map.loading')}</Typography></Box>}>
             <EarthquakeMap height={{ xs: '62vh', md: '78vh' }} />
           </Suspense>
           <Box

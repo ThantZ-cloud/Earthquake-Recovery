@@ -235,7 +235,7 @@ export default function Navbar({ mode, toggleTheme }) {
 
       {/* Mobile drawer */}
       <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <Box sx={{ width: 280, pt: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <Box sx={{ width: { xs: '85vw', sm: 320 }, pt: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
           {/* User section */}
           {user ? (
             <Box sx={{ px: 2, pb: 1 }}>

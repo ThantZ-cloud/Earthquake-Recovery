@@ -44,7 +44,7 @@ export default function EmergencyPhones() {
       {/* Trigger button */}
       <IconButton
         onClick={() => setOpen(true)}
-        title="Emergency Phone Numbers"
+        aria-label="Emergency Phone Numbers"
         sx={{
           color: 'text.primary',
           width: 38,

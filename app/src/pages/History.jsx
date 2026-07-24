@@ -431,7 +431,7 @@ export default function History() {
               value={minMag}
               onChange={(_, v) => setMinMag(v)}
               min={6}
-              max={tab === 0 ? 10 : 9}
+              max={tab === 0 ? 9.5 : 9}
               step={0.1}
               marks={
                 tab === 0

@@ -1,7 +1,7 @@
 import { useState, useMemo, memo, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Polygon, Popup, LayersControl, LayerGroup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Box, CircularProgress, Typography, LinearProgress, useTheme } from '@mui/material';
+import { Box, CircularProgress, Typography, LinearProgress, useTheme, alpha } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 const DEFAULT_CENTER = [19.76, 96.08];
@@ -218,7 +218,7 @@ function EarthquakeMap({ height = '84vh' }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            bgcolor: theme.palette.mode === 'dark' ? 'rgba(30, 30, 30, 0.95)' : 'rgba(245, 245, 245, 0.95)',
+            bgcolor: alpha(theme.palette.background.default, 0.95),
             zIndex: 1000,
             gap: 2,
           }}
@@ -253,6 +253,7 @@ function EarthquakeMap({ height = '84vh' }) {
         zoom={DEFAULT_ZOOM}
         style={{ width: '100%', height: '100%' }}
         zoomControl={false}
+        aria-label="Earthquake map showing recent seismic events near Myanmar, tectonic plate boundaries, and dam locations"
       >
         <MapReadyDetector onReady={() => setMapReady(true)} />
         <AutoCollapseLayers />
@@ -295,7 +296,7 @@ function EarthquakeMap({ height = '84vh' }) {
             <LayerGroup>
               {dams.map((dam, i) => (
                 <Polygon
-                  key={`dam-${i}`}
+                  key={`dam-${dam.properties?.name || dam.properties?.id || i}`}
                   positions={damTriangle(dam.geometry.coordinates[1], dam.geometry.coordinates[0])}
                   pathOptions={{
                     fillColor: damColor(dam.properties.color),

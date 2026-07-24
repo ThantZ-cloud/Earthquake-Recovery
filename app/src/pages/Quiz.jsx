@@ -317,7 +317,7 @@ export default function Quiz() {
             />
 
             {/* Stepper — scrolls as user advances */}
-            <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.7rem', sm: '0.8rem' } } }}>
+            <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
               <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: { xs: 0.5, sm: 1 }, minWidth: 0 }}>
                 {stepperSteps.map((_, i) => {
                   const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
