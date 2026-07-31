@@ -1141,5 +1141,59 @@
       "Do not return to coastal areas if a tsunami warning was issued",
       "Do not ignore boil-water advisories"
     ]
+  },
+  "about": {
+    "hero": {
+      "title": "Meet the Team",
+      "subtitle": "Ten passionate students from UTYCC working together to build earthquake awareness through technology."
+    },
+    "stats": {
+      "title": "Our Impact",
+      "members": "Team Members",
+      "quakes": "Historic Earthquakes",
+      "dams": "Dams Mapped",
+      "questions": "Quiz Questions"
+    },
+    "tech": {
+      "title": "Tech Stack",
+      "desc": "Built with modern tools for performance and reliability.",
+      "react": "UI framework for building interactive interfaces",
+      "leaflet": "Interactive maps with OpenStreetMap",
+      "mui": "Material Design components for React",
+      "supabase": "Backend-as-a-Service with auth and database",
+      "turf": "Geospatial analysis and distance calculations",
+      "query": "Server state management with caching",
+      "motion": "Smooth animations and transitions",
+      "vite": "Fast build tool and dev server"
+    },
+    "team": {
+      "title": "The People Behind the Project",
+      "clickToLearn": "Click a card to learn more"
+    },
+    "timeline": {
+      "title": "Our Journey",
+      "steps": {
+        "idea": { "title": "Idea", "desc": "Identified the need for earthquake awareness in Myanmar" },
+        "research": { "title": "Research", "desc": "Collected seismic data, dam locations, and safety guidelines" },
+        "build": { "title": "Build", "desc": "Developed the app with React, Leaflet, and Supabase" },
+        "launch": { "title": "Launch", "desc": "Released the platform for public use" },
+        "impact": { "title": "Impact", "desc": "Helping communities prepare, respond, and recover" }
+      }
+    },
+    "mission": {
+      "title": "Our Mission",
+      "desc": "To make earthquake education accessible, visual, and actionable — helping communities around the world prepare, respond, and recover.",
+      "cta": "View Live Map"
+    },
+    "detail": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "education": "Education",
+      "skills": "Skills",
+      "languages": "Languages",
+      "copied": "Copied!",
+      "close": "Close"
+    }
   }
 }
