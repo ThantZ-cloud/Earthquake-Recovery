@@ -348,6 +348,13 @@
     "readMore": "Read more",
     "mag": "Mag",
     "depth": "{depth} km deep",
+    "deaths": "Deaths",
+    "injuries": "Injuries",
+    "tsunami": "Tsunami",
+    "economicLoss": "Economic Loss",
+    "viewOnMap": "View on Map",
+    "sources": "Sources",
+    "photoCaption": "Photo",
     "quakes": {
       "intl_1960": "The largest earthquake ever recorded. Triggered a massive tsunami that struck Hawaii, Japan, and the Philippines. Over 1,600 people killed and 2 million left homeless.",
       "intl_1964": "Lasted 4.5 minutes. Triggered landslides and tsunamis. Caused ground liquefaction in Anchorage. 131 people killed.",
@@ -362,6 +369,138 @@
       "mmr_2012": "Struck near Shwebo in Sagaing Region. Caused casualties and damage to buildings. A bridge under construction collapsed into the Irrawaddy River.",
       "mmr_1930": "Caused widespread destruction in Bago. Many historical structures damaged. Felt strongly in Yangon. Triggered fires that added to the devastation.",
       "mmr_1975": "Damaged numerous ancient pagodas and temples in the Bagan archaeological zone. Several stupas lost their upper sections. Prompted restoration efforts for heritage structures."
+    },
+    "quakeData": {
+      "intl_1960": {
+        "deaths": 1655,
+        "injuries": 3000,
+        "tsunami": true,
+        "economicLoss": "$800M",
+        "coords": [-39.5, -74.5],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/1960_Valdivia_earthquake_damage.jpg/800px-1960_Valdivia_earthquake_damage.jpg",
+        "imageCaption": "Damage in Valdivia, Chile after the 1960 earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/1960_Valdivia_earthquake"]
+      },
+      "intl_1964": {
+        "deaths": 131,
+        "injuries": 200,
+        "tsunami": true,
+        "economicLoss": "$311M",
+        "coords": [61.02, -147.65],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/1964_Alaska_earthquake_-_Fourth_Avenue_damage.jpg/800px-1964_Alaska_earthquake_-_Fourth_Avenue_damage.jpg",
+        "imageCaption": "Fourth Avenue in Anchorage, Alaska after the 1964 earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/1964_Alaska_earthquake"]
+      },
+      "intl_2004": {
+        "deaths": 227898,
+        "injuries": 150000,
+        "tsunami": true,
+        "economicLoss": "$10B",
+        "coords": [3.32, 95.85],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/2004_Indonesia_Tsunami_Complete.gif/800px-2004_Indonesia_Tsunami_Complete.gif",
+        "imageCaption": "Animation of the 2004 Indian Ocean tsunami propagation",
+        "sources": ["https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami"]
+      },
+      "intl_2011": {
+        "deaths": 15899,
+        "injuries": 6152,
+        "tsunami": true,
+        "economicLoss": "$360B",
+        "coords": [38.3, 142.4],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2011_Sendai_Tsunami.jpg/800px-2011_Sendai_Tsunami.jpg",
+        "imageCaption": "The 2011 Tohoku tsunami approaching the coast of Japan",
+        "sources": ["https://en.wikipedia.org/wiki/2011_T%C5%8Dhoku_earthquake_and_tsunami"]
+      },
+      "intl_1952": {
+        "deaths": 2336,
+        "injuries": 500,
+        "tsunami": true,
+        "economicLoss": "Unknown",
+        "coords": [49.9, 156.5],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Kamchatka_1952_Tsunami.png/800px-Kamchatka_1952_Tsunami.png",
+        "imageCaption": "Tsunami propagation from the 1952 Kamchatka earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/1952_Kamchatka_earthquake"]
+      },
+      "intl_2010": {
+        "deaths": 526,
+        "injuries": 12000,
+        "tsunami": true,
+        "economicLoss": "$30B",
+        "coords": [-35.85, -72.72],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/2010_Chile_earthquake_-_Concepcion.jpg/800px-2010_Chile_earthquake_-_Concepcion.jpg",
+        "imageCaption": "Damage in Concepcion, Chile after the 2010 earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/2010_Chile_earthquake"]
+      },
+      "mmr_2025": {
+        "deaths": 3500,
+        "injuries": 4500,
+        "tsunami": false,
+        "economicLoss": "$5B+",
+        "coords": [22.0, 96.0],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Sagaing_Myanmar_Earthquake_2025.jpg/800px-Sagaing_Myanmar_Earthquake_2025.jpg",
+        "imageCaption": "Damage from the 2025 Myanmar earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/March_2025_Myanmar_earthquake"]
+      },
+      "mmr_1839": {
+        "deaths": 300,
+        "injuries": "Unknown",
+        "tsunami": false,
+        "economicLoss": "Unknown",
+        "coords": [21.87, 96.03],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Ava_19th_century.jpg/800px-Ava_19th_century.jpg",
+        "imageCaption": "The ancient capital of Ava (Innwa), Myanmar",
+        "sources": ["https://en.wikipedia.org/wiki/1839_Ava_earthquake"]
+      },
+      "mmr_1946": {
+        "deaths": 200,
+        "injuries": 500,
+        "tsunami": false,
+        "economicLoss": "Unknown",
+        "coords": [22.0, 96.1],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Sagaing_Bridge_Myanmar.jpg/800px-Sagaing_Bridge_Myanmar.jpg",
+        "imageCaption": "Sagaing region, Myanmar",
+        "sources": ["https://en.wikipedia.org/wiki/1946_Sagaing_earthquake"]
+      },
+      "mmr_2016": {
+        "deaths": 3,
+        "injuries": 13,
+        "tsunami": false,
+        "economicLoss": "$100M+",
+        "coords": [21.17, 94.87],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bagan_Temples_from_above.jpg/800px-Bagan_Temples_from_above.jpg",
+        "imageCaption": "Bagan temples, Myanmar - damaged in the 2016 earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/August_2016_Myanmar_earthquake"]
+      },
+      "mmr_2012": {
+        "deaths": 11,
+        "injuries": 60,
+        "tsunami": false,
+        "economicLoss": "$50M",
+        "coords": [23.0, 96.0],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Shwebo_Myanmar.jpg/800px-Shwebo_Myanmar.jpg",
+        "imageCaption": "Shwebo region, Myanmar",
+        "sources": ["https://en.wikipedia.org/wiki/2012_Myanmar_earthquake"]
+      },
+      "mmr_1930": {
+        "deaths": 500,
+        "injuries": 2000,
+        "tsunami": false,
+        "economicLoss": "Unknown",
+        "coords": [17.3, 96.5],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bago_Myanmar_Shwe_maw_daw_pagoda.jpg/800px-Bago_Myanmar_Shwe_maw_daw_pagoda.jpg",
+        "imageCaption": "Bago, Myanmar - site of the 1930 earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/1930_Bago_earthquake"]
+      },
+      "mmr_1975": {
+        "deaths": 12,
+        "injuries": 50,
+        "tsunami": false,
+        "economicLoss": "$20M",
+        "coords": [21.17, 94.87],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bagan_Temples_from_above.jpg/800px-Bagan_Temples_from_above.jpg",
+        "imageCaption": "Bagan temples damaged in the 1975 earthquake",
+        "sources": ["https://en.wikipedia.org/wiki/1975_Bagan_earthquake"]
+      }
     }
   },
   "recovery": {

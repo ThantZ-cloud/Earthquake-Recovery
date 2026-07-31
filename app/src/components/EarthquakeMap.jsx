@@ -296,7 +296,7 @@ function EarthquakeMap({ height = '84vh' }) {
             <LayerGroup>
               {dams.map((dam, i) => (
                 <Polygon
-                  key={`dam-${dam.properties?.name || dam.properties?.id || i}`}
+                  key={`dam-${i}-${dam.properties?.name || dam.properties?.id || 'unknown'}`}
                   positions={damTriangle(dam.geometry.coordinates[1], dam.geometry.coordinates[0])}
                   pathOptions={{
                     fillColor: damColor(dam.properties.color),
