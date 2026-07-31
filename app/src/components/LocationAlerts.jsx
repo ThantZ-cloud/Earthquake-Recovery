@@ -5,7 +5,9 @@ import {
 } from '@mui/material';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
@@ -27,26 +29,59 @@ function haversineKm(a, b) {
 
 const RADIUS_KM = 50;
 const POLL_MS = 5_000;
+const SIREN_MAX_MS = 60_000;
 
-// Preload siren audio once at module level — instant play on first trigger
-const sirenAudio = new Audio('/assets/alert-sound.mp3');
-sirenAudio.loop = true;
-sirenAudio.volume = 1;
-sirenAudio.preload = 'auto';
+// Siren audio — lightweight instance
+function createSiren() {
+  const audio = new Audio('/assets/alert-sound.mp3');
+  audio.loop = true;
+  audio.volume = 1;
+  audio.preload = 'auto';
+  return audio;
+}
 
-// Emergency siren — returns a stop function
+let sirenAudio = null;
+
+function getSiren() {
+  if (!sirenAudio) sirenAudio = createSiren();
+  return sirenAudio;
+}
+
+// Play siren, return stop function. Returns null if blocked.
 function startSiren() {
+  const audio = getSiren();
   try {
-    // Reset in case it was played before
-    sirenAudio.currentTime = 0;
-    sirenAudio.play();
+    audio.currentTime = 0;
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => null);
+    }
+    // Auto-stop after max duration
+    const timer = setTimeout(() => {
+      audio.pause();
+      audio.currentTime = 0;
+    }, SIREN_MAX_MS);
     return () => {
-      sirenAudio.pause();
-      sirenAudio.currentTime = 0;
+      clearTimeout(timer);
+      audio.pause();
+      audio.currentTime = 0;
     };
   } catch {
-    return () => {};
+    return null;
   }
+}
+
+// Unlock audio with a silent play (requires user gesture)
+function unlockAudio() {
+  const audio = getSiren();
+  audio.volume = 0;
+  audio.play().then(() => {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.volume = 1;
+  }).catch(() => {
+    audio.volume = 1;
+  });
 }
 
 export default function LocationAlerts({ enabled }) {
@@ -58,8 +93,11 @@ export default function LocationAlerts({ enabled }) {
   const [locationError, setLocationError] = useState('');
   const [watching, setWatching] = useState(false);
   const [sirenActive, setSirenActive] = useState(false);
+  const [soundUnlocked, setSoundUnlocked] = useState(false);
   const stopSirenRef = useRef(null);
   const watchIdRef = useRef(null);
+  const alertedIdsRef = useRef(new Set());
+  const sirenStoppedByUserRef = useRef(false);
 
   // Saved location state
   const [savedLocation, setSavedLocation] = useState(null);
@@ -78,8 +116,8 @@ export default function LocationAlerts({ enabled }) {
       .select('*')
       .eq('user_id', user.id)
       .single()
-      .then(({ data }) => {
-        if (data) {
+      .then(({ data, error }) => {
+        if (!error && data) {
           setSavedLocation(data);
         }
       })
@@ -129,24 +167,27 @@ export default function LocationAlerts({ enabled }) {
       if (!user) return;
       setSaving(true);
 
-      if (savedLocation) {
-        // Update existing
-        const { data } = await supabase
-          .from('locations')
-          .update({ latitude: lat, longitude: lon, label })
-          .eq('id', savedLocation.id)
-          .select()
-          .single();
-        setSavedLocation(data);
-      } else {
-        // Insert new
-        const { data } = await supabase
-          .from('locations')
-          .insert({ user_id: user.id, latitude: lat, longitude: lon, label })
-          .select()
-          .single();
-        setSavedLocation(data);
+      try {
+        if (savedLocation) {
+          const { data, error } = await supabase
+            .from('locations')
+            .update({ latitude: lat, longitude: lon, label })
+            .eq('id', savedLocation.id)
+            .select()
+            .single();
+          if (!error) setSavedLocation(data);
+        } else {
+          const { data, error } = await supabase
+            .from('locations')
+            .insert({ user_id: user.id, latitude: lat, longitude: lon, label })
+            .select()
+            .single();
+          if (!error) setSavedLocation(data);
+        }
+      } catch (err) {
+        console.warn('Save location failed:', err.message);
       }
+
       setSaving(false);
       setEditOpen(false);
     },
@@ -169,7 +210,6 @@ export default function LocationAlerts({ enabled }) {
     if (!enabled) return;
 
     const checkQuakes = () => {
-      // Use saved location if available, otherwise use GPS
       const pos = savedLocation
         ? [savedLocation.latitude, savedLocation.longitude]
         : userPos;
@@ -178,23 +218,38 @@ export default function LocationAlerts({ enabled }) {
       const quakes = queryClient.getQueryData(['earthquakes']) || [];
       for (const q of quakes) {
         if (!q.lat || !q.lon || !q.mag || q.mag < 3) continue;
+        if (alertedIdsRef.current.has(q.id)) continue;
+
         const dist = haversineKm(pos, [q.lat, q.lon]);
         if (dist <= RADIUS_KM) {
+          // New earthquake — reset user-stop flag so siren can play
+          sirenStoppedByUserRef.current = false;
+          alertedIdsRef.current.add(q.id);
           setAlertQuake({ place: q.place, mag: q.mag, dist: dist.toFixed(1) });
           setSnackOpen(true);
 
           // Browser notification
           if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification('⚠️ Earthquake Alert', {
+            const n = new Notification('⚠️ Earthquake Alert', {
               body: `M${q.mag} earthquake detected ${dist.toFixed(1)} km away — ${q.place}`,
               icon: '/assets/logo.png',
               tag: 'earthquake-alert',
             });
+            n.onclick = () => {
+              window.focus();
+              n.close();
+            };
           }
 
-          if (!stopSirenRef.current) {
+          // Vibrate on mobile
+          if ('vibrate' in navigator) {
+            navigator.vibrate([200, 100, 200, 100, 200]);
+          }
+
+          // Only start siren if user hasn't stopped it and sound is unlocked
+          if (!stopSirenRef.current && !sirenStoppedByUserRef.current && soundUnlocked) {
             stopSirenRef.current = startSiren();
-            setSirenActive(true);
+            setSirenActive(!!stopSirenRef.current);
           }
           return;
         }
@@ -204,10 +259,11 @@ export default function LocationAlerts({ enabled }) {
     checkQuakes();
     const interval = setInterval(checkQuakes, POLL_MS);
     return () => clearInterval(interval);
-  }, [enabled, userPos, savedLocation, queryClient]);
+  }, [enabled, userPos, savedLocation, queryClient, soundUnlocked]);
 
   // Stop siren and close alert
   const handleStopSiren = useCallback(() => {
+    sirenStoppedByUserRef.current = true;
     if (stopSirenRef.current) {
       stopSirenRef.current();
       stopSirenRef.current = null;
@@ -216,13 +272,28 @@ export default function LocationAlerts({ enabled }) {
     setSnackOpen(false);
   }, []);
 
+  // Unlock sound on user gesture
+  const handleEnableSound = useCallback(() => {
+    unlockAudio();
+    setSoundUnlocked(true);
+  }, []);
+
   // Demo alert handler
   const handleDemo = useCallback(() => {
     handleStopSiren();
     setAlertQuake({ place: 'MANDALAY, MYANMAR', mag: 5.2, dist: '12.3' });
     setSnackOpen(true);
-    stopSirenRef.current = startSiren();
-    setSirenActive(true);
+
+    // Vibrate on mobile
+    if ('vibrate' in navigator) {
+      navigator.vibrate([200, 100, 200, 100, 200]);
+    }
+
+    const stop = startSiren();
+    if (stop) {
+      stopSirenRef.current = stop;
+      setSirenActive(true);
+    }
   }, [handleStopSiren]);
 
   // Get active location name
@@ -230,8 +301,28 @@ export default function LocationAlerts({ enabled }) {
 
   return (
     <>
-      {/* Location info + actions */}
-      <Box sx={{ mt: 2, textAlign: 'center', display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+      {/* Sound unlock + location info */}
+      <Box sx={{ mt: 2, textAlign: 'center', display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'center', gap: 1, flexWrap: 'wrap' }}>
+        {!soundUnlocked ? (
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<VolumeUpIcon />}
+            onClick={handleEnableSound}
+            color="success"
+            sx={{ fontWeight: 600, height: 32 }}
+          >
+            Enable Sound
+          </Button>
+        ) : (
+          <Chip
+            icon={<CheckCircleIcon />}
+            label="Sound enabled"
+            size="small"
+            sx={{ bgcolor: 'success.main', color: '#fff', fontWeight: 600, height: 32 }}
+          />
+        )}
+
         <Button
           variant="contained"
           size="small"
@@ -242,19 +333,21 @@ export default function LocationAlerts({ enabled }) {
         >
           Test Alert
         </Button>
+
         {enabled && (watching || savedLocation) && (
           <Chip
             label={`📍 ${locationLabel} — M3+ alerts within ${RADIUS_KM} km`}
             size="small"
-            sx={{ bgcolor: 'success.main', color: '#fff', fontWeight: 600, height: 32 }}
+            sx={{ bgcolor: 'info.main', color: '#fff', fontWeight: 600, height: 32 }}
           />
         )}
+
         {enabled && user && (
           <Button
             size="small"
             startIcon={<EditIcon />}
             onClick={handleEdit}
-            sx={{ color: '#fff', textTransform: 'none', height: 32 }}
+            sx={{ textTransform: 'none', height: 32 }}
           >
             Edit
           </Button>
