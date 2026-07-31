@@ -17,6 +17,7 @@ const Recovery = lazy(() => import('./pages/Recovery'));
 const Donate = lazy(() => import('./pages/Donate'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const History = lazy(() => import('./pages/History'));
+const About = lazy(() => import('./pages/About'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -89,6 +90,16 @@ export default function App() {
                   <AnimatedPage>
                     <Suspense fallback={<PageSkeleton variant="history" />}>
                       <History />
+                    </Suspense>
+                  </AnimatedPage>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <AnimatedPage>
+                    <Suspense fallback={<PageSkeleton variant="about" />}>
+                      <About />
                     </Suspense>
                   </AnimatedPage>
                 }

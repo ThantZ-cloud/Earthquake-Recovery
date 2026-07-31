@@ -45,6 +45,7 @@ const NAV_ITEMS = [
   { key: 'nav.donate', path: '/donate' },
   { key: 'nav.quiz', path: '/quiz' },
   { key: 'nav.history', path: '/history' },
+  { key: 'nav.about', path: '/about' },
 ];
 
 export default function Navbar({ mode, toggleTheme }) {
