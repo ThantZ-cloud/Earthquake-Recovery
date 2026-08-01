@@ -1,6 +1,6 @@
 {
   "nav": {
-    "home": "Home",
+    "home": "Map",
     "learn": "Learn",
     "recovery": "Recovery",
     "donate": "Donate",
@@ -22,15 +22,7 @@
     "switchEnglish": "Switch to English"
   },
   "home": {
-    "hero": {
-      "title": "Stay Informed.",
-      "titleHighlight": "Stay Safe.",
-      "subtitle": "Real-time earthquake tracking, safety guides, and recovery resources — all in one place.",
-      "cta": "View Live Map"
-    },
     "map": {
-      "title": "🌍 Live Earthquake Map",
-      "desc": "Each circle represents a recent earthquake. Color shows magnitude.",
       "loading": "Loading map...",
       "legend": {
         "minor": "M < 2 - Minor",
@@ -1022,13 +1014,14 @@
     "ctaLocation": "Allow Location Access",
     "activeMsg": "You'll be notified if a M3+ earthquake occurs within 50 km of your location.",
     "testAlert": "Test Alert",
-    "enableSound": "Enable Sound",
-    "soundEnabled": "Sound enabled",
     "monitoringMsg": "📍 {label} — M3+ alerts within {radius} km",
     "cancel": "Cancel",
     "currentLocation": "Current location",
     "noLocation": "No location set",
-    "edit": "Edit",
+    "reassign": "Reassign Location",
+    "useCurrentLocation": "Use My Current Location",
+    "noGps": "GPS position not available yet — try again in a moment.",
+    "locationSaved": "Location saved",
     "save": "Save",
     "saving": "Saving...",
     "editLocation": "Edit Location",
@@ -1450,14 +1443,12 @@
     "tech": {
       "title": "Tech Stack",
       "desc": "Built with modern tools for performance and reliability.",
+      "vite": "Fast build tool and dev server",
       "react": "UI framework for building interactive interfaces",
-      "leaflet": "Interactive maps with OpenStreetMap",
       "mui": "Material Design components for React",
-      "supabase": "Backend-as-a-Service with auth and database",
-      "turf": "Geospatial analysis and distance calculations",
       "query": "Server state management with caching",
-      "motion": "Smooth animations and transitions",
-      "vite": "Fast build tool and dev server"
+      "leaflet": "Interactive maps with OpenStreetMap",
+      "supabase": "Backend-as-a-Service with auth and database"
     },
     "team": {
       "title": "The People Behind the Project",

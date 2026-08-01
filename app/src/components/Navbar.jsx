@@ -87,13 +87,13 @@ export default function Navbar({ mode, toggleTheme }) {
       >
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, lg: 4 }, gap: 1 }}>
           {/* Left side: hamburger (mobile) + logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
             {isMobile && (
               <IconButton
                 onClick={() => setDrawerOpen(true)}
                 size="small"
                 aria-label={t('nav.openMenu')}
-                sx={{ color: 'text.primary' }}
+                sx={{ color: 'text.primary', flexShrink: 0 }}
               >
                 <MenuIcon />
               </IconButton>
@@ -106,7 +106,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 alignItems: 'center',
                 gap: 1.5,
                 textDecoration: 'none',
-                flexShrink: 0,
+                minWidth: 0,
               }}
             >
               <Typography
@@ -116,6 +116,9 @@ export default function Navbar({ mode, toggleTheme }) {
                   color: 'primary.main',
                   fontSize: '1rem',
                   whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: { xs: 'none', sm: 'block' },
                 }}
               >
                 {t('nav.siteName')}

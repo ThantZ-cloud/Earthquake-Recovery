@@ -81,7 +81,7 @@ const TEAM = [
     roleColor: '#7b1fa2',
     photo: '/assets/team/yulay.jpg',
     bio: "I'm an active and curious student who enjoys exploring new ideas and improving myself. Always energetic and motivated to achieve my goals.",
-    skills: ['Communication', 'Teamwork', 'Problem-solving'],
+    skills: ['Communication', 'Teamwork'],
     languages: ['Burmese', 'English'],
     email: 'aungyunandar1@gmail.com',
     phone: '09988602436',
@@ -133,7 +133,7 @@ const TEAM = [
     roleColor: '#4a148c',
     photo: '/assets/team/zuenk.jpg',
     bio: "I'm a quiet and thoughtful student who enjoys reading. I may be quiet in class but I'm always attentive and eager to learn.",
-    skills: ['Time Management', 'Patience', 'Discipline'],
+    skills: ['Time Management', 'Patience'],
     languages: ['Burmese', 'English'],
     email: 'zuenaychikyaw1@gmail.com',
     phone: '09-260967842',
@@ -169,14 +169,12 @@ const TEAM = [
 ];
 
 const TECH_STACK = [
-  { name: 'React', color: '#61dafb', key: 'react' },
-  { name: 'Leaflet', color: '#199900', key: 'leaflet' },
-  { name: 'MUI', color: '#007fff', key: 'mui' },
-  { name: 'Supabase', color: '#3ecf8e', key: 'supabase' },
-  { name: 'Turf.js', color: '#7b3f00', key: 'turf' },
-  { name: 'TanStack Query', color: '#ff4154', key: 'query' },
-  { name: 'Framer Motion', color: '#ff0055', key: 'motion' },
   { name: 'Vite', color: '#646cff', key: 'vite' },
+  { name: 'React', color: '#61dafb', key: 'react' },
+  { name: 'MUI', color: '#007fff', key: 'mui' },
+  { name: 'TanStack Query', color: '#ff4154', key: 'query' },
+  { name: 'Leaflet', color: '#199900', key: 'leaflet' },
+  { name: 'Supabase', color: '#3ecf8e', key: 'supabase' },
 ];
 
 const TIMELINE_STEPS = [
@@ -405,12 +403,11 @@ function MemberCard({ member, onClick }) {
           border: '1px solid',
           borderColor: 'divider',
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          '&:hover': {
+            '&:hover': {
             transform: 'translateY(-8px)',
             borderColor: member.roleColor,
             boxShadow: `0 20px 40px ${alpha(member.roleColor, 0.2)}`,
             '& .member-avatar': {
-              filter: 'grayscale(0%)',
               transform: 'scale(1.05)',
             },
             '& .member-overlay': {
@@ -445,7 +442,6 @@ function MemberCard({ member, onClick }) {
               mb: 2,
               border: '3px solid',
               borderColor: member.roleColor,
-              filter: 'grayscale(100%)',
               transition: 'all 0.3s',
             }}
           />

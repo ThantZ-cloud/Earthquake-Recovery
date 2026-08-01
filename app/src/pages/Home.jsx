@@ -1,11 +1,5 @@
 import { lazy, Suspense } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  CircularProgress,
-} from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useLang } from '../i18n';
 
 const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
@@ -13,104 +7,66 @@ const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
 export default function Home() {
   const { t } = useLang();
 
-  return (
-    <Box>
-      {/* Hero Section */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-          color: '#fff',
-          py: { xs: 8, md: 14 },
-          textAlign: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: -80,
-            right: -80,
-            width: 300,
-            height: 300,
-            borderRadius: '50%',
-            background: 'rgba(211,47,47,0.15)',
-            animation: 'pulse 4s ease-in-out infinite',
-            '@keyframes pulse': {
-              '0%, 100%': { transform: 'scale(1)', opacity: 0.5 },
-              '50%': { transform: 'scale(1.3)', opacity: 0.2 },
-            },
-          }}
-        />
-        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography
-            variant="h2"
-            sx={{ fontSize: { xs: '2rem', md: '3.2rem' }, mb: 2 }}
-          >
-            {t('home.hero.title')}
-            <Box component="span" sx={{ color: 'secondary.main' }}>
-              {' '}
-              {t('home.hero.titleHighlight')}
-            </Box>
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{ opacity: 0.85, mb: 4, fontWeight: 400, maxWidth: 600, mx: 'auto' }}
-          >
-            {t('home.hero.subtitle')}
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            href="#map-section"
-            sx={{
-              bgcolor: 'secondary.main',
-              color: (t) => t.palette.getContrastText(t.palette.secondary.main),
-              px: 5,
-              py: 1.5,
-              fontSize: '1.1rem',
-              '&:hover': { bgcolor: 'secondary.dark' },
-            }}
-          >
-            {t('home.hero.cta')}
-          </Button>
-        </Container>
-      </Box>
+  const legendItems = [
+    { color: '#2e7d32', label: t('home.map.legend.minor') },
+    { color: '#f9a825', label: t('home.map.legend.light') },
+    { color: '#ed6c02', label: t('home.map.legend.moderate') },
+    { color: '#d32f2f', label: t('home.map.legend.strong') },
+  ];
 
-      {/* Map Section */}
-      <Box id="map-section" sx={{ py: 8, bgcolor: 'background.default' }}>
-        <Container maxWidth="lg">
-          <Typography variant="h4" textAlign="center" gutterBottom>
-            {t('home.map.title')}
-          </Typography>
-          <Typography variant="body1" color="text.secondary" textAlign="center" mb={4}>
-            {t('home.map.desc')}
-          </Typography>
-          <Suspense fallback={<Box sx={{ height: { xs: '62vh', md: '78vh' }, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2, bgcolor: 'action.hover', borderRadius: 4 }}><CircularProgress size={40} /><Typography color="text.secondary">{t('home.map.loading')}</Typography></Box>}>
-            <EarthquakeMap height={{ xs: '62vh', md: '78vh' }} />
-          </Suspense>
+  return (
+    <Box
+      sx={{
+        position: 'relative',
+        height: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
+      }}
+    >
+      <Suspense
+        fallback={
           <Box
             sx={{
+              height: '100%',
               display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               justifyContent: 'center',
-              gap: 3,
-              mt: 2,
-              flexWrap: 'wrap',
+              gap: 2,
+              bgcolor: 'action.hover',
             }}
           >
-            {[
-              { color: '#2e7d32', label: t('home.map.legend.minor') },
-              { color: '#f9a825', label: t('home.map.legend.light') },
-              { color: '#ed6c02', label: t('home.map.legend.moderate') },
-              { color: '#d32f2f', label: t('home.map.legend.strong') },
-            ].map((item) => (
-              <Box key={item.label} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Box sx={{ width: 16, height: 16, borderRadius: '50%', bgcolor: item.color }} />
-                <Typography variant="caption">{item.label}</Typography>
-              </Box>
-            ))}
+            <CircularProgress size={40} />
+            <Typography color="text.secondary">{t('home.map.loading')}</Typography>
           </Box>
-        </Container>
+        }
+      >
+        <EarthquakeMap height="100%" />
+      </Suspense>
+
+      {/* Legend overlay */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: 16,
+          left: 16,
+          display: 'flex',
+          gap: 1.5,
+          flexWrap: 'wrap',
+          p: 1.5,
+          borderRadius: 2,
+          bgcolor: 'background.paper',
+          boxShadow: 2,
+          zIndex: 1000,
+          maxWidth: 'calc(100% - 32px)',
+        }}
+      >
+        {legendItems.map((item) => (
+          <Box key={item.label} sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+            <Box sx={{ width: 14, height: 14, borderRadius: '50%', bgcolor: item.color }} />
+            <Typography variant="caption" color="text.secondary">
+              {item.label}
+            </Typography>
+          </Box>
+        ))}
       </Box>
     </Box>
   );

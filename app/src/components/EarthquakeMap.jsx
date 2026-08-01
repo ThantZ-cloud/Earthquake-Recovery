@@ -196,7 +196,7 @@ function EarthquakeMap({ height = '84vh' }) {
 
   if (error) {
     return (
-      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'action.hover', borderRadius: 4, flexDirection: 'column', gap: 1 }}>
+      <Box sx={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'action.hover', flexDirection: 'column', gap: 1 }}>
         <Typography color="error" fontWeight={600}>
           {t('map.unableToLoad')}
         </Typography>
@@ -208,7 +208,7 @@ function EarthquakeMap({ height = '84vh' }) {
   }
 
   return (
-    <Box sx={{ height, width: '100%', borderRadius: 4, overflow: 'hidden', boxShadow: 4, position: 'relative' }}>
+    <Box sx={{ height, width: '100%', position: 'relative' }}>
       {/* Loading overlay */}
       {loading && (
         <Box
