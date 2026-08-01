@@ -81,7 +81,7 @@ export default function FeedbackButton() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 200 }}
-        style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000 }}
+        style={{ position: 'fixed', bottom: 96, right: 24, zIndex: 1000 }}
       >
         <Fab
           color="success"
@@ -104,7 +104,7 @@ export default function FeedbackButton() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 200 }}
-        style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000 }}
+        style={{ position: 'fixed', bottom: 96, right: 24, zIndex: 1000 }}
       >
         <Fab
           color="primary"

@@ -19,6 +19,7 @@ import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import BuildIcon from '@mui/icons-material/Build';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import AnimatedHero from '../components/AnimatedHero';
 import { useLang } from '../i18n';
 
 const fadeUp = {
@@ -210,26 +211,18 @@ export default function Recovery() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Hero */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%)',
-          color: '#fff',
-          py: { xs: 8, md: 12 },
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth="md">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <HealingIcon sx={{ fontSize: 52, mb: 2 }} />
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}>
-              {t('recovery.title')}
-            </Typography>
-            <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
-              {t('recovery.subtitle')}
-            </Typography>
-          </motion.div>
-        </Container>
-      </Box>
+      <AnimatedHero
+        icon={<HealingIcon sx={{ fontSize: 40, color: '#81c784' }} />}
+        title={t('recovery.title')}
+        subtitle={t('recovery.subtitle')}
+        bg={['#1b5e20', '#2e7d32', '#14521c']}
+        accent="#81c784"
+        blobs={[
+          { top: '10%', left: '5%', width: 400, height: 400, color: 'rgba(46,125,50,0.25)', blur: 60, duration: 20, dx: 50, dy: -40 },
+          { top: '30%', right: '10%', width: 350, height: 350, color: 'rgba(139,195,74,0.2)', blur: 50, duration: 25, dx: -60, dy: 50 },
+          { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(0,137,123,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
+        ]}
+      />
 
       {/* Tabs */}
       <Container maxWidth="lg" sx={{ pt: 4 }}>

@@ -1,12 +1,12 @@
 import { Box, Container, Typography } from '@mui/material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import { motion } from 'framer-motion';
 import WhatIsEarthquake from '../components/WhatIsEarthquake';
 import HowToMeasure from '../components/HowToMeasure';
 import SafetyGuide from '../components/SafetyGuide';
 import BeforeEarthquake from '../components/BeforeEarthquake';
 import DuringEarthquake from '../components/DuringEarthquake';
 import AfterEarthquake from '../components/AfterEarthquake';
+import AnimatedHero from '../components/AnimatedHero';
 import { useLang } from '../i18n';
 
 export default function Learn() {
@@ -14,27 +14,18 @@ export default function Learn() {
 
   return (
     <Box sx={{ bgcolor: 'background.default' }}>
-      {/* Hero */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #0d47a1 0%, #1976d2 100%)',
-          color: '#fff',
-          py: { xs: 8, md: 12 },
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth="md">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <MenuBookIcon sx={{ fontSize: 52, mb: 2, color: 'secondary.main' }} />
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}>
-              {t('learn.hero.title')}
-            </Typography>
-            <Typography variant="h6" sx={{ opacity: 0.8, fontWeight: 400 }}>
-              {t('learn.hero.subtitle')}
-            </Typography>
-          </motion.div>
-        </Container>
-      </Box>
+      <AnimatedHero
+        icon={<MenuBookIcon sx={{ fontSize: 40, color: '#64b5f6' }} />}
+        title={t('learn.hero.title')}
+        subtitle={t('learn.hero.subtitle')}
+        bg={['#0d47a1', '#1976d2', '#0a3d8f']}
+        accent="#64b5f6"
+        blobs={[
+          { top: '10%', left: '5%', width: 400, height: 400, color: 'rgba(33,150,243,0.25)', blur: 60, duration: 20, dx: 50, dy: -40 },
+          { top: '30%', right: '10%', width: 350, height: 350, color: 'rgba(0,188,212,0.2)', blur: 50, duration: 25, dx: -60, dy: 50 },
+          { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(63,81,181,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
+        ]}
+      />
 
       {/* What is an Earthquake? */}
       <Box id="learn-section">

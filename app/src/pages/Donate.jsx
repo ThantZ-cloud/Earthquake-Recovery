@@ -25,6 +25,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AnimatedHero from '../components/AnimatedHero';
 import { useLang } from '../i18n';
 
 /* ──────────────────────── DATA ──────────────────────── */
@@ -146,33 +147,18 @@ export default function Donate() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* ── Hero ── */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%)',
-          color: '#fff',
-          py: { xs: 8, md: 12 },
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth="md">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <FavoriteIcon sx={{ fontSize: 52, mb: 2 }} />
-            <Typography
-              variant="h2"
-              sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}
-            >
-              {t('donate.title')}
-            </Typography>
-            <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
-              {t('donate.subtitle')}
-            </Typography>
-          </motion.div>
-        </Container>
-      </Box>
+      <AnimatedHero
+        icon={<FavoriteIcon sx={{ fontSize: 40, color: '#ef9a9a' }} />}
+        title={t('donate.title')}
+        subtitle={t('donate.subtitle')}
+        bg={['#b71c1c', '#d32f2f', '#8e1414']}
+        accent="#ef9a9a"
+        blobs={[
+          { top: '10%', left: '5%', width: 400, height: 400, color: 'rgba(211,47,47,0.25)', blur: 60, duration: 20, dx: 50, dy: -40 },
+          { top: '30%', right: '10%', width: 350, height: 350, color: 'rgba(236,64,122,0.2)', blur: 50, duration: 25, dx: -60, dy: 50 },
+          { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(183,28,28,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
+        ]}
+      />
 
       {/* Temporary notice */}
       <Container maxWidth="lg" sx={{ pt: 4 }}>

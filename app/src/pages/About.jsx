@@ -19,7 +19,8 @@ import {
   Button,
   Tooltip,
 } from '@mui/material';
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import AnimatedHero from '../components/AnimatedHero';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -38,6 +39,7 @@ import { useLang } from '../i18n';
 const TEAM = [
   {
     name: 'Thant Zin Htun',
+    rollNo: '2IST-5',
     role: 'Leader',
     roleColor: '#d32f2f',
     photo: '/assets/team/thantzin.jpg',
@@ -51,6 +53,7 @@ const TEAM = [
   },
   {
     name: 'Phyo Thiri Wai',
+    rollNo: '2IST-13',
     role: 'Co-Leader',
     roleColor: '#ed6c02',
     photo: '/assets/team/phyothiri.jpg',
@@ -64,6 +67,7 @@ const TEAM = [
   },
   {
     name: 'Phuu Ngon Ko Ko',
+    rollNo: '2IST-75',
     role: 'Member',
     roleColor: '#2e7d32',
     photo: '/assets/team/phu.jpg',
@@ -77,6 +81,7 @@ const TEAM = [
   },
   {
     name: 'Yu Nandar Aung',
+    rollNo: '2IST-47',
     role: 'Member',
     roleColor: '#7b1fa2',
     photo: '/assets/team/yulay.jpg',
@@ -90,6 +95,7 @@ const TEAM = [
   },
   {
     name: 'Hay Mann Win',
+    rollNo: '2IST-41',
     role: 'Member',
     roleColor: '#1565c0',
     photo: '/assets/team/haymann.jpg',
@@ -103,6 +109,7 @@ const TEAM = [
   },
   {
     name: 'Lin Bone Htut',
+    rollNo: '2IST-73',
     role: 'Member',
     roleColor: '#00838f',
     photo: '/assets/team/linbone.jpg',
@@ -116,6 +123,7 @@ const TEAM = [
   },
   {
     name: 'Ei Thiri Mon',
+    rollNo: '2IST-3',
     role: 'Member',
     roleColor: '#c62828',
     photo: '/assets/team/eithiri.jpg',
@@ -129,6 +137,7 @@ const TEAM = [
   },
   {
     name: 'Zue Naychi Kyaw',
+    rollNo: '2IST-50',
     role: 'Member',
     roleColor: '#4a148c',
     photo: '/assets/team/zuenk.jpg',
@@ -142,6 +151,7 @@ const TEAM = [
   },
   {
     name: 'Lynn Latt Nwe',
+    rollNo: '2IST-2',
     role: 'Member',
     roleColor: '#e65100',
     photo: '/assets/team/lynnlatnwe.jpg',
@@ -155,6 +165,7 @@ const TEAM = [
   },
   {
     name: 'Yan Naing Htoo',
+    rollNo: '2IST-37',
     role: 'Member',
     roleColor: '#1b5e20',
     photo: '/assets/team/yannaing.jpg',
@@ -321,8 +332,9 @@ function TimelineNode({ step, index, t, isLast }) {
               position: 'absolute',
               top: 48,
               width: 2,
-              height: { xs: 60, md: 80 },
+              height: 52,
               bgcolor: 'divider',
+              display: { xs: 'none', md: 'block' },
             }}
           />
         )}
@@ -460,6 +472,10 @@ function MemberCard({ member, onClick }) {
           <Typography variant="subtitle1" fontWeight={700}>
             {member.name}
           </Typography>
+
+          <Typography variant="body2" color="primary" fontWeight={600}>
+            {member.rollNo}
+          </Typography>
           
           <Typography
             variant="body2"
@@ -564,6 +580,9 @@ function MemberDrawer({ member, open, onClose, t }) {
             <Typography variant="h5" fontWeight={800}>
               {member.name}
             </Typography>
+            <Typography variant="body1" color="primary" fontWeight={600}>
+              {member.rollNo}
+            </Typography>
           </Box>
           
           <Typography
@@ -653,150 +672,22 @@ export default function About() {
   const { t } = useLang();
   const theme = useTheme();
   const [selectedMember, setSelectedMember] = useState(null);
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   return (
-    <Box ref={containerRef} sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Hero Section with Animated Blobs */}
-      <Box
-        sx={{
-          position: 'relative',
-          overflow: 'hidden',
-          color: '#fff',
-          py: { xs: 10, md: 16 },
-        }}
-      >
-        {/* Animated gradient background */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)',
-          }}
-        />
-        
-        {/* Floating blobs */}
-        <motion.div
-          animate={{
-            x: [0, 50, -30, 0],
-            y: [0, -40, 30, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          style={{
-            position: 'absolute',
-            width: 400,
-            height: 400,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(211,47,47,0.25) 0%, transparent 70%)',
-            filter: 'blur(60px)',
-            top: '10%',
-            left: '5%',
-          }}
-        />
-        
-        <motion.div
-          animate={{
-            x: [0, -60, 40, 0],
-            y: [0, 50, -30, 0],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-          style={{
-            position: 'absolute',
-            width: 350,
-            height: 350,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(237,108,2,0.2) 0%, transparent 70%)',
-            filter: 'blur(50px)',
-            top: '30%',
-            right: '10%',
-          }}
-        />
-        
-        <motion.div
-          animate={{
-            x: [0, 40, -50, 0],
-            y: [0, -30, 40, 0],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-          style={{
-            position: 'absolute',
-            width: 300,
-            height: 300,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(123,31,162,0.2) 0%, transparent 70%)',
-            filter: 'blur(50px)',
-            bottom: '10%',
-            left: '30%',
-          }}
-        />
-
-        <motion.div style={{ y: heroY, opacity: heroOpacity }}>
-          <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Box
-                sx={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 80,
-                  height: 80,
-                  borderRadius: '50%',
-                  bgcolor: alpha('#ff6b6b', 0.2),
-                  mb: 3,
-                  position: 'relative',
-                }}
-              >
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  style={{
-                    position: 'absolute',
-                    inset: -8,
-                    borderRadius: '50%',
-                    border: '2px solid',
-                    borderColor: alpha('#ff6b6b', 0.5),
-                  }}
-                />
-                <GroupsIcon sx={{ fontSize: 40, color: '#ff6b6b' }} />
-              </Box>
-              
-              <Typography
-                variant="h2"
-                sx={{
-                  fontSize: { xs: '2.5rem', md: '3.5rem' },
-                  fontWeight: 900,
-                  mb: 2,
-                  background: 'linear-gradient(135deg, #fff 0%, #ff6b6b 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                {t('about.hero.title')}
-              </Typography>
-              
-              <Typography
-                variant="h6"
-                sx={{
-                  opacity: 0.9,
-                  fontWeight: 400,
-                  maxWidth: 600,
-                  mx: 'auto',
-                  lineHeight: 1.6,
-                }}
-              >
-                {t('about.hero.subtitle')}
-              </Typography>
-            </motion.div>
-          </Container>
-        </motion.div>
-      </Box>
+      <AnimatedHero
+        icon={<GroupsIcon sx={{ fontSize: 40, color: '#ff6b6b' }} />}
+        title={t('about.hero.title')}
+        subtitle={t('about.hero.subtitle')}
+        bg={['#1a1a2e', '#16213e', '#0f0f23']}
+        accent="#ff6b6b"
+        blobs={[
+          { top: '10%', left: '5%', width: 400, height: 400, color: 'rgba(211,47,47,0.25)', blur: 60, duration: 20, dx: 50, dy: -40 },
+          { top: '30%', right: '10%', width: 350, height: 350, color: 'rgba(237,108,2,0.2)', blur: 50, duration: 25, dx: -60, dy: 50 },
+          { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(123,31,162,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
+        ]}
+      />
 
       {/* Stats Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>

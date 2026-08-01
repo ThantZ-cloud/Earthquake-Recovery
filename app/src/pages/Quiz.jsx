@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import QuizIcon from '@mui/icons-material/Quiz';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ReplayIcon from '@mui/icons-material/Replay';
+import AnimatedHero from '../components/AnimatedHero';
 import { useLang } from '../i18n';
 
 const QUESTIONS = [
@@ -279,32 +280,28 @@ export default function Quiz() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Hero */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%)',
-          color: '#fff',
-          py: { xs: 8, md: 10 },
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth="md">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            {score === null ? (
-              <QuizIcon sx={{ fontSize: 52, mb: 2 }} />
-            ) : (
-              <EmojiEventsIcon sx={{ fontSize: 52, mb: 2, color: 'secondary.main' }} />
-            )}
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '2.8rem' }, mb: 2 }}>
-              {score === null ? t('quiz.title') : t('quiz.complete')}
-            </Typography>
-            <Typography variant="h6" sx={{ opacity: 0.85, fontWeight: 400 }}>
-              {score === null
-                ? t('quiz.subtitle').replace('{count}', QUESTIONS.length)
-                : t('quiz.score').replace('{score}', score).replace('{total}', QUESTIONS.length)}
-            </Typography>
-          </motion.div>
-        </Container>
-      </Box>
+      <AnimatedHero
+        icon={
+          score === null ? (
+            <QuizIcon sx={{ fontSize: 40, color: '#ce93d8' }} />
+          ) : (
+            <EmojiEventsIcon sx={{ fontSize: 40, color: '#ce93d8' }} />
+          )
+        }
+        title={score === null ? t('quiz.title') : t('quiz.complete')}
+        subtitle={
+          score === null
+            ? t('quiz.subtitle').replace('{count}', QUESTIONS.length)
+            : t('quiz.score').replace('{score}', score).replace('{total}', QUESTIONS.length)
+        }
+        bg={['#4a148c', '#7b1fa2', '#38006b']}
+        accent="#ce93d8"
+        blobs={[
+          { top: '10%', left: '5%', width: 400, height: 400, color: 'rgba(123,31,162,0.25)', blur: 60, duration: 20, dx: 50, dy: -40 },
+          { top: '30%', right: '10%', width: 350, height: 350, color: 'rgba(171,71,188,0.2)', blur: 50, duration: 25, dx: -60, dy: 50 },
+          { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(74,20,140,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
+        ]}
+      />
 
       <Container maxWidth="sm" sx={{ py: { xs: 2, md: 3 } }}>
         {score === null ? (

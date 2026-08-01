@@ -33,6 +33,7 @@ import TsunamiIcon from '@mui/icons-material/Water';
 import MoneyIcon from '@mui/icons-material/AttachMoney';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import AnimatedHero from '../components/AnimatedHero';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { useLang } from '../i18n';
@@ -605,24 +606,18 @@ export default function History() {
   return (
     <Box sx={{ bgcolor: 'background.default' }}>
       {/* ── Hero ── */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, #263238 0%, #37474f 100%)',
-          color: '#fff', py: { xs: 8, md: 12 }, textAlign: 'center',
-        }}
-      >
-        <Container maxWidth="md">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <HistoryIcon sx={{ fontSize: 52, mb: 2, color: 'secondary.main' }} />
-            <Typography variant="h2" sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 2 }}>
-              {t('history.title')}
-            </Typography>
-            <Typography variant="h6" sx={{ opacity: 0.8, fontWeight: 400 }}>
-              {t('history.subtitle')}
-            </Typography>
-          </motion.div>
-        </Container>
-      </Box>
+      <AnimatedHero
+        icon={<HistoryIcon sx={{ fontSize: 40, color: '#ffa726' }} />}
+        title={t('history.title')}
+        subtitle={t('history.subtitle')}
+        bg={['#263238', '#37474f', '#1c262b']}
+        accent="#ffa726"
+        blobs={[
+          { top: '10%', left: '5%', width: 400, height: 400, color: 'rgba(96,125,139,0.25)', blur: 60, duration: 20, dx: 50, dy: -40 },
+          { top: '30%', right: '10%', width: 350, height: 350, color: 'rgba(255,167,38,0.2)', blur: 50, duration: 25, dx: -60, dy: 50 },
+          { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(0,131,143,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
+        ]}
+      />
 
       {/* Tabs */}
       <Container maxWidth="lg" sx={{ pt: 4 }}>

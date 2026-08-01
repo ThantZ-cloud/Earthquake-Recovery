@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FeedbackButton from './FeedbackButton';
+import BackToTop from './BackToTop';
 import { useLang } from '../i18n';
 
 export default function Layout({ children, mode, toggleTheme }) {
@@ -34,6 +35,7 @@ export default function Layout({ children, mode, toggleTheme }) {
         {children}
       </Box>
       <Footer />
+      <BackToTop />
       <FeedbackButton />
     </Box>
   );
