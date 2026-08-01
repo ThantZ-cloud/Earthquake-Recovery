@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from 'react';
+import { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import en from './en.json';
 import my from './my.json';
 
@@ -15,6 +15,11 @@ export function LanguageProvider({ children }) {
     }
   });
 
+  // Sync <html lang> on initial load
+  useEffect(() => {
+    document.documentElement.lang = lang === 'my' ? 'my' : 'en';
+  }, [lang]);
+
   const setLang = (newLang) => {
     setLangState(newLang);
     try {
@@ -23,9 +28,9 @@ export function LanguageProvider({ children }) {
     document.documentElement.lang = newLang === 'my' ? 'my' : 'en';
   };
 
-  // t('nav.home') → translations[lang].nav.home
+  // t('nav.home', { name: 'x' }) → translations[lang].nav.home with {name} replaced
   const t = useMemo(() => {
-    return (key) => {
+    return (key, params) => {
       const keys = key.split('.');
       let value = translations[lang];
       for (const k of keys) {
@@ -35,7 +40,11 @@ export function LanguageProvider({ children }) {
           return key; // fallback to key if not found
         }
       }
-      return value ?? key;
+      if (typeof value !== 'string') return value ?? key;
+      if (params) {
+        value = value.replace(/\{(\w+)\}/g, (_, name) => params[name] ?? `{${name}}`);
+      }
+      return value;
     };
   }, [lang]);
 

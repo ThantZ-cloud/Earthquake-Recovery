@@ -137,7 +137,7 @@ export default function LocationAlerts({ enabled }) {
     if (!enabled) return;
 
     if (!navigator.geolocation) {
-      setLocationError('Geolocation is not supported by your browser.');
+      setLocationError(t('alerts.geoNotSupported'));
       return;
     }
 
@@ -148,7 +148,7 @@ export default function LocationAlerts({ enabled }) {
         setLocationError('');
       },
       (err) => {
-        setLocationError('Please allow location access to receive alerts.');
+        setLocationError(t('alerts.allowLocation'));
         console.warn('Geolocation error:', err.message);
       },
       { enableHighAccuracy: true, maximumAge: 60000, timeout: 10000 }
@@ -159,7 +159,7 @@ export default function LocationAlerts({ enabled }) {
       if (watchIdRef.current) navigator.geolocation.clearWatch(watchIdRef.current);
       setWatching(false);
     };
-  }, [enabled]);
+  }, [enabled, t]);
 
   // Save location to Supabase
   const saveLocation = useCallback(
@@ -230,8 +230,8 @@ export default function LocationAlerts({ enabled }) {
 
           // Browser notification
           if ('Notification' in window && Notification.permission === 'granted') {
-            const n = new Notification('⚠️ Earthquake Alert', {
-              body: `M${q.mag} earthquake detected ${dist.toFixed(1)} km away — ${q.place}`,
+            const n = new Notification(t('alerts.notifTitle'), {
+              body: t('alerts.alertMsg', { mag: q.mag, dist: dist.toFixed(1), place: q.place }),
               icon: '/assets/logo.png',
               tag: 'earthquake-alert',
             });
@@ -259,7 +259,7 @@ export default function LocationAlerts({ enabled }) {
     checkQuakes();
     const interval = setInterval(checkQuakes, POLL_MS);
     return () => clearInterval(interval);
-  }, [enabled, userPos, savedLocation, queryClient, soundUnlocked]);
+  }, [enabled, userPos, savedLocation, queryClient, soundUnlocked, t]);
 
   // Stop siren and close alert
   const handleStopSiren = useCallback(() => {
@@ -297,7 +297,7 @@ export default function LocationAlerts({ enabled }) {
   }, [handleStopSiren]);
 
   // Get active location name
-  const locationLabel = savedLocation?.label || (userPos ? 'Current location' : 'No location set');
+  const locationLabel = savedLocation?.label || (userPos ? t('alerts.currentLocation') : t('alerts.noLocation'));
 
   return (
     <>
@@ -312,12 +312,12 @@ export default function LocationAlerts({ enabled }) {
             color="success"
             sx={{ fontWeight: 600, height: 32 }}
           >
-            Enable Sound
+            {t('alerts.enableSound')}
           </Button>
         ) : (
           <Chip
             icon={<CheckCircleIcon />}
-            label="Sound enabled"
+            label={t('alerts.soundEnabled')}
             size="small"
             sx={{ bgcolor: 'success.main', color: '#fff', fontWeight: 600, height: 32 }}
           />
@@ -331,12 +331,12 @@ export default function LocationAlerts({ enabled }) {
           color="warning"
           sx={{ fontWeight: 600, height: 32 }}
         >
-          Test Alert
+          {t('alerts.testAlert')}
         </Button>
 
         {enabled && (watching || savedLocation) && (
           <Chip
-            label={`📍 ${locationLabel} — M3+ alerts within ${RADIUS_KM} km`}
+            label={t('alerts.monitoringMsg', { label: locationLabel, radius: RADIUS_KM })}
             size="small"
             sx={{ bgcolor: 'info.main', color: '#fff', fontWeight: 600, height: 32 }}
           />
@@ -349,7 +349,7 @@ export default function LocationAlerts({ enabled }) {
             onClick={handleEdit}
             sx={{ textTransform: 'none', height: 32 }}
           >
-            Edit
+            {t('alerts.edit')}
           </Button>
         )}
       </Box>
@@ -368,13 +368,13 @@ export default function LocationAlerts({ enabled }) {
 
       {/* Edit location dialog */}
       <Dialog open={editOpen} onClose={() => setEditOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>{savedLocation ? 'Edit Location' : 'Save Location'}</DialogTitle>
+        <DialogTitle>{savedLocation ? t('alerts.editLocation') : t('alerts.saveLocation')}</DialogTitle>
         <DialogContent>
           <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
-            {savedLocation ? 'Update your monitoring location.' : 'Save your current location for earthquake alerts.'}
+            {savedLocation ? t('alerts.updateMsg') : t('alerts.saveMsg')}
           </Typography>
           <TextField
-            label="Label (e.g. Home, Office)"
+            label={t('alerts.labelPlaceholder')}
             fullWidth
             size="small"
             value={editLabel}
@@ -382,29 +382,47 @@ export default function LocationAlerts({ enabled }) {
             sx={{ mb: 2 }}
           />
           <TextField
-            label="Latitude"
+            label={t('alerts.latitude')}
             fullWidth
             size="small"
+            type="number"
+            slotProps={{ htmlInput: { step: 'any' } }}
             value={editLat}
             onChange={(e) => setEditLat(e.target.value)}
+            error={!!editLat && Number.isNaN(parseFloat(editLat))}
+            helperText={!!editLat && Number.isNaN(parseFloat(editLat)) ? t('alerts.invalidCoord') : ''}
             sx={{ mb: 2 }}
           />
           <TextField
-            label="Longitude"
+            label={t('alerts.longitude')}
             fullWidth
             size="small"
+            type="number"
+            slotProps={{ htmlInput: { step: 'any' } }}
             value={editLon}
             onChange={(e) => setEditLon(e.target.value)}
+            error={!!editLon && Number.isNaN(parseFloat(editLon))}
+            helperText={!!editLon && Number.isNaN(parseFloat(editLon)) ? t('alerts.invalidCoord') : ''}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditOpen(false)}>Cancel</Button>
+          <Button onClick={() => setEditOpen(false)}>{t('alerts.cancel')}</Button>
           <Button
             variant="contained"
             onClick={() => saveLocation(parseFloat(editLat), parseFloat(editLon), editLabel)}
-            disabled={saving || !editLat || !editLon}
+            disabled={
+              saving ||
+              !editLat ||
+              !editLon ||
+              Number.isNaN(parseFloat(editLat)) ||
+              Number.isNaN(parseFloat(editLon)) ||
+              parseFloat(editLat) < -90 ||
+              parseFloat(editLat) > 90 ||
+              parseFloat(editLon) < -180 ||
+              parseFloat(editLon) > 180
+            }
           >
-            {saving ? 'Saving...' : 'Save'}
+            {saving ? t('alerts.saving') : t('alerts.save')}
           </Button>
         </DialogActions>
       </Dialog>
@@ -426,12 +444,11 @@ export default function LocationAlerts({ enabled }) {
               onClick={handleStopSiren}
               sx={{ fontWeight: 700 }}
             >
-              Stop Sound
+              {t('alerts.stopSound')}
             </Button>
           }
         >
-          ⚠️ <strong>M{alertQuake?.mag}</strong> earthquake detected{' '}
-          <strong>{alertQuake?.dist} km</strong> away — {alertQuake?.place}
+          ⚠️ {alertQuake && t('alerts.alertMsg', { mag: alertQuake.mag, dist: alertQuake.dist, place: alertQuake.place })}
         </Alert>
       </Snackbar>
     </>

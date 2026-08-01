@@ -25,17 +25,6 @@ const credits = [
 export default function Footer() {
   const { t } = useLang();
 
-  const columns = [
-    {
-      title: t('footer.help'),
-      links: ['FAQ', 'Web Tools', 'Programs', 'Content'],
-    },
-    {
-      title: t('footer.legal'),
-      links: ['Accessibility', 'Privacy Policy', 'Site Policies', 'Copyright'],
-    },
-  ];
-
   return (
     <Box
       component="footer"
@@ -49,28 +38,8 @@ export default function Footer() {
     >
       <Container maxWidth="lg">
         <Grid container spacing={4}>
-          {columns.map((col) => (
-            <Grid size={{ xs: 6, sm: 4, md: 3 }} key={col.title}>
-              <Typography variant="subtitle2" fontWeight={700} gutterBottom>
-                {col.title}
-              </Typography>
-              {col.links.map((link) => (
-                <Link
-                  key={link}
-                  href="#"
-                  underline="hover"
-                  color="text.secondary"
-                  display="block"
-                  sx={{ fontSize: '0.875rem', py: 0.3 }}
-                >
-                  {link}
-                </Link>
-              ))}
-            </Grid>
-          ))}
-
           {/* Credits column */}
-          <Grid size={{ xs: 6, sm: 4, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 8, md: 6 }}>
             <Typography variant="subtitle2" fontWeight={700} gutterBottom>
               {t('footer.credits')}
             </Typography>
@@ -91,7 +60,7 @@ export default function Footer() {
           </Grid>
 
           {/* Social column */}
-          <Grid size={{ xs: 12, sm: 12, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 4, md: 6 }}>
             <Typography variant="subtitle2" fontWeight={700} gutterBottom>
               {t('footer.followUs')}
             </Typography>

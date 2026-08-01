@@ -41,6 +41,7 @@ import { useLang } from '../i18n';
 
 const NAV_ITEMS = [
   { key: 'nav.home', path: '/' },
+  { key: 'nav.learn', path: '/learn' },
   { key: 'nav.recovery', path: '/recovery' },
   { key: 'nav.donate', path: '/donate' },
   { key: 'nav.quiz', path: '/quiz' },
@@ -90,7 +91,7 @@ export default function Navbar({ mode, toggleTheme }) {
               <IconButton
                 onClick={() => setDrawerOpen(true)}
                 size="small"
-                aria-label="Open navigation menu"
+                aria-label={t('nav.openMenu')}
                 sx={{ color: 'text.primary' }}
               >
                 <MenuIcon />
@@ -116,7 +117,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   whiteSpace: 'nowrap',
                 }}
               >
-                Earthquake & Recovery
+                {t('nav.siteName')}
               </Typography>
             </Box>
           </Box>
@@ -163,7 +164,7 @@ export default function Navbar({ mode, toggleTheme }) {
             {/* Theme toggle */}
             <IconButton
               onClick={toggleTheme}
-              aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={mode === 'dark' ? t('nav.switchLight') : t('nav.switchDark')}
               sx={{ color: 'text.primary', width: 38, height: 38 }}
             >
               {mode === 'dark' ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
@@ -172,7 +173,7 @@ export default function Navbar({ mode, toggleTheme }) {
             {/* Language toggle */}
             <IconButton
               onClick={() => setLang(lang === 'en' ? 'my' : 'en')}
-              aria-label={lang === 'en' ? 'Switch to Myanmar' : 'Switch to English'}
+              aria-label={lang === 'en' ? t('nav.switchMyanmar') : t('nav.switchEnglish')}
               sx={{ color: 'text.primary', width: 38, height: 38, fontSize: '0.75rem', fontWeight: 700 }}
             >
               {lang === 'en' ? 'မြန်' : 'EN'}

@@ -33,8 +33,6 @@ import TsunamiIcon from '@mui/icons-material/Water';
 import MoneyIcon from '@mui/icons-material/AttachMoney';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { useLang } from '../i18n';
@@ -80,6 +78,11 @@ function formatNumber(n) {
   if (n === 'Unknown' || n == null) return '—';
   if (typeof n === 'string') return n;
   return n.toLocaleString();
+}
+
+function openInGmaps(coords) {
+  const [lat, lng] = coords;
+  window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank', 'noopener,noreferrer');
 }
 
 /* ──────────────────── MINI MAP ──────────────────────── */
@@ -153,7 +156,7 @@ function MiniEpicenterMap({ coords, color }) {
 
 /* ──────────────────── IMAGE LIGHTBOX ──────────────────────── */
 
-function ImageLightbox({ open, onClose, image, caption, onNext, onPrev, hasNext, hasPrev }) {
+function ImageLightbox({ open, onClose, image, caption }) {
   return (
     <Dialog
       open={open}
@@ -165,28 +168,11 @@ function ImageLightbox({ open, onClose, image, caption, onNext, onPrev, hasNext,
       <DialogContent sx={{ p: 0, position: 'relative', display: 'flex', flexDirection: 'column' }}>
         <IconButton
           onClick={onClose}
+          aria-label="Close"
           sx={{ position: 'absolute', top: 8, right: 8, color: '#fff', zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)' }}
         >
           <CloseIcon />
         </IconButton>
-
-        {hasPrev && (
-          <IconButton
-            onClick={onPrev}
-            sx={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', color: '#fff', zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)' }}
-          >
-            <NavigateBeforeIcon sx={{ fontSize: 36 }} />
-          </IconButton>
-        )}
-
-        {hasNext && (
-          <IconButton
-            onClick={onNext}
-            sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', color: '#fff', zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)' }}
-          >
-            <NavigateNextIcon sx={{ fontSize: 36 }} />
-          </IconButton>
-        )}
 
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300 }}>
           <Box
@@ -288,7 +274,19 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
 
         {/* ── Hero Image ── */}
         {data?.image && (
-          <Box sx={{ position: 'relative', cursor: 'pointer' }} onClick={handleImageClick}>
+          <Box
+            sx={{ position: 'relative', cursor: 'pointer' }}
+            role="button"
+            tabIndex={0}
+            aria-label={data.imageCaption || q.location}
+            onClick={handleImageClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleImageClick();
+              }
+            }}
+          >
             <CardMedia
               component="img"
               height="220"
@@ -345,7 +343,7 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
                   {q.magnitude}
                 </Typography>
                 <Typography sx={{ fontSize: '0.55rem', fontWeight: 600, color, opacity: 0.7, textTransform: 'uppercase', letterSpacing: 0.5, lineHeight: 1, mt: 0.25 }}>
-                  Mag
+                  {t('history.mag')}
                 </Typography>
               </Box>
             </motion.div>
@@ -408,6 +406,8 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
                 </Box>
                 <Typography
                   variant="caption"
+                  role="button"
+                  tabIndex={0}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -417,16 +417,22 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
                     cursor: 'pointer',
                     '&:hover': { textDecoration: 'underline' },
                   }}
-                  onClick={() => {
-                    const [lat, lng] = data.coords;
-                    window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank', 'noopener,noreferrer');
+                  onClick={() => openInGmaps(data.coords)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openInGmaps(data.coords);
+                    }
                   }}
                 >
-                  Open in Google Maps
+                  {t('history.openInGmaps')}
                   <OpenInNewIcon sx={{ fontSize: 12 }} />
                 </Typography>
               </Box>
               <Box
+                role="button"
+                tabIndex={0}
+                aria-label={t('history.openInGmaps')}
                 sx={{
                   position: 'relative',
                   cursor: 'pointer',
@@ -435,10 +441,14 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
                   border: '1px solid',
                   borderColor: 'divider',
                   '&:hover .map-overlay': { opacity: 1 },
+                  '&:focus-visible .map-overlay': { opacity: 1 },
                 }}
-                onClick={() => {
-                  const [lat, lng] = data.coords;
-                  window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank', 'noopener,noreferrer');
+                onClick={() => openInGmaps(data.coords)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openInGmaps(data.coords);
+                  }
                 }}
               >
                 <MiniEpicenterMap coords={data.coords} color={color} />
@@ -461,7 +471,7 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
                   <Box sx={{ textAlign: 'center', color: '#fff' }}>
                     <MapIcon sx={{ fontSize: 32, mb: 0.5 }} />
                     <Typography variant="caption" fontWeight={600}>
-                      Open in Google Maps
+                      {t('history.openInGmaps')}
                     </Typography>
                   </Box>
                 </Box>
@@ -497,7 +507,15 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
 
           {/* ── Expand toggle ── */}
           <Box
+            role="button"
+            tabIndex={0}
             onClick={() => setExpanded((e) => !e)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setExpanded((exp) => !exp);
+              }
+            }}
             sx={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5,
               mt: 1, py: 0.5, cursor: 'pointer', borderRadius: 1,
@@ -543,7 +561,8 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
                           }}
                         >
                           <OpenInNewIcon sx={{ fontSize: 14 }} />
-                          {src.replace('https://en.wikipedia.org/wiki/', 'Wikipedia: ').replace(/_/g, ' ')}
+                          {t('history.wikipediaPrefix')}
+                          {src.replace('https://en.wikipedia.org/wiki/', '').replace(/_/g, ' ')}
                         </Link>
                       ))}
                     </Box>
@@ -674,10 +693,6 @@ export default function History() {
         onClose={handleCloseLightbox}
         image={lightbox.image}
         caption={lightbox.caption}
-        onNext={null}
-        onPrev={null}
-        hasNext={false}
-        hasPrev={false}
       />
     </Box>
   );

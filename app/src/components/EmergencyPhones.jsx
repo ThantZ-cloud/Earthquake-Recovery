@@ -24,8 +24,10 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
 import PhoneIcon from '@mui/icons-material/Phone';
 import { cities, getPhonesByCity } from '../data/emergencyPhones';
+import { useLang } from '../i18n';
 
 export default function EmergencyPhones() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
   const [search, setSearch] = useState('');
@@ -44,7 +46,7 @@ export default function EmergencyPhones() {
       {/* Trigger button */}
       <IconButton
         onClick={() => setOpen(true)}
-        aria-label="Emergency Phone Numbers"
+        aria-label={t('emergency.ariaLabel')}
         sx={{
           color: 'text.primary',
           width: 38,
@@ -77,10 +79,10 @@ export default function EmergencyPhones() {
               </Avatar>
               <Box sx={{ flex: 1 }}>
                 <Typography variant="h6" fontWeight={700} fontSize="1.1rem">
-                  Emergency Numbers
+                  {t('emergency.title')}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Select a city to view contacts
+                  {t('emergency.selectCity')}
                 </Typography>
               </Box>
               <CloseBtn onClick={() => { setOpen(false); setSearch(''); }} size="small">
@@ -90,10 +92,10 @@ export default function EmergencyPhones() {
 
             {/* City Selector */}
             <FormControl fullWidth size="small" sx={{ mb: 1.5 }}>
-              <InputLabel>Select City</InputLabel>
+              <InputLabel>{t('emergency.cityLabel')}</InputLabel>
               <Select
                 value={selectedCity}
-                label="Select City"
+                label={t('emergency.cityLabel')}
                 onChange={(e) => { setSelectedCity(e.target.value); setSearch(''); }}
               >
                 {cities.map((city) => (
@@ -122,7 +124,7 @@ export default function EmergencyPhones() {
                       {selectedCity}
                     </Typography>
                     <Chip
-                      label={`${filtered.length} contacts`}
+                      label={`${filtered.length} ${t('emergency.contacts')}`}
                       size="small"
                       color="error"
                       variant="outlined"
@@ -133,7 +135,7 @@ export default function EmergencyPhones() {
                   <TextField
                     fullWidth
                     size="small"
-                    placeholder="Search by name or number..."
+                    placeholder={t('emergency.searchPlaceholder')}
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     slotProps={{
@@ -154,21 +156,23 @@ export default function EmergencyPhones() {
                 {filtered.length > 0 ? (
                   <List disablePadding dense>
                     {filtered.map((p, i) => (
-                      <ListItem
-                        key={i}
-                        sx={{
-                          px: 2,
-                          py: 1.2,
-                          borderRadius: 2,
-                          mb: 0.5,
-                          bgcolor: i % 2 === 0 ? 'action.hover' : 'transparent',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          gap: 1,
-                          transition: 'background-color 0.2s',
-                          '&:hover': { bgcolor: 'action.selected' },
-                        }}
-                      >
+                        <ListItem
+                          key={i}
+                          sx={{
+                            px: 2,
+                            py: 1.2,
+                            borderRadius: 2,
+                            mb: 0.5,
+                            bgcolor: i % 2 === 0 ? 'action.hover' : 'transparent',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            gap: 1,
+                            flexWrap: 'wrap',
+                            transition: 'background-color 0.2s',
+                            '&:hover': { bgcolor: 'action.selected' },
+                          }}
+                        >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
                           <PhoneIcon fontSize="small" color="action" sx={{ flexShrink: 0 }} />
                           <ListItemText
@@ -197,7 +201,7 @@ export default function EmergencyPhones() {
                   </List>
                 ) : search ? (
                   <Typography color="text.secondary" textAlign="center" sx={{ py: 4 }}>
-                    No matching contacts found.
+                    {t('emergency.noResults')}
                   </Typography>
                 ) : null}
               </>
@@ -207,10 +211,10 @@ export default function EmergencyPhones() {
               <Box sx={{ textAlign: 'center', py: 8 }}>
                 <LocalPhoneIcon sx={{ fontSize: 56, color: 'grey.300', mb: 2 }} />
                 <Typography color="text.secondary">
-                  Choose a city from the dropdown above
+                  {t('emergency.chooseCity')}
                 </Typography>
                 <Typography variant="caption" color="text.disabled" display="block" sx={{ mt: 0.5 }}>
-                  13 cities · 20+ emergency contacts each
+                  {t('emergency.stats')}
                 </Typography>
               </Box>
             )}
@@ -220,7 +224,7 @@ export default function EmergencyPhones() {
           <Divider />
           <Box sx={{ p: 1.5, textAlign: 'center' }}>
             <Typography variant="caption" color="text.disabled">
-              📞 In life-threatening situations, always call <strong>191 / 192 / 199</strong> first.
+              {t('emergency.warning')}
             </Typography>
           </Box>
         </Box>

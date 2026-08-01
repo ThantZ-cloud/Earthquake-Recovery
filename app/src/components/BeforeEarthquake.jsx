@@ -95,7 +95,7 @@ export default function BeforeEarthquake() {
         {/* Sections */}
         <Grid container spacing={4}>
           {SECTIONS.map((section, i) => (
-            <Grid size={{ xs: 12, md: 6 }} key={section.title}>
+            <Grid size={{ xs: 12, md: 6 }} key={section.titleKey}>
               <motion.div
                 initial="hidden"
                 whileInView="visible"

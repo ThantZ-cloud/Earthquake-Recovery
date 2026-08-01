@@ -138,7 +138,7 @@ export default function DuringEarthquake() {
         {/* Scenario cards */}
         <Grid container spacing={4}>
           {SCENARIOS.map((scenario, i) => (
-            <Grid size={{ xs: 12, md: 6 }} key={scenario.title}>
+            <Grid size={{ xs: 12, md: 6 }} key={scenario.titleKey}>
               <motion.div
                 initial="hidden"
                 whileInView="visible"

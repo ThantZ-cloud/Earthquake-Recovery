@@ -236,7 +236,6 @@ export default function Recovery() {
         <Tabs
           value={tab}
           onChange={(_, v) => setTab(v)}
-          centered
           variant="fullWidth"
           TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
         >

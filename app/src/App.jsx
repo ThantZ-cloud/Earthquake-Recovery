@@ -12,6 +12,7 @@ import PageSkeleton from './components/PageSkeleton';
 import HomeSkeleton from './components/HomeSkeleton';
 
 const Home = lazy(() => import('./pages/Home'));
+const Learn = lazy(() => import('./pages/Learn'));
 
 const Recovery = lazy(() => import('./pages/Recovery'));
 const Donate = lazy(() => import('./pages/Donate'));
@@ -54,6 +55,16 @@ export default function App() {
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<AnimatedPage><Suspense fallback={<HomeSkeleton />}><Home /></Suspense></AnimatedPage>} />
+              <Route
+                path="/learn"
+                element={
+                  <AnimatedPage>
+                    <Suspense fallback={<HomeSkeleton />}>
+                      <Learn />
+                    </Suspense>
+                  </AnimatedPage>
+                }
+              />
               <Route
                 path="/recovery"
                 element={

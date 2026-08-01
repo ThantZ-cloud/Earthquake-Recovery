@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "learn": "Learn",
     "recovery": "Recovery",
     "donate": "Donate",
     "quiz": "Quiz",
@@ -13,7 +14,12 @@
     "confirmLogout": "Confirm Logout",
     "confirmLogoutMsg": "Are you sure you want to log out?",
     "cancel": "Cancel",
-    "siteName": "Earthquake & Recovery"
+    "siteName": "Earthquake & Recovery",
+    "openMenu": "Open navigation menu",
+    "switchDark": "Switch to dark mode",
+    "switchLight": "Switch to light mode",
+    "switchMyanmar": "Switch to Myanmar",
+    "switchEnglish": "Switch to English"
   },
   "home": {
     "hero": {
@@ -40,6 +46,12 @@
       "ctaLogin": "Login to Enable Alerts",
       "ctaLocation": "Allow Location Access",
       "activeMsg": "You'll be notified if a M3+ earthquake occurs within 50 km of your location."
+    }
+  },
+  "learn": {
+    "hero": {
+      "title": "Learn About Earthquakes",
+      "subtitle": "Understand what earthquakes are, how they are measured, and how to stay safe — before, during, and after."
     }
   },
   "footer": {
@@ -74,155 +86,306 @@
     "questions": [
       {
         "q": "What should you do FIRST during an earthquake if you are indoors?",
-        "options": ["Run outside immediately", "Drop, Cover, and Hold On", "Stand in a doorway", "Call emergency services"],
+        "options": [
+          "Run outside immediately",
+          "Drop, Cover, and Hold On",
+          "Stand in a doorway",
+          "Call emergency services"
+        ],
         "category": "Safety"
       },
       {
         "q": "Which scale is used to measure earthquake magnitude?",
-        "options": ["Fahrenheit scale", "Richter scale / Moment Magnitude Scale", "Beaufort scale", "pH scale"],
+        "options": [
+          "Fahrenheit scale",
+          "Richter scale / Moment Magnitude Scale",
+          "Beaufort scale",
+          "pH scale"
+        ],
         "category": "Science"
       },
       {
         "q": "What is the Earth's outermost layer called?",
-        "options": ["Mantle", "Core", "Crust", "Atmosphere"],
+        "options": [
+          "Mantle",
+          "Core",
+          "Crust",
+          "Atmosphere"
+        ],
         "category": "Science"
       },
       {
         "q": "Which region experiences the most earthquakes?",
-        "options": ["Sahara Desert", "Pacific Ring of Fire", "Siberian Plains", "Amazon Rainforest"],
+        "options": [
+          "Sahara Desert",
+          "Pacific Ring of Fire",
+          "Siberian Plains",
+          "Amazon Rainforest"
+        ],
         "category": "Geography"
       },
       {
         "q": "What is an aftershock?",
-        "options": ["A warning before an earthquake", "A smaller earthquake following the main shock", "A volcanic eruption", "A type of tsunami"],
+        "options": [
+          "A warning before an earthquake",
+          "A smaller earthquake following the main shock",
+          "A volcanic eruption",
+          "A type of tsunami"
+        ],
         "category": "Science"
       },
       {
         "q": "What should you avoid during an earthquake?",
-        "options": ["Staying under a table", "Using elevators", "Covering your head", "Staying away from windows"],
+        "options": [
+          "Staying under a table",
+          "Using elevators",
+          "Covering your head",
+          "Staying away from windows"
+        ],
         "category": "Safety"
       },
       {
         "q": "How fast do seismic waves travel through the Earth?",
-        "options": ["1–10 km/h", "100–200 km/h", "3–14 km/s", "300,000 km/s"],
+        "options": [
+          "1–10 km/h",
+          "100–200 km/h",
+          "3–14 km/s",
+          "300,000 km/s"
+        ],
         "category": "Science"
       },
       {
         "q": "What causes most earthquake-related deaths?",
-        "options": ["The shaking itself", "Building collapse", "Tsunamis", "Fires"],
+        "options": [
+          "The shaking itself",
+          "Building collapse",
+          "Tsunamis",
+          "Fires"
+        ],
         "category": "Safety"
       },
       {
         "q": "What is a tsunami?",
-        "options": ["A type of earthquake", "A giant ocean wave often triggered by underwater earthquakes", "A volcanic eruption", "A weather phenomenon"],
+        "options": [
+          "A type of earthquake",
+          "A giant ocean wave often triggered by underwater earthquakes",
+          "A volcanic eruption",
+          "A weather phenomenon"
+        ],
         "category": "Science"
       },
       {
         "q": "Which Myanmar city sits near the Sagaing Fault?",
-        "options": ["Yangon", "Mandalay", "Pathein", "Sittwe"],
+        "options": [
+          "Yangon",
+          "Mandalay",
+          "Pathein",
+          "Sittwe"
+        ],
         "category": "Geography"
       },
       {
         "q": "What should your emergency kit include?",
-        "options": ["Only food", "Water, food, first-aid kit, flashlight, batteries", "A phone charger only", "Just a blanket"],
+        "options": [
+          "Only food",
+          "Water, food, first-aid kit, flashlight, batteries",
+          "A phone charger only",
+          "Just a blanket"
+        ],
         "category": "Safety"
       },
       {
         "q": "What is the Modified Mercalli Intensity (MMI) scale based on?",
-        "options": ["Energy released at the source", "Observed effects and damage at a location", "Depth of the earthquake", "Distance from the epicenter"],
+        "options": [
+          "Energy released at the source",
+          "Observed effects and damage at a location",
+          "Depth of the earthquake",
+          "Distance from the epicenter"
+        ],
         "category": "Science"
       },
       {
         "q": "What is the \"epicenter\" of an earthquake?",
-        "options": ["The deepest point inside the Earth", "The point on the surface directly above the focus", "The loudest part of the quake", "The last area to stop shaking"],
+        "options": [
+          "The deepest point inside the Earth",
+          "The point on the surface directly above the focus",
+          "The loudest part of the quake",
+          "The last area to stop shaking"
+        ],
         "category": "Science"
       },
       {
         "q": "What should you do if you are driving during an earthquake?",
-        "options": ["Speed up to escape the area", "Pull over, stop, and stay inside the car", "Get out of the car immediately", "Keep driving slowly"],
+        "options": [
+          "Speed up to escape the area",
+          "Pull over, stop, and stay inside the car",
+          "Get out of the car immediately",
+          "Keep driving slowly"
+        ],
         "category": "Safety"
       },
       {
         "q": "What is a fault line?",
-        "options": ["A type of earthquake", "A crack in the Earth's crust where movement occurs", "A man-made structure", "A type of building damage"],
+        "options": [
+          "A type of earthquake",
+          "A crack in the Earth's crust where movement occurs",
+          "A man-made structure",
+          "A type of building damage"
+        ],
         "category": "Science"
       },
       {
         "q": "Which country has the most earthquakes per year?",
-        "options": ["United States", "Japan", "Indonesia", "Chile"],
+        "options": [
+          "United States",
+          "Japan",
+          "Indonesia",
+          "Chile"
+        ],
         "category": "Geography"
       },
       {
         "q": "What is \"liquefaction\" during an earthquake?",
-        "options": ["Water flowing from pipes", "Solid ground temporarily behaving like a liquid", "Buildings melting from heat", "Gas leaking from the ground"],
+        "options": [
+          "Water flowing from pipes",
+          "Solid ground temporarily behaving like a liquid",
+          "Buildings melting from heat",
+          "Gas leaking from the ground"
+        ],
         "category": "Science"
       },
       {
         "q": "How should you protect yourself from falling objects during an earthquake?",
-        "options": ["Run to the nearest wall", "Get under a sturdy table or desk", "Stand in the middle of the room", "Lie flat on the ground"],
+        "options": [
+          "Run to the nearest wall",
+          "Get under a sturdy table or desk",
+          "Stand in the middle of the room",
+          "Lie flat on the ground"
+        ],
         "category": "Safety"
       },
       {
         "q": "What is the \"focus\" (hypocenter) of an earthquake?",
-        "options": ["The loudest point of the quake", "The point inside the Earth where the quake originates", "The surface point above the quake", "The area of worst damage"],
+        "options": [
+          "The loudest point of the quake",
+          "The point inside the Earth where the quake originates",
+          "The surface point above the quake",
+          "The area of worst damage"
+        ],
         "category": "Science"
       },
       {
         "q": "What year did the devastating earthquake hit Bago, Myanmar?",
-        "options": ["1975", "1930", "2016", "2004"],
+        "options": [
+          "1975",
+          "1930",
+          "2016",
+          "2004"
+        ],
         "category": "Geography"
       },
       {
         "q": "What is the primary danger after an earthquake?",
-        "options": ["Aftershocks", "Heavy rain", "Cold weather", "Strong winds"],
+        "options": [
+          "Aftershocks",
+          "Heavy rain",
+          "Cold weather",
+          "Strong winds"
+        ],
         "category": "Safety"
       },
       {
         "q": "What magnitude is considered a \"major\" earthquake?",
-        "options": ["4.0–4.9", "5.0–5.9", "7.0 and above", "3.0 and below"],
+        "options": [
+          "4.0–4.9",
+          "5.0–5.9",
+          "7.0 and above",
+          "3.0 and below"
+        ],
         "category": "Science"
       },
       {
         "q": "What should you do after an earthquake if you are in a damaged building?",
-        "options": ["Stay inside and wait", "Evacuate carefully and move to open ground", "Go to the roof", "Use the elevator to leave"],
+        "options": [
+          "Stay inside and wait",
+          "Evacuate carefully and move to open ground",
+          "Go to the roof",
+          "Use the elevator to leave"
+        ],
         "category": "Safety"
       },
       {
         "q": "What does P-waves stand for?",
-        "options": ["Primary waves", "Power waves", "Pressure waves", "Passive waves"],
+        "options": [
+          "Primary waves",
+          "Power waves",
+          "Pressure waves",
+          "Passive waves"
+        ],
         "category": "Science"
       },
       {
         "q": "Which organization provides earthquake early warnings in many countries?",
-        "options": ["WHO", "USGS", "UNESCO", "IMF"],
+        "options": [
+          "WHO",
+          "USGS",
+          "UNESCO",
+          "IMF"
+        ],
         "category": "Geography"
       },
       {
         "q": "What is the \"Ring of Fire\"?",
-        "options": ["A volcanic mountain range", "A zone of frequent earthquakes and volcanoes around the Pacific Ocean", "A type of earthquake measurement", "A fire caused by earthquakes"],
+        "options": [
+          "A volcanic mountain range",
+          "A zone of frequent earthquakes and volcanoes around the Pacific Ocean",
+          "A type of earthquake measurement",
+          "A fire caused by earthquakes"
+        ],
         "category": "Geography"
       },
       {
         "q": "What is the best way to secure heavy furniture at home?",
-        "options": ["Leave it as is", "Anchor it to the wall with brackets or straps", "Place it near windows", "Put heavy items on top shelves"],
+        "options": [
+          "Leave it as is",
+          "Anchor it to the wall with brackets or straps",
+          "Place it near windows",
+          "Put heavy items on top shelves"
+        ],
         "category": "Safety"
       },
       {
         "q": "How much of the Earth's surface is affected by the Ring of Fire?",
-        "options": ["About 10%", "About 25%", "About 40%", "About 75%"],
+        "options": [
+          "About 10%",
+          "About 25%",
+          "About 40%",
+          "About 75%"
+        ],
         "category": "Geography"
       },
       {
         "q": "What is a seismograph used for?",
-        "options": ["Measuring wind speed", "Recording earthquake waves", "Predicting weather", "Measuring temperature"],
+        "options": [
+          "Measuring wind speed",
+          "Recording earthquake waves",
+          "Predicting weather",
+          "Measuring temperature"
+        ],
         "category": "Science"
       },
       {
         "q": "What should you do if you smell gas after an earthquake?",
-        "options": ["Light a match to check", "Turn on lights to inspect", "Open windows, leave the building, and call from outside", "Ignore it if the smell is mild"],
+        "options": [
+          "Light a match to check",
+          "Turn on lights to inspect",
+          "Open windows, leave the building, and call from outside",
+          "Ignore it if the smell is mild"
+        ],
         "category": "Safety"
       }
-    ]
+    ],
+    "stepLabel": "Q{n}"
   },
   "donate": {
     "title": "Support Recovery Efforts",
@@ -335,7 +498,8 @@
         "Add reference: \"Donation - Earthquake Relief\"",
         "Confirm the transfer"
       ]
-    }
+    },
+    "close": "Close"
   },
   "history": {
     "title": "Historical Earthquakes",
@@ -377,132 +541,199 @@
         "injuries": 3000,
         "tsunami": true,
         "economicLoss": "$800M",
-        "coords": [-39.5, -74.5],
+        "coords": [
+          -39.5,
+          -74.5
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/1960_Valdivia_earthquake_damage.jpg/800px-1960_Valdivia_earthquake_damage.jpg",
         "imageCaption": "Damage in Valdivia, Chile after the 1960 earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/1960_Valdivia_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1960_Valdivia_earthquake"
+        ]
       },
       "intl_1964": {
         "deaths": 131,
         "injuries": 200,
         "tsunami": true,
         "economicLoss": "$311M",
-        "coords": [61.02, -147.65],
+        "coords": [
+          61.02,
+          -147.65
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/1964_Alaska_earthquake_-_Fourth_Avenue_damage.jpg/800px-1964_Alaska_earthquake_-_Fourth_Avenue_damage.jpg",
         "imageCaption": "Fourth Avenue in Anchorage, Alaska after the 1964 earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/1964_Alaska_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1964_Alaska_earthquake"
+        ]
       },
       "intl_2004": {
         "deaths": 227898,
         "injuries": 150000,
         "tsunami": true,
         "economicLoss": "$10B",
-        "coords": [3.32, 95.85],
+        "coords": [
+          3.32,
+          95.85
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/2004_Indonesia_Tsunami_Complete.gif/800px-2004_Indonesia_Tsunami_Complete.gif",
         "imageCaption": "Animation of the 2004 Indian Ocean tsunami propagation",
-        "sources": ["https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/2004_Indian_Ocean_earthquake_and_tsunami"
+        ]
       },
       "intl_2011": {
         "deaths": 15899,
         "injuries": 6152,
         "tsunami": true,
         "economicLoss": "$360B",
-        "coords": [38.3, 142.4],
+        "coords": [
+          38.3,
+          142.4
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2011_Sendai_Tsunami.jpg/800px-2011_Sendai_Tsunami.jpg",
         "imageCaption": "The 2011 Tohoku tsunami approaching the coast of Japan",
-        "sources": ["https://en.wikipedia.org/wiki/2011_T%C5%8Dhoku_earthquake_and_tsunami"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/2011_T%C5%8Dhoku_earthquake_and_tsunami"
+        ]
       },
       "intl_1952": {
         "deaths": 2336,
         "injuries": 500,
         "tsunami": true,
         "economicLoss": "Unknown",
-        "coords": [49.9, 156.5],
+        "coords": [
+          49.9,
+          156.5
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Kamchatka_1952_Tsunami.png/800px-Kamchatka_1952_Tsunami.png",
         "imageCaption": "Tsunami propagation from the 1952 Kamchatka earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/1952_Kamchatka_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1952_Kamchatka_earthquake"
+        ]
       },
       "intl_2010": {
         "deaths": 526,
         "injuries": 12000,
         "tsunami": true,
         "economicLoss": "$30B",
-        "coords": [-35.85, -72.72],
+        "coords": [
+          -35.85,
+          -72.72
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/2010_Chile_earthquake_-_Concepcion.jpg/800px-2010_Chile_earthquake_-_Concepcion.jpg",
         "imageCaption": "Damage in Concepcion, Chile after the 2010 earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/2010_Chile_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/2010_Chile_earthquake"
+        ]
       },
       "mmr_2025": {
         "deaths": 3500,
         "injuries": 4500,
         "tsunami": false,
         "economicLoss": "$5B+",
-        "coords": [22.0, 96.0],
+        "coords": [
+          22,
+          96
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Sagaing_Myanmar_Earthquake_2025.jpg/800px-Sagaing_Myanmar_Earthquake_2025.jpg",
         "imageCaption": "Damage from the 2025 Myanmar earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/March_2025_Myanmar_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/March_2025_Myanmar_earthquake"
+        ]
       },
       "mmr_1839": {
         "deaths": 300,
         "injuries": "Unknown",
         "tsunami": false,
         "economicLoss": "Unknown",
-        "coords": [21.87, 96.03],
+        "coords": [
+          21.87,
+          96.03
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Ava_19th_century.jpg/800px-Ava_19th_century.jpg",
         "imageCaption": "The ancient capital of Ava (Innwa), Myanmar",
-        "sources": ["https://en.wikipedia.org/wiki/1839_Ava_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1839_Ava_earthquake"
+        ]
       },
       "mmr_1946": {
         "deaths": 200,
         "injuries": 500,
         "tsunami": false,
         "economicLoss": "Unknown",
-        "coords": [22.0, 96.1],
+        "coords": [
+          22,
+          96.1
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Sagaing_Bridge_Myanmar.jpg/800px-Sagaing_Bridge_Myanmar.jpg",
         "imageCaption": "Sagaing region, Myanmar",
-        "sources": ["https://en.wikipedia.org/wiki/1946_Sagaing_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1946_Sagaing_earthquake"
+        ]
       },
       "mmr_2016": {
         "deaths": 3,
         "injuries": 13,
         "tsunami": false,
         "economicLoss": "$100M+",
-        "coords": [21.17, 94.87],
+        "coords": [
+          21.17,
+          94.87
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bagan_Temples_from_above.jpg/800px-Bagan_Temples_from_above.jpg",
         "imageCaption": "Bagan temples, Myanmar - damaged in the 2016 earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/August_2016_Myanmar_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/August_2016_Myanmar_earthquake"
+        ]
       },
       "mmr_2012": {
         "deaths": 11,
         "injuries": 60,
         "tsunami": false,
         "economicLoss": "$50M",
-        "coords": [23.0, 96.0],
+        "coords": [
+          23,
+          96
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Shwebo_Myanmar.jpg/800px-Shwebo_Myanmar.jpg",
         "imageCaption": "Shwebo region, Myanmar",
-        "sources": ["https://en.wikipedia.org/wiki/2012_Myanmar_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/2012_Myanmar_earthquake"
+        ]
       },
       "mmr_1930": {
         "deaths": 500,
         "injuries": 2000,
         "tsunami": false,
         "economicLoss": "Unknown",
-        "coords": [17.3, 96.5],
+        "coords": [
+          17.3,
+          96.5
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bago_Myanmar_Shwe_maw_daw_pagoda.jpg/800px-Bago_Myanmar_Shwe_maw_daw_pagoda.jpg",
         "imageCaption": "Bago, Myanmar - site of the 1930 earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/1930_Bago_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1930_Bago_earthquake"
+        ]
       },
       "mmr_1975": {
         "deaths": 12,
         "injuries": 50,
         "tsunami": false,
         "economicLoss": "$20M",
-        "coords": [21.17, 94.87],
+        "coords": [
+          21.17,
+          94.87
+        ],
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bagan_Temples_from_above.jpg/800px-Bagan_Temples_from_above.jpg",
         "imageCaption": "Bagan temples damaged in the 1975 earthquake",
-        "sources": ["https://en.wikipedia.org/wiki/1975_Bagan_earthquake"]
+        "sources": [
+          "https://en.wikipedia.org/wiki/1975_Bagan_earthquake"
+        ]
       }
-    }
+    },
+    "openInGmaps": "Open in Google Maps",
+    "wikipediaPrefix": "Wikipedia: "
   },
   "recovery": {
     "title": "Recovery Resources",
@@ -779,6 +1010,7 @@
     "passwordMin": "Password must be at least 6 characters."
   },
   "emergency": {
+    "ariaLabel": "Emergency Phone Numbers",
     "title": "Emergency Numbers",
     "selectCity": "Select a city to view contacts",
     "cityLabel": "Select City",
@@ -791,6 +1023,10 @@
   },
   "alerts": {
     "testAlert": "Test Alert",
+    "enableSound": "Enable Sound",
+    "soundEnabled": "Sound enabled",
+    "monitoringMsg": "📍 {label} — M3+ alerts within {radius} km",
+    "cancel": "Cancel",
     "currentLocation": "Current location",
     "noLocation": "No location set",
     "edit": "Edit",
@@ -803,6 +1039,7 @@
     "labelPlaceholder": "Label (e.g. Home, Office)",
     "latitude": "Latitude",
     "longitude": "Longitude",
+    "invalidCoord": "Please enter a valid coordinate.",
     "stopSound": "Stop Sound",
     "alertMsg": "M{mag} earthquake detected {dist} km away — {place}",
     "geoNotSupported": "Geolocation is not supported by your browser.",
@@ -816,6 +1053,7 @@
     "tileStep": "Map tiles",
     "dataStep": "Earthquake data",
     "popup": {
+      "location": "Location:",
       "magnitude": "Magnitude:",
       "depth": "Depth:",
       "time": "Time:"
@@ -827,7 +1065,10 @@
       "function": "Function:",
       "river": "River:",
       "state": "State:",
-      "year": "Year:"
+      "year": "Year:",
+      "riskHigh": "⚠️ High Risk (0–30 km)",
+      "riskMedium": "⚠️ Medium Risk (30–80 km)",
+      "riskLow": "⚠️ Low Risk (>80 km)"
     },
     "faultDist": "km from fault",
     "layers": {
@@ -878,23 +1119,64 @@
     "energyTitle": "Energy Comparison",
     "energyDesc": "A magnitude 9.0 earthquake releases as much energy as 480 million tons of TNT — equivalent to about 31,000 Hiroshima atomic bombs.",
     "scale": {
-      "micro": { "label": "Micro", "desc": "Not felt by people. Recorded by seismographs only. Millions occur each year." },
-      "minor": { "label": "Minor", "desc": "Felt by some people indoors. Rarely causes damage. Like a passing truck." },
-      "light": { "label": "Light", "desc": "Felt by most people. Dishes rattle, doors swing. Minor damage possible." },
-      "moderate": { "label": "Moderate", "desc": "Felt by everyone. Furniture moves. Some structural damage to weak buildings." },
-      "strong": { "label": "Strong", "desc": "Damage to well-built structures. Felt over wide areas. Can be destructive in populated regions." },
-      "major": { "label": "Major", "desc": "Serious damage over large areas. Buildings collapse. Ground cracks appear." },
-      "great": { "label": "Great", "desc": "Severe damage over vast areas. Total destruction near the epicenter. Affects millions." },
-      "devastating": { "label": "Devastating", "desc": "Catastrophic destruction. Entire regions leveled. Triggers tsunamis and landslides." }
+      "micro": {
+        "label": "Micro",
+        "desc": "Not felt by people. Recorded by seismographs only. Millions occur each year."
+      },
+      "minor": {
+        "label": "Minor",
+        "desc": "Felt by some people indoors. Rarely causes damage. Like a passing truck."
+      },
+      "light": {
+        "label": "Light",
+        "desc": "Felt by most people. Dishes rattle, doors swing. Minor damage possible."
+      },
+      "moderate": {
+        "label": "Moderate",
+        "desc": "Felt by everyone. Furniture moves. Some structural damage to weak buildings."
+      },
+      "strong": {
+        "label": "Strong",
+        "desc": "Damage to well-built structures. Felt over wide areas. Can be destructive in populated regions."
+      },
+      "major": {
+        "label": "Major",
+        "desc": "Serious damage over large areas. Buildings collapse. Ground cracks appear."
+      },
+      "great": {
+        "label": "Great",
+        "desc": "Severe damage over vast areas. Total destruction near the epicenter. Affects millions."
+      },
+      "devastating": {
+        "label": "Devastating",
+        "desc": "Catastrophic destruction. Entire regions leveled. Triggers tsunamis and landslides."
+      }
     }
   },
   "safety": {
     "title": "Earthquake Safety Guide",
     "intro": "Remember the three essential steps: Drop, Cover, and Hold On. Stay calm and protect yourself.",
-    "step1": { "title": "DROP", "desc": "Drop to your hands and knees. This position prevents you from being knocked down.", "tip": "Don't run outside during shaking!" },
-    "step2": { "title": "COVER", "desc": "Cover your head and neck with your arms. If possible, get under a sturdy table or desk.", "tip": "Stay away from windows and heavy objects." },
-    "step3": { "title": "HOLD ON", "desc": "Hold on to your shelter until the shaking stops. Be prepared to move with your shelter.", "tip": "If no shelter is nearby, cover your head and neck." },
-    "step4": { "title": "STAY CALM", "desc": "After shaking stops, check for injuries and damage. Be prepared for aftershocks.", "tip": "Aftershocks can be strong — stay alert!" }
+    "step1": {
+      "title": "DROP",
+      "desc": "Drop to your hands and knees. This position prevents you from being knocked down.",
+      "tip": "Don't run outside during shaking!"
+    },
+    "step2": {
+      "title": "COVER",
+      "desc": "Cover your head and neck with your arms. If possible, get under a sturdy table or desk.",
+      "tip": "Stay away from windows and heavy objects."
+    },
+    "step3": {
+      "title": "HOLD ON",
+      "desc": "Hold on to your shelter until the shaking stops. Be prepared to move with your shelter.",
+      "tip": "If no shelter is nearby, cover your head and neck."
+    },
+    "step4": {
+      "title": "STAY CALM",
+      "desc": "After shaking stops, check for injuries and damage. Be prepared for aftershocks.",
+      "tip": "Aftershocks can be strong — stay alert!"
+    },
+    "tip": "Tip"
   },
   "before": {
     "title": "Before an Earthquake",
@@ -1173,11 +1455,26 @@
     "timeline": {
       "title": "Our Journey",
       "steps": {
-        "idea": { "title": "Idea", "desc": "Identified the need for earthquake awareness in Myanmar" },
-        "research": { "title": "Research", "desc": "Collected seismic data, dam locations, and safety guidelines" },
-        "build": { "title": "Build", "desc": "Developed the app with React, Leaflet, and Supabase" },
-        "launch": { "title": "Launch", "desc": "Released the platform for public use" },
-        "impact": { "title": "Impact", "desc": "Helping communities prepare, respond, and recover" }
+        "idea": {
+          "title": "Idea",
+          "desc": "Identified the need for earthquake awareness in Myanmar"
+        },
+        "research": {
+          "title": "Research",
+          "desc": "Collected seismic data, dam locations, and safety guidelines"
+        },
+        "build": {
+          "title": "Build",
+          "desc": "Developed the app with React, Leaflet, and Supabase"
+        },
+        "launch": {
+          "title": "Launch",
+          "desc": "Released the platform for public use"
+        },
+        "impact": {
+          "title": "Impact",
+          "desc": "Helping communities prepare, respond, and recover"
+        }
       }
     },
     "mission": {

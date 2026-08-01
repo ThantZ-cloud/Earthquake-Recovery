@@ -5,31 +5,22 @@ import {
   Typography,
   Button,
   CircularProgress,
-  useTheme,
 } from '@mui/material';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import LoginIcon from '@mui/icons-material/Login';
 import LocationAlerts from '../components/LocationAlerts';
 import AuthDialog from '../components/AuthDialog';
-import WhatIsEarthquake from '../components/WhatIsEarthquake';
-import HowToMeasure from '../components/HowToMeasure';
-import SafetyGuide from '../components/SafetyGuide';
-import BeforeEarthquake from '../components/BeforeEarthquake';
-import DuringEarthquake from '../components/DuringEarthquake';
-import AfterEarthquake from '../components/AfterEarthquake';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
 
 const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
 
 export default function Home() {
-  const theme = useTheme();
   const { user } = useAuth();
   const { t } = useLang();
   const [alertsEnabled, setAlertsEnabled] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [locationRequested, setLocationRequested] = useState(false);
-
   const handleEnableAlerts = () => {
     if (!user) {
       // Not logged in — open auth dialog
@@ -142,7 +133,7 @@ export default function Home() {
       </Box>
 
       {/* Location-based Earthquake Alerts */}
-      <Box sx={{ py: 8, background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)', color: '#fff' }}>
+      <Box id="alerts-section" sx={{ py: 8, background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)', color: '#fff' }}>
         <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
           <MyLocationIcon sx={{ fontSize: 48, mb: 2 }} />
           <Typography variant="h4" gutterBottom>
@@ -199,24 +190,6 @@ export default function Home() {
           )}
         </Container>
       </Box>
-
-      {/* What is an Earthquake? */}
-      <WhatIsEarthquake />
-
-      {/* How to Measure an Earthquake */}
-      <HowToMeasure />
-
-      {/* Earthquake Safety Guide: Drop, Cover, Hold On, Stay Calm */}
-      <SafetyGuide />
-
-      {/* Before an Earthquake */}
-      <BeforeEarthquake />
-
-      {/* During an Earthquake */}
-      <DuringEarthquake />
-
-      {/* After an Earthquake */}
-      <AfterEarthquake />
 
       {/* Auth dialog */}
       <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} initialTab={0} />

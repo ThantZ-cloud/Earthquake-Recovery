@@ -195,7 +195,6 @@ export default function Donate() {
         <Tabs
           value={tab}
           onChange={(_, v) => setTab(v)}
-          centered
           variant="fullWidth"
           TabIndicatorProps={{ sx: { height: 3, borderRadius: 2 } }}
         >
@@ -223,6 +222,15 @@ export default function Donate() {
                 <motion.div variants={itemVariants}>
                   <Card
                     onClick={() => setDialog(item)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={item.name}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setDialog(item);
+                      }
+                    }}
                     sx={{
                       cursor: 'pointer',
                       textAlign: 'center',
@@ -284,6 +292,7 @@ export default function Donate() {
             <DialogTitle sx={{ textAlign: 'center', pt: 3, pb: 1 }}>
               <IconButton
                 onClick={() => setDialog(null)}
+                aria-label={t('donate.close')}
                 sx={{ position: 'absolute', right: 8, top: 8 }}
               >
                 <CloseIcon />

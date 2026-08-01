@@ -179,7 +179,7 @@ export default function SafetyGuide() {
                     }}
                   >
                     <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                      💡 <strong>Tip:</strong> {t(step.tipKey)}
+                      💡 <strong>{t('safety.tip')}:</strong> {t(step.tipKey)}
                     </Typography>
                   </Box>
                 </Paper>

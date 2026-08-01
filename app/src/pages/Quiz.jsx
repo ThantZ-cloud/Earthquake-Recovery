@@ -323,7 +323,7 @@ export default function Quiz() {
                   const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
                   return (
                     <Step key={realIdx} completed={answers[realIdx] !== undefined}>
-                      <StepLabel>{`Q${realIdx + 1}`}</StepLabel>
+                      <StepLabel>{t('quiz.stepLabel').replace('{n}', realIdx + 1)}</StepLabel>
                     </Step>
                   );
                 })}
@@ -352,6 +352,9 @@ export default function Quiz() {
                       {t(`quiz.questions.${step}.q`)}
                     </Typography>
                     <FormControl component="fieldset" sx={{ mt: 2, width: '100%' }}>
+                      <Typography component="legend" sx={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', clipPath: 'inset(50%)', whiteSpace: 'nowrap' }}>
+                        {t(`quiz.questions.${step}.q`)}
+                      </Typography>
                       <RadioGroup
                         value={answers[step] !== undefined ? String(answers[step]) : ''}
                         onChange={(e) => handleSelect(step, e.target.value)}
@@ -370,9 +373,9 @@ export default function Quiz() {
                               border: '1px solid',
                               borderColor: answers[step] === oIdx ? 'primary.main' : 'divider',
                               bgcolor: answers[step] === oIdx ? 'primary.main' : 'transparent',
-                              color: answers[step] === oIdx ? '#fff' : 'text.primary',
+                              color: answers[step] === oIdx ? 'primary.contrastText' : 'text.primary',
                               '& .MuiRadio-root': {
-                                color: answers[step] === oIdx ? '#fff' : undefined,
+                                color: answers[step] === oIdx ? 'primary.contrastText' : undefined,
                               },
                               '&:hover': answers[step] !== oIdx ? {
                                 bgcolor: 'action.hover',
