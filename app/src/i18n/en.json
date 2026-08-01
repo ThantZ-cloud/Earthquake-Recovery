@@ -1434,6 +1434,10 @@
       "title": "Meet the Team",
       "subtitle": "Ten passionate students from UTYCC working together to build earthquake awareness through technology."
     },
+    "context": {
+      "title": "About This Project",
+      "desc": "This is our second-year project. Our teacher instructed us to build a frontend-only application, so we chose React for the UI, LeafletJS for interactive earthquake maps, and Supabase for user registration and authentication."
+    },
     "stats": {
       "title": "Our Impact",
       "members": "Team Members",

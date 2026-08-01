@@ -47,7 +47,7 @@ const TEAM = [
     skills: ['Leadership'],
     languages: ['Burmese'],
     email: 'thantzin@gmail.com',
-    phone: '09-403834385',
+    phone: '09-420000000',
     location: 'Nay Pyi Taw',
     education: 'UTYCC (13th batch) — IST Major',
   },
@@ -688,6 +688,33 @@ export default function About() {
           { bottom: '-10%', left: '30%', width: 300, height: 300, color: 'rgba(123,31,162,0.2)', blur: 50, duration: 18, dx: 40, dy: -30 },
         ]}
       />
+
+      {/* Project Context */}
+      <Container maxWidth="md" sx={{ pt: 4, pb: 2 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Box
+            sx={{
+              textAlign: 'center',
+              p: 4,
+              borderRadius: 3,
+              bgcolor: alpha(theme.palette.primary.main, 0.04),
+              border: '1px solid',
+              borderColor: alpha(theme.palette.primary.main, 0.12),
+            }}
+          >
+            <Typography variant="h5" fontWeight={700} gutterBottom>
+              {t('about.context.title')}
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 700, mx: 'auto', lineHeight: 1.8 }}>
+              {t('about.context.desc')}
+            </Typography>
+          </Box>
+        </motion.div>
+      </Container>
 
       {/* Stats Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
