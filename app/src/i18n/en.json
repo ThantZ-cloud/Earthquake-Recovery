@@ -1436,7 +1436,7 @@
     },
     "context": {
       "title": "About This Project",
-      "desc": "This is our second-year project. Our teacher instructed us to build a frontend-only application, so we chose React for the UI, LeafletJS for interactive earthquake maps, and Supabase for user registration and authentication."
+      "desc": "This is our second-year project. Our teacher instructed us to build a frontend-only application — no backend ❌ no database ❌. So we chose React for the UI, LeafletJS for interactive earthquake maps, and Supabase for user registration and authentication."
     },
     "stats": {
       "title": "Our Impact",
