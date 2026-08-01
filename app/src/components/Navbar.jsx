@@ -114,11 +114,10 @@ export default function Navbar({ mode, toggleTheme }) {
                 sx={{
                   fontWeight: 800,
                   color: 'primary.main',
-                  fontSize: '1rem',
+                  fontSize: { xs: '0.8rem', sm: '1rem' },
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  display: { xs: 'none', sm: 'block' },
                 }}
               >
                 {t('nav.siteName')}
@@ -162,7 +161,7 @@ export default function Navbar({ mode, toggleTheme }) {
           )}
 
           {/* Actions */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, mr: { xs: 1, sm: 0 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.25, sm: 1 }, mr: { xs: 0.5, sm: 0 }, flexShrink: 0 }}>
             <LocationAlertsNav />
             <EmergencyPhones />
 

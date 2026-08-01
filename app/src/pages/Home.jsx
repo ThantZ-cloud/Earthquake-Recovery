@@ -48,7 +48,7 @@ export default function Home() {
           position: 'absolute',
           bottom: 16,
           left: 16,
-          display: 'flex',
+          display: { xs: 'none', md: 'flex' },
           gap: 1.5,
           flexWrap: 'wrap',
           p: 1.5,
