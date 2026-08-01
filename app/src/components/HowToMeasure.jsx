@@ -8,24 +8,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useLang } from '../i18n';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.35 },
-  }),
-};
-
-const fadeUpFast = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.01, duration: 0.2 },
-  }),
-};
+import { fadeUp, fadeUpFast } from '../utils/animations';
 
 const MAGNITUDE_SCALE = [
   { mag: '1–2', color: '#4caf50', key: 'micro' },

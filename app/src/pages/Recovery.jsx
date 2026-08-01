@@ -18,28 +18,11 @@ import HealingIcon from '@mui/icons-material/Healing';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import BuildIcon from '@mui/icons-material/Build';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+
 import AnimatedHero from '../components/AnimatedHero';
 import { useLang } from '../i18n';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.4 },
-  }),
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-};
+import { fadeUp, containerVariants, itemVariants } from '../utils/animations';
 
 // ─── TAB 1: Assess & Secure ───
 

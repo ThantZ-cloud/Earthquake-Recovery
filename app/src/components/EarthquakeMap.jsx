@@ -162,6 +162,8 @@ function EarthquakeMap({ height = '84vh' }) {
 
   // Canvas renderer for earthquakes
   const canvasRenderer = useMemo(() => L.canvas({ padding: 0.2 }), []);
+  const basePathOpts = useMemo(() => ({ fillOpacity: 0.85, color: '#fff', weight: 1.5 }), []);
+  const damPathOpts = useMemo(() => ({ fillOpacity: 0.9, color: '#fff', weight: 1.5 }), []);
 
   const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
     queryKey: ['earthquakes'],
@@ -303,12 +305,7 @@ function EarthquakeMap({ height = '84vh' }) {
                 <Polygon
                   key={`dam-${i}-${dam.properties?.name || dam.properties?.id || 'unknown'}`}
                   positions={damTriangle(dam.geometry.coordinates[1], dam.geometry.coordinates[0])}
-                  pathOptions={{
-                    fillColor: damColor(dam.properties.color),
-                    fillOpacity: 0.9,
-                    color: '#fff',
-                    weight: 1.5,
-                  }}
+                  pathOptions={{ ...damPathOpts, fillColor: damColor(dam.properties.color) }}
                   renderer={canvasRenderer}
                 >
                   <Popup>
@@ -326,12 +323,7 @@ function EarthquakeMap({ height = '84vh' }) {
             key={q.id}
             center={[q.lat, q.lon]}
             radius={Math.max(4, Math.min(12, q.mag * 3))}
-            pathOptions={{
-              fillColor: magColor(q.mag),
-              fillOpacity: 0.85,
-              color: '#fff',
-              weight: 1.5,
-            }}
+            pathOptions={{ ...basePathOpts, fillColor: magColor(q.mag) }}
             renderer={canvasRenderer}
           >
             <Popup>

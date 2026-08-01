@@ -11,15 +11,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import TerrainIcon from '@mui/icons-material/Terrain';
 import WavesIcon from '@mui/icons-material/Waves';
 import { useLang } from '../i18n';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.35 },
-  }),
-};
+import { fadeUp } from '../utils/animations';
 
 const CARDS = [
   {

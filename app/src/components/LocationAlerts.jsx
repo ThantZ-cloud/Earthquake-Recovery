@@ -226,8 +226,8 @@ export default function LocationAlerts({ enabled }) {
         if (dist > RADIUS_KM) continue;
 
         alertedIdsRef.current.add(q.id);
-        const t = q.time ? Date.parse(q.time) : Date.now();
-        if (lastEventTimeRef.current && t - lastEventTimeRef.current > NEW_EPISODE_MS) {
+        const eventTime = q.time ? Date.parse(q.time) : Date.now();
+        if (lastEventTimeRef.current && eventTime - lastEventTimeRef.current > NEW_EPISODE_MS) {
           newEpisode = true;
         }
         if (!target || q.mag > target.mag) {

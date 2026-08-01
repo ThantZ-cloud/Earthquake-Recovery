@@ -17,7 +17,7 @@ import {
 import { motion } from 'framer-motion';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import CloseIcon from '@mui/icons-material/Close';
-import StarIcon from '@mui/icons-material/Star';
+
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import supabase from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';

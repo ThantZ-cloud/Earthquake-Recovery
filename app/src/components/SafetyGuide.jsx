@@ -9,15 +9,7 @@ import {
 import { motion } from 'framer-motion';
 import SafetyCharacter from './SafetyCharacter';
 import { useLang } from '../i18n';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.35 },
-  }),
-};
+import { fadeUp } from '../utils/animations';
 
 const STEPS = [
   {

@@ -1,6 +1,5 @@
 import { useRef } from 'react';
-import { Box, Container, Typography } from '@mui/material';
-import { alpha } from '@mui/material/styles';
+import { Box, Container, Typography, alpha } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
