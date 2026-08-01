@@ -34,6 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import TranslateIcon from '@mui/icons-material/Translate';
+import LocationAlertsNav from './LocationAlertsNav';
 import EmergencyPhones from './EmergencyPhones';
 import AuthDialog from './AuthDialog';
 import { useAuth } from '../context/AuthContext';
@@ -159,6 +160,7 @@ export default function Navbar({ mode, toggleTheme }) {
 
           {/* Actions */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, mr: { xs: 1, sm: 0 } }}>
+            <LocationAlertsNav />
             <EmergencyPhones />
 
             {/* Theme toggle */}

@@ -38,14 +38,6 @@
         "moderate": "M 4-6 - Moderate",
         "strong": "M 6+ - Strong"
       }
-    },
-    "alerts": {
-      "title": "Location-Based Earthquake Alerts",
-      "descLoggedIn": "Enable location access and we'll alert you if an earthquake happens near you.",
-      "descLoggedOut": "Login to enable location-based alerts. We'll monitor quakes near you in real time.",
-      "ctaLogin": "Login to Enable Alerts",
-      "ctaLocation": "Allow Location Access",
-      "activeMsg": "You'll be notified if a M3+ earthquake occurs within 50 km of your location."
     }
   },
   "learn": {
@@ -1022,6 +1014,13 @@
     "warning": "In life-threatening situations, always call 191 / 192 / 199 first."
   },
   "alerts": {
+    "navAriaLabel": "Earthquake location alerts",
+    "title": "Location-Based Earthquake Alerts",
+    "descLoggedIn": "Enable location access and we'll alert you if an earthquake happens near you.",
+    "descLoggedOut": "Login to enable location-based alerts. We'll monitor quakes near you in real time.",
+    "ctaLogin": "Login to Enable Alerts",
+    "ctaLocation": "Allow Location Access",
+    "activeMsg": "You'll be notified if a M3+ earthquake occurs within 50 km of your location.",
     "testAlert": "Test Alert",
     "enableSound": "Enable Sound",
     "soundEnabled": "Sound enabled",
@@ -1045,7 +1044,19 @@
     "geoNotSupported": "Geolocation is not supported by your browser.",
     "allowLocation": "Please allow location access to receive alerts.",
     "notifTitle": "Earthquake Alert",
-    "disclaimer": "⚠️ This alert system is for educational purposes only. It may not detect every earthquake or provide timely warnings. Always rely on official sources for critical safety decisions."
+    "disclaimer": "⚠️ This alert system is for educational purposes only. It may not detect every earthquake or provide timely warnings. Always rely on official sources for critical safety decisions.",
+    "howItWorks": {
+      "title": "How Earthquake Alerts Work",
+      "intro": "When an earthquake starts, it sends out two types of waves from the epicenter:",
+      "pLabel": "P-wave (Primary)",
+      "pWave": "travels fastest at about 5–8 km/s. It is a weak push-pull motion that people usually do not feel — and it arrives first.",
+      "sLabel": "S-wave (Secondary)",
+      "sWave": "travels slower at about 3–5 km/s, but it carries the destructive energy — violent side-to-side shaking that damages buildings. It arrives after the P-wave.",
+      "detection": "Early warning systems place sensors near active faults. The sensors catch the P-wave first, and computers instantly estimate the earthquake's location and magnitude.",
+      "alert": "An alert is then sent electronically — almost at the speed of light — far faster than the S-wave travels. This can give people from a few seconds up to about a minute to Drop, Cover, and Hold On before the strong shaking arrives.",
+      "warningTime": "Warning time depends on your distance from the epicenter: the closer you are, the less time you have — near the epicenter there may be little or no warning at all.",
+      "limitation": "Important: early warning is not earthquake prediction. The earthquake has already begun when the alert fires — the warning simply arrives before the destructive shaking does."
+    }
   },
   "map": {
     "unableToLoad": "Unable to load earthquake data",

@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import {
   Box,
   Container,
@@ -6,31 +6,12 @@ import {
   Button,
   CircularProgress,
 } from '@mui/material';
-import MyLocationIcon from '@mui/icons-material/MyLocation';
-import LoginIcon from '@mui/icons-material/Login';
-import LocationAlerts from '../components/LocationAlerts';
-import AuthDialog from '../components/AuthDialog';
-import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
 
 const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
 
 export default function Home() {
-  const { user } = useAuth();
   const { t } = useLang();
-  const [alertsEnabled, setAlertsEnabled] = useState(false);
-  const [authOpen, setAuthOpen] = useState(false);
-  const [locationRequested, setLocationRequested] = useState(false);
-  const handleEnableAlerts = () => {
-    if (!user) {
-      // Not logged in — open auth dialog
-      setAuthOpen(true);
-    } else {
-      // Logged in — request location
-      setLocationRequested(true);
-      setAlertsEnabled(true);
-    }
-  };
 
   return (
     <Box>
@@ -131,68 +112,6 @@ export default function Home() {
           </Box>
         </Container>
       </Box>
-
-      {/* Location-based Earthquake Alerts */}
-      <Box id="alerts-section" sx={{ py: 8, background: 'linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%)', color: '#fff' }}>
-        <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
-          <MyLocationIcon sx={{ fontSize: 48, mb: 2 }} />
-          <Typography variant="h4" gutterBottom>
-            {t('home.alerts.title')}
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 4, opacity: 0.9 }}>
-            {user
-              ? t('home.alerts.descLoggedIn')
-              : t('home.alerts.descLoggedOut')}
-          </Typography>
-
-          {!user ? (
-            // Not logged in
-            <Button
-              variant="contained"
-              size="large"
-              startIcon={<LoginIcon />}
-              onClick={() => setAuthOpen(true)}
-              sx={{
-                bgcolor: 'background.paper',
-                color: 'primary.main',
-                px: 5,
-                py: 1.5,
-                '&:hover': { bgcolor: (t) => t.palette.mode === 'dark' ? 'grey.200' : '#ffe0e0' },
-              }}
-            >
-              {t('home.alerts.ctaLogin')}
-            </Button>
-          ) : !alertsEnabled ? (
-            // Logged in but hasn't enabled yet
-            <Button
-              variant="contained"
-              size="large"
-              startIcon={<MyLocationIcon />}
-              onClick={handleEnableAlerts}
-              sx={{
-                bgcolor: 'background.paper',
-                color: 'primary.main',
-                px: 5,
-                py: 1.5,
-                '&:hover': { bgcolor: (t) => t.palette.mode === 'dark' ? 'grey.200' : '#ffe0e0' },
-              }}
-            >
-              {t('home.alerts.ctaLocation')}
-            </Button>
-          ) : (
-            // Alerts active
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="body2" sx={{ mb: 2, opacity: 0.85 }}>
-                {t('home.alerts.activeMsg')}
-              </Typography>
-              <LocationAlerts enabled={alertsEnabled} />
-            </Box>
-          )}
-        </Container>
-      </Box>
-
-      {/* Auth dialog */}
-      <AuthDialog open={authOpen} onClose={() => setAuthOpen(false)} initialTab={0} />
     </Box>
   );
 }
