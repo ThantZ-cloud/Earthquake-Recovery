@@ -18,14 +18,21 @@ export default function AdminDashboard() {
   const { data: stats, isLoading } = useQuery({
     queryKey: ['admin-stats'],
     queryFn: async () => {
-      const [users, feedback, locations, announcements, phones, quizQ] = await Promise.all([
+      const [users, feedback, locations, phones, quizQ] = await Promise.all([
         count('profiles'),
         count('feedback'),
         count('locations'),
-        count('announcements', { active: true }),
         count('emergency_phones'),
         count('quiz_questions'),
       ]);
+
+      // Count only non-expired active announcements
+      const now = new Date().toISOString();
+      const { count: activeAlerts } = await supabase
+        .from('announcements')
+        .select('*', { count: 'exact', head: true })
+        .eq('active', true)
+        .or('expires_at.is.null,expires_at.gt.' + now);
 
       const { data: ratingData } = await supabase.from('feedback').select('rating');
       const ratings = ratingData || [];
@@ -33,7 +40,7 @@ export default function AdminDashboard() {
 
       const distribution = [1, 2, 3, 4, 5].map((r) => ratings.filter((x) => x.rating === r).length);
 
-      return { users, feedback, locations, announcements, phones, quizQ, avgRating, distribution };
+      return { users, feedback, locations, activeAlerts, phones, quizQ, avgRating, distribution };
     },
   });
 
@@ -43,7 +50,7 @@ export default function AdminDashboard() {
     { label: 'Users', value: stats.users, color: '#1976d2', icon: <PeopleIcon /> },
     { label: 'Feedback', value: stats.feedback, color: '#ed6c02', icon: <FeedbackIcon /> },
     { label: 'Avg Rating', value: stats.avgRating, color: '#f59e0b', icon: <StarIcon /> },
-    { label: 'Active Alerts', value: stats.announcements, color: '#d32f2f', icon: <CampaignIcon /> },
+    { label: 'Active Alerts', value: stats.activeAlerts, color: '#d32f2f', icon: <CampaignIcon /> },
     { label: 'Phone Entries', value: stats.phones, color: '#0288d1', icon: null },
     { label: 'Quiz Questions', value: stats.quizQ, color: '#7b1fa2', icon: null },
   ];
