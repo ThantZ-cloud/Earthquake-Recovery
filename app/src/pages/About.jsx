@@ -48,7 +48,7 @@ const TEAM = [
     languages: ['Burmese'],
     email: 'thantzin@gmail.com',
     phone: '09-420000000',
-    location: 'Nay Pyi Taw',
+    location: 'Budalin, Sagaing',
     education: 'UTYCC (13th batch) — IST Major',
   },
   {
