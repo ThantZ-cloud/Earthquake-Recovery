@@ -33,43 +33,41 @@ function magColor(mag) {
   return '#2e7d32';
 }
 
-// Memoized popup
+// Memoized popup — always English
 const QuakePopup = memo(function QuakePopup({ q }) {
-  const { t } = useLang();
   return (
     <Box sx={{ lineHeight: 1.6, maxWidth: 220 }}>
-      <Typography variant="body2"><strong>{t('map.popup.location')}</strong> {q.place}</Typography>
-      <Typography variant="body2"><strong>{t('map.popup.magnitude')}</strong> {q.mag}</Typography>
-      <Typography variant="body2"><strong>{t('map.popup.depth')}</strong> {q.depth} km</Typography>
-      <Typography variant="body2"><strong>{t('map.popup.time')}</strong> {q.time}</Typography>
+      <Typography variant="body2"><strong>Location:</strong> {q.place}</Typography>
+      <Typography variant="body2"><strong>Magnitude:</strong> {q.mag}</Typography>
+      <Typography variant="body2"><strong>Depth:</strong> {q.depth} km</Typography>
+      <Typography variant="body2"><strong>Time:</strong> {q.time}</Typography>
     </Box>
   );
 });
 
-// Dam popup
+// Dam popup — always English
 const DamPopup = memo(function DamPopup({ dam }) {
-  const { t } = useLang();
   const p = dam.properties;
   return (
     <Box sx={{ lineHeight: 1.4, fontSize: { xs: '0.75rem', md: '0.875rem' }, maxWidth: { xs: 180, md: 260 } }}>
       <Typography variant="subtitle2" fontWeight={700} sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' }, mb: 0.5 }}>
         {p.name}
       </Typography>
-      <Typography variant="caption" display="block"><strong>{t('map.damPopup.type')}</strong> {p.dam_type || 'N/A'}</Typography>
-      <Typography variant="caption" display="block"><strong>{t('map.damPopup.capacity')}</strong> {p.capacity_mw ? `${p.capacity_mw} MW` : 'N/A'}</Typography>
-      <Typography variant="caption" display="block"><strong>{t('map.damPopup.height')}</strong> {p.height_m && p.height_m !== '-' ? `${p.height_m} m` : 'N/A'}</Typography>
+      <Typography variant="caption" display="block"><strong>Type:</strong> {p.dam_type || 'N/A'}</Typography>
+      <Typography variant="caption" display="block"><strong>Capacity:</strong> {p.capacity_mw ? `${p.capacity_mw} MW` : 'N/A'}</Typography>
+      <Typography variant="caption" display="block"><strong>Height:</strong> {p.height_m && p.height_m !== '-' ? `${p.height_m} m` : 'N/A'}</Typography>
       {/* Extra fields hidden on mobile */}
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-        <Typography variant="caption" display="block"><strong>{t('map.damPopup.function')}</strong> {p.function || 'N/A'}</Typography>
-        <Typography variant="caption" display="block"><strong>{t('map.damPopup.river')}</strong> {p.river || 'N/A'}</Typography>
-        <Typography variant="caption" display="block"><strong>{t('map.damPopup.state')}</strong> {p.state || 'N/A'}</Typography>
-        <Typography variant="caption" display="block"><strong>{t('map.damPopup.year')}</strong> {p.year || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>Function:</strong> {p.function || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>River:</strong> {p.river || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>State:</strong> {p.state || 'N/A'}</Typography>
+        <Typography variant="caption" display="block"><strong>Year:</strong> {p.year || 'N/A'}</Typography>
       </Box>
       <Typography variant="caption" sx={{ mt: 0.5, fontWeight: 700, color: p.color, display: 'block' }}>
-        {p.risk ? t(`map.damPopup.risk${p.risk[0].toUpperCase()}${p.risk.slice(1)}`) : p.label}
+        {p.risk === 'high' ? '⚠️ High Risk (0–30 km)' : p.risk === 'medium' ? '⚠️ Medium Risk (30–80 km)' : p.risk === 'low' ? '⚠️ Low Risk (>80 km)' : p.label}
       </Typography>
       <Typography variant="caption" color="text.secondary" display="block">
-        {p.distanceKm} {t('map.faultDist')}
+        {p.distanceKm} km from fault
       </Typography>
     </Box>
   );
@@ -263,10 +261,10 @@ function EarthquakeMap({ height = '84vh' }) {
         >
           <MapReadyDetector onReady={() => setMapReady(true)} />
           <AutoCollapseLayers />
-          <ZoomControl position="bottomright" />
+          <ZoomControl position="topleft" />
 
           <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name={t('map.layers.street')}>
+          <LayersControl.BaseLayer checked name="Street">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
               url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -275,7 +273,7 @@ function EarthquakeMap({ height = '84vh' }) {
             />
           </LayersControl.BaseLayer>
 
-          <LayersControl.BaseLayer name={t('map.layers.satellite')}>
+          <LayersControl.BaseLayer name="Satellite">
             <TileLayer
               attribution='&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a>'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -283,7 +281,7 @@ function EarthquakeMap({ height = '84vh' }) {
             />
           </LayersControl.BaseLayer>
 
-          <LayersControl.BaseLayer name={t('map.layers.topo')}>
+          <LayersControl.BaseLayer name="Topography">
             <TileLayer
               attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
               url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
@@ -291,7 +289,7 @@ function EarthquakeMap({ height = '84vh' }) {
             />
           </LayersControl.BaseLayer>
 
-          <LayersControl.Overlay name={t('map.layers.plates')} checked>
+          <LayersControl.Overlay name="Tectonic Plates" checked>
             <LayerGroup>
               {plates && (
                 <GeoJSON data={plates} style={{ color: '#d32f2f', weight: 1.5, opacity: 0.7 }} />
@@ -299,7 +297,7 @@ function EarthquakeMap({ height = '84vh' }) {
             </LayerGroup>
           </LayersControl.Overlay>
 
-          <LayersControl.Overlay name={t('map.layers.dams')}>
+          <LayersControl.Overlay name="Myanmar Dams">
             <LayerGroup>
               {dams.map((dam, i) => (
                 <Polygon

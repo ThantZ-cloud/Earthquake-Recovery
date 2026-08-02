@@ -3,38 +3,71 @@ import supabase from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
+async function fetchProfile(userId) {
+  if (!userId) return null;
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', userId)
+    .maybeSingle();
+  if (error) console.warn('[Auth] fetchProfile error:', error.message);
+  return data;
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const loadProfile = useCallback(async (userId) => {
+    if (!userId) { setProfile(null); return; }
+    const p = await fetchProfile(userId);
+    if (p) {
+      setProfile(p);
+    } else {
+      // First login — auto-create profile row
+      const { error } = await supabase.from('profiles').upsert({ id: userId, role: 'user' });
+      if (error) {
+        console.error('[Auth] auto-create profile failed:', error.message);
+      } else {
+        setProfile({ role: 'user' });
+      }
+    }
+  }, []);
 
   // On mount, check for existing session
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user) {
-        setUser({
+        const u = {
           id: session.user.id,
           email: session.user.email,
           name: session.user.user_metadata?.name || session.user.email,
-        });
+        };
+        setUser(u);
+        await loadProfile(u.id);
       }
       setLoading(false);
     });
 
     // Listen for login/logout events
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) {
-        setUser({
+        const u = {
           id: session.user.id,
           email: session.user.email,
           name: session.user.user_metadata?.name || session.user.email,
-        });
+        };
+        setUser(u);
+        await loadProfile(u.id);
       } else {
         setUser(null);
+        setProfile(null);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [loadProfile]);
 
   const login = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -62,7 +95,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, profile, isAdmin: profile?.role === 'admin', login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

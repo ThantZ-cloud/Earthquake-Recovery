@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 import AnimatedPage from './components/AnimatedPage';
 import PageSkeleton from './components/PageSkeleton';
 import HomeSkeleton from './components/HomeSkeleton';
+import LearnSkeleton from './components/LearnSkeleton';
 
 const Home = lazy(() => import('./pages/Home'));
 const Learn = lazy(() => import('./pages/Learn'));
@@ -19,6 +20,13 @@ const Donate = lazy(() => import('./pages/Donate'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const History = lazy(() => import('./pages/History'));
 const About = lazy(() => import('./pages/About'));
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminFeedback = lazy(() => import('./pages/admin/AdminFeedback'));
+const AdminPhones = lazy(() => import('./pages/admin/AdminPhones'));
+const AdminQuiz = lazy(() => import('./pages/admin/AdminQuiz'));
+const AdminAnnouncements = lazy(() => import('./pages/admin/AdminAnnouncements'));
+const AdminMonitoring = lazy(() => import('./pages/admin/AdminMonitoring'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -59,7 +67,7 @@ export default function App() {
                 path="/learn"
                 element={
                   <AnimatedPage>
-                    <Suspense fallback={<HomeSkeleton />}>
+                    <Suspense fallback={<LearnSkeleton />}>
                       <Learn />
                     </Suspense>
                   </AnimatedPage>
@@ -115,6 +123,21 @@ export default function App() {
                   </AnimatedPage>
                 }
               />
+              <Route
+                path="/admin"
+                element={
+                  <Suspense fallback={<PageSkeleton />}>
+                    <AdminLayout />
+                  </Suspense>
+                }
+              >
+                <Route index element={<Suspense fallback={null}><AdminDashboard /></Suspense>} />
+                <Route path="feedback" element={<Suspense fallback={null}><AdminFeedback /></Suspense>} />
+                <Route path="phones" element={<Suspense fallback={null}><AdminPhones /></Suspense>} />
+                <Route path="quiz" element={<Suspense fallback={null}><AdminQuiz /></Suspense>} />
+                <Route path="announcements" element={<Suspense fallback={null}><AdminAnnouncements /></Suspense>} />
+                <Route path="monitoring" element={<Suspense fallback={null}><AdminMonitoring /></Suspense>} />
+              </Route>
             </Routes>
           </AnimatePresence>
         </Layout>

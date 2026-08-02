@@ -34,7 +34,7 @@ const DONATE_ITEMS = {
   crypto: [
     {
       name: 'Binance',
-      img: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Binance-BNB-Icon-Logo.wine.svg',
       detail: 'bc1qSAMPLEADDRESS1234567890abcdef',
       detailLabelKey: 'donate.detailLabels.walletAddress',
       instructionKey: 'donate.instructions.binance',
@@ -244,6 +244,7 @@ export default function Donate() {
                         mx: 'auto',
                         mb: 2,
                         borderRadius: 2,
+                        transform: item.name === 'Binance' ? 'scale(2.5)' : 'none',
                       }}
                     />
                     <CardContent sx={{ p: '0 !important' }}>
@@ -287,7 +288,13 @@ export default function Donate() {
                 component="img"
                 src={dialog.img}
                 alt={dialog.name}
-                sx={{ width: 64, height: 64, objectFit: 'contain', mb: 1 }}
+                sx={{
+                  width: 64,
+                  height: 64,
+                  objectFit: 'contain',
+                  mb: 1,
+                  transform: dialog.name === 'Binance' ? 'scale(2.5)' : 'none',
+                }}
               />
               <Typography variant="h6" fontWeight={700}>
                 {dialog.name}

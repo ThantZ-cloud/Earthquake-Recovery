@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import FeedbackButton from './FeedbackButton';
 import BackToTop from './BackToTop';
+import AnnouncementBanner from './AnnouncementBanner';
 import { useLang } from '../i18n';
 
 export default function Layout({ children, mode, toggleTheme }) {
@@ -31,6 +32,7 @@ export default function Layout({ children, mode, toggleTheme }) {
         {t('skipToContent')}
       </Box>
       <Navbar mode={mode} toggleTheme={toggleTheme} />
+      <AnnouncementBanner />
       <Box component="main" id="main-content" sx={{ flex: 1 }} tabIndex={-1}>
         {children}
       </Box>

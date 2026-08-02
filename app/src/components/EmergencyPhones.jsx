@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Box,
   IconButton,
@@ -23,7 +23,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
 import PhoneIcon from '@mui/icons-material/Phone';
-import { cities, getPhonesByCity } from '../data/emergencyPhones';
+import { useQuery } from '@tanstack/react-query';
+import supabase from '../lib/supabase';
+import { cities as staticCities, getPhonesByCity } from '../data/emergencyPhones';
 import { useLang } from '../i18n';
 
 export default function EmergencyPhones() {
@@ -32,7 +34,29 @@ export default function EmergencyPhones() {
   const [selectedCity, setSelectedCity] = useState('');
   const [search, setSearch] = useState('');
 
-  const phones = getPhonesByCity(selectedCity);
+  // Fetch from Supabase, fallback to static data if DB is empty
+  const { data: dbPhones } = useQuery({
+    queryKey: ['emergency-phones'],
+    queryFn: async () => {
+      const { data } = await supabase.from('emergency_phones').select('*').order('city').order('sort_order');
+      return data;
+    },
+    refetchInterval: 300_000,
+  });
+
+  const useDb = dbPhones && dbPhones.length > 0;
+
+  const cities = useMemo(() => {
+    if (useDb) return [...new Set(dbPhones.map((p) => p.city))].sort();
+    return staticCities;
+  }, [useDb, dbPhones]);
+
+  const getPhones = (city) => {
+    if (useDb) return dbPhones.filter((p) => p.city === city);
+    return getPhonesByCity(city);
+  };
+
+  const phones = getPhones(selectedCity);
   const filtered = search
     ? phones.filter(
         (p) =>
@@ -157,7 +181,7 @@ export default function EmergencyPhones() {
                   <List disablePadding dense>
                     {filtered.map((p, i) => (
                         <ListItem
-                          key={i}
+                          key={p.id || i}
                           sx={{
                             px: 2,
                             py: 1.2,

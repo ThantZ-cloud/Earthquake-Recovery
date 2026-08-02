@@ -34,6 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import TranslateIcon from '@mui/icons-material/Translate';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LocationAlertsNav from './LocationAlertsNav';
 import EmergencyPhones from './EmergencyPhones';
 import AuthDialog from './AuthDialog';
@@ -59,7 +60,7 @@ export default function Navbar({ mode, toggleTheme }) {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { user, logout } = useAuth();
+  const { user, isAdmin, logout } = useAuth();
   const { lang, setLang, t } = useLang();
 
   const isActive = (path) => location.pathname === path;
@@ -157,6 +158,22 @@ export default function Navbar({ mode, toggleTheme }) {
                   {t(item.key)}
                 </Button>
               ))}
+              {isAdmin && (
+                <Button
+                  component={Link}
+                  to="/admin"
+                  size="small"
+                  startIcon={<AdminPanelSettingsIcon sx={{ fontSize: '1rem !important' }} />}
+                  sx={{
+                    color: location.pathname.startsWith('/admin') ? 'primary.main' : 'text.primary',
+                    fontWeight: location.pathname.startsWith('/admin') ? 700 : 500,
+                    fontSize: '0.8rem',
+                    px: 1,
+                  }}
+                >
+                  Admin
+                </Button>
+              )}
             </Box>
           )}
 
@@ -310,6 +327,24 @@ export default function Navbar({ mode, toggleTheme }) {
                 </ListItemButton>
               </ListItem>
             ))}
+            {isAdmin && (
+              <ListItem disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to="/admin"
+                  onClick={() => setDrawerOpen(false)}
+                  selected={location.pathname.startsWith('/admin')}
+                >
+                  <AdminPanelSettingsIcon fontSize="small" sx={{ mr: 1 }} />
+                  <ListItemText
+                    primary="Admin"
+                    primaryTypographyProps={{
+                      fontWeight: location.pathname.startsWith('/admin') ? 700 : 400,
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            )}
           </List>
         </Box>
       </Drawer>

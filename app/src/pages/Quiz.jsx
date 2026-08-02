@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Box,
   Container,
@@ -14,12 +14,15 @@ import {
   FormControl,
   Button,
   LinearProgress,
+  CircularProgress,
 } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizIcon from '@mui/icons-material/Quiz';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ReplayIcon from '@mui/icons-material/Replay';
 import AnimatedHero from '../components/AnimatedHero';
+import { useQuery } from '@tanstack/react-query';
+import supabase from '../lib/supabase';
 import { useLang } from '../i18n';
 
 const QUESTIONS = [
@@ -230,17 +233,76 @@ function visibleSteps(questions, current) {
 }
 
 export default function Quiz() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
+
+  // Fetch from Supabase, fallback to static QUESTIONS
+  const { data: dbQuestions, isLoading } = useQuery({
+    queryKey: ['quiz-questions'],
+    queryFn: async () => {
+      const { data } = await supabase.from('quiz_questions').select('*').eq('enabled', true).order('sort_order');
+      return data;
+    },
+    refetchInterval: 300_000,
+  });
+
+  // Normalize DB questions to same format as static QUESTIONS
+  const QUESTIONS = useMemo(() => {
+    if (dbQuestions && dbQuestions.length > 0) {
+      return dbQuestions.map((q) => ({
+        q: lang === 'my' && q.question_my ? q.question_my : q.question_en,
+        options: lang === 'my' && q.options_my ? q.options_my : q.options_en,
+        answer: q.answer,
+        category: q.category,
+      }));
+    }
+    return null; // signal to use static fallback
+  }, [dbQuestions, lang]);
+
+  // Static fallback questions (existing hardcoded data)
+  const STATIC_QUESTIONS = [
+    { q: 'What should you do FIRST during an earthquake if you are indoors?', options: ['Run outside immediately', 'Drop, Cover, and Hold On', 'Stand in a doorway', 'Call emergency services'], answer: 1, category: 'Safety' },
+    { q: 'Which scale is used to measure earthquake magnitude?', options: ['Fahrenheit scale', 'Richter scale / Moment Magnitude Scale', 'Beaufort scale', 'pH scale'], answer: 1, category: 'Science' },
+    { q: "What is the Earth's outermost layer called?", options: ['Mantle', 'Core', 'Crust', 'Atmosphere'], answer: 2, category: 'Science' },
+    { q: 'Which region experiences the most earthquakes?', options: ['Sahara Desert', 'Pacific Ring of Fire', 'Siberian Plains', 'Amazon Rainforest'], answer: 1, category: 'Geography' },
+    { q: 'What is an aftershock?', options: ['A warning before an earthquake', 'A smaller earthquake following the main shock', 'A volcanic eruption', 'A type of tsunami'], answer: 1, category: 'Science' },
+    { q: 'What should you avoid during an earthquake?', options: ['Staying under a table', 'Using elevators', 'Covering your head', 'Staying away from windows'], answer: 1, category: 'Safety' },
+    { q: 'How fast do seismic waves travel through the Earth?', options: ['1–10 km/h', '100–200 km/h', '3–14 km/s', '300,000 km/s'], answer: 2, category: 'Science' },
+    { q: 'What causes most earthquake-related deaths?', options: ['The shaking itself', 'Building collapse', 'Tsunamis', 'Fires'], answer: 1, category: 'Safety' },
+    { q: 'What is a tsunami?', options: ['A type of earthquake', 'A giant ocean wave often triggered by underwater earthquakes', 'A volcanic eruption', 'A weather phenomenon'], answer: 1, category: 'Science' },
+    { q: 'Which Myanmar city sits near the Sagaing Fault?', options: ['Yangon', 'Mandalay', 'Pathein', 'Sittwe'], answer: 1, category: 'Geography' },
+    { q: 'What should your emergency kit include?', options: ['Only food', 'Water, food, first-aid kit, flashlight, batteries', 'A phone charger only', 'Just a blanket'], answer: 1, category: 'Safety' },
+    { q: 'What is the Modified Mercalli Intensity (MMI) scale based on?', options: ['Energy released at the source', 'Observed effects and damage at a location', 'Depth of the earthquake', 'Distance from the epicenter'], answer: 1, category: 'Science' },
+    { q: 'What is the "epicenter" of an earthquake?', options: ['The deepest point inside the Earth', 'The point on the surface directly above the focus', 'The loudest part of the quake', 'The last area to stop shaking'], answer: 1, category: 'Science' },
+    { q: 'What should you do if you are driving during an earthquake?', options: ['Speed up to escape the area', 'Pull over, stop, and stay inside the car', 'Get out of the car immediately', 'Keep driving slowly'], answer: 1, category: 'Safety' },
+    { q: 'What is a fault line?', options: ['A type of earthquake', "A crack in the Earth's crust where movement occurs", 'A man-made structure', 'A type of building damage'], answer: 1, category: 'Science' },
+    { q: 'Which country has the most earthquakes per year?', options: ['United States', 'Japan', 'Indonesia', 'Chile'], answer: 2, category: 'Geography' },
+    { q: 'What is "liquefaction" during an earthquake?', options: ['Water flowing from pipes', 'Solid ground temporarily behaving like a liquid', 'Buildings melting from heat', 'Gas leaking from the ground'], answer: 1, category: 'Science' },
+    { q: 'How should you protect yourself from falling objects during an earthquake?', options: ['Run to the nearest wall', 'Get under a sturdy table or desk', 'Stand in the middle of the room', 'Lie flat on the ground'], answer: 1, category: 'Safety' },
+    { q: 'What is the "focus" (hypocenter) of an earthquake?', options: ['The loudest point of the quake', 'The point inside the Earth where the quake originates', 'The surface point above the quake', 'The area of worst damage'], answer: 1, category: 'Science' },
+    { q: 'What year did the devastating earthquake hit Bago, Myanmar?', options: ['1975', '1930', '2016', '2004'], answer: 1, category: 'Geography' },
+    { q: 'What is the primary danger after an earthquake?', options: ['Aftershocks', 'Heavy rain', 'Cold weather', 'Strong winds'], answer: 0, category: 'Safety' },
+    { q: 'What magnitude is considered a "major" earthquake?', options: ['4.0–4.9', '5.0–5.9', '7.0 and above', '3.0 and below'], answer: 2, category: 'Science' },
+    { q: 'What should you do after an earthquake if you are in a damaged building?', options: ['Stay inside and wait', 'Evacuate carefully and move to open ground', 'Go to the roof', 'Use the elevator to leave'], answer: 1, category: 'Safety' },
+    { q: 'What is P-waves stands for?', options: ['Primary waves', 'Power waves', 'Pressure waves', 'Passive waves'], answer: 0, category: 'Science' },
+    { q: 'Which organization provides earthquake early warnings in many countries?', options: ['WHO', 'USGS', 'UNESCO', 'IMF'], answer: 1, category: 'Geography' },
+    { q: 'What is the "Ring of Fire"?', options: ['A volcanic mountain range', 'A zone of frequent earthquakes and volcanoes around the Pacific Ocean', 'A type of earthquake measurement', 'A fire caused by earthquakes'], answer: 1, category: 'Geography' },
+    { q: 'What is the best way to secure heavy furniture at home?', options: ['Leave it as is', 'Anchor it to the wall with brackets or straps', 'Place it near windows', 'Put heavy items on top shelves'], answer: 1, category: 'Safety' },
+    { q: "How much of the Earth's surface is affected by the Ring of Fire?", options: ['About 10%', 'About 25%', 'About 40%', 'About 75%'], answer: 2, category: 'Geography' },
+    { q: 'What is a seismograph used for?', options: ['Measuring wind speed', 'Recording earthquake waves', 'Predicting weather', 'Measuring temperature'], answer: 1, category: 'Science' },
+    { q: 'What should you do if you smell gas after an earthquake?', options: ['Light a match to check', 'Turn on lights to inspect', 'Open windows, leave the building, and call from outside', 'Ignore it if the smell is mild'], answer: 2, category: 'Safety' },
+  ];
+
+  const ActiveQuestions = QUESTIONS || STATIC_QUESTIONS;
 
   const handleSelect = (qIdx, val) => {
     setAnswers((prev) => ({ ...prev, [qIdx]: parseInt(val, 10) }));
   };
 
   const handleNext = () => {
-    if (step < QUESTIONS.length - 1) {
+    if (step < ActiveQuestions.length - 1) {
       setStep((s) => s + 1);
     } else {
       handleSubmit();
@@ -253,11 +315,11 @@ export default function Quiz() {
 
   const handleSubmit = () => {
     let correct = 0;
-    QUESTIONS.forEach((q, i) => {
+    ActiveQuestions.forEach((q, i) => {
       if (answers[i] === q.answer) correct++;
     });
     setScore(correct);
-    setStep(QUESTIONS.length);
+    setStep(ActiveQuestions.length);
   };
 
   const handleRestart = () => {
@@ -266,13 +328,13 @@ export default function Quiz() {
     setScore(null);
   };
 
-  const stepperSteps = visibleSteps(QUESTIONS, step);
+  const stepperSteps = visibleSteps(ActiveQuestions, step);
   const maxVisible = 5;
   let stepperStart;
   if (step < maxVisible) {
     stepperStart = 0;
-  } else if (step >= QUESTIONS.length - maxVisible) {
-    stepperStart = QUESTIONS.length - maxVisible;
+  } else if (step >= ActiveQuestions.length - maxVisible) {
+    stepperStart = ActiveQuestions.length - maxVisible;
   } else {
     stepperStart = step - maxVisible + 1;
   }
@@ -291,8 +353,8 @@ export default function Quiz() {
         title={score === null ? t('quiz.title') : t('quiz.complete')}
         subtitle={
           score === null
-            ? t('quiz.subtitle').replace('{count}', QUESTIONS.length)
-            : t('quiz.score').replace('{score}', score).replace('{total}', QUESTIONS.length)
+            ? t('quiz.subtitle').replace('{count}', ActiveQuestions.length)
+            : t('quiz.score').replace('{score}', score).replace('{total}', ActiveQuestions.length)
         }
         bg={['#4a148c', '#7b1fa2', '#38006b']}
         accent="#ce93d8"
@@ -309,15 +371,15 @@ export default function Quiz() {
             {/* Progress */}
             <LinearProgress
               variant="determinate"
-              value={((step + 1) / QUESTIONS.length) * 100}
+              value={((step + 1) / ActiveQuestions.length) * 100}
               sx={{ mb: { xs: 1, sm: 2 }, height: 8, borderRadius: 4 }}
             />
 
             {/* Stepper — scrolls as user advances */}
             <Box sx={{ overflow: 'auto', '& .MuiStepLabel-label': { fontSize: { xs: '0.75rem', sm: '0.8rem' } } }}>
               <Stepper activeStep={step - stepperStart} alternativeLabel sx={{ mb: { xs: 0.5, sm: 1 }, minWidth: 0 }}>
-                {stepperSteps.map((_, i) => {
-                  const realIdx = QUESTIONS.indexOf(stepperSteps[i]);
+                {stepperSteps.map((sq, i) => {
+                  const realIdx = ActiveQuestions.indexOf(sq);
                   return (
                     <Step key={realIdx} completed={answers[realIdx] !== undefined}>
                       <StepLabel>{t('quiz.stepLabel').replace('{n}', realIdx + 1)}</StepLabel>
@@ -328,7 +390,7 @@ export default function Quiz() {
             </Box>
 
             <Typography variant="caption" color="text.secondary" textAlign="center" display="block" sx={{ mb: { xs: 1, sm: 1.5 } }}>
-              {t('quiz.questionOf').replace('{current}', step + 1).replace('{total}', QUESTIONS.length)}
+              {t('quiz.questionOf').replace('{current}', step + 1).replace('{total}', ActiveQuestions.length)}
             </Typography>
 
             <AnimatePresence mode="wait">
@@ -343,25 +405,25 @@ export default function Quiz() {
                 <Card elevation={2} sx={{ p: { xs: 1.5, sm: 2, md: 2.5 } }}>
                   <CardContent>
                     <Typography variant="caption" color="primary" fontWeight={600} sx={{ mb: 1, display: 'block' }}>
-                      {t(`quiz.categories.${QUESTIONS[step].category}`)}
+                      {QUESTIONS ? ActiveQuestions[step].category : t(`quiz.categories.${ActiveQuestions[step].category}`)}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                      {t(`quiz.questions.${step}.q`)}
+                      {ActiveQuestions[step].q}
                     </Typography>
                     <FormControl component="fieldset" sx={{ mt: 2, width: '100%' }}>
                       <Typography component="legend" sx={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)', clipPath: 'inset(50%)', whiteSpace: 'nowrap' }}>
-                        {t(`quiz.questions.${step}.q`)}
+                        {ActiveQuestions[step].q}
                       </Typography>
                       <RadioGroup
                         value={answers[step] !== undefined ? String(answers[step]) : ''}
                         onChange={(e) => handleSelect(step, e.target.value)}
                       >
-                        {QUESTIONS[step].options.map((opt, oIdx) => (
+                        {ActiveQuestions[step].options.map((opt, oIdx) => (
                           <FormControlLabel
                             key={oIdx}
                             value={String(oIdx)}
                             control={<Radio />}
-                            label={t(`quiz.questions.${step}.options.${oIdx}`)}
+                            label={QUESTIONS ? opt : t(`quiz.questions.${step}.options.${oIdx}`)}
                             sx={{
                               py: 0.75,
                               px: 2,
@@ -400,7 +462,7 @@ export default function Quiz() {
                 variant="contained"
                 size="large"
               >
-                {step === QUESTIONS.length - 1 ? t('quiz.submit') : t('quiz.next')}
+                {step === ActiveQuestions.length - 1 ? t('quiz.submit') : t('quiz.next')}
               </Button>
             </Box>
           </>
@@ -419,7 +481,7 @@ export default function Quiz() {
                 {score >= 25 ? t('quiz.amazing') : score >= 15 ? t('quiz.goodJob') : t('quiz.keepLearning')}
               </Typography>
               <Typography variant="h4" color="primary" gutterBottom>
-                {score} / {QUESTIONS.length}
+                {score} / {ActiveQuestions.length}
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
                 {score >= 25
