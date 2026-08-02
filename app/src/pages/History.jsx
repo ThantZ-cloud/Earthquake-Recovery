@@ -1,19 +1,14 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Container,
   Typography,
   Card,
   CardContent,
-  CardMedia,
   Chip,
   Slider,
   Tabs,
   Tab,
-  IconButton,
-  Dialog,
-  DialogContent,
-  Tooltip,
   Link,
   Divider,
   alpha,
@@ -25,13 +20,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LayersIcon from '@mui/icons-material/Layers';
-import CloseIcon from '@mui/icons-material/Close';
 import MapIcon from '@mui/icons-material/Map';
 import DeathIcon from '@mui/icons-material/People';
 import InjuredIcon from '@mui/icons-material/LocalHospital';
 import TsunamiIcon from '@mui/icons-material/Water';
 import MoneyIcon from '@mui/icons-material/AttachMoney';
-import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import AnimatedHero from '../components/AnimatedHero';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
@@ -155,50 +148,6 @@ function MiniEpicenterMap({ coords, color }) {
   );
 }
 
-/* ──────────────────── IMAGE LIGHTBOX ──────────────────────── */
-
-function ImageLightbox({ open, onClose, image, caption }) {
-  return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth="lg"
-      fullWidth
-      PaperProps={{ sx: { bgcolor: 'black', boxShadow: 24 } }}
-    >
-      <DialogContent sx={{ p: 0, position: 'relative', display: 'flex', flexDirection: 'column' }}>
-        <IconButton
-          onClick={onClose}
-          aria-label="Close"
-          sx={{ position: 'absolute', top: 8, right: 8, color: '#fff', zIndex: 10, bgcolor: 'rgba(0,0,0,0.5)' }}
-        >
-          <CloseIcon />
-        </IconButton>
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 300 }}>
-          <Box
-            component="img"
-            src={image}
-            alt={caption}
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
-            sx={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain' }}
-          />
-        </Box>
-
-        {caption && (
-          <Box sx={{ p: 2, textAlign: 'center' }}>
-            <Typography variant="body2" color="rgba(255,255,255,0.8)">
-              {caption}
-            </Typography>
-          </Box>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-}
-
 /* ──────────────────── STAT BOX ──────────────────────── */
 
 function StatBox({ icon, label, value, color }) {
@@ -232,19 +181,13 @@ function StatBox({ icon, label, value, color }) {
 
 /* ──────────────────── STORY CARD ──────────────────────── */
 
-function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
+function StoryCard({ q, index, quakeData }) {
   const { t } = useLang();
   const [expanded, setExpanded] = useState(false);
   const color = magColor(q.magnitude);
   const barPercent = Math.round((q.magnitude / 10) * 100);
   const isMajor = q.magnitude >= 8;
   const data = quakeData?.[q.tKey];
-
-  const handleImageClick = useCallback(() => {
-    if (data?.image) {
-      onImageClick(data.image, data.imageCaption || '');
-    }
-  }, [data, onImageClick]);
 
   return (
     <motion.div
@@ -272,51 +215,6 @@ function StoryCard({ q, index, quakeData, onImageClick, tKeyPrefix }) {
       >
         {/* ── Accent bar ── */}
         <Box sx={{ height: 5, background: magGradient(q.magnitude) }} />
-
-        {/* ── Hero Image ── */}
-        {data?.image && (
-          <Box
-            sx={{ position: 'relative', cursor: 'pointer' }}
-            role="button"
-            tabIndex={0}
-            aria-label={data.imageCaption || q.location}
-            onClick={handleImageClick}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleImageClick();
-              }
-            }}
-          >
-            <CardMedia
-              component="img"
-              height="220"
-              image={data.image}
-              alt={data.imageCaption || q.location}
-              onError={(e) => { e.target.style.display = 'none'; }}
-              sx={{ objectFit: 'cover' }}
-            />
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 0, left: 0, right: 0, bottom: 0,
-                background: 'linear-gradient(transparent 60%, rgba(0,0,0,0.7) 100%)',
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'space-between',
-                p: 2,
-                opacity: 0,
-                transition: 'opacity 0.3s',
-                '&:hover': { opacity: 1 },
-              }}
-            >
-              <Typography variant="caption" color="#fff" sx={{ textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>
-                {t('history.photoCaption')}: {data.imageCaption}
-              </Typography>
-              <ZoomInIcon sx={{ color: '#fff' }} />
-            </Box>
-          </Box>
-        )}
 
         <CardContent sx={{ p: { xs: 2.5, sm: 3 } }}>
           {/* ── Location ── */}
@@ -584,7 +482,6 @@ export default function History() {
   const { t } = useLang();
   const [tab, setTab] = useState(0);
   const [minMag, setMinMag] = useState(6);
-  const [lightbox, setLightbox] = useState({ open: false, image: '', caption: '' });
 
   const currentQuakes = tab === 0 ? INTERNATIONAL_QUAKES : MYANMAR_QUAKES;
   const quakeData = t('history.quakeData');
@@ -594,14 +491,6 @@ export default function History() {
     setTab(v);
     setMinMag(6);
   };
-
-  const handleImageClick = useCallback((image, caption) => {
-    setLightbox({ open: true, image, caption });
-  }, []);
-
-  const handleCloseLightbox = useCallback(() => {
-    setLightbox((prev) => ({ ...prev, open: false }));
-  }, []);
 
   return (
     <Box sx={{ bgcolor: 'background.default' }}>
@@ -673,22 +562,12 @@ export default function History() {
                   q={q}
                   index={i}
                   quakeData={quakeData}
-                  onImageClick={handleImageClick}
-                  tKeyPrefix={tab === 0 ? 'intl' : 'mmr'}
                 />
               ))}
             </AnimatePresence>
           </Box>
         )}
       </Container>
-
-      {/* ── Image Lightbox ── */}
-      <ImageLightbox
-        open={lightbox.open}
-        onClose={handleCloseLightbox}
-        image={lightbox.image}
-        caption={lightbox.caption}
-      />
     </Box>
   );
 }
