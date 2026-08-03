@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FeedbackButton from './FeedbackButton';
@@ -8,6 +9,7 @@ import { useLang } from '../i18n';
 
 export default function Layout({ children, mode, toggleTheme }) {
   const { t } = useLang();
+  const { pathname } = useLocation();
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -36,7 +38,7 @@ export default function Layout({ children, mode, toggleTheme }) {
       <Box component="main" id="main-content" sx={{ flex: 1 }} tabIndex={-1}>
         {children}
       </Box>
-      <Footer />
+      {pathname !== '/' && <Footer />}
       <BackToTop />
       <FeedbackButton />
     </Box>

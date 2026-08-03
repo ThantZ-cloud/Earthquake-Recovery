@@ -86,7 +86,7 @@ export default function AdminAnnouncements() {
             />
           );
         }
-        return <Chip label={row.severity} size="small" color={row.severity === 'warning' ? 'warning' : 'info'} />;
+        return <Chip label={row.severity} size="small" color={row.severity === 'warning' ? 'warning' : 'success'} />;
       },
     },
     { field: 'active', headerName: 'Active', width: 80, renderCell: ({ row }) => (row.active ? '✓' : '✗') },
