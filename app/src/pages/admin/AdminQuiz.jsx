@@ -154,14 +154,14 @@ export default function AdminQuiz() {
               size="small"
             />
           ))}
-          <Box sx={{ display: 'flex', gap: 2, mt: 1 }}>
+          <Box sx={{ display: 'flex', gap: 2, mt: 1, flexWrap: 'wrap' }}>
             <TextField
               select
               label="Correct Answer"
               value={form.answer}
               onChange={(e) => setForm((f) => ({ ...f, answer: e.target.value }))}
               size="small"
-              sx={{ width: 160 }}
+              sx={{ minWidth: 140, flex: { xs: '1 1 45%', md: '0 0 auto' } }}
             >
               {[0, 1, 2, 3].map((i) => (
                 <MenuItem key={i} value={i}>Option {i + 1}</MenuItem>
@@ -173,7 +173,7 @@ export default function AdminQuiz() {
               value={form.category}
               onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
               size="small"
-              sx={{ width: 160 }}
+              sx={{ minWidth: 140, flex: { xs: '1 1 45%', md: '0 0 auto' } }}
             >
               {CATEGORIES.map((c) => (
                 <MenuItem key={c} value={c}>{c}</MenuItem>
@@ -185,7 +185,7 @@ export default function AdminQuiz() {
               value={form.sort_order}
               onChange={(e) => setForm((f) => ({ ...f, sort_order: parseInt(e.target.value) || 0 }))}
               size="small"
-              sx={{ width: 120 }}
+              sx={{ minWidth: 100, flex: { xs: '1 1 45%', md: '0 0 auto' } }}
             />
             <FormControlLabel
               control={
@@ -195,6 +195,7 @@ export default function AdminQuiz() {
                 />
               }
               label="Enabled"
+              sx={{ flex: { xs: '1 1 100%', md: '0 0 auto' } }}
             />
           </Box>
         </DialogContent>

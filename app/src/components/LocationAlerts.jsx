@@ -41,10 +41,27 @@ function createSiren() {
 }
 
 let sirenAudio = null;
+let vibrationInterval = null;
 
 function getSiren() {
   if (!sirenAudio) sirenAudio = createSiren();
   return sirenAudio;
+}
+
+// Continuous vibration for mobile
+function startVibration() {
+  if (!('vibrate' in navigator)) return;
+  vibrationInterval = setInterval(() => {
+    navigator.vibrate([200, 100, 200, 100, 200]);
+  }, 800);
+}
+
+function stopVibration() {
+  if (vibrationInterval) {
+    clearInterval(vibrationInterval);
+    vibrationInterval = null;
+    navigator.vibrate(0);
+  }
 }
 
 // Play siren, return stop function. Returns null if blocked.
@@ -56,16 +73,20 @@ function startSiren(onAutoStop) {
     if (playPromise !== undefined) {
       playPromise.catch(() => null);
     }
+    // Start continuous vibration on mobile
+    startVibration();
     // Auto-stop after max duration
     const timer = setTimeout(() => {
       audio.pause();
       audio.currentTime = 0;
+      stopVibration();
       if (onAutoStop) onAutoStop();
     }, SIREN_MAX_MS);
     return () => {
       clearTimeout(timer);
       audio.pause();
       audio.currentTime = 0;
+      stopVibration();
     };
   } catch {
     return null;
@@ -255,11 +276,6 @@ export default function LocationAlerts({ enabled }) {
         };
       }
 
-      // Vibrate on mobile
-      if ('vibrate' in navigator) {
-        navigator.vibrate([200, 100, 200, 100, 200]);
-      }
-
       // Respect the user's stop for the current episode; only a genuinely new
       // episode (e.g. a much later quake) may sound again
       if (newEpisode) sirenStoppedByUserRef.current = false;
@@ -293,11 +309,6 @@ export default function LocationAlerts({ enabled }) {
     handleStopSiren();
     setAlertQuake({ place: 'MANDALAY, MYANMAR', mag: 5.2, dist: '12.3' });
     setSnackOpen(true);
-
-    // Vibrate on mobile
-    if ('vibrate' in navigator) {
-      navigator.vibrate([200, 100, 200, 100, 200]);
-    }
 
     const stop = startSiren(() => {
       stopSirenRef.current = null;

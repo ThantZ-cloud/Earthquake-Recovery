@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useCallback } from 'react';
 import {
   Box,
+  Button,
   IconButton,
   Typography,
   Divider,
@@ -28,11 +29,18 @@ import supabase from '../lib/supabase';
 import { cities as staticCities, getPhonesByCity } from '../data/emergencyPhones';
 import { useLang } from '../i18n';
 
-export default function EmergencyPhones() {
+export default function EmergencyPhones({ text = false }) {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
   const [search, setSearch] = useState('');
+  const triggerRef = useRef(null);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setSearch('');
+    setTimeout(() => triggerRef.current?.focus(), 0);
+  }, []);
 
   // Fetch from Supabase, fallback to static data if DB is empty
   const { data: dbPhones } = useQuery({
@@ -68,23 +76,37 @@ export default function EmergencyPhones() {
   return (
     <>
       {/* Trigger button */}
-      <IconButton
-        onClick={() => setOpen(true)}
-        aria-label={t('emergency.ariaLabel')}
-        sx={{
-          color: 'text.primary',
-          width: 38,
-          height: 38,
-        }}
-      >
-        <LocalPhoneIcon fontSize="small" />
-      </IconButton>
+      {text ? (
+        <Button
+          fullWidth
+          variant="outlined"
+          startIcon={<LocalPhoneIcon />}
+          onClick={() => setOpen(true)}
+          ref={triggerRef}
+          sx={{ justifyContent: 'flex-start' }}
+        >
+          {t('emergency.title')}
+        </Button>
+      ) : (
+        <IconButton
+          onClick={() => setOpen(true)}
+          aria-label={t('emergency.ariaLabel')}
+          ref={triggerRef}
+          sx={{
+            color: 'text.primary',
+            width: 38,
+            height: 38,
+          }}
+        >
+          <LocalPhoneIcon fontSize="small" />
+        </IconButton>
+      )}
 
       {/* Sidebar Drawer */}
       <Drawer
         anchor="right"
         open={open}
-        onClose={() => { setOpen(false); setSearch(''); }}
+        onClose={handleClose}
       >
         <Box
           sx={{
@@ -109,7 +131,7 @@ export default function EmergencyPhones() {
                   {t('emergency.selectCity')}
                 </Typography>
               </Box>
-              <CloseBtn onClick={() => { setOpen(false); setSearch(''); }} size="small">
+              <CloseBtn onClick={handleClose} size="small">
                 <CloseIcon fontSize="small" />
               </CloseBtn>
             </Box>

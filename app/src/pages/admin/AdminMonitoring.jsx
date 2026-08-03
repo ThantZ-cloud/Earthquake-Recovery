@@ -91,13 +91,13 @@ export default function AdminMonitoring() {
             borderColor: 'divider',
             borderRadius: 3,
             flex: 2,
-            minHeight: 400,
+            minHeight: { xs: 300, md: 400 },
           }}
         >
           <MapContainer
             center={[19.7633, 96.0785]}
             zoom={6}
-            style={{ height: 400, borderRadius: 12 }}
+            style={{ height: '100%', minHeight: 300, borderRadius: 12 }}
           >
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -132,7 +132,7 @@ export default function AdminMonitoring() {
             borderColor: 'divider',
             borderRadius: 3,
             flex: 1,
-            maxHeight: 420,
+            maxHeight: { xs: 300, md: 420 },
             overflow: 'auto',
           }}
         >

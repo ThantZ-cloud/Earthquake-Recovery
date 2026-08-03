@@ -20,11 +20,11 @@ A bilingual (Myanmar / English) single-page app for real-time earthquake trackin
 - **Quiz** — 30-question interactive earthquake knowledge test with instant scoring
 - **Donate** — Crypto, mobile payment, and international donation options with step-by-step guides
 - **About** — Project story, animated stats, tech stack, and team member profiles with enlarged profile pictures
-- **Admin Dashboard** — Stats overview (users, feedback, locations, phones, quiz questions), feedback management, emergency phone management, quiz question management, announcement management, and earthquake monitoring
+- **Admin Dashboard** — Fully responsive admin panel with sidebar navigation (hamburger drawer on mobile, permanent sidebar on desktop), stats overview with charts, feedback/phones/quiz/announcements management with responsive DataGrids, and earthquake monitoring with adaptive map layout
 - **User Accounts** — Register/login with Supabase (instant signup)
 - **Bilingual i18n** — Full Myanmar (default) / English translations, persisted in localStorage
 - **Dark/Light Mode** — Full MUI theme toggle
-- **Responsive** — Mobile drawer navigation, adaptive toolbar, and map legend overlay
+- **Responsive** — Mobile drawer navigation, adaptive toolbar, map legend overlay, and fully responsive admin dashboard (sidebar drawer on mobile, responsive DataGrid heights, wrapping dialog forms)
 
 ---
 
@@ -134,13 +134,22 @@ earthquake-recovery/
 │           ├── History.jsx         # Historical earthquakes timeline
 │           ├── About.jsx           # Story, stats, tech stack, team
 │           └── admin/
-│               ├── AdminLayout.jsx        # Admin shell with sidebar
-│               ├── AdminDashboard.jsx     # Stats overview + charts
-│               ├── AdminFeedback.jsx      # Feedback management
+│               ├── AdminLayout.jsx        # Responsive admin shell (drawer sidebar on mobile, permanent on desktop)
+│               ├── AdminDashboard.jsx     # Stats overview + charts (responsive card grid)
+│               ├── AdminFeedback.jsx      # Feedback management with responsive DataGrid
 │               ├── AdminPhones.jsx        # Emergency phone management
-│               ├── AdminQuiz.jsx          # Quiz question management
-│               ├── AdminAnnouncements.jsx # Announcement management
-│               └── AdminMonitoring.jsx    # Earthquake monitoring
+│               ├── AdminQuiz.jsx          # Quiz question management (responsive dialog forms)
+│               ├── AdminAnnouncements.jsx # Announcement management (responsive dialog forms)
+│               ├── AdminMonitoring.jsx    # Earthquake monitoring (responsive map + list layout)
+│               ├── AdminNavigation.jsx    # Navigation tab management
+│               └── components/
+│                   ├── AdminPageHeader.jsx   # Responsive page header (wraps on mobile)
+│                   ├── AdminDataGrid.jsx     # Responsive DataGrid wrapper (adaptive height)
+│                   ├── ConfirmDialog.jsx     # Reusable confirmation dialog
+│                   └── ActionButtons.jsx     # Reusable edit/delete buttons
+│               └── hooks/
+│                   ├── index.js             # Hook exports
+│                   └── useAdminCrud.js      # Shared CRUD operations (create, edit, delete)
 │
 ├── supabase/
 │   └── locations.sql               # Database schema + RLS policies
@@ -190,6 +199,17 @@ earthquake-recovery/
 
 ---
 
+## Admin Dashboard
+
+- **Responsive sidebar**: Permanent drawer on desktop (md+), hamburger-triggered temporary drawer on mobile
+- **Responsive stat cards**: 3-column on desktop, 2-column on tablet, single column on mobile
+- **Responsive DataGrid**: Adaptive height (400px mobile, 500px desktop) with horizontal scroll for wide tables
+- **Responsive dialog forms**: Form fields wrap naturally on small screens (e.g., quiz question options, announcement settings)
+- **Adaptive monitoring layout**: Map and location list stack vertically on mobile, side-by-side on desktop
+- **Responsive page headers**: Title and action buttons wrap on small screens
+
+---
+
 ## i18n
 
 - Myanmar (`my`) is the default language; English (`en`) available via the navbar toggle
@@ -203,7 +223,7 @@ earthquake-recovery/
 - **Supabase** handles all authentication — no backend server required
 - **Instant signup** with email confirmation disabled
 - **Locations table** (`supabase/locations.sql`) stores saved monitoring locations with row-level security policies
-- **Admin dashboard** at `/admin` — stats overview, feedback/phones/quiz/announcements management
+- **Admin dashboard** at `/admin` — fully responsive with mobile drawer sidebar, adaptive DataGrid heights, and wrapping dialog forms. Tested across mobile (375px), tablet (768px), and desktop (1280px)
 
 ---
 

@@ -161,14 +161,14 @@ export default function AdminAnnouncements() {
             multiline
             rows={3}
           />
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <TextField
               select
               label="Severity"
               value={form.severity}
               onChange={(e) => setForm((f) => ({ ...f, severity: e.target.value }))}
               size="small"
-              sx={{ width: 160 }}
+              sx={{ minWidth: 140, flex: { xs: '1 1 45%', md: '0 0 auto' } }}
             >
               {SEVERITIES.map((s) => (
                 <MenuItem key={s} value={s}>{s}</MenuItem>
@@ -180,7 +180,7 @@ export default function AdminAnnouncements() {
               value={form.expires_at}
               onChange={(e) => setForm((f) => ({ ...f, expires_at: e.target.value }))}
               size="small"
-              sx={{ width: 220 }}
+              sx={{ minWidth: 200, flex: { xs: '1 1 100%', md: '0 0 auto' } }}
               slotProps={{ inputLabel: { shrink: true } }}
             />
             <FormControlLabel
@@ -191,6 +191,7 @@ export default function AdminAnnouncements() {
                 />
               }
               label="Active"
+              sx={{ flex: { xs: '1 1 100%', md: '0 0 auto' } }}
             />
           </Box>
         </DialogContent>

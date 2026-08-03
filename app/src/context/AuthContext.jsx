@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { Box, CircularProgress } from '@mui/material';
 import supabase from '../lib/supabase';
 
 const AuthContext = createContext(null);
@@ -91,7 +92,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   if (loading) {
-    return null;
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (

@@ -21,6 +21,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import QuizIcon from '@mui/icons-material/Quiz';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import MapIcon from '@mui/icons-material/Map';
+import NavigationIcon from '@mui/icons-material/Navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RequireAdmin from '../../components/RequireAdmin';
 
@@ -33,6 +34,7 @@ const NAV_ITEMS = [
   { label: 'Quiz Questions', path: '/admin/quiz', icon: <QuizIcon /> },
   { label: 'Announcements', path: '/admin/announcements', icon: <CampaignIcon /> },
   { label: 'Monitoring', path: '/admin/monitoring', icon: <MapIcon /> },
+  { label: 'Navigation Tabs', path: '/admin/navigation', icon: <NavigationIcon /> },
 ];
 
 function AdminSidebar({ mobileOpen, onClose }) {

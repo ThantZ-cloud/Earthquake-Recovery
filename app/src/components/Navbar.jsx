@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   AppBar,
@@ -40,6 +40,7 @@ import EmergencyPhones from './EmergencyPhones';
 import AuthDialog from './AuthDialog';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
+import { useNavItems } from '../hooks/useNavItems';
 
 const NAV_ITEMS = [
   { key: 'nav.home', path: '/' },
@@ -62,6 +63,13 @@ export default function Navbar({ mode, toggleTheme }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { user, isAdmin, logout } = useAuth();
   const { lang, setLang, t } = useLang();
+  const menuButtonRef = useRef(null);
+  const { enabledItems } = useNavItems();
+
+  const handleDrawerClose = useCallback(() => {
+    setDrawerOpen(false);
+    setTimeout(() => menuButtonRef.current?.focus(), 0);
+  }, []);
 
   const isActive = (path) => location.pathname === path;
 
@@ -94,6 +102,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 onClick={() => setDrawerOpen(true)}
                 size="small"
                 aria-label={t('nav.openMenu')}
+                ref={menuButtonRef}
                 sx={{ color: 'text.primary', flexShrink: 0 }}
               >
                 <MenuIcon />
@@ -129,7 +138,7 @@ export default function Navbar({ mode, toggleTheme }) {
           {/* Desktop nav links */}
           {!isMobile && (
             <Box sx={{ display: 'flex', gap: 0, mx: 1 }}>
-              {NAV_ITEMS.map((item) => (
+              {enabledItems.map((item) => (
                 <Button
                   key={item.path}
                   component={Link}
@@ -155,7 +164,7 @@ export default function Navbar({ mode, toggleTheme }) {
                     },
                   }}
                 >
-                  {t(item.key)}
+                  {item.label}
                 </Button>
               ))}
               {isAdmin && (
@@ -179,8 +188,8 @@ export default function Navbar({ mode, toggleTheme }) {
 
           {/* Actions */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.25, sm: 1 }, mr: { xs: 0.5, sm: 0 }, flexShrink: 0 }}>
-            <LocationAlertsNav />
-            <EmergencyPhones />
+            {!isMobile && <LocationAlertsNav />}
+            {!isMobile && <EmergencyPhones />}
 
             {/* Theme toggle */}
             <IconButton
@@ -257,7 +266,7 @@ export default function Navbar({ mode, toggleTheme }) {
       </AppBar>
 
       {/* Mobile drawer */}
-      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+      <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerClose}>
         <Box sx={{ width: { xs: '85vw', sm: 320 }, pt: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
           {/* User section */}
           {user ? (
@@ -275,7 +284,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 variant="outlined"
                 color="error"
                 startIcon={<LogoutIcon />}
-                onClick={() => { setDrawerOpen(false); setLogoutConfirmOpen(true); }}
+                onClick={() => { handleDrawerClose(); setLogoutConfirmOpen(true); }}
               >
                 {t('nav.logout')}
               </Button>
@@ -290,7 +299,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   size="small"
                   variant="outlined"
                   startIcon={<LoginIcon />}
-                  onClick={() => { openAuth(0); setDrawerOpen(false); }}
+                  onClick={() => { openAuth(0); handleDrawerClose(); }}
                 >
                   {t('nav.login')}
                 </Button>
@@ -299,7 +308,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   size="small"
                   variant="contained"
                   startIcon={<PersonAddIcon />}
-                  onClick={() => { openAuth(1); setDrawerOpen(false); }}
+                  onClick={() => { openAuth(1); handleDrawerClose(); }}
                 >
                   {t('nav.register')}
                 </Button>
@@ -308,18 +317,26 @@ export default function Navbar({ mode, toggleTheme }) {
             </Box>
           )}
 
+          {/* Mobile actions */}
+          {isMobile && (
+            <Box sx={{ px: 2, pb: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <LocationAlertsNav text />
+              <EmergencyPhones text />
+            </Box>
+          )}
+
           {/* Nav links */}
           <List>
-            {NAV_ITEMS.map((item) => (
+            {enabledItems.map((item) => (
               <ListItem key={item.path} disablePadding>
                 <ListItemButton
                   component={Link}
                   to={item.path}
-                  onClick={() => setDrawerOpen(false)}
+                  onClick={handleDrawerClose}
                   selected={isActive(item.path)}
                 >
                   <ListItemText
-                    primary={t(item.key)}
+                    primary={item.label}
                     primaryTypographyProps={{
                       fontWeight: isActive(item.path) ? 700 : 400,
                     }}
@@ -332,7 +349,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 <ListItemButton
                   component={Link}
                   to="/admin"
-                  onClick={() => setDrawerOpen(false)}
+                  onClick={handleDrawerClose}
                   selected={location.pathname.startsWith('/admin')}
                 >
                   <AdminPanelSettingsIcon fontSize="small" sx={{ mr: 1 }} />

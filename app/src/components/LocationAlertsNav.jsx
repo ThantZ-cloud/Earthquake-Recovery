@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import {
   Box,
   IconButton,
@@ -18,12 +18,13 @@ import AuthDialog from './AuthDialog';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
 
-export default function LocationAlertsNav() {
+export default function LocationAlertsNav({ text = false }) {
   const { t } = useLang();
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [alertsEnabled, setAlertsEnabled] = useState(false);
+  const triggerRef = useRef(null);
 
   const handleEnableAlerts = () => {
     if (!user) {
@@ -33,19 +34,38 @@ export default function LocationAlertsNav() {
     }
   };
 
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setTimeout(() => triggerRef.current?.focus(), 0);
+  }, []);
+
   return (
     <>
       {/* Trigger button */}
-      <IconButton
-        onClick={() => setOpen(true)}
-        aria-label={t('alerts.navAriaLabel')}
-        sx={{ color: 'text.primary', width: 38, height: 38 }}
-      >
-        <NotificationsActiveIcon fontSize="small" />
-      </IconButton>
+      {text ? (
+        <Button
+          fullWidth
+          variant="outlined"
+          startIcon={<NotificationsActiveIcon />}
+          onClick={() => setOpen(true)}
+          ref={triggerRef}
+          sx={{ justifyContent: 'flex-start' }}
+        >
+          {t('alerts.title')}
+        </Button>
+      ) : (
+        <IconButton
+          onClick={() => setOpen(true)}
+          aria-label={t('alerts.navAriaLabel')}
+          ref={triggerRef}
+          sx={{ color: 'text.primary', width: 38, height: 38 }}
+        >
+          <NotificationsActiveIcon fontSize="small" />
+        </IconButton>
+      )}
 
       {/* Sidebar Drawer */}
-      <Drawer anchor="right" open={open} onClose={() => setOpen(false)} keepMounted>
+      <Drawer anchor="right" open={open} onClose={handleClose}>
         <Box
           sx={{
             width: { xs: 320, sm: 380 },
@@ -66,7 +86,7 @@ export default function LocationAlertsNav() {
                   {t('alerts.title')}
                 </Typography>
               </Box>
-              <IconButton onClick={() => setOpen(false)} size="small">
+              <IconButton onClick={handleClose} size="small">
                 <CloseIcon fontSize="small" />
               </IconButton>
             </Box>

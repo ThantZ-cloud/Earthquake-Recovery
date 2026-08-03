@@ -5,12 +5,12 @@ export default function AdminDataGrid({
   rows,
   columns,
   loading = false,
-  height = 500,
+  height,
   pageSize = 25,
   pageSizeOptions = [10, 25, 50],
 }) {
   return (
-    <Box sx={{ height }}>
+    <Box sx={{ height: height ?? { xs: 400, md: 500 } }}>
       <DataGrid
         rows={rows}
         columns={columns}
