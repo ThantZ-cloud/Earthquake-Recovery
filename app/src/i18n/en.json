@@ -965,7 +965,7 @@
   "feedback": {
     "title": "Share Your Feedback",
     "subtitle": "How was your experience?",
-    "placeholder": "Tell us more (optional)",
+    "placeholder": "Tell us any inconvenience in UI/UX or any issues — this will help improve this website.",
     "submit": "Submit",
     "submitting": "Submitting...",
     "success": "Thank you for your feedback!",
@@ -1038,6 +1038,7 @@
     "allowLocation": "Please allow location access to receive alerts.",
     "notifTitle": "Earthquake Alert",
     "disclaimer": "⚠️ This alert system is for educational purposes only. It may not detect every earthquake or provide timely warnings. Always rely on official sources for critical safety decisions.",
+    "unpredictable": "⚠️ No person, organization, or country can predict earthquakes exactly yet — they are extremely difficult to estimate and remain a scientific puzzle.",
     "howItWorks": {
       "title": "How Earthquake Alerts Work",
       "intro": "When an earthquake starts, it sends out two types of waves from the epicenter:",

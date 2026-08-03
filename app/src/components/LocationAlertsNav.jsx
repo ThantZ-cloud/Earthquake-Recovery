@@ -98,6 +98,17 @@ export default function LocationAlertsNav() {
                 <Typography color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
                   {t('alerts.descLoggedIn')}
                 </Typography>
+                <Typography
+                  sx={{
+                    mb: 3,
+                    lineHeight: 1.6,
+                    fontSize: '0.85rem',
+                    color: 'error.main',
+                    fontWeight: 600,
+                  }}
+                >
+                  {t('alerts.unpredictable')}
+                </Typography>
                 <Button
                   variant="contained"
                   size="large"
