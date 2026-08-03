@@ -42,7 +42,7 @@ const TEAM = [
     rollNo: '2IST-5',
     role: 'Leader',
     roleColor: '#d32f2f',
-    photo: '/assets/team/thantzin.jpg',
+    photo: '/assets/team/thantzinhtun.jpg',
     bio: 'Always hungry to learn, build projects, and turn ideas into reality. Coffee: the only reason my projects exist.',
     skills: ['Leadership'],
     languages: ['Burmese'],
@@ -529,7 +529,7 @@ function MemberDrawer({ member, open, onClose, t }) {
         <Box sx={{ position: 'relative' }}>
           <Box
             sx={{
-              height: 140,
+              height: 220,
               background: `linear-gradient(135deg, ${alpha(member.roleColor, 0.8)} 0%, ${member.roleColor} 100%)`,
               position: 'relative',
             }}
@@ -552,20 +552,20 @@ function MemberDrawer({ member, open, onClose, t }) {
             src={member.photo}
             alt={member.name}
             sx={{
-              width: 120,
-              height: 120,
+              width: 240,
+              height: 240,
               position: 'absolute',
               left: '50%',
-              top: 80,
+              top: 120,
               transform: 'translateX(-50%)',
-              border: '4px solid',
+              border: '5px solid',
               borderColor: 'background.default',
               boxShadow: 3,
             }}
           />
         </Box>
         
-        <Box sx={{ pt: 10, px: 3, pb: 3 }}>
+        <Box sx={{ pt: 19, px: 3, pb: 3 }}>
           <Box sx={{ textAlign: 'center', mb: 3 }}>
             <Chip
               label={member.role}
