@@ -36,7 +36,7 @@ function createSiren() {
   const audio = new Audio('/assets/alert-sound.mp3');
   audio.loop = true;
   audio.volume = 1;
-  audio.preload = 'auto';
+  audio.preload = 'none';
   return audio;
 }
 

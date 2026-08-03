@@ -20,6 +20,10 @@ api/data/*.json
 # Reference repos
 mmeqopendata/
 
+# Dev tools
+screenshot.js
+screenshots/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

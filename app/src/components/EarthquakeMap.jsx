@@ -1,4 +1,4 @@
-import { useState, useMemo, memo, useEffect } from 'react';
+import { useState, useMemo, memo, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Polygon, Popup, LayersControl, LayerGroup, ZoomControl, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Box, CircularProgress, Typography, LinearProgress, useTheme, alpha } from '@mui/material';
@@ -166,9 +166,30 @@ function EarthquakeMap({ height = '84vh' }) {
   const { data: quakes = [], isLoading: quakesLoading, error } = useQuery({
     queryKey: ['earthquakes'],
     queryFn: fetchQuakes,
-    refetchInterval: 5 * 1000,
-    staleTime: 4 * 1000,
+    refetchInterval: 30 * 1000,
+    staleTime: 30 * 1000,
   });
+
+  // Diff-based marker updates: only re-render markers when earthquake IDs actually change
+  const prevQuakeIdsRef = useRef(new Set());
+  const stableQuakesRef = useRef(quakes);
+
+  useEffect(() => {
+    const currentIds = new Set(quakes.map((q) => q.id));
+    const prevIds = prevQuakeIdsRef.current;
+
+    // Check if IDs have changed
+    const idsChanged = currentIds.size !== prevIds.size ||
+      [...currentIds].some((id) => !prevIds.has(id)) ||
+      [...prevIds].some((id) => !currentIds.has(id));
+
+    if (idsChanged) {
+      prevQuakeIdsRef.current = currentIds;
+      stableQuakesRef.current = quakes;
+    }
+  }, [quakes]);
+
+  const stableQuakes = stableQuakesRef.current;
 
   const { data: plates, isLoading: platesLoading } = useQuery({
     queryKey: ['tectonicPlates'],
@@ -316,7 +337,7 @@ function EarthquakeMap({ height = '84vh' }) {
         </LayersControl>
 
         {/* All earthquake markers — Canvas-rendered circles */}
-        {quakes.map((q) => (
+        {stableQuakes.map((q) => (
           <CircleMarker
             key={q.id}
             center={[q.lat, q.lon]}
