@@ -170,26 +170,17 @@ function EarthquakeMap({ height = '84vh' }) {
     staleTime: 30 * 1000,
   });
 
-  // Diff-based marker updates: only re-render markers when earthquake IDs actually change
-  const prevQuakeIdsRef = useRef(new Set());
-  const stableQuakesRef = useRef(quakes);
+  // Stable marker list — only re-renders markers when earthquake IDs actually change
+  const [renderedQuakes, setRenderedQuakes] = useState(quakes);
+  const prevIdsRef = useRef('');
 
   useEffect(() => {
-    const currentIds = new Set(quakes.map((q) => q.id));
-    const prevIds = prevQuakeIdsRef.current;
-
-    // Check if IDs have changed
-    const idsChanged = currentIds.size !== prevIds.size ||
-      [...currentIds].some((id) => !prevIds.has(id)) ||
-      [...prevIds].some((id) => !currentIds.has(id));
-
-    if (idsChanged) {
-      prevQuakeIdsRef.current = currentIds;
-      stableQuakesRef.current = quakes;
+    const idsKey = quakes.map((q) => q.id).join(',');
+    if (idsKey !== prevIdsRef.current) {
+      prevIdsRef.current = idsKey;
+      setRenderedQuakes(quakes);
     }
   }, [quakes]);
-
-  const stableQuakes = stableQuakesRef.current;
 
   const { data: plates, isLoading: platesLoading } = useQuery({
     queryKey: ['tectonicPlates'],
@@ -337,7 +328,7 @@ function EarthquakeMap({ height = '84vh' }) {
         </LayersControl>
 
         {/* All earthquake markers — Canvas-rendered circles */}
-        {stableQuakes.map((q) => (
+        {renderedQuakes.map((q) => (
           <CircleMarker
             key={q.id}
             center={[q.lat, q.lon]}
