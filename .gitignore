@@ -22,7 +22,6 @@ mmeqopendata/
 
 # Dev tools
 screenshot.js
-screenshots/
 
 # Editor directories and files
 .vscode/*
