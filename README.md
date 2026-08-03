@@ -1,32 +1,34 @@
-# 🌍 Earthquake & Recovery
+# Earthquake & Recovery
 
 A bilingual (Myanmar / English) single-page app for real-time earthquake tracking, safety education, and recovery resources. Live seismic data from EMSC, Myanmar dam risk assessment, GPS-based alerting with an emergency siren, and Supabase-powered accounts — all in one place.
 
 ---
 
-## ✨ Features
+## Features
 
-- **🗺️ Full-Screen Live Earthquake Map** — The home page is a full-bleed Leaflet map with real-time EMSC data (last 7 days, M1+, refreshed every 5 seconds), color/size-coded magnitude markers rendered on canvas for smooth pan & zoom
-- **🧭 Tectonic Plate Overlay** — Global plate boundary lines rendered as SVG GeoJSON
-- **🇲🇲 Myanmar Dam Risk Assessment** — 254 dams shown with risk levels (red/orange/green) computed via Turf.js distance-to-nearest-plate-boundary analysis
-- **📍 Location-Based Earthquake Alerts** — Navbar bell drawer with GPS or saved-location monitoring: alerts on M3+ quakes within 50 km with a 60-second emergency siren, browser notifications, and mobile vibration
+- **Full-Screen Live Earthquake Map** — The home page is a full-bleed Leaflet map with real-time EMSC data (last 7 days, M1+, refreshed every 30 seconds), color/size-coded magnitude markers rendered on canvas for smooth pan & zoom. Diff-based updates only re-render markers when earthquake IDs actually change.
+- **Tectonic Plate Overlay** — Global plate boundary lines rendered as SVG GeoJSON (fetched once, cached indefinitely)
+- **Myanmar Dam Risk Assessment** — 254 dams shown with risk levels (red/orange/green) computed via Turf.js distance-to-nearest-plate-boundary analysis
+- **Location-Based Earthquake Alerts** — Navbar bell drawer with GPS or saved-location monitoring: alerts on M3+ quakes within 50 km with a 60-second emergency siren, browser notifications, and mobile vibration
   - **Test Alert** button to demo the siren, **Stop Sound** control that actually sticks, and **Reassign Location** (use live GPS position or manual coordinates)
   - Built-in **"How Earthquake Alerts Work"** explainer (P-wave vs S-wave, warning-time physics)
-- **🔔 Emergency Phone Directory** — City-based emergency contacts across 13 Myanmar cities
-- **📚 Learn** — Dedicated education page: what earthquakes are, how they're measured, safety guides, and before/during/after checklists (Drop, Cover, Hold On)
-- **🏥 Recovery Resources** — Short-term, mid-term, and long-term recovery guidance with actionable checklists
-- **📜 Historical Earthquakes** — Interactive timeline of major quakes worldwide with images and impact stats
-- **🧠 Quiz** — 30-question interactive earthquake knowledge test with instant scoring
-- **💰 Donate** — Crypto, mobile payment, and international donation options with step-by-step guides
-- **👥 About** — Project story, animated stats, tech stack, and team member profiles
-- **🔐 User Accounts** — Register/login with Supabase (instant signup)
-- **🌐 Bilingual i18n** — Full Myanmar (default) / English translations, persisted in `localStorage`
-- **🌓 Dark/Light Mode** — Full MUI theme toggle
-- **📱 Responsive** — Mobile drawer navigation, adaptive toolbar, and map legend overlay
+- **Emergency Phone Directory** — City-based emergency contacts across 13 Myanmar cities
+- **Announcement Banner** — Admin-managed dismissible banners pulled from Supabase, with severity levels (info, warning, danger)
+- **Learn** — Dedicated education page: what earthquakes are, how they're measured, safety guides, and before/during/after checklists (Drop, Cover, Hold On)
+- **Recovery Resources** — Short-term, mid-term, and long-term recovery guidance with actionable checklists
+- **Historical Earthquakes** — Interactive timeline of major quakes worldwide with images and impact stats
+- **Quiz** — 30-question interactive earthquake knowledge test with instant scoring
+- **Donate** — Crypto, mobile payment, and international donation options with step-by-step guides
+- **About** — Project story, animated stats, tech stack, and team member profiles with enlarged profile pictures
+- **Admin Dashboard** — Stats overview (users, feedback, locations, phones, quiz questions), feedback management, emergency phone management, quiz question management, announcement management, and earthquake monitoring
+- **User Accounts** — Register/login with Supabase (instant signup)
+- **Bilingual i18n** — Full Myanmar (default) / English translations, persisted in localStorage
+- **Dark/Light Mode** — Full MUI theme toggle
+- **Responsive** — Mobile drawer navigation, adaptive toolbar, and map legend overlay
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 | | |
 |---|---|
@@ -41,7 +43,7 @@ A bilingual (Myanmar / English) single-page app for real-time earthquake trackin
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -50,7 +52,7 @@ cd app && npm install
 # Start dev server (port 5173)
 npm run dev
 
-# Production build → app/dist/
+# Production build -> app/dist/
 npm run build
 ```
 
@@ -61,13 +63,13 @@ VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-Enable instant signup in Supabase: **Authentication → Settings → Email → Toggle off "Confirm email"**
+Enable instant signup in Supabase: **Authentication -> Settings -> Email -> Toggle off "Confirm email"**
 
 > No backend is required — auth uses Supabase and earthquake data is fetched directly from the EMSC public API.
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 earthquake-recovery/
@@ -92,11 +94,19 @@ earthquake-recovery/
 │       │   ├── Navbar.jsx          # Sticky nav, mobile drawer, theme/lang/auth
 │       │   ├── Footer.jsx
 │       │   ├── EarthquakeMap.jsx   # Full-screen Leaflet map — quakes, plates, dams
-│       │   ├── LocationAlertsNav.jsx # Navbar bell + drawer (alert settings + knowledge)
 │       │   ├── LocationAlerts.jsx  # GPS monitoring, siren, notifications, reassign
+│       │   ├── LocationAlertsNav.jsx # Navbar bell + drawer (alert settings + knowledge)
 │       │   ├── EmergencyPhones.jsx # City-based emergency phone directory
 │       │   ├── AuthDialog.jsx      # Supabase login/register dialog
+│       │   ├── AnnouncementBanner.jsx # Admin-managed dismissible alert banners
+│       │   ├── AnimatedHero.jsx    # Scroll parallax hero with gradient blobs
+│       │   ├── AnimatedPage.jsx    # Framer Motion page transition wrapper
+│       │   ├── BackToTop.jsx       # Scroll-to-top floating button
+│       │   ├── FeedbackButton.jsx  # In-app feedback form
+│       │   ├── SectionHeader.jsx   # Reusable section title component
+│       │   ├── RequireAdmin.jsx    # Admin route guard
 │       │   ├── HomeSkeleton.jsx    # Loading skeleton for home page
+│       │   ├── LearnSkeleton.jsx   # Loading skeleton for learn page
 │       │   ├── PageSkeleton.jsx    # Loading skeleton for other pages
 │       │   ├── SafetyGuide.jsx     # Drop, Cover, Hold On visual guide
 │       │   ├── SafetyCharacter.jsx # Animated safety illustration
@@ -104,9 +114,7 @@ earthquake-recovery/
 │       │   ├── DuringEarthquake.jsx    # Emergency response steps
 │       │   ├── AfterEarthquake.jsx     # Post-quake safety
 │       │   ├── WhatIsEarthquake.jsx    # Educational intro to quakes
-│       │   ├── HowToMeasure.jsx        # Seismographs & magnitude scales
-│       │   ├── AnimatedPage.jsx        # Framer Motion page transition wrapper
-│       │   └── FeedbackButton.jsx      # In-app feedback form
+│       │   └── HowToMeasure.jsx        # Seismographs & magnitude scales
 │       ├── lib/
 │       │   └── supabase.js         # Supabase client config
 │       ├── utils/
@@ -115,7 +123,8 @@ earthquake-recovery/
 │       │   ├── AuthContext.jsx     # Supabase auth state provider
 │       │   └── ThemeContext.jsx    # Dark/light mode provider
 │       ├── data/
-│       │   └── emergencyPhones.js  # 13-city emergency contacts
+│       │   ├── emergencyPhones.js  # 13-city emergency contacts
+│       │   └── siteSearchData.js   # Site search index
 │       └── pages/
 │           ├── Home.jsx            # Full-screen live earthquake map
 │           ├── Learn.jsx           # Earthquake education hub
@@ -123,47 +132,57 @@ earthquake-recovery/
 │           ├── Donate.jsx          # Donation options + guides
 │           ├── Quiz.jsx            # 30-question interactive quiz
 │           ├── History.jsx         # Historical earthquakes timeline
-│           └── About.jsx           # Story, stats, tech stack, team
+│           ├── About.jsx           # Story, stats, tech stack, team
+│           └── admin/
+│               ├── AdminLayout.jsx        # Admin shell with sidebar
+│               ├── AdminDashboard.jsx     # Stats overview + charts
+│               ├── AdminFeedback.jsx      # Feedback management
+│               ├── AdminPhones.jsx        # Emergency phone management
+│               ├── AdminQuiz.jsx          # Quiz question management
+│               ├── AdminAnnouncements.jsx # Announcement management
+│               └── AdminMonitoring.jsx    # Earthquake monitoring
 │
 ├── supabase/
 │   └── locations.sql               # Database schema + RLS policies
 │
-├── screenshots/                    # App screenshots
+├── screenshots/                    # App screenshots (README references)
 └── CLAUDE.md
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React 19, Vite 8, MUI 7, React Router 7 |
-| Data fetching | TanStack React Query (5s-polled earthquake cache) |
+| Data fetching | TanStack React Query (30s-polled earthquake cache, diff-based marker updates) |
 | Maps | Leaflet + react-leaflet 5, CartoDB Positron tiles |
 | Spatial Analysis | Turf.js (nearest-point-on-line distance calculation, risk zones) |
-| Auth & Storage | Supabase (auth + locations table, RLS) |
-| Animations | Framer Motion (page transitions, staggered reveals) |
-| Sound | HTML5 Audio (emergency siren MP3) |
+| Auth & Storage | Supabase (auth, profiles, feedback, announcements, locations, emergency phones, quiz questions) |
+| Animations | Framer Motion (page transitions, scroll parallax, staggered reveals) |
+| Sound | HTML5 Audio (emergency siren MP3, preload=none for performance) |
 | i18n | Custom context + JSON dictionaries (my/en) |
 
 ---
 
-## 🗺️ Map Features
+## Map Features
 
-- **Data refresh**: Fetches last 7 days of M1+ earthquakes from EMSC every 5 seconds via TanStack Query (shared with the alert monitor)
+- **Data refresh**: Fetches last 7 days of M1+ earthquakes from EMSC every 30 seconds via TanStack Query (shared with the alert monitor)
+- **Diff-based markers**: Only re-renders earthquake markers when the set of earthquake IDs actually changes (prevents unnecessary Leaflet DOM updates on every poll)
 - **Rendering**: Canvas-based `CircleMarker` for quakes (fast pan/zoom), SVG GeoJSON for tectonic plates
 - **Tiles**: Always-light CartoDB Positron street tiles (dark mode only affects the UI chrome)
 - **Dam markers**: CSS triangle `DivIcon` colored by risk level (High / Medium / Low)
 - **Risk algorithm**: Turf.js `nearestPointOnLine` with bounding-box pre-filter for performance; classification runs on `requestAnimationFrame` to avoid blocking render
-- **Risk thresholds**: High ≤30 km, Medium ≤80 km, Low >80 km from plate boundary (wider thresholds because plate data is a coarse approximation)
+- **Risk thresholds**: High <=30 km, Medium <=80 km, Low >80 km from plate boundary (wider thresholds because plate data is a coarse approximation)
+- **Caching**: Tectonic plates and dam data fetched once with `staleTime: Infinity` (no redundant re-fetches)
 
 ---
 
-## 🔔 Location Alerts
+## Location Alerts
 
 - **Trigger**: M3+ earthquakes within 50 km of your GPS position or a saved Supabase location
-- **Polling**: Reads the shared TanStack Query earthquake cache every 5 seconds
+- **Polling**: Reads the shared TanStack Query earthquake cache every 30 seconds
 - **Alerting**: Warning snackbar + browser notification + mobile vibration + 60-second looping siren
 - **Stop control**: "Stop Sound" permanently stops the current episode — siren only re-arms for a genuinely new event (quake >60 s after the last alerted one)
 - **Reassign Location**: Use live GPS position or enter manual coordinates; saved to Supabase with a label
@@ -171,7 +190,7 @@ earthquake-recovery/
 
 ---
 
-## 🌐 i18n
+## i18n
 
 - Myanmar (`my`) is the default language; English (`en`) available via the navbar toggle
 - Choice is persisted in `localStorage`; the `<html lang>` attribute updates automatically
@@ -179,15 +198,27 @@ earthquake-recovery/
 
 ---
 
-## 🔐 Auth & Data
+## Auth & Data
 
 - **Supabase** handles all authentication — no backend server required
 - **Instant signup** with email confirmation disabled
 - **Locations table** (`supabase/locations.sql`) stores saved monitoring locations with row-level security policies
+- **Admin dashboard** at `/admin` — stats overview, feedback/phones/quiz/announcements management
 
 ---
 
-## 📄 Data Sources & Credits
+## Performance Optimizations
+
+- **Lazy loading**: All pages except Home are lazy-loaded via `React.lazy()` with Suspense and loading skeletons
+- **Diff-based markers**: Earthquake markers only re-render when the set of IDs changes
+- **Preload=none**: Alert sound MP3 is not downloaded until the siren actually triggers (avoids 3.2MB blocking download on page load)
+- **Canvas renderer**: Earthquake markers use `L.canvas()` for fast pan/zoom with hundreds of markers
+- **Indefinite caching**: Tectonic plates and dam data are fetched once and never re-fetched
+- **30s poll interval**: Reduced from 5s to 30s — earthquake data from EMSC updates every ~60s anyway
+
+---
+
+## Data Sources & Credits
 
 - **Earthquake data**: [EMSC](https://www.seismicportal.eu/) (real-time seismic monitoring)
 - **Myanmar dams**: [mmeqopendata](https://github.com/akzedevops/mmeqopendata) — Open Development Mekong / IFC / WLE ([CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/))
