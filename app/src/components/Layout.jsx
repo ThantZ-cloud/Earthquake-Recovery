@@ -10,6 +10,7 @@ import { useLang } from '../i18n';
 export default function Layout({ children, mode, toggleTheme }) {
   const { t } = useLang();
   const { pathname } = useLocation();
+  const isAdmin = pathname.startsWith('/admin');
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -33,14 +34,14 @@ export default function Layout({ children, mode, toggleTheme }) {
       >
         {t('skipToContent')}
       </Box>
-      <Navbar mode={mode} toggleTheme={toggleTheme} />
-      <AnnouncementBanner />
+      {!isAdmin && <Navbar mode={mode} toggleTheme={toggleTheme} />}
+      {!isAdmin && <AnnouncementBanner />}
       <Box component="main" id="main-content" sx={{ flex: 1 }} tabIndex={-1}>
         {children}
       </Box>
-      {pathname !== '/' && <Footer />}
-      <BackToTop />
-      <FeedbackButton />
+      {!isAdmin && pathname !== '/' && <Footer />}
+      {!isAdmin && <BackToTop />}
+      {!isAdmin && <FeedbackButton />}
     </Box>
   );
 }
