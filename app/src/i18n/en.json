@@ -983,6 +983,7 @@
     "createAccount": "Create Account",
     "email": "Email",
     "password": "Password",
+    "confirmPassword": "Confirm Password",
     "fullName": "Full Name",
     "loginBtn": "Login",
     "registerBtn": "Create Account",
@@ -991,7 +992,8 @@
     "registerSuccess": "Account created! Check your email to confirm.",
     "loginError": "Login failed.",
     "registerError": "Registration failed.",
-    "passwordMin": "Password must be at least 6 characters."
+    "passwordMin": "Password must be at least 6 characters.",
+    "passwordMismatch": "Passwords do not match."
   },
   "emergency": {
     "ariaLabel": "Emergency Phone Numbers",
@@ -1007,7 +1009,7 @@
   },
   "alerts": {
     "navAriaLabel": "Earthquake location alerts",
-    "title": "Location-Based Earthquake Alerts",
+    "title": "Earthquake Alert",
     "descLoggedIn": "Enable location access and we'll alert you if an earthquake happens near you.",
     "descLoggedOut": "Login to enable location-based alerts. We'll monitor quakes near you in real time.",
     "ctaLogin": "Login to Enable Alerts",

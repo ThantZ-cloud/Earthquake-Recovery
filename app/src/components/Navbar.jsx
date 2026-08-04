@@ -35,6 +35,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import TranslateIcon from '@mui/icons-material/Translate';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import LocationAlertsNav from './LocationAlertsNav';
 import EmergencyPhones from './EmergencyPhones';
 import AuthDialog from './AuthDialog';
@@ -320,8 +321,8 @@ export default function Navbar({ mode, toggleTheme }) {
           {/* Mobile actions */}
           {isMobile && (
             <Box sx={{ px: 2, pb: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <LocationAlertsNav text />
-              <EmergencyPhones text />
+              <LocationAlertsNav text redButton />
+              <EmergencyPhones text redButton />
             </Box>
           )}
 
@@ -363,6 +364,23 @@ export default function Navbar({ mode, toggleTheme }) {
               </ListItem>
             )}
           </List>
+
+          {/* Feedback button at bottom */}
+          {isMobile && (
+            <Box sx={{ px: 2, pb: 2, mt: 'auto' }}>
+              <Button
+                size="small"
+                startIcon={<RateReviewIcon />}
+                onClick={() => {
+                  handleDrawerClose();
+                  window.dispatchEvent(new Event('open-feedback-dialog'));
+                }}
+                sx={{ justifyContent: 'flex-start', textTransform: 'none', color: 'text.primary' }}
+              >
+                {t('feedback.title')}
+              </Button>
+            </Box>
+          )}
         </Box>
       </Drawer>
 

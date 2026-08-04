@@ -18,7 +18,7 @@ import AuthDialog from './AuthDialog';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
 
-export default function LocationAlertsNav({ text = false }) {
+export default function LocationAlertsNav({ text = false, redButton = false }) {
   const { t } = useLang();
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
@@ -45,11 +45,16 @@ export default function LocationAlertsNav({ text = false }) {
       {text ? (
         <Button
           fullWidth
-          variant="outlined"
+          variant="contained"
           startIcon={<NotificationsActiveIcon />}
           onClick={() => setOpen(true)}
           ref={triggerRef}
-          sx={{ justifyContent: 'flex-start' }}
+          sx={{
+            justifyContent: 'flex-start',
+            bgcolor: redButton ? 'error.main' : 'primary.main',
+            color: 'white',
+            '&:hover': { bgcolor: redButton ? 'error.dark' : 'primary.dark' },
+          }}
         >
           {t('alerts.title')}
         </Button>

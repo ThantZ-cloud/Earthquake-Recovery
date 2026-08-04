@@ -29,7 +29,7 @@ import supabase from '../lib/supabase';
 import { cities as staticCities, getPhonesByCity } from '../data/emergencyPhones';
 import { useLang } from '../i18n';
 
-export default function EmergencyPhones({ text = false }) {
+export default function EmergencyPhones({ text = false, redButton = false }) {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
@@ -79,11 +79,16 @@ export default function EmergencyPhones({ text = false }) {
       {text ? (
         <Button
           fullWidth
-          variant="outlined"
+          variant="contained"
           startIcon={<LocalPhoneIcon />}
           onClick={() => setOpen(true)}
           ref={triggerRef}
-          sx={{ justifyContent: 'flex-start' }}
+          sx={{
+            justifyContent: 'flex-start',
+            bgcolor: redButton ? 'error.main' : 'primary.main',
+            color: 'white',
+            '&:hover': { bgcolor: redButton ? 'error.dark' : 'primary.dark' },
+          }}
         >
           {t('emergency.title')}
         </Button>
