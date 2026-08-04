@@ -32,14 +32,16 @@ A bilingual (Myanmar / English) single-page app for real-time earthquake trackin
 
 | | |
 |---|---|
-| ![Live earthquake map with tectonic plates](screenshots/Screenshot%20(45).png) | ![Myanmar dam risk markers](screenshots/Screenshot%20(46).png) |
+| ![Live earthquake map](screenshots/01-live-earthquake-map.png) | ![Dam risk assessment map](screenshots/09-dam-risk-map.png) |
 | **Live earthquake map** — Real-time EMSC data with tectonic boundaries | **Dam risk assessment** — Color-coded markers by proximity to fault lines |
-| ![Earthquake Alert demo](screenshots/Screenshot%20(50).png) | ![Recovery section](screenshots/Screenshot%20(57).png) |
-| **Location-based alerts** — Real-time monitoring with emergency siren | **Recovery resources** — Short, mid, and long-term guidance |
-| ![Donation section](screenshots/Screenshot%20(60).png) | ![Donation guide](screenshots/Screenshot%20(61).png) |
-| **Donation options** — Crypto, mobile, and international payments | **How to donate** — Step-by-step donation guides |
-| ![Earthquake quiz](screenshots/Screenshot%20(62).png) | ![Historical earthquakes](screenshots/Screenshot%20(64).png) |
-| **Knowledge quiz** — 30-question interactive earthquake test | **Historical earthquakes** — Major quakes timeline |
+| ![Learn page](screenshots/02-learn-page.png) | ![Recovery resources](screenshots/03-recovery-page.png) |
+| **Learn** — Earthquake education, safety guides, and how they're measured | **Recovery resources** — Short, mid, and long-term guidance |
+| ![Donation options](screenshots/04-donate-page.png) | ![Knowledge quiz](screenshots/05-quiz-page.png) |
+| **Donation options** — Crypto, mobile, and international payments | **Knowledge quiz** — 30-question interactive earthquake test |
+| ![Historical earthquakes](screenshots/06-history-page.png) | ![Admin dashboard](screenshots/08-admin-dashboard.png) |
+| **Historical earthquakes** — Major quakes timeline with magnitude filter | **Admin dashboard** — Stats, feedback, and content management |
+| ![About page](screenshots/07-about-page.png) | |
+| **About** — Project story, animated stats, and tech stack | |
 
 ---
 

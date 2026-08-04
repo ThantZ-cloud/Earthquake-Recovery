@@ -1,7 +1,7 @@
 ---
 name: frontend-uiux-review
 description: Frontend UI/UX review specialist for the Earthquake & Recovery React + MUI app
-model: opus
+model: haiku
 tools:
   - Read
   - Glob

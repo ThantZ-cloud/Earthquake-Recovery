@@ -13,11 +13,12 @@ import {
   Alert,
   Box,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import CloseIcon from '@mui/icons-material/Close';
-
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import supabase from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
@@ -26,31 +27,21 @@ import { useLang } from '../i18n';
 export default function FeedbackButton() {
   const { user } = useAuth();
   const { t } = useLang();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(-1);
   const [comment, setComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [snack, setSnack] = useState(null);
-  const [alreadySubmitted, setAlreadySubmitted] = useState(false);
 
+  // Listen for custom event from Navbar drawer (mobile)
   useEffect(() => {
-    if (!user) return;
-    const checkFeedback = async () => {
-      const { data } = await supabase
-        .from('feedback')
-        .select('id')
-        .eq('user_id', user.id)
-        .limit(1);
-      if (data && data.length > 0) {
-        setAlreadySubmitted(true);
-      }
-    };
-    checkFeedback();
-  }, [user]);
-
-  // Don't show button for non-logged-in users
-  if (!user) return null;
+    const handler = () => setOpen(true);
+    window.addEventListener('open-feedback-dialog', handler);
+    return () => window.removeEventListener('open-feedback-dialog', handler);
+  }, []);
 
   const handleSubmit = async () => {
     if (rating === 0) return;
@@ -63,7 +54,6 @@ export default function FeedbackButton() {
       });
       if (error) throw error;
       setSnack('success');
-      setAlreadySubmitted(true);
       setOpen(false);
       setRating(0);
       setComment('');
@@ -75,49 +65,29 @@ export default function FeedbackButton() {
     }
   };
 
-  if (alreadySubmitted && user) {
-    return (
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1, type: 'spring', stiffness: 200 }}
-        style={{ position: 'fixed', bottom: 96, right: 24, zIndex: 1000 }}
-      >
-        <Fab
-          color="success"
-          aria-label="feedback submitted"
-          disabled
-          sx={{
-            boxShadow: '0 4px 20px rgba(46,125,50,0.3)',
-          }}
-        >
-          <CheckCircleIcon />
-        </Fab>
-      </motion.div>
-    );
-  }
-
   return (
     <>
-      {/* Floating button */}
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1, type: 'spring', stiffness: 200 }}
-        style={{ position: 'fixed', bottom: 96, right: 24, zIndex: 1000 }}
-      >
-        <Fab
-          color="primary"
-          aria-label="feedback"
-          onClick={() => setOpen(true)}
-          sx={{
-            boxShadow: '0 4px 20px rgba(211,47,47,0.3)',
-            '&:hover': { boxShadow: '0 6px 28px rgba(211,47,47,0.4)' },
-          }}
+      {/* Floating button — hidden on mobile, accessible via drawer */}
+      {!isMobile && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 1, type: 'spring', stiffness: 200 }}
+          style={{ position: 'fixed', bottom: 96, right: 24, zIndex: 1000 }}
         >
-          <RateReviewIcon />
-        </Fab>
-      </motion.div>
+          <Fab
+            color="primary"
+            aria-label="feedback"
+            onClick={() => setOpen(true)}
+            sx={{
+              boxShadow: '0 4px 20px rgba(211,47,47,0.3)',
+              '&:hover': { boxShadow: '0 6px 28px rgba(211,47,47,0.4)' },
+            }}
+          >
+            <RateReviewIcon />
+          </Fab>
+        </motion.div>
+      )}
 
       {/* Feedback dialog */}
       <Dialog

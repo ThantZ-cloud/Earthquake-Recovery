@@ -30,6 +30,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPass, setRegPass] = useState('');
+  const [regPassConfirm, setRegPassConfirm] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -60,6 +61,10 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
       setError(t('auth.passwordMin'));
       return;
     }
+    if (regPass !== regPassConfirm) {
+      setError(t('auth.passwordMismatch'));
+      return;
+    }
     setLoading(true);
     try {
       await register(regName, regEmail, regPass);
@@ -81,6 +86,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
     setRegName('');
     setRegEmail('');
     setRegPass('');
+    setRegPassConfirm('');
     setError('');
     setSuccess('');
     setLoading(false);
@@ -173,6 +179,16 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
               onChange={(e) => setRegPass(e.target.value)}
               required
               helperText={t('auth.minChars')}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label={t('auth.confirmPassword')}
+              type="password"
+              fullWidth
+              size="small"
+              value={regPassConfirm}
+              onChange={(e) => setRegPassConfirm(e.target.value)}
+              required
               sx={{ mb: 2 }}
             />
             <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ py: 1.2 }}>
