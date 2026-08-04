@@ -136,18 +136,18 @@ export default function EmergencyPhones({ text = false, redButton = false }) {
                 <Typography variant="caption" color="text.secondary">
                   {t('emergency.selectCity')}
                 </Typography>
-                <Chip
-                  size="small"
-                  color="success"
-                  icon={<CheckCircleIcon />}
-                  label={t('emergency.availableMyanmar')}
-                  sx={{ mt: 0.5 }}
-                />
               </Box>
               <CloseBtn onClick={handleClose} size="small">
                 <CloseIcon fontSize="small" />
               </CloseBtn>
             </Box>
+            <Chip
+              size="small"
+              color="success"
+              icon={<CheckCircleIcon />}
+              label={t('emergency.availableMyanmar')}
+              sx={{ mb: 1.5 }}
+            />
 
             {/* City Selector */}
             <FormControl fullWidth size="small" sx={{ mb: 1.5 }}>
