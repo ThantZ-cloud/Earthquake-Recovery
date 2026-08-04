@@ -1005,7 +1005,8 @@
     "noResults": "No matching contacts found.",
     "chooseCity": "Choose a city from the dropdown above",
     "stats": "13 cities · 20+ emergency contacts each",
-    "warning": "In life-threatening situations, always call 191 / 192 / 199 first."
+    "warning": "In life-threatening situations, always call 191 / 192 / 199 first.",
+    "availableMyanmar": "Currently available in Myanmar"
   },
   "alerts": {
     "navAriaLabel": "Earthquake location alerts",

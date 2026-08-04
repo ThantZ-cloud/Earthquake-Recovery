@@ -24,6 +24,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SearchIcon from '@mui/icons-material/Search';
 import PhoneIcon from '@mui/icons-material/Phone';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useQuery } from '@tanstack/react-query';
 import supabase from '../lib/supabase';
 import { cities as staticCities, getPhonesByCity } from '../data/emergencyPhones';
@@ -135,6 +136,13 @@ export default function EmergencyPhones({ text = false, redButton = false }) {
                 <Typography variant="caption" color="text.secondary">
                   {t('emergency.selectCity')}
                 </Typography>
+                <Chip
+                  size="small"
+                  color="success"
+                  icon={<CheckCircleIcon />}
+                  label={t('emergency.availableMyanmar')}
+                  sx={{ mt: 0.5 }}
+                />
               </Box>
               <CloseBtn onClick={handleClose} size="small">
                 <CloseIcon fontSize="small" />
