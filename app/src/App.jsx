@@ -54,6 +54,10 @@ export default function App() {
     setMode(newMode);
   };
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', mode);
+  }, [mode]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

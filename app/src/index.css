@@ -38,3 +38,48 @@ body {
   height: 100%;
   z-index: 1;
 }
+
+/* Dark mode Leaflet */
+[data-theme="dark"] .leaflet-popup-content-wrapper {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .leaflet-popup-tip {
+  background: #1e1e1e;
+}
+
+[data-theme="dark"] .leaflet-control-zoom a {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme="dark"] .leaflet-control-zoom a:hover {
+  background-color: #3a3a3a;
+}
+
+[data-theme="dark"] .leaflet-control-layers {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+[data-theme="dark"] .leaflet-control-layers-toggle {
+  background-color: #2c2c2c;
+  border-color: #444;
+}
+
+[data-theme="dark"] .leaflet-control-layers label {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .leaflet-control-attribution {
+  background: rgba(30,30,30,0.8);
+  color: #999;
+}
+
+[data-theme="dark"] .leaflet-control-attribution a {
+  color: #999;
+}

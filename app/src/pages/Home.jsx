@@ -1,11 +1,13 @@
 import { lazy, Suspense } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { useLang } from '../i18n';
+import { useThemeMode } from '../context/ThemeContext';
 
 const EarthquakeMap = lazy(() => import('../components/EarthquakeMap'));
 
 export default function Home() {
   const { t } = useLang();
+  const { mode } = useThemeMode();
 
   const legendItems = [
     { color: '#2e7d32', label: t('home.map.legend.minor') },
@@ -39,7 +41,7 @@ export default function Home() {
           </Box>
         }
       >
-        <EarthquakeMap height="100%" />
+        <EarthquakeMap height="100%" mode={mode} />
       </Suspense>
 
       {/* Legend overlay */}

@@ -153,7 +153,7 @@ function AutoCollapseLayers() {
   return null;
 }
 
-function EarthquakeMap({ height = '84vh' }) {
+function EarthquakeMap({ height = '84vh', mode = 'light' }) {
   const theme = useTheme();
   const { t } = useLang();
   const [mapReady, setMapReady] = useState(false);
@@ -278,8 +278,11 @@ function EarthquakeMap({ height = '84vh' }) {
           <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="Street">
             <TileLayer
+              key={mode}
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              url={mode === 'dark'
+                ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+                : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'}
               subdomains="abcd"
               maxZoom={19}
             />
