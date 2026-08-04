@@ -49,6 +49,8 @@ export function AuthProvider({ children }) {
         await loadProfile(u.id);
       }
       setLoading(false);
+    }).catch(() => {
+      setLoading(false);
     });
 
     // Listen for login/logout events

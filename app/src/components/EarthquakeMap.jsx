@@ -196,7 +196,7 @@ function EarthquakeMap({ height = '84vh' }) {
 
   const dams = damsData?.features || [];
 
-  const loading = quakesLoading || !mapReady || quakes.length === 0;
+   const loading = quakesLoading || !mapReady;
 
   // Progress steps
   const steps = [
