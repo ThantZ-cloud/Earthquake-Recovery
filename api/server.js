@@ -9,9 +9,15 @@ import auth from './middleware/auth.js';
 
 dotenv.config();
 
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error(
+    'FATAL: JWT_SECRET environment variable is required. Set it before starting the server.'
+  );
+}
+
 const app = express();
 const PORT = process.env.PORT || 3001;
-const JWT_SECRET = process.env.JWT_SECRET || 'earthquake-recovery-secret-change-in-production';
 
 const adapter = new PrismaBetterSqlite3({ url: process.env.DATABASE_URL || 'file:./dev.db' });
 const prisma = new PrismaClient({ adapter });

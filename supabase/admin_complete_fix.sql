@@ -46,7 +46,7 @@ create policy "Users read own profile"
   on profiles for select using (auth.uid() = id);
 
 create policy "Users insert own profile"
-  on profiles for insert with check (auth.uid() = id);
+  on profiles for insert with check (auth.uid() = id and role = 'user');
 
 create policy "Admins read all profiles"
   on profiles for select using (

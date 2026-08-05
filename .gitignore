@@ -16,6 +16,13 @@ dist-ssr
 # Backend data (runtime JSON files)
 api/data/*.json
 !api/data/.gitkeep
+data/users.json
+data/subscribers.json
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
 
 # Reference repos
 mmeqopendata/
