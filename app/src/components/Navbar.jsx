@@ -62,7 +62,7 @@ export default function Navbar({ mode, toggleTheme }) {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { user, isAdmin, logout } = useAuth();
+  const { user, isAdmin, isSuperAdmin, logout } = useAuth();
   const { lang, setLang, t } = useLang();
   const menuButtonRef = useRef(null);
   const { enabledItems } = useNavItems();
@@ -168,7 +168,7 @@ export default function Navbar({ mode, toggleTheme }) {
                   {item.label}
                 </Button>
               ))}
-              {isAdmin && (
+              {(isAdmin || isSuperAdmin) && (
                 <Button
                   component={Link}
                   to="/admin"
@@ -345,7 +345,7 @@ export default function Navbar({ mode, toggleTheme }) {
                 </ListItemButton>
               </ListItem>
             ))}
-            {isAdmin && (
+            {(isAdmin || isSuperAdmin) && (
               <ListItem disablePadding>
                 <ListItemButton
                   component={Link}

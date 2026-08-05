@@ -22,8 +22,10 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import MapIcon from '@mui/icons-material/Map';
 import NavigationIcon from '@mui/icons-material/Navigation';
+import ShieldIcon from '@mui/icons-material/Shield';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RequireAdmin from '../../components/RequireAdmin';
+import { useAuth } from '../../context/AuthContext';
 
 const DRAWER_WIDTH = 240;
 
@@ -39,7 +41,12 @@ const NAV_ITEMS = [
 
 function AdminSidebar({ mobileOpen, onClose }) {
   const location = useLocation();
+  const { isSuperAdmin } = useAuth();
   const isActive = (path) => location.pathname === path;
+
+  const allNavItems = isSuperAdmin
+    ? [...NAV_ITEMS, { label: 'Super Admin', path: '/admin/super-admin', icon: <ShieldIcon /> }]
+    : NAV_ITEMS;
 
   const content = (
     <Box sx={{ pt: 2 }}>
@@ -49,7 +56,7 @@ function AdminSidebar({ mobileOpen, onClose }) {
         </Typography>
       </Box>
       <List>
-        {NAV_ITEMS.map((item) => (
+        {allNavItems.map((item) => (
           <ListItemButton
             key={item.path}
             component={Link}

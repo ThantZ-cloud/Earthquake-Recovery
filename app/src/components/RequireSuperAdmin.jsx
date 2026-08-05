@@ -2,8 +2,8 @@ import { Navigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
-export default function RequireAdmin({ children }) {
-  const { user, isAdmin, isSuperAdmin, loading } = useAuth();
+export default function RequireSuperAdmin({ children }) {
+  const { user, isSuperAdmin, loading } = useAuth();
 
   if (loading) {
     return (
@@ -12,7 +12,10 @@ export default function RequireAdmin({ children }) {
       </Box>
     );
   }
-  if (!user || (!isAdmin && !isSuperAdmin)) return <Navigate to="/" replace />;
+
+  if (!user || !isSuperAdmin) {
+    return <Navigate to="/admin" replace />;
+  }
 
   return children;
 }

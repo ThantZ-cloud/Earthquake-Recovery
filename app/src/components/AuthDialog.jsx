@@ -14,6 +14,9 @@ import {
   CircularProgress,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
 
@@ -35,6 +38,9 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showLoginPass, setShowLoginPass] = useState(false);
+  const [showRegPass, setShowRegPass] = useState(false);
+  const [showRegConfirm, setShowRegConfirm] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -48,7 +54,9 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
         reset();
       }, 600);
     } catch (err) {
-      setError(err.message || t('auth.loginError'));
+      const msg = typeof err?.message === 'string' && err.message.length > 1 && err.message !== '{}'
+        ? err.message : t('auth.loginError');
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -74,7 +82,9 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
         reset();
       }, 1500);
     } catch (err) {
-      setError(err.message || t('auth.registerError'));
+      const msg = typeof err?.message === 'string' && err.message.length > 1 && err.message !== '{}'
+        ? err.message : t('auth.registerError');
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -137,13 +147,24 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
             />
             <TextField
               label={t('auth.password')}
-              type="password"
+              type={showLoginPass ? 'text' : 'password'}
               fullWidth
               size="small"
               value={loginPass}
               onChange={(e) => setLoginPass(e.target.value)}
               required
               sx={{ mb: 2 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowLoginPass(!showLoginPass)} edge="end" size="small">
+                        {showLoginPass ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
             <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ py: 1.2 }}>
               {loading ? <CircularProgress size={22} /> : t('auth.loginBtn')}
@@ -172,7 +193,7 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
             />
             <TextField
               label={t('auth.password')}
-              type="password"
+              type={showRegPass ? 'text' : 'password'}
               fullWidth
               size="small"
               value={regPass}
@@ -180,16 +201,38 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
               required
               helperText={t('auth.minChars')}
               sx={{ mb: 2 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowRegPass(!showRegPass)} edge="end" size="small">
+                        {showRegPass ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
             <TextField
               label={t('auth.confirmPassword')}
-              type="password"
+              type={showRegConfirm ? 'text' : 'password'}
               fullWidth
               size="small"
               value={regPassConfirm}
               onChange={(e) => setRegPassConfirm(e.target.value)}
               required
               sx={{ mb: 2 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowRegConfirm(!showRegConfirm)} edge="end" size="small">
+                        {showRegConfirm ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
             <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ py: 1.2 }}>
               {loading ? <CircularProgress size={22} /> : t('auth.registerBtn')}

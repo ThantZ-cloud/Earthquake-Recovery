@@ -1,0 +1,8 @@
+[project]
+id = ""
+
+[auth]
+enabled = true
+
+[functions]
+verify_jwt = true

@@ -12,6 +12,7 @@ import NavGuard from './components/NavGuard';
 import PageSkeleton from './components/PageSkeleton';
 import HomeSkeleton from './components/HomeSkeleton';
 import LearnSkeleton from './components/LearnSkeleton';
+import RequireSuperAdmin from './components/RequireSuperAdmin';
 
 const Home = lazy(() => import('./pages/Home'));
 const Learn = lazy(() => import('./pages/Learn'));
@@ -29,6 +30,7 @@ const AdminQuiz = lazy(() => import('./pages/admin/AdminQuiz'));
 const AdminAnnouncements = lazy(() => import('./pages/admin/AdminAnnouncements'));
 const AdminMonitoring = lazy(() => import('./pages/admin/AdminMonitoring'));
 const AdminNavigation = lazy(() => import('./pages/admin/AdminNavigation'));
+const AdminSuperAdmin = lazy(() => import('./pages/admin/AdminSuperAdmin'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -145,6 +147,7 @@ export default function App() {
                   <Route path="announcements" element={<Suspense fallback={null}><AdminAnnouncements /></Suspense>} />
                   <Route path="monitoring" element={<Suspense fallback={null}><AdminMonitoring /></Suspense>} />
                   <Route path="navigation" element={<Suspense fallback={null}><AdminNavigation /></Suspense>} />
+                  <Route path="super-admin" element={<RequireSuperAdmin><Suspense fallback={null}><AdminSuperAdmin /></Suspense></RequireSuperAdmin>} />
                 </Route>
               </Routes>
             </NavGuard>
