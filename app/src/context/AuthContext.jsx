@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { Box, CircularProgress } from '@mui/material';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import AppBootSkeleton from '../components/AppBootSkeleton';
 import supabase from '../lib/supabase';
 
 const AuthContext = createContext(null);
@@ -19,6 +19,12 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const initDone = useRef(false);
+
+  const finishLoading = useCallback(() => {
+    initDone.current = true;
+    setLoading(false);
+  }, []);
 
   const loadProfile = useCallback(async (userId) => {
     if (!userId) { setProfile(null); return; }
@@ -38,7 +44,10 @@ export function AuthProvider({ children }) {
 
   // On mount, check for existing session
   useEffect(() => {
+    let cancelled = false;
+
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (cancelled) return;
       if (session?.user) {
         const u = {
           id: session.user.id,
@@ -48,10 +57,16 @@ export function AuthProvider({ children }) {
         setUser(u);
         await loadProfile(u.id);
       }
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
+    }).catch((err) => {
+      console.warn('[Auth] getSession failed:', err);
+    }).finally(() => {
+      if (!cancelled) finishLoading();
     });
+
+    // Safety timeout: never let the boot spinner block the app forever
+    const timeout = setTimeout(() => {
+      if (!cancelled) finishLoading();
+    }, 5000);
 
     // Listen for login/logout events
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
@@ -67,10 +82,15 @@ export function AuthProvider({ children }) {
         setUser(null);
         setProfile(null);
       }
+      if (!initDone.current) finishLoading();
     });
 
-    return () => subscription.unsubscribe();
-  }, [loadProfile]);
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+      subscription.unsubscribe();
+    };
+  }, [loadProfile, finishLoading]);
 
   const login = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -94,11 +114,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   if (loading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-        <CircularProgress />
-      </Box>
-    );
+    return <AppBootSkeleton />;
   }
 
   return (
