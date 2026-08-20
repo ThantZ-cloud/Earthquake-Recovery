@@ -242,10 +242,23 @@ export default function Quiz() {
   const { data: dbQuestions, isLoading } = useQuery({
     queryKey: ['quiz-questions'],
     queryFn: async () => {
-      const { data } = await supabase.from('quiz_questions').select('*').eq('enabled', true).order('sort_order');
-      return data;
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
+      try {
+        const { data } = await supabase
+          .from('quiz_questions')
+          .select('*')
+          .eq('enabled', true)
+          .order('sort_order')
+          .abortSignal(controller.signal);
+        return data;
+      } finally {
+        clearTimeout(timer);
+      }
     },
     refetchInterval: 300_000,
+    retry: 2,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 5000),
   });
 
   // Normalize DB questions to same format as static QUESTIONS

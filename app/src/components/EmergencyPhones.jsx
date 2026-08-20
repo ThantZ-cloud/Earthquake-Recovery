@@ -47,10 +47,23 @@ export default function EmergencyPhones({ text = false, redButton = false }) {
   const { data: dbPhones } = useQuery({
     queryKey: ['emergency-phones'],
     queryFn: async () => {
-      const { data } = await supabase.from('emergency_phones').select('*').order('city').order('sort_order');
-      return data;
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
+      try {
+        const { data } = await supabase
+          .from('emergency_phones')
+          .select('*')
+          .order('city')
+          .order('sort_order')
+          .abortSignal(controller.signal);
+        return data;
+      } finally {
+        clearTimeout(timer);
+      }
     },
     refetchInterval: 300_000,
+    retry: 2,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 5000),
   });
 
   const useDb = dbPhones && dbPhones.length > 0;

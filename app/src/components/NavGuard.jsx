@@ -5,9 +5,7 @@ const PUBLIC_PATHS = new Set(['/admin']);
 
 export default function NavGuard({ children }) {
   const location = useLocation();
-  const { enabledPaths, isLoading } = useNavItems();
-
-  if (isLoading) return null;
+  const { enabledPaths } = useNavItems();
 
   const isAdminPath = location.pathname.startsWith('/admin');
   if (isAdminPath || PUBLIC_PATHS.has(location.pathname)) {

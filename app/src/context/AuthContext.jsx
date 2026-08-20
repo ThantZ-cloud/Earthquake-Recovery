@@ -1,30 +1,43 @@
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
-import AppBootSkeleton from '../components/AppBootSkeleton';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { isAuthRetryableFetchError } from '@supabase/supabase-js';
 import supabase from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
+function annotateError(error) {
+  if (error && isAuthRetryableFetchError(error)) {
+    const e = new Error('NETWORK_ERROR');
+    e.code = 'NETWORK_ERROR';
+    e.cause = error;
+    return e;
+  }
+  return error;
+}
+
 async function fetchProfile(userId) {
   if (!userId) return null;
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', userId)
-    .maybeSingle();
-  if (error) console.warn('[Auth] fetchProfile error:', error.message);
-  return data;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', userId)
+      .maybeSingle()
+      .abortSignal(controller.signal);
+    clearTimeout(timer);
+    if (error) console.warn('[Auth] fetchProfile error:', error.message);
+    return data;
+  } catch (err) {
+    console.warn('[Auth] fetchProfile failed:', err?.message);
+    return null;
+  }
 }
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const initDone = useRef(false);
-
-  const finishLoading = useCallback(() => {
-    initDone.current = true;
-    setLoading(false);
-  }, []);
+  const [loading] = useState(false); // Start false — don't block app on auth
 
   const loadProfile = useCallback(async (userId) => {
     if (!userId) { setProfile(null); return; }
@@ -42,10 +55,11 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // On mount, check for existing session
+  // On mount, check for existing session — non-blocking, app renders immediately
   useEffect(() => {
     let cancelled = false;
 
+    // Load auth in background (app already visible)
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (cancelled) return;
       if (session?.user) {
@@ -59,14 +73,7 @@ export function AuthProvider({ children }) {
       }
     }).catch((err) => {
       console.warn('[Auth] getSession failed:', err);
-    }).finally(() => {
-      if (!cancelled) finishLoading();
     });
-
-    // Safety timeout: never let the boot spinner block the app forever
-    const timeout = setTimeout(() => {
-      if (!cancelled) finishLoading();
-    }, 5000);
 
     // Listen for login/logout events
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
@@ -82,19 +89,17 @@ export function AuthProvider({ children }) {
         setUser(null);
         setProfile(null);
       }
-      if (!initDone.current) finishLoading();
     });
 
     return () => {
       cancelled = true;
-      clearTimeout(timeout);
       subscription.unsubscribe();
     };
-  }, [loadProfile, finishLoading]);
+  }, [loadProfile]);
 
   const login = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
+    if (error) throw annotateError(error);
     return data.user;
   }, []);
 
@@ -104,7 +109,7 @@ export function AuthProvider({ children }) {
       password,
       options: { data: { name } },
     });
-    if (error) throw error;
+    if (error) throw annotateError(error);
     return data.user;
   }, []);
 
@@ -112,10 +117,6 @@ export function AuthProvider({ children }) {
     await supabase.auth.signOut();
     setUser(null);
   }, []);
-
-  if (loading) {
-    return <AppBootSkeleton />;
-  }
 
   return (
     <AuthContext.Provider value={{ user, profile, isAdmin: profile?.role === 'admin', isSuperAdmin: profile?.role === 'super_admin', login, register, logout, loading }}>

@@ -12,14 +12,23 @@ export default function AnnouncementBanner() {
   const { data: announcements } = useQuery({
     queryKey: ['announcements'],
     queryFn: async () => {
-      const { data } = await supabase
-        .from('announcements')
-        .select('id, title, title_my, body, body_my, severity')
-        .eq('active', true)
-        .order('created_at', { ascending: false });
-      return data || [];
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
+      try {
+        const { data } = await supabase
+          .from('announcements')
+          .select('id, title, title_my, body, body_my, severity')
+          .eq('active', true)
+          .order('created_at', { ascending: false })
+          .abortSignal(controller.signal);
+        return data || [];
+      } finally {
+        clearTimeout(timer);
+      }
     },
     refetchInterval: 30_000,
+    retry: 2,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 5000),
   });
 
   if (!announcements?.length) return null;

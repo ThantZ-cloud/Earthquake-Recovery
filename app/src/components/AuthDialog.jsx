@@ -20,6 +20,17 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../i18n';
 
+function errorMessage(err, fallback) {
+  if (err?.code === 'NETWORK_ERROR') {
+    return navigator.onLine === false
+      ? 'You appear to be offline. Check your connection and try again.'
+      : 'Cannot reach the login server. Check your connection, VPN, or ad-blocker, and confirm the app is running.';
+  }
+  const msg = err?.message;
+  if (typeof msg === 'string' && msg.length > 1 && msg !== '{}' && msg !== 'NETWORK_ERROR') return msg;
+  return fallback;
+}
+
 export default function AuthDialog({ open, onClose, initialTab = 0 }) {
   const { login, register } = useAuth();
   const { t } = useLang();
@@ -54,9 +65,8 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
         reset();
       }, 600);
     } catch (err) {
-      const msg = typeof err?.message === 'string' && err.message.length > 1 && err.message !== '{}'
-        ? err.message : t('auth.loginError');
-      setError(msg);
+      console.error('[AuthDialog] login failed:', err);
+      setError(errorMessage(err, t('auth.loginError')));
     } finally {
       setLoading(false);
     }
@@ -82,9 +92,8 @@ export default function AuthDialog({ open, onClose, initialTab = 0 }) {
         reset();
       }, 1500);
     } catch (err) {
-      const msg = typeof err?.message === 'string' && err.message.length > 1 && err.message !== '{}'
-        ? err.message : t('auth.registerError');
-      setError(msg);
+      console.error('[AuthDialog] register failed:', err);
+      setError(errorMessage(err, t('auth.registerError')));
     } finally {
       setLoading(false);
     }
