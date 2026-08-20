@@ -14,6 +14,31 @@ cd app && npm run build  # Build to app/dist/
 
 No backend required — Supabase for auth, EMSC data fetched directly.
 
+## Mobile (Android APK) — separate project, does NOT touch app/
+
+The website (`app/`) is the single source of truth. The Android wrapper lives in
+`android-app/` and only *reads* `app/dist/` during sync.
+
+```bash
+cd android-app && npm install   # Capacitor deps (isolated node_modules)
+cd android-app && npm run sync  # Builds app/, copies dist -> web/, injects native bridge
+npx cap add android             # First time only
+npx cap sync android
+cd android && ./gradlew assembleDebug   # -> app/build/outputs/apk/debug/app-debug.apk
+```
+
+Or build in the cloud: tag a release `vX.Y.Z` and the GitHub Actions workflow
+(`.github/workflows/build-apk.yml`) produces the APK and attaches it to the release.
+
+**Push notifications (FCM):**
+- Native bridge: `android-app/src/native-bridge.js` (no-op in plain web)
+- Edge Function: `supabase/functions/alert-dispatcher/` (pg_cron every 30s)
+- Tables: `push_tokens`, `alert_log` (see `supabase/push.sql`)
+- Secrets (Supabase Dashboard → Edge Functions → alert-dispatcher): `FCM_SERVICE_ACCOUNT`, `ALERT_DISPATCHER_TOKEN`
+- GitHub secrets for CI: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `GOOGLE_SERVICES_JSON`
+
+Full walkthrough: `MOBILE.md`.
+
 ## Key files
 
 ```

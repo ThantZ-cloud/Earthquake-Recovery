@@ -1,0 +1,26 @@
+{
+  "name": "earthquake-recovery-android",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "bundle": "node scripts/bundle.mjs",
+    "cap:sync": "cap sync android",
+    "build:apk": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/push-notifications": "^8.1.2",
+    "@capacitor/status-bar": "^8.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.0",
+    "@supabase/supabase-js": "^2.110.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.8.0"
+  }
+}

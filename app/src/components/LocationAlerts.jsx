@@ -42,6 +42,8 @@ function createSiren() {
 
 let sirenAudio = null;
 let vibrationInterval = null;
+let activeAutoStopTimer = null;
+let pendingPlayPromise = null;
 
 function getSiren() {
   if (!sirenAudio) sirenAudio = createSiren();
@@ -51,6 +53,7 @@ function getSiren() {
 // Continuous vibration for mobile
 function startVibration() {
   if (!('vibrate' in navigator)) return;
+  if (vibrationInterval) clearInterval(vibrationInterval);
   vibrationInterval = setInterval(() => {
     navigator.vibrate([200, 100, 200, 100, 200]);
   }, 800);
@@ -64,33 +67,46 @@ function stopVibration() {
   }
 }
 
-// Play siren, return stop function. Returns null if blocked.
+// Always stops the siren, regardless of which code path started it.
+// Safe to call when nothing is playing.
+function forceStopSiren() {
+  if (activeAutoStopTimer) {
+    clearTimeout(activeAutoStopTimer);
+    activeAutoStopTimer = null;
+  }
+  pendingPlayPromise = null;
+  if (sirenAudio) {
+    sirenAudio.pause();
+    sirenAudio.currentTime = 0;
+  }
+  stopVibration();
+}
+
+// Play siren, always return a working stop function (never null).
 function startSiren(onAutoStop) {
   const audio = getSiren();
   try {
     audio.currentTime = 0;
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => null);
+    pendingPlayPromise = audio.play();
+    if (pendingPlayPromise && typeof pendingPlayPromise.catch === 'function') {
+      pendingPlayPromise.catch(() => { pendingPlayPromise = null; });
     }
     // Start continuous vibration on mobile
     startVibration();
     // Auto-stop after max duration
-    const timer = setTimeout(() => {
+    if (activeAutoStopTimer) clearTimeout(activeAutoStopTimer);
+    activeAutoStopTimer = setTimeout(() => {
+      activeAutoStopTimer = null;
       audio.pause();
       audio.currentTime = 0;
       stopVibration();
       if (onAutoStop) onAutoStop();
     }, SIREN_MAX_MS);
-    return () => {
-      clearTimeout(timer);
-      audio.pause();
-      audio.currentTime = 0;
-      stopVibration();
-    };
   } catch {
-    return null;
+    // Even if playback setup failed, return a stop function so the UI
+    // can still dismiss the alert and clean up any partial state.
   }
+  return forceStopSiren;
 }
 
 export default function LocationAlerts({ enabled }) {
@@ -170,6 +186,11 @@ export default function LocationAlerts({ enabled }) {
       setWatching(false);
     };
   }, [enabled, t]);
+
+  // Stop siren + vibration if the component unmounts (e.g. drawer closed)
+  useEffect(() => {
+    return () => forceStopSiren();
+  }, []);
 
   // Save location to Supabase
   const saveLocation = useCallback(
@@ -299,14 +320,25 @@ export default function LocationAlerts({ enabled }) {
     if (stopSirenRef.current) {
       stopSirenRef.current();
       stopSirenRef.current = null;
-      setSirenActive(false);
+    } else {
+      // Fallback: ensure audio stops even if the stop function was lost
+      forceStopSiren();
     }
+    setSirenActive(false);
     setSnackOpen(false);
   }, []);
 
   // Demo alert handler
   const handleDemo = useCallback(() => {
-    handleStopSiren();
+    // Stop any current siren WITHOUT marking it as "user stopped",
+    // so a real quake can still sound afterwards
+    if (stopSirenRef.current) {
+      stopSirenRef.current();
+      stopSirenRef.current = null;
+    } else {
+      forceStopSiren();
+    }
+    sirenStoppedByUserRef.current = false;
     setAlertQuake({ place: 'MANDALAY, MYANMAR', mag: 5.2, dist: '12.3' });
     setSnackOpen(true);
 
@@ -318,7 +350,7 @@ export default function LocationAlerts({ enabled }) {
       stopSirenRef.current = stop;
       setSirenActive(true);
     }
-  }, [handleStopSiren]);
+  }, []);
 
   // Get active location name
   const locationLabel = savedLocation?.label || (userPos ? t('alerts.currentLocation') : t('alerts.noLocation'));

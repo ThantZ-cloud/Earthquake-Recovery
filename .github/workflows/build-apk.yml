@@ -1,0 +1,86 @@
+name: Build Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # ---- Build the website (read-only, app/ is untouched) ----
+      - name: Install web deps
+        working-directory: app
+        run: npm ci
+
+      # ---- Build the android wrapper ----
+      - name: Install android-app deps
+        working-directory: android-app
+        run: npm ci
+
+      - name: Sync web build + inject bridge
+        working-directory: android-app
+        run: npm run sync
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Add Android platform
+        working-directory: android-app
+        run: npx cap add android
+
+      - name: Write google-services.json (FCM)
+        working-directory: android-app/android/app
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" > google-services.json
+            echo "google-services.json written"
+          else
+            echo "WARNING: GOOGLE_SERVICES_JSON secret not set — FCM push won't be wired"
+          fi
+
+      - name: Cap sync
+        working-directory: android-app
+        run: npx cap sync android
+
+      - name: Build debug APK
+        working-directory: android-app/android
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthquake-recovery-apk
+          path: android-app/android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Attach APK to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: android-app/android/app/build/outputs/apk/debug/app-debug.apk
+          generate_release_notes: true
