@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import HomeIcon from '@mui/icons-material/Home';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import ParkIcon from '@mui/icons-material/Park';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import BedIcon from '@mui/icons-material/Bed';
@@ -58,14 +59,24 @@ const SCENARIOS = [
     color: '#7B1FA2',
   },
   {
-    icon: <WaterIcon sx={{ fontSize: 40 }} />,
-    emoji: '🏖️',
+    icon: <ApartmentIcon sx={{ fontSize: 40 }} />,
+    emoji: '🏢',
     titleKey: 'during.scenarios.highrise.title',
     dosKey: 'during.scenarios.highrise.dos',
     dontsKey: 'during.scenarios.highrise.donts',
+    dosCount: 7,
+    dontsCount: 4,
+    color: '#00838F',
+  },
+  {
+    icon: <WaterIcon sx={{ fontSize: 40 }} />,
+    emoji: '🌊',
+    titleKey: 'during.scenarios.coastal.title',
+    dosKey: 'during.scenarios.coastal.dos',
+    dontsKey: 'during.scenarios.coastal.donts',
     dosCount: 6,
     dontsCount: 3,
-    color: '#00838F',
+    color: '#0277BD',
   },
 ];
 

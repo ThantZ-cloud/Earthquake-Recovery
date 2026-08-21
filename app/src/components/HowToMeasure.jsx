@@ -11,8 +11,8 @@ import { useLang } from '../i18n';
 import { fadeUp, fadeUpFast } from '../utils/animations';
 
 const MAGNITUDE_SCALE = [
-  { mag: '1–2', color: '#4caf50', key: 'micro' },
-  { mag: '3–3.9', color: '#8bc34a', key: 'minor' },
+  { mag: '<2', color: '#4caf50', key: 'micro' },
+  { mag: '2–3.9', color: '#8bc34a', key: 'minor' },
   { mag: '4–4.9', color: '#ffeb3b', key: 'light' },
   { mag: '5–5.9', color: '#ff9800', key: 'moderate' },
   { mag: '6–6.9', color: '#ff5722', key: 'strong' },

@@ -34,9 +34,9 @@ import { useLang } from '../i18n';
 /* ──────────────────────────── DATA ──────────────────────────── */
 
 const INTERNATIONAL_QUAKES = [
-  { year: 1960, location: 'Valdivia (Biobío), Chile', magnitude: 9.5, depth: 33, tKey: 'intl_1960' },
+  { year: 1960, location: 'Valdivia (Los Ríos), Chile', magnitude: 9.5, depth: 33, tKey: 'intl_1960' },
   { year: 1964, location: 'Good Friday, Alaska, USA', magnitude: 9.2, depth: 25, tKey: 'intl_1964' },
-  { year: 2004, location: 'Indian Ocean (Sumatra)', magnitude: 9.2, depth: 30, tKey: 'intl_2004' },
+  { year: 2004, location: 'Indian Ocean (Sumatra)', magnitude: 9.1, depth: 30, tKey: 'intl_2004' },
   { year: 2011, location: 'Tōhoku, Japan', magnitude: 9.1, depth: 29, tKey: 'intl_2011' },
   { year: 1952, location: 'Severo-Kurilsk, Russia', magnitude: 9.0, depth: 30, tKey: 'intl_1952' },
   { year: 2010, location: 'Maule, Chile', magnitude: 8.8, depth: 35, tKey: 'intl_2010' },
@@ -45,11 +45,11 @@ const INTERNATIONAL_QUAKES = [
 const MYANMAR_QUAKES = [
   { year: 2025, location: 'Sagaing, Myanmar', magnitude: 7.7, depth: 10, tKey: 'mmr_2025' },
   { year: 1839, location: 'Ava (Innwa), Myanmar', magnitude: 8.3, depth: 12, tKey: 'mmr_1839' },
-  { year: 1946, location: 'Sagaing-Mandalay, Myanmar', magnitude: 7.8, depth: 15, tKey: 'mmr_1946' },
+  { year: 1946, location: 'Sagaing-Mandalay, Myanmar', magnitude: 7.7, depth: 15, tKey: 'mmr_1946' },
   { year: 2016, location: 'Chauk, Myanmar', magnitude: 6.8, depth: 84, tKey: 'mmr_2016' },
-  { year: 2012, location: 'Shwebo, Myanmar', magnitude: 6.8, depth: 10, tKey: 'mmr_2012' },
+  { year: 2012, location: 'Shwebo, Myanmar', magnitude: 6.8, depth: 13.7, tKey: 'mmr_2012' },
   { year: 1930, location: 'Bago (Pegu), Myanmar', magnitude: 7.3, depth: 10, tKey: 'mmr_1930' },
-  { year: 1975, location: 'Bagan, Myanmar', magnitude: 6.5, depth: 30, tKey: 'mmr_1975' },
+  { year: 1975, location: 'Bagan, Myanmar', magnitude: 7.0, depth: 157, tKey: 'mmr_1975' },
 ];
 
 /* ──────────────────────── HELPERS ───────────────────────── */

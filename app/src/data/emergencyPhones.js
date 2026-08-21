@@ -2,7 +2,7 @@
 
 const emergencyPhones = {
   'Nay Pyi Taw': [
-    { name: 'Fire Department', phone: '192' },
+    { name: 'Fire Department', phone: '191' },
     { name: 'Ambulance (Emergency)', phone: '192' },
     { name: 'Police', phone: '199' },
     { name: 'Myanmar Red Cross', phone: '067-412012' },

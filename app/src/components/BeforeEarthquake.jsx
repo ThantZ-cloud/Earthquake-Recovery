@@ -21,7 +21,7 @@ const SECTIONS = [
     titleKey: 'before.sections.sec1.title',
     descKey: 'before.sections.sec1.desc',
     itemsKey: 'before.sections.sec1.items',
-    count: 12,
+    count: 9,
   },
   {
     emoji: '🏠',
@@ -35,7 +35,7 @@ const SECTIONS = [
     titleKey: 'before.sections.sec3.title',
     descKey: 'before.sections.sec3.desc',
     itemsKey: 'before.sections.sec3.items',
-    count: 9,
+    count: 12,
   },
   {
     emoji: '⚠️',

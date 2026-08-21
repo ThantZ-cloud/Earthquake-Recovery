@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ငလျင်နှင့် ပြန်လည်ထူထောင်ရေး — Tri-fold Pamphlet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #d32f2f;
+    --red-dark: #b71c1c;
+    --orange: #ed6c02;
+    --green: #2e7d32;
+    --green-light: #4caf50;
+    --navy: #1a1a2e;
+    --cream: #fdf6ec;
+    --ink: #2b2b33;
+    --muted: #6b6b78;
+  }
+
+  html { background: #455a64; }
+  body {
+    font-family: "Padauk", "Noto Sans Myanmar", "Pyidaungsu", sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Screen viewport ---------- */
+  .stage {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .intro-note {
+    text-align: center;
+    color: #eceff1;
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.6;
+    font-family: "Poppins", sans-serif;
+  }
+  .intro-note strong { color: #ffcc80; }
+
+  .sheet {
+    width: 1123px;   /* 297mm @96dpi */
+    height: 794px;   /* 210mm @96dpi */
+    margin: 0 auto 30px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.4);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* The A4 tri-fold sheet: 3 panels side by side */
+  .panels {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+  .panel {
+    width: 374.3px;  /* 1123 / 3 */
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .fold-line { border-left: 2px dashed rgba(0,0,0,.15); }
+
+  .sheet-label {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    z-index: 50;
+    background: rgba(211,47,47,.92);
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: .3px;
+  }
+
+  /* =================  OUTSIDE (cover side)  ================= */
+  /* Panel order when folded: [back-flap | back-center | FRONT COVER] */
+
+  /* ---- FRONT COVER (right panel) ---- */
+  .cover {
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 55%),
+      linear-gradient(160deg, #c62828 0%, #b71c1c 48%, #7f1010 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 24px 20px;
+  }
+  .cover .org-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .org-row .org-logo {
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    width: 86px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  }
+  .org-row .org-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  .cover .event-tag {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .6px;
+    color: #ffd0a6;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .cover h1 {
+    font-size: 40px;
+    line-height: 1.14;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 3px 12px rgba(0,0,0,.35);
+  }
+  .cover .tagline {
+    text-align: center;
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin-top: 8px;
+    color: #ffe6cc;
+  }
+  .cover .divider {
+    width: 64px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #ffb74d, #ffd54f);
+    margin: 12px auto;
+  }
+
+  /* Phone mockup */
+  .phone {
+    width: 152px;
+    margin: 8px auto 0;
+    background: #111;
+    border-radius: 26px;
+    padding: 8px 6px 12px;
+    box-shadow: 0 14px 34px rgba(0,0,0,.45);
+  }
+  .phone .notch {
+    width: 52px; height: 7px;
+    background: #222;
+    border-radius: 6px;
+    margin: 0 auto 6px;
+  }
+  .phone .screen {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    line-height: 0;
+  }
+  .phone .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .phone .home { width: 34px; height: 4px; background: #333; border-radius: 3px; margin: 8px auto 0; }
+
+  .cover .badges {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .cover .badge {
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.35);
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ---- Back center (why it matters) ---- */
+  .backcenter {
+    background: var(--cream);
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .bc-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .bc-head .bar {
+    width: 5px; height: 30px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, var(--red), var(--orange));
+  }
+  .bc-head h2 { font-size: 24px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .stat {
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(26,26,46,.08);
+    border-top: 4px solid var(--orange);
+  }
+  .stat.green { border-top-color: var(--green); }
+  .stat.blue  { border-top-color: #1565c0; }
+  .stat.red   { border-top-color: var(--red); }
+  .stat .num { font-size: 26px; font-weight: 700; font-family: "Poppins", sans-serif; color: var(--navy); line-height: 1.1; }
+  .stat .lbl { font-size: 12px; color: var(--muted); line-height: 1.35; }
+
+  .why-box {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-top: 12px;
+    box-shadow: 0 4px 14px rgba(26,26,46,.08);
+  }
+  .why-box h3 {
+    font-size: 16px;
+    color: var(--red-dark);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .why-box p { font-size: 13px; line-height: 1.55; color: var(--ink); }
+  .why-box ul { list-style: none; margin-top: 8px; }
+  .why-box li {
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 5px;
+    color: var(--ink);
+  }
+  .why-box li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .tech-strip {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .tech-strip span {
+    background: #fff;
+    border: 1px solid #e0d9cc;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 14px;
+    color: var(--muted);
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+  }
+
+  /* ---- Back flap (about / QR) ---- */
+  .backflap {
+    background: #fff;
+    padding: 26px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .backflap h2 { font-size: 20px; color: var(--navy); margin-bottom: 10px; }
+  .backflap .ab {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 13px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .qr-wrap {
+    background: linear-gradient(160deg, #fff, #fff8ef);
+    border: 1px solid #eee3d2;
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .qr-wrap img { width: 96px; height: 96px; border-radius: 6px; }
+  .qr-wrap p { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .contact {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .contact b { color: #ffb74d; }
+
+  .footnote {
+    margin-top: auto;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.5;
+    padding-top: 10px;
+  }
+
+  /* =================  INSIDE (content side)  ================= */
+  .inside { background: #fff; }
+  .in-panel { padding: 30px 26px; display: flex; flex-direction: column; }
+  .in-head {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 14px;
+  }
+  .in-head .ico {
+    width: 46px; height: 46px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    flex-shrink: 0;
+    box-shadow: 0 5px 14px rgba(0,0,0,.12);
+  }
+  .in-head h2 { font-size: 23px; font-weight: 700; color: var(--navy); line-height: 1.15; }
+  .in-head .sub { font-size: 12px; color: var(--muted); font-family: "Poppins", sans-serif; }
+
+  .desc { font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+  .desc b { color: var(--red-dark); }
+
+  .in-shot {
+    margin: 14px 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(0,0,0,.18);
+    line-height: 0;
+    border: 5px solid #fff;
+    outline: 1px solid #e6e0d4;
+    text-align: center;
+  }
+  .in-shot img { width: 100%; height: auto; display: block; }
+
+  .feature-list { list-style: none; margin-top: 6px; }
+  .feature-list li {
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .feature-list li::before { content: "🔸"; position: absolute; left: 0; top: 1px; font-size: 11px; }
+
+  .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 12px; }
+  .pill {
+    background: #f2ede2;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 18px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .pill.green { background: #e3f2e4; color: var(--green); }
+  .pill.orange { background: #fdeede; color: var(--orange); }
+  .pill.red { background: #fbe6e6; color: var(--red-dark); }
+
+  /* Team strip */
+  .team-row { display: flex; justify-content: space-between; gap: 5px; margin-top: 12px; }
+  .team-row .m { text-align: center; width: 19%; }
+  .team-row .m img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--red);
+  }
+  .team-row .m span { font-size: 8.5px; display: block; margin-top: 3px; line-height: 1.25; color: var(--ink); }
+
+  /* =================  PRINT  ================= */
+  @page { size: 297mm 210mm; margin: 0; }
+  @media print {
+    html { background: #fff; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stage { padding: 0; max-width: none; }
+    .intro-note, .sheet-label { display: none; }
+    .sheet {
+      width: 297mm; height: 210mm;
+      margin: 0; border-radius: 0; box-shadow: none;
+      page-break-after: always;
+    }
+    .sheet:last-child { page-break-after: auto; }
+    .panel { width: 99mm; }
+    .fold-line { border-left: 1px dashed rgba(0,0,0,.22); }
+  }
+
+  /* mobile preview: stack panels */
+  @media (max-width: 1150px) {
+    .sheet { width: 100%; height: auto; }
+    .panels { flex-direction: column; }
+    .panel { width: 100%; }
+    .fold-line { border-left: none; border-top: 2px dashed rgba(0,0,0,.15); }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="intro-note">
+    <strong>ငလျင်နှင့် ပြန်လည်ထူထောင်ရေး</strong> — Tri-fold A4 လက်ကမ်းစာစောင်<br>
+    Print the two sheets back-to-back (landscape A4) and fold into 3.  Outermost sheet ↓  Innermost sheet ↓
+  </div>
+
+  <!-- ============ OUTSIDE SHEET ============ -->
+  <div class="sheet">
+    <div class="sheet-label">အပြင်ဘက်မျက်နှာ — Front (Cover)</div>
+    <div class="panels">
+      <!-- Back flap (left, folds to the back) -->
+      <div class="panel backflap">
+        <h2>📌 ပရောဂျက် အကြောင်း</h2>
+        <div class="ab">
+          မြန်မာနိုင်ငံအတွက် <b>တိုက်ရိုက် ငလျင်စောင့်ကြည့်မှု</b>၊ <b>ဆည်အန္တရာယ် အကဲဖြတ်မှု</b> နှင့် <b>ဘေးကင်းရေး ပညာပေး</b> တို့ကို တစ်နေရာတည်းတွင် ပေါင်းစပ်ပေးထားသော Web App တစ်ခုဖြစ်သည်။ မိုဘိုင်းဖုန်းမှာပါ အသုံးပြုနိုင်သည်။
+        </div>
+
+        <h2 style="font-size:16px;">🏫 ဖန်တီးသူများ</h2>
+        <div class="ab" style="margin-bottom:10px;">
+          UTYCC (ယဉ်ကျေးသိပ္ပံနှင့်နည်းပညာ တက္ကသိုလ်၊ ရတနာပုံ) — <b>IST မေဂျာ၊ အစုအဖွဲ့ ၁၃</b> — အဖွဲ့ဝင် ၁၀ ဦး
+        </div>
+        <div class="team-row">
+          <div class="m"><img src="../app/public/assets/team/thantzinhtun.jpg" alt=""><span>သန့်ဇင်ထွန်း<br>(ခေါင်းဆောင်)</span></div>
+          <div class="m"><img src="../app/public/assets/team/phyothiri.jpg" alt=""><span>ဖြိုးသီဟ<br>(ဒုခေါင်းဆောင်)</span></div>
+          <div class="m"><img src="../app/public/assets/team/phu.jpg" alt=""><span>ဖူး</span></div>
+          <div class="m"><img src="../app/public/assets/team/yulay.jpg" alt=""><span>ယုလေး</span></div>
+          <div class="m"><img src="../app/public/assets/team/haymann.jpg" alt=""><span>ဟေမန်</span></div>
+        </div>
+        <div class="team-row" style="margin-top:4px;">
+          <div class="m"><img src="../app/public/assets/team/linbone.jpg" alt=""><span>လင်းဘုန်း</span></div>
+          <div class="m"><img src="../app/public/assets/team/eithiri.jpg" alt=""><span>ဧသီရီ</span></div>
+          <div class="m"><img src="../app/public/assets/team/zuenk.jpg" alt=""><span>ဇွန်ခ</span></div>
+          <div class="m"><img src="../app/public/assets/team/lynnlatnwe.jpg" alt=""><span>လင်းလက်နွေး</span></div>
+          <div class="m"><img src="../app/public/assets/team/yannaing.jpg" alt=""><span>ရန်နိုင်</span></div>
+        </div>
+
+        <div class="qr-wrap">
+          <img src="./images/qr.png" alt="QR code">
+          <p>QR ကုတ်ကို စကင်ဖတ်ပြီး<br>အပြည့်အစုံ ကြည့်ရှုပါ</p>
+        </div>
+
+        <div class="contact">
+          <b>ဆက်သွယ်ရန်:</b> Telegram @ThantZ44<br>
+          <b>Data sources:</b> EMSC, USGS, OpenStreetMap, MapTiler, mmeqopendata
+        </div>
+        <div class="footnote">
+          Innovative Project Exhibition (2026) — UTYCC • MIT License
+        </div>
+      </div>
+
+      <!-- Back center (why it matters) -->
+      <div class="panel backcenter fold-line">
+        <div class="bc-head">
+          <span class="bar"></span>
+          <h2>ဘာကြောင့် အရေးကြီးလဲ?</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat"><div class="num">700+</div><div class="lbl">ငလျင်များ (M1+)<br>မြေပုံပေါ်တွင် တိုက်ရိုက်</div></div>
+          <div class="stat green"><div class="num">254</div><div class="lbl">မြန်မာဆည်များ<br>အန္တရာယ်အဆင့် သတ်မှတ်</div></div>
+          <div class="stat blue"><div class="num">13</div><div class="lbl">မြို့ကြီးများ၏<br>အရေးပေါ်ဖုန်းနံပါတ်</div></div>
+          <div class="stat red"><div class="num">50 km</div><div class="lbl">အကွာအဝေးအတွင်း<br>M3+ သတိပေးချက်</div></div>
+        </div>
+
+        <div class="why-box">
+          <h3>🛡️ သက်ရောက်မှု</h3>
+          <p>ငလျင်များသည် မြန်မာနိုင်ငံတွင် ရုတ်တရက် လာတတ်သည်။ ပြတ်ရွေ့မြောင်းများအနီးတွင် ဆည် ၂၅၄ ခု ရှိနေပြီး လူအများစုသည် အန္တရာယ်ကို မသိကြပါ။</p>
+          <ul>
+            <li><b>ပညာပေးမှု</b>ဖြင့် အသက်များ ကယ်တင်ခြင်း</li>
+            <li><b>အချိန်နှင့်တစ်ပြေးညီ ဒေတာ</b>ဖြင့် အသိပေးခြင်း</li>
+            <li><b>ပြန်လည်ထူထောင်ရေး</b> အရင်းအမြစ်များ</li>
+            <li>လူတိုင်း သုံးနိုင်ရန် <b>အခမဲ့</b>၊ <b>နှစ်ဘာသာ</b> (မြန်မာ/English)</li>
+          </ul>
+        </div>
+
+        <h2 style="font-size:15px;margin-top:14px;color:var(--navy);">⚙️ နည်းပညာ (Tech Stack)</h2>
+        <div class="tech-strip">
+          <span>React 19</span><span>Vite</span><span>MUI 7</span><span>Leaflet</span><span>Turf.js</span><span>Supabase</span><span>TanStack Query</span><span>Framer Motion</span>
+        </div>
+
+        <div class="why-box" style="margin-top:12px;background:linear-gradient(160deg,#1a1a2e,#2b2b3f);color:#fff;">
+          <h3 style="color:#ffb74d;">📍 လက်ရှိအသုံးပြုနေသူများ အတွက်</h3>
+          <p style="color:#e9e9f0;">GPS သို့မဟုတ် သိမ်းဆည်းထားသော နေရာမှ ငလျင်လှုပ်ရှားမှုကို စောင့်ကြည့်ကာ <b style="color:#ffb74d;">အရေးပေါ် ဥဩသံ (Siren)</b> + ဖုန်းအကြောင်းကြားချက်ဖြင့် သတိပေးသည်။</p>
+        </div>
+      </div>
+
+      <!-- FRONT COVER (right) -->
+      <div class="panel cover fold-line">
+        <div class="event-tag">Innovative Project Exhibition • 2026 • UTYCC</div>
+
+        <!-- DAST + YCC + MOST logos in header -->
+        <div class="org-row">
+          <div class="org-logo"><img src="./images/DASTlogo.jpg" alt="DAST logo"></div>
+          <div class="org-logo"><img src="./images/YCClogo.jpg" alt="YCC logo"></div>
+          <div class="org-logo"><img src="./images/MOSTLogo.jpg" alt="MOST logo"></div>
+        </div>
+
+        <h1>ငလျင်နှင့်<br>ပြန်လည်ထူထောင်ရေး</h1>
+        <div class="tagline">
+          တိုက်ရိုက် ငလျင်စောင့်ကြည့်မှု • ဆည်အန္တရာယ် အကဲဖြတ်မှု • ဘေးကင်းရေး ပညာပေး
+        </div>
+        <div class="divider"></div>
+
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen">
+            <img src="./s1-magnitude-map.png" alt="ငလျင် ပြင်းအားမြေပုံ (iPhone SE)">
+          </div>
+          <div class="home"></div>
+        </div>
+
+        <div class="badges">
+          <span class="badge">🌍 မြေပုံ</span>
+          <span class="badge">🔊 သတိပေးချက်</span>
+          <span class="badge">📚 ဉာဏ်စမ်း</span>
+          <span class="badge">💚 ပြန်လည်ထူထောင်ရေး</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INSIDE SHEET ============ -->
+  <div class="sheet">
+    <div class="sheet-label">အတွင်းဘက်မျက်နှာ — Inside</div>
+    <div class="panels inside">
+      <!-- Inside left: live map feature -->
+      <div class="panel in-panel">
+        <div class="in-head">
+          <div class="ico" style="background:linear-gradient(160deg,#d32f2f,#f06292);">🌐</div>
+          <div>
+            <h2>တိုက်ရိုက် ငလျင်မြေပုံ</h2>
+            <div class="sub">Live Earthquake Map</div>
+          </div>
+        </div>
+        <div class="desc">
+          EMSC မှ ငလျင်ဒေတာ <b>၇ ရက်အတွင်း M1+ ငလျင် ၇၀၀+</b> ကို မြေပုံပေါ်တွင် တိုက်ရိုက် ပြသသည်။ <b>၃၀ စက္ကန့်တိုင်း</b> အလိုအလျောက် အသစ်ပြောင်းလဲပေးသည်။
+        </div>
+        <div class="in-shot">
+          <img src="./s1-magnitude-map.png" alt="ငလျင်ပြင်းအား မြေပုံ">
+        </div>
+        <ul class="feature-list">
+          <li><b>ပြင်းအားအလိုက် အရောင်:</b> 🟢 M&lt;2 • 🟡 M2-4 • 🟠 M4-6 • 🔴 M6+</li>
+          <li>ပြတ်ရွေ့မြောင်း (Tectonic Plates) အလွှာ</li>
+          <li>Satellite / Topography မြေပုံပြောင်းလဲနိုင်</li>
+          <li>ငလျင်တစ်ခုချင်းစီကို နှိပ်၍ အသေးစိတ် ကြည့်ရှုနိုင်</li>
+        </ul>
+      </div>
+
+      <!-- Inside center: dam risk -->
+      <div class="panel in-panel fold-line">
+        <div class="in-head">
+          <div class="ico" style="background:linear-gradient(160deg,#2e7d32,#66bb6a);">🏞️</div>
+          <div>
+            <h2>ဆည် အန္တရာယ် အကဲဖြတ်ခြင်း</h2>
+            <div class="sub">Dam Risk Assessment</div>
+          </div>
+        </div>
+        <div class="desc">
+          မြန်မာနိုင်ငံရှိ <b>ဆည် ၂၅၄ ခု</b> ကို ပြတ်ရွေ့မြောင်းများနှင့် အကွာအဝေးပေါ်မူတည်၍ အန္တရာယ်အဆင့် သတ်မှတ်ပေးသည် (Turf.js အသုံးပြု)။
+        </div>
+        <div class="in-shot">
+          <img src="./s2-dam-map.png" alt="ဆည်အန္တရာယ် မြေပုံ">
+        </div>
+        <div class="feature-list">
+          <div class="pill-row" style="margin-top:0;">
+            <span class="pill red">🔴 High — 0–30 km</span>
+            <span class="pill orange">🟠 Medium — 30–80 km</span>
+            <span class="pill green">🟢 Low — &gt;80 km</span>
+          </div>
+          <ul class="feature-list">
+            <li>ဆည်တစ်ခုချင်းစီ၏ အမည်၊ အမျိုးအစား၊ စွမ်းအား၊ မြစ် စသည်ဖြင့် အသေးစိတ်</li>
+            <li>ပြတ်ရွေ့မြောင်းနှင့် အကွာအဝေး (km)</li>
+            <li>မြေပုံပေါ်တွင် အရောင်-ကုတ် ဖြင့် ချက်ချင်းမြင်ရ</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Inside right: alerts + education -->
+      <div class="panel in-panel fold-line">
+        <div class="in-head">
+          <div class="ico" style="background:linear-gradient(160deg,#ed6c02,#ffb74d);">🚨</div>
+          <div>
+            <h2>သတိပေးချက်များ + ပညာပေး</h2>
+            <div class="sub">Alerts &amp; Education</div>
+          </div>
+        </div>
+        <div class="desc">
+          <b>📍 နေရာအခြေပြု သတိပေးချက်:</b> သင့်အနီး <b>၅၀ km အတွင်း M3+</b> ငလျင်လှုပ်ပါက အရေးပေါ် <b>ဥဩသံ</b> + ဖုန်းအကြောင်းကြားချက် + တုန်ခါမှု သတိပေးသည်။
+        </div>
+        <div class="desc" style="margin-top:8px;">
+          <b>📚 လေ့လာရေး:</b> "Drop, Cover, Hold On" ဘေးကင်းရေးလမ်းညွှန်၊ ငလျင်မဖြစ်မီ/ဖြစ်နေစဉ်/ပြီးနောက် ပြင်ဆင်မှုများ။
+        </div>
+        <div class="desc" style="margin-top:8px;">
+          <b>📝 ဉာဏ်စမ်း ၃၀ ခု</b> — ဘေးကင်းရေး၊ သိပ္ပံ၊ ပထဝီဝင် အမျိုးအစားများဖြင့် ဗဟုသုတ စစ်ဆေးနိုင်။
+        </div>
+        <div class="desc" style="margin-top:8px;">
+          <b>📞 အရေးပေါ်ဖုန်းနံပါတ်များ</b> — မြို့ကြီး ၁၃ မြို့အတွက်။
+        </div>
+        <div class="pill-row">
+          <span class="pill green">နှစ်ဘာသာ (မြန်မာ/English)</span>
+          <span class="pill orange">အလင်း/အမှောင် မုဒ်</span>
+          <span class="pill red">Android APK + Push</span>
+        </div>
+        <div class="why-box" style="background:linear-gradient(160deg,#fff8ef,#fff);">
+          <h3 style="color:#b71c1c;">💝 ပြန်လည်ထူထောင်ရေး + လှူဒါန်းမှု</h3>
+          <p style="font-size:12.5px;">ပျက်စီးမှုစစ်ဆေးခြင်း → အာမခံ/အကူအညီ → ပိုခိုင်မာအောင် ပြန်တည်ဆောက်ခြင်း အဆင့်ဆင့် လမ်းညွှန်။ လှူဒါန်းနိုင်သော နည်းလမ်းများ (KBZ Pay, Wave Pay, KPay, Crypto…)။</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

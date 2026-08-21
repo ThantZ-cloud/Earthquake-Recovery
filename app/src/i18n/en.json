@@ -269,7 +269,7 @@
         "category": "Geography"
       },
       {
-        "q": "What is the primary danger after an earthquake?",
+        "q": "Which of these is a danger after an earthquake?",
         "options": [
           "Aftershocks",
           "Heavy rain",
@@ -339,12 +339,12 @@
         "category": "Safety"
       },
       {
-        "q": "How much of the Earth's surface is affected by the Ring of Fire?",
+        "q": "About what share of the world's earthquakes occur in the Ring of Fire?",
         "options": [
           "About 10%",
-          "About 25%",
           "About 40%",
-          "About 75%"
+          "About 90%",
+          "About 25%"
         ],
         "category": "Geography"
       },
@@ -505,7 +505,7 @@
     "sources": "Sources",
     "photoCaption": "Photo",
     "quakes": {
-      "intl_1960": "The largest earthquake ever recorded. Triggered a massive tsunami that struck Hawaii, Japan, and the Philippines. Over 1,600 people killed and 2 million left homeless.",
+      "intl_1960": "The largest earthquake ever recorded. Triggered a massive tsunami that struck Hawaii, Japan, the Philippines, and other Pacific nations. Estimated 1,000–6,000 people killed and 2 million left homeless.",
       "intl_1964": "Lasted 4.5 minutes. Triggered landslides and tsunamis. Caused ground liquefaction in Anchorage. 131 people killed.",
       "intl_2004": "Triggered a devastating tsunami that affected 14 countries. Over 230,000 people killed. One of the deadliest natural disasters in recorded history.",
       "intl_2011": "Caused a massive tsunami and the Fukushima Daiichi nuclear disaster. Over 15,000 deaths. Most powerful earthquake ever recorded in Japan.",
@@ -513,7 +513,7 @@
       "intl_2010": "526 people killed. Tsunami warnings issued for 53 countries. Triggered coastal uplift and subsidence along the Chilean coast.",
       "mmr_2025": "Struck near Mandalay causing widespread destruction across central Myanmar. Thousands of buildings collapsed, including historical pagodas and monasteries. One of the most devastating earthquakes in Myanmar's recent history.",
       "mmr_1839": "Devastated the ancient capital of Ava (Innwa). Numerous pagodas and buildings collapsed. Felt across a wide area including present-day Mandalay and Sagaing.",
-      "mmr_1946": "Major destruction along the Sagaing Fault. Significant damage to Mandalay and Sagaing cities. Triggered landslides across central Myanmar.",
+      "mmr_1946": "A pair of powerful earthquakes struck along the Sagaing Fault on the same day — a magnitude 7.3 mainshock followed by a 7.7 event. Among the largest earthquakes recorded in Myanmar.",
       "mmr_2016": "Caused significant damage to ancient temples in Bagan, including the collapse of spires and walls on several pagodas. Felt across Myanmar and neighboring countries.",
       "mmr_2012": "Struck near Shwebo in Sagaing Region. Caused casualties and damage to buildings. A bridge under construction collapsed into the Irrawaddy River.",
       "mmr_1930": "Caused widespread destruction in Bago. Many historical structures damaged. Felt strongly in Yangon. Triggered fires that added to the devastation.",
@@ -521,7 +521,7 @@
     },
     "quakeData": {
       "intl_1960": {
-        "deaths": 1655,
+        "deaths": 2000,
         "injuries": 3000,
         "tsunami": true,
         "economicLoss": "$800M",
@@ -611,10 +611,10 @@
         ]
       },
       "mmr_2025": {
-        "deaths": 3500,
-        "injuries": 4500,
+        "deaths": 5456,
+        "injuries": 11404,
         "tsunami": false,
-        "economicLoss": "$5B+",
+        "economicLoss": "$11B",
         "coords": [
           22,
           96
@@ -622,7 +622,7 @@
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Sagaing_Myanmar_Earthquake_2025.jpg/800px-Sagaing_Myanmar_Earthquake_2025.jpg",
         "imageCaption": "Damage from the 2025 Myanmar earthquake",
         "sources": [
-          "https://en.wikipedia.org/wiki/March_2025_Myanmar_earthquake"
+          "https://en.wikipedia.org/wiki/2025_Myanmar_earthquake"
         ]
       },
       "mmr_1839": {
@@ -641,8 +641,8 @@
         ]
       },
       "mmr_1946": {
-        "deaths": 200,
-        "injuries": 500,
+        "deaths": "Unknown",
+        "injuries": "Unknown",
         "tsunami": false,
         "economicLoss": "Unknown",
         "coords": [
@@ -652,11 +652,11 @@
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Sagaing_Bridge_Myanmar.jpg/800px-Sagaing_Bridge_Myanmar.jpg",
         "imageCaption": "Sagaing region, Myanmar",
         "sources": [
-          "https://en.wikipedia.org/wiki/1946_Sagaing_earthquake"
+          "https://en.wikipedia.org/wiki/1946_Sagaing_earthquakes"
         ]
       },
       "mmr_2016": {
-        "deaths": 3,
+        "deaths": 4,
         "injuries": 13,
         "tsunami": false,
         "economicLoss": "$100M+",
@@ -671,7 +671,7 @@
         ]
       },
       "mmr_2012": {
-        "deaths": 11,
+        "deaths": 26,
         "injuries": 60,
         "tsunami": false,
         "economicLoss": "$50M",
@@ -682,7 +682,7 @@
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Shwebo_Myanmar.jpg/800px-Shwebo_Myanmar.jpg",
         "imageCaption": "Shwebo region, Myanmar",
         "sources": [
-          "https://en.wikipedia.org/wiki/2012_Myanmar_earthquake"
+          "https://en.wikipedia.org/wiki/2012_Shwebo_earthquake"
         ]
       },
       "mmr_1930": {
@@ -701,8 +701,8 @@
         ]
       },
       "mmr_1975": {
-        "deaths": 12,
-        "injuries": 50,
+        "deaths": 2,
+        "injuries": 15,
         "tsunami": false,
         "economicLoss": "$20M",
         "coords": [
@@ -1195,6 +1195,36 @@
         "title": "Secure Your Space",
         "desc": "Identify safe spots in each room and secure heavy furniture.",
         "items": [
+          "Anchor heavy furniture (bookcases, cabinets, wardrobes) to wall studs",
+          "Secure water heater with metal straps to prevent gas leaks",
+          "Install latches on cabinets to prevent items from falling out",
+          "Move heavy objects to lower shelves",
+          "Hang picture frames and mirrors away from beds and seating areas",
+          "Repair defective electrical wiring and gas connections immediately",
+          "Ensure your home is bolted to its foundation (older homes may not be)",
+          "Store hazardous materials on lower shelves in sealed containers",
+          "Know where your gas, electric, and water shut-off valves are located"
+        ]
+      },
+      "sec2": {
+        "title": "Make a Plan",
+        "desc": "Create a family emergency plan and practice it regularly.",
+        "items": [
+          "Identify safe spots in every room — under sturdy desks, against interior walls",
+          "Choose two meeting points — one near home, one outside the neighborhood",
+          "Designate an out-of-area contact person for family check-ins",
+          "Know your children's school emergency plan and pickup procedures",
+          "Plan for pets — include food, carriers, and veterinary records",
+          "Practice Drop, Cover, Hold On drills with all family members",
+          "Learn how to turn off gas, water, and electricity at main switches",
+          "Keep a list of emergency phone numbers (police, fire, hospital, Red Cross)",
+          "Store emergency contact info in every family member's phone"
+        ]
+      },
+      "sec3": {
+        "title": "Build a Kit",
+        "desc": "Prepare an emergency supply kit that lasts at least 72 hours.",
+        "items": [
           "Water — at least 4 liters per person per day (3-day supply minimum)",
           "Non-perishable food — canned goods, energy bars, dried fruits, nuts",
           "First aid kit — bandages, antiseptic, pain relievers, prescription medications",
@@ -1207,36 +1237,6 @@
           "Local maps (in case GPS/internet is unavailable)",
           "Cash in small denominations (ATMs may not work)",
           "Copies of important documents in a waterproof bag"
-        ]
-      },
-      "sec2": {
-        "title": "Make a Plan",
-        "desc": "Create a family emergency plan and practice it regularly.",
-        "items": [
-          "Anchor heavy furniture (bookcases, cabinets, wardrobes) to wall studs",
-          "Secure water heater with metal straps to prevent gas leaks",
-          "Install latches on cabinets to prevent items from falling out",
-          "Move heavy objects to lower shelves",
-          "Hang picture frames and mirrors away from beds and seating areas",
-          "Repair defective electrical wiring and gas connections immediately",
-          "Ensure your home is bolted to its foundation (older homes may not be)",
-          "Store hazardous materials on lower shelves in sealed containers",
-          "Know where your gas, electric, and water shut-off valves are located"
-        ]
-      },
-      "sec3": {
-        "title": "Build a Kit",
-        "desc": "Prepare an emergency supply kit that lasts at least 72 hours.",
-        "items": [
-          "Identify safe spots in every room — under sturdy desks, against interior walls",
-          "Choose two meeting points — one near home, one outside the neighborhood",
-          "Designate an out-of-area contact person for family check-ins",
-          "Know your children's school emergency plan and pickup procedures",
-          "Plan for pets — include food, carriers, and veterinary records",
-          "Practice Drop, Cover, Hold On drills with all family members",
-          "Learn how to turn off gas, water, and electricity at main switches",
-          "Keep a list of emergency phone numbers (police, fire, hospital, Red Cross)",
-          "Store emergency contact info in every family member's phone"
         ]
       },
       "sec4": {
@@ -1332,7 +1332,25 @@
       "highrise": {
         "title": "High-Rise Building",
         "dos": [
-          "Drop, Cover, and Hold On first — the shaking itself can be dangerous",
+          "Drop, Cover, and Hold On immediately — the shaking itself can be dangerous",
+          "Move away from windows, glass walls, and unsecured objects",
+          "Get under a sturdy desk or table and brace for aftershocks",
+          "Stay inside the building — do NOT run outside during shaking",
+          "If evacuating after shaking stops, use the stairs — never the elevator",
+          "Expect the building to sway or shake longer than low buildings",
+          "Follow building management or emergency announcements before returning"
+        ],
+        "donts": [
+          "Do NOT use elevators during or after an earthquake",
+          "Do NOT run for the exits while the shaking is happening",
+          "Do NOT stand near exterior glass walls or windows",
+          "Do NOT crowd stairways or block evacuation routes"
+        ]
+      },
+      "coastal": {
+        "title": "Coastal / Tsunami Threat",
+        "dos": [
+          "Drop, Cover, and Hold On first — then, if you are near the coast, prepare to evacuate",
           "After shaking stops, move to high ground immediately (at least 30 meters above sea level)",
           "Move at least 2 km inland from the shoreline",
           "Listen for tsunami warnings on radio or emergency alerts",
