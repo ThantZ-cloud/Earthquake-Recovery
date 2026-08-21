@@ -22,9 +22,10 @@ import { useLang } from '../i18n';
 
 function errorMessage(err, fallback) {
   if (err?.code === 'NETWORK_ERROR') {
-    return navigator.onLine === false
-      ? 'You appear to be offline. Check your connection and try again.'
-      : 'Cannot reach the login server. Check your connection, VPN, or ad-blocker, and confirm the app is running.';
+    if (navigator.onLine === false) {
+      return 'You appear to be offline. Check your connection and try again.';
+    }
+    return 'Cannot reach the login server. Try switching to mobile data or using a VPN, then try again.';
   }
   const msg = err?.message;
   if (typeof msg === 'string' && msg.length > 1 && msg !== '{}' && msg !== 'NETWORK_ERROR') return msg;
